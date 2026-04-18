@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mortals+ — Chronicles of Darkness</title>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     CSS — Visual appearance, layout, colour scheme, responsive breakpoints,
+     and print stylesheet. All colours are defined as CSS variables in :root
+     at the top of this section — that is the only place they need to change
+     for splat theming (v7).
+     ═══════════════════════════════════════════════════════════════════════════ -->
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -184,79 +191,25 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .sec-block.drag-over-after{border-bottom:2px solid var(--accent)}
 .sec-block.dragging{opacity:.4}
 .drop-zone-highlight{outline:2px dashed var(--border);outline-offset:-2px;border-radius:4px;background:var(--chip)}
-
-@media print{
-  @page{size:letter;margin:.5in}
-  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-
-  /* Hide all live-sheet-only UI */
-  .no-print,
-  .gen-bar,
-  .toolbar,
-  .status-bar,
-  .app-cols>div:last-child,
-  .drag-handle,
-  .add-row,
-  .hint,
-  .merit-toggle-hd button,
-  .item-toggle,
-  .health-legend button,
-  button.spin,
-  button.sm,
-  button.danger,
-  #attrMaxToggle,
-  #attrSpinnerToggle,
-  .attr-spinner,
-  #health-wound-lbl,
-  .derived-spin-row button,
-  [id$="-calc"]{display:none!important}
-
-  /* Remove outer page chrome */
-  body{background:#fff;font-size:13px}
-  .page{max-width:100%;padding:.15in 0 0;margin:0}
-  h1,.app-sub{display:none}
-
-  /* Sheet fills full width — no sidebar column */
-  .app-cols{display:block}
-  #editorCol{width:100%}
-
-  /* Card and surface colours */
-  .sb-card{border:none;padding:0;background:#fff}
-
-  /* Keep two-column layout intact */
-  .sheet-cols{display:grid;grid-template-columns:1.15fr 1fr;gap:0 18px}
-
-  /* Cards: keep open, no collapse */
-  .item-card{break-inside:avoid;border:1px solid var(--border-light)}
-  .item-body{display:block!important}
-
-  /* Sections shouldn't break mid-block where avoidable */
-  .sec-block{break-inside:avoid}
-
-  /* Full-width zones can break naturally between children */
-  #zone-full-width-bottom .sec-block{break-inside:avoid}
-
-  /* Health/WP tracker row wrapping */
-  .tracker-circles,.tracker-squares,.health-boxes{flex-wrap:wrap}
-
-  /* Beats zone — hide entirely (live tracking only) */
-  #zone-beats{display:none!important}
-
-  /* Empty state never prints */
-  #emptyState{display:none!important}
-
-  /* Faint borders print cleanly */
-  .item-hd{background:#fff}
-  .attr-cell{background:var(--chip)}
-
-  /* Suppress hover/focus outlines */
-  *:focus{outline:none}
-
-  /* Status bar never prints */
-  .status-bar{display:none!important}
-}
 </style>
 </head>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     HTML SKELETON — Static page structure. Most of this is empty containers
+     that JavaScript fills at runtime. Key landmarks:
+
+       .gen-bar          — Generate baseline / New blank sheet buttons
+       #editorCol        — The entire character sheet area (left side)
+         #emptyState     — Placeholder shown before any character is loaded
+         #editorWrap     — The actual sheet; hidden until a character loads
+           #dynamicHeader  — Splat-specific header fields (injected by JS)
+           #zone-beats     — Beats/XP trackers (injected by JS)
+           #zone-full-width-top    — Attributes block (injected by JS)
+           #zone-left-column       — Skills and ability lists (injected by JS)
+           #zone-right-column      — Traits, resources, roleplaying (injected by JS)
+           #zone-full-width-bottom — Merits, gear, notes (injected by JS)
+       .app-cols > div:last-child — Sidebar (Saves, Config, Import/Export)
+     ═══════════════════════════════════════════════════════════════════════════ -->
 <body>
 <div class="page">
 <h1>Mortals+</h1>
@@ -276,9 +229,9 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
     <div class="toolbar">
       <button class="primary" onclick="saveCharacter()">Save</button>
       <button onclick="copyText()">Copy text</button>
-      <button onclick="window.print()" class="no-print">Print / Save as PDF</button>
-      <button onclick="collapseAll()" class="sm no-print">Collapse all</button>
-      <button onclick="expandAll()" class="sm no-print">Expand all</button>
+      <button id="pdfBtn" onclick="exportPDF()" style="display:none">Export PDF</button>
+      <button onclick="collapseAll()" class="sm">Collapse all</button>
+      <button onclick="expandAll()" class="sm">Expand all</button>
     </div>
     <div class="status-bar" id="statusBar"></div>
     <div class="sb-card">
@@ -359,6 +312,45 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     JAVASCRIPT — All application logic. No external libraries or frameworks.
+     Sections in order:
+
+       GLOBALS & CONSTANTS   — ATTRIBUTES, SKILLS, SECTION_DEFS, DB, STATE
+       STARTUP               — loadDB(), rebuildZones()
+       DRAG AND DROP         — initDragAndDrop(), commitDrop(), resetLayout()
+       DROPDOWNS             — refillSelect(), filterSelect()
+       SHEET CONFIG          — buildCfgPanel(), toggleSec(), applyPreset()
+       FORMULA HELPERS       — getAttr(), calcBaseHealth(), calcBaseDefense() etc.
+       CHARACTER GENERATION  — _distribute(), _baseCharacterFields(), generate(), blank()
+       STATE INITIALISATION  — patchState()
+       RENDERING             — renderEditor(), renderSheetZone(), buildSectionHTML()
+         Section builders    — buildBeatsXpHTML(), buildMeritsHTML() etc.
+         Attribute block     — renderAttrBlock(), setAttrDot(), toggleAttrMax()
+         Skill block         — renderSkillBlock(), setSkillRating()
+         Derived traits      — updateDerived(), adjSize()
+         Health track        — renderHealthTrack(), cycleHealth()
+         Willpower tracker   — renderWpTracker(), toggleWpBox()
+         Beats / XP          — adjBeats(), adjXP()
+         Dot tracks          — setDotTrack(), renderDotTrack()
+         Dot-square tracks   — setDotSquareMax(), toggleDotSquare()
+         Resource tracks     — renderResourceTrack(), toggleResourceSquare()
+         Arcana block        — renderArcanaBlock(), setArcana()
+         Renown block        — renderRenownBlock(), setRenown()
+         Forms block         — renderFormsBlock()
+         Weapon list         — renderWeaponList(), addWeapon()
+         Armor list          — renderArmorList(), addArmor()
+         Equipment list      — renderEquipList(), addEquip()
+         Named lists         — renderNamedList(), addNamedItemFromDrop()
+         Rated lists         — renderGenericRatedList(), addGenericRated()
+         Line lists          — renderLineItems(), addLineItem()
+         Merit list          — renderMeritList(), addMerit()
+       SAVE / LOAD           — saveCharacter(), loadSaves(), loadCharacter(), deleteSave()
+       COPY TEXT             — copyText()
+       IMPORT / EXPORT       — exportSheet(), importSheet(), exportData(),
+                               previewDataImport(), commitDataImport()
+       UTILITIES             — downloadJSON(), showStatus(), escH()
+     ═══════════════════════════════════════════════════════════════════════════ -->
 <script>
 const ATTRIBUTES={mental:['intelligence','wits','resolve'],physical:['strength','dexterity','stamina'],social:['presence','manipulation','composure']};
 const ATTR_LABELS={intelligence:'Intelligence',wits:'Wits',resolve:'Resolve',strength:'Strength',dexterity:'Dexterity',stamina:'Stamina',presence:'Presence',manipulation:'Manipulation',composure:'Composure'};
@@ -368,12 +360,7 @@ const DB={};
 let STATE={},currentSaveId=null;
 
 async function loadDB(){
-  const d=await fetch('./data.json').then(r=>r.json());
-  // Sort content lists alphabetically (preserve_order lists are left as-is)
-  const preserve=new Set((d.section_definitions||[]).filter(s=>s.db_key&&s.preserve_order).map(s=>s.db_key));
-  (d.section_definitions||[]).filter(s=>s.db_key&&!preserve.has(s.db_key)).forEach(s=>{
-    if(Array.isArray(d[s.db_key]))d[s.db_key].sort((a,b)=>(a.name||'').toLowerCase().localeCompare((b.name||'').toLowerCase()));
-  });
+  const d=await fetch('/api/data').then(r=>r.json());
   // Populate DB from all db_key values declared in section_definitions
   // This means new splat content lists require no code changes — only data.json
   SECTION_DEFS=d.section_definitions||[];SEC_DEFAULTS={};SECTION_MAP={};
@@ -381,7 +368,6 @@ async function loadDB(){
     SEC_DEFAULTS[sd.key]=sd.default||false;SECTION_MAP[sd.key]=sd;
     if(sd.db_key&&!(sd.db_key in DB))DB[sd.db_key]=d[sd.db_key]||[];
   });
-  window._DB_RAW=d;
   SKILLS={};SKILL_LABELS={};ALL_SKILLS=[];
   (d.skill_definitions||[]).forEach(sd=>{
     if(!SKILLS[sd.category])SKILLS[sd.category]=[];
@@ -653,80 +639,18 @@ function calcBaseSpeed(){return getAttr('strength')+getAttr('dexterity')+5;}
 function getHealthMax(){return Math.max(1,calcBaseHealth()+((STATE.derivedOverrides||{}).health||0));}
 function getWpMax(){return STATE.willpower_max_override!=null?STATE.willpower_max_override:calcBaseWillpower();}
 
-function _uuid(){return'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:r&0x3|0x8).toString(16);});}
-function _distribute(total,slots){
-  const vals=Array(slots).fill(1);let rem=total-slots;
-  while(rem>0){const el=vals.map((v,i)=>v<5?i:-1).filter(i=>i>=0);if(!el.length)break;vals[el[Math.random()*el.length|0]]++;rem--;}
-  for(let i=vals.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[vals[i],vals[j]]=[vals[j],vals[i]];}
-  return vals;
-}
-function _distributeSkills(total,slots){
-  const vals=Array(slots).fill(0);
-  for(let t=0;t<total;t++){const el=vals.map((v,i)=>v<5?i:-1).filter(i=>i>=0);if(!el.length)break;vals[el[Math.random()*el.length|0]]++;}
-  for(let i=vals.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[vals[i],vals[j]]=[vals[j],vals[i]];}
-  return vals;
-}
-function _baseCharacterFields(attrs,skills){
-  const stamina=attrs.stamina||1,resolve=attrs.resolve||1,composure=attrs.composure||1;
-  const dexterity=attrs.dexterity||1,wits=attrs.wits||1,strength=attrs.strength||1;
-  const athletics=(skills.athletics&&skills.athletics.rating)||0;
-  const size=5;
-  const base={};
-  SECTION_DEFS.forEach(sd=>{
-    const t=sd.type,sk=sd.state_key;
-    if(t==='beats-xp'){base[sd.beats_key||'beats']=0;base[sd.xp_key||'experience']=0;return;}
-    if(t==='header-fields'){(sd.fields||[]).forEach(f=>{if(base[f.key]===undefined)base[f.key]='';});return;}
-    if(!sk||sk in base)return;
-    if(t==='line-list'||t==='named-list'||t==='rated-list')base[sk]=[];
-    else if(t==='textarea')base[sk]='';
-    else if(t==='dot-track')base[sk]=sd.default_value||7;
-    else if(t==='dot-square-track'){base[sk]=sd.max||10;base[sk+'_squares']=Array(sd.max||10).fill(false);}
-    else if(t==='resource-track')base[sk]=Array(20).fill(false);
-    else if(t==='arcana-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
-    else if(t==='renown-block')base[sk]={cunning:0,glory:0,honor:0,purity:0,wisdom:0};
-  });
-  return{id:_uuid(),name:'',concept:'',virtue:'',vice:'',
-    attributes:attrs,skills,size,
-    health_track:Array(stamina+size).fill(''),
-    willpower:Math.min(10,resolve+composure),willpower_spent:0,willpower_max_override:null,
-    defense:Math.min(dexterity,wits)+athletics,initiative:dexterity+composure,speed:strength+dexterity+5,
-    integrity:7,derivedOverrides:{},
-    tilts:[],conditions:[],aspirations:[],merits:[],weapons:[],armor:[],equipment:[],notes:'',
-    meritMaxDots:5,sectionConfig:{},...base};
-}
-function generate(){
-  const d=window._DB_RAW||{};
-  const names=d.mortal_names||['Unnamed'];
-  const cats=Object.keys(ATTRIBUTES);
-  for(let i=cats.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[cats[i],cats[j]]=[cats[j],cats[i]];}
-  const extraDots={[cats[0]]:5,[cats[1]]:4,[cats[2]]:3};
-  const attrs={};
-  Object.entries(ATTRIBUTES).forEach(([cat,attrList])=>{
-    const vals=_distribute((extraDots[cat]||3)+attrList.length,attrList.length);
-    attrList.forEach((a,i)=>attrs[a]=Math.min(5,vals[i]));
-  });
-  const skillCats=Object.keys(SKILLS);
-  for(let i=skillCats.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[skillCats[i],skillCats[j]]=[skillCats[j],skillCats[i]];}
-  const skillDots={[skillCats[0]]:11,[skillCats[1]]:7,[skillCats[2]]:4};
-  const skills={};
-  ALL_SKILLS.forEach(s=>skills[s]={rating:0,rote:false,specialty:'',label:SKILL_LABELS[s]});
-  Object.entries(SKILLS).forEach(([cat,skList])=>{
-    const vals=_distributeSkills(skillDots[cat]||4,skList.length);
-    skList.forEach((s,i)=>skills[s].rating=Math.min(5,vals[i]));
-  });
-  STATE=_baseCharacterFields(attrs,skills);
-  STATE.name=names[Math.random()*names.length|0];
+async function generate(){
+  STATE=await fetch('/api/generate').then(r=>r.json());
   patchState();currentSaveId=null;showEditor(false);renderEditor();
 }
-function blank(){
-  const attrs=Object.fromEntries(Object.values(ATTRIBUTES).flat().map(a=>[a,1]));
-  const skills=Object.fromEntries(ALL_SKILLS.map(s=>[s,{rating:0,rote:false,specialty:'',label:SKILL_LABELS[s]}]));
-  STATE=_baseCharacterFields(attrs,skills);
+async function blank(){
+  STATE=await fetch('/api/blank').then(r=>r.json());
   patchState();currentSaveId=null;showEditor(false);renderEditor();
 }
 function showEditor(hasSave){
   document.getElementById('emptyState').style.display='none';
   document.getElementById('editorWrap').style.display='block';
+  document.getElementById('pdfBtn').style.display=hasSave?'':'none';
 }
 
 function patchState(){
@@ -1803,34 +1727,13 @@ ${STATE.notes?'\nNOTES\n  '+STATE.notes:''}
   navigator.clipboard.writeText(txt).then(()=>showStatus('Copied to clipboard.'));
 }
 
-// ── localStorage save/load ────────────────────────────────────────────────────
-const LS_PREFIX='mortals_plus_save_';
-const LS_INDEX='mortals_plus_index';
-
-function lsSaveIndex(saves){
-  try{localStorage.setItem(LS_INDEX,JSON.stringify(saves));}catch(e){showStatus('Storage full — consider exporting old characters.');}
+async function saveCharacter(){
+  const res=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(STATE)});
+  const data=await res.json();
+  if(data.ok){STATE.id=data.id;currentSaveId=data.id;document.getElementById('pdfBtn').style.display='';showStatus('Saved.');loadSaves();}
 }
-function lsGetIndex(){
-  try{const s=localStorage.getItem(LS_INDEX);return s?JSON.parse(s):[];}catch(e){return[];}
-}
-
-function saveCharacter(){
-  if(!STATE.name&&!STATE.id){showStatus('Nothing to save — load or create a sheet first.');return;}
-  if(!STATE.id)STATE.id=_uuid();
-  currentSaveId=STATE.id;
-  try{
-    localStorage.setItem(LS_PREFIX+STATE.id,JSON.stringify(STATE));
-    const idx=lsGetIndex();
-    const existing=idx.findIndex(s=>s.id===STATE.id);
-    const entry={id:STATE.id,name:STATE.name||'Unnamed'};
-    if(existing>=0)idx[existing]=entry;else idx.push(entry);
-    idx.sort((a,b)=>(a.name||'').toLowerCase().localeCompare((b.name||'').toLowerCase()));
-    lsSaveIndex(idx);
-    showStatus('Saved.');loadSaves();
-  }catch(e){showStatus('Save failed: '+e.message);}
-}
-function loadSaves(){
-  const list=lsGetIndex();
+async function loadSaves(){
+  const list=await fetch('/api/saves').then(r=>r.json());
   const el=document.getElementById('saveList');
   if(!list.length){el.innerHTML='<span style="font-size:.8rem;color:var(--faint);font-family:sans-serif">No saved characters yet.</span>';return;}
   el.innerHTML=list.map(s=>`
@@ -1839,19 +1742,20 @@ function loadSaves(){
       <button class="sm danger" onclick="event.stopPropagation();deleteSave('${s.id}')">Del</button>
     </div>`).join('');
 }
-function loadCharacter(id){
-  try{
-    const raw=localStorage.getItem(LS_PREFIX+id);
-    if(!raw){showStatus('Character not found.');return;}
-    STATE=JSON.parse(raw);currentSaveId=id;patchState();showEditor(true);renderEditor();loadSaves();
-  }catch(e){showStatus('Load failed: '+e.message);}
+async function loadCharacter(id){
+  const data=await fetch(`/api/saves/${id}`).then(r=>r.json());
+  if(data.error)return;
+  STATE=data;currentSaveId=id;patchState();showEditor(true);renderEditor();loadSaves();
 }
-function deleteSave(id){
-  localStorage.removeItem(LS_PREFIX+id);
-  const idx=lsGetIndex().filter(s=>s.id!==id);
-  lsSaveIndex(idx);
-  if(id===currentSaveId){currentSaveId=null;}
+async function deleteSave(id){
+  await fetch(`/api/saves/${id}`,{method:'DELETE'});
+  if(id===currentSaveId){currentSaveId=null;document.getElementById('pdfBtn').style.display='none';}
   loadSaves();
+}
+function exportPDF(){
+  if(!currentSaveId){showStatus('Save the character first, then export PDF.');return;}
+  fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(STATE)})
+    .then(()=>{window.location.href=`/api/export/pdf/${currentSaveId}`;});
 }
 
 function exportSheet(){
@@ -1870,15 +1774,7 @@ function importSheet(input){
   };
   reader.readAsText(file);input.value='';
 }
-function exportData(){
-  // Build an exportable copy from the live DB plus config from _DB_RAW
-  const raw=window._DB_RAW||{};
-  const out={};
-  getDataKeys().forEach(k=>{out[k]=DB[k]||[];});
-  // Include config keys so the export is a valid full data.json
-  ['section_definitions','sheet_presets','skill_definitions','mortal_names'].forEach(k=>{if(raw[k])out[k]=raw[k];});
-  downloadJSON(out,'data.json');
-}
+async function exportData(){downloadJSON(await fetch('/api/data').then(r=>r.json()),'data.json');}
 let _pendingDataImport=null;
 function getDataKeys(){
   // Derive content list keys from section_definitions db_key values — order-deduped
@@ -1887,14 +1783,15 @@ function getDataKeys(){
 async function previewDataImport(input){
   const file=input.files[0];if(!file)return;
   const reader=new FileReader();
-  reader.onload=e=>{
+  reader.onload=async e=>{
     try{
       const incoming=JSON.parse(e.target.result);
       const DATA_KEYS=getDataKeys();
       if(!DATA_KEYS.some(k=>Array.isArray(incoming[k]))){showStatus('Not a valid library file.');return;}
+      const current=await fetch('/api/data').then(r=>r.json());
       _pendingDataImport=incoming;
       const lines=DATA_KEYS.map(k=>{
-        const inc=incoming[k]||[],cur=DB[k]||[];
+        const inc=incoming[k]||[],cur=current[k]||[];
         const curNames=new Set(cur.map(x=>x.name));
         const newEntries=inc.filter(x=>!curNames.has(x.name));
         return inc.length>0?`<b>${k}</b>: ${inc.length} in file, <b>${newEntries.length} new</b>`:null;
@@ -1905,38 +1802,11 @@ async function previewDataImport(input){
   };
   reader.readAsText(file);input.value='';
 }
-function commitDataImport(mode){
+async function commitDataImport(mode){
   if(!_pendingDataImport)return;
-  const DATA_KEYS=getDataKeys();
-  if(mode==='replace'){
-    DATA_KEYS.forEach(k=>{if(Array.isArray(_pendingDataImport[k]))DB[k]=_pendingDataImport[k];});
-    // Re-sort
-    const preserve=new Set(SECTION_DEFS.filter(s=>s.db_key&&s.preserve_order).map(s=>s.db_key));
-    DATA_KEYS.filter(k=>!preserve.has(k)).forEach(k=>{if(Array.isArray(DB[k]))DB[k].sort((a,b)=>(a.name||'').toLowerCase().localeCompare((b.name||'').toLowerCase()));});
-    const total=DATA_KEYS.reduce((n,k)=>n+(DB[k]||[]).length,0);
-    showStatus(`Library replaced (${total} total entries).`);
-  } else {
-    let added=0,skipped=0;
-    DATA_KEYS.forEach(k=>{
-      const inc=_pendingDataImport[k]||[],cur=DB[k]||[];
-      const curNames=new Set(cur.map(x=>x.name));
-      inc.forEach(e=>{if(!curNames.has(e.name)){cur.push(e);curNames.add(e.name);added++;}else skipped++;});
-      DB[k]=cur;
-    });
-    // Re-sort merged lists
-    const preserve=new Set(SECTION_DEFS.filter(s=>s.db_key&&s.preserve_order).map(s=>s.db_key));
-    DATA_KEYS.filter(k=>!preserve.has(k)).forEach(k=>{if(Array.isArray(DB[k]))DB[k].sort((a,b)=>(a.name||'').toLowerCase().localeCompare((b.name||'').toLowerCase()));});
-    showStatus(`Merged: ${added} added, ${skipped} skipped.`);
-  }
-  cancelDataImport();
-  // Re-populate all visible dropdowns with updated library
-  SECTION_DEFS.forEach(sd=>{
-    if(sd.db_key&&secVisible(sd.key)){
-      if(sd.type==='rated-list'&&sd.key==='merits')refillSelect('meritDrop',DB.merits);
-      else if(sd.db_key)refillSelect(`${sd.key}-drop`,DB[sd.db_key]);
-    }
-  });
-  refillSelect('weaponDrop',DB.weapons||[]);refillSelect('armorDrop',DB.armor||[]);refillSelect('equipDrop',DB.equipment||[]);
+  const res=await fetch('/api/import-data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({data:_pendingDataImport,mode})}).then(r=>r.json());
+  if(res.ok){showStatus(res.message||'Library updated.');cancelDataImport();await loadDB();}
+  else showStatus('Import failed: '+(res.error||'unknown error'));
 }
 function cancelDataImport(){
   _pendingDataImport=null;document.getElementById('dataImportPreview').style.display='none';
