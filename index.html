@@ -192,6 +192,124 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .sec-block.dragging{opacity:.4}
 .drop-zone-highlight{outline:2px dashed var(--border);outline-offset:-2px;border-radius:4px;background:var(--chip)}
 
+/* ── Tablet sidebar modal drawer (≤900px) ────────────────────────────────── */
+
+/* The desktop sidebar column — hidden on tablet */
+.desktop-sidebar{display:block}
+@media(max-width:900px){
+  .desktop-sidebar{display:none}
+  .app-cols{grid-template-columns:1fr}
+}
+
+/* Floating trigger button — only visible on tablet */
+.sidebar-fab{
+  display:none;
+  position:fixed;
+  bottom:1.25rem;
+  right:1.25rem;
+  z-index:1000;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:var(--accent);
+  color:#f5f0e8;
+  border:none;
+  font-size:1.2rem;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  transition:background .15s,box-shadow .15s;
+}
+.sidebar-fab:hover{background:var(--accent-hover);box-shadow:0 4px 12px rgba(0,0,0,.3)}
+@media(max-width:900px){.sidebar-fab{display:flex}}
+
+/* Modal backdrop */
+.drawer-backdrop{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:1001;
+  animation:fadeIn .2s ease;
+}
+.drawer-backdrop.open{display:block}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* Modal panel */
+.drawer-panel{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  max-height:85vh;
+  background:var(--bg);
+  border-radius:12px 12px 0 0;
+  display:flex;
+  flex-direction:column;
+  animation:slideUp .25s ease;
+  overflow:hidden;
+}
+@keyframes slideUp{from{transform:translateY(60px);opacity:.6}to{transform:translateY(0);opacity:1}}
+
+/* Drag handle pill */
+.drawer-pill{
+  width:36px;height:4px;
+  background:var(--border);
+  border-radius:2px;
+  margin:.75rem auto .5rem;
+  flex-shrink:0;
+}
+
+/* Tab bar */
+.drawer-tabs{
+  display:flex;
+  border-bottom:1px solid var(--border);
+  background:var(--surface);
+  flex-shrink:0;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.drawer-tabs::-webkit-scrollbar{display:none}
+.drawer-tab{
+  flex:1;
+  min-width:0;
+  padding:.55rem .5rem .45rem;
+  font-family:sans-serif;
+  font-size:.72rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:transparent;
+  border:none;
+  border-bottom:2px solid transparent;
+  cursor:pointer;
+  white-space:nowrap;
+  text-align:center;
+  transition:color .15s,border-color .15s;
+}
+.drawer-tab:hover{color:var(--text);background:var(--chip)}
+.drawer-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:700}
+
+/* Tab content area */
+.drawer-body{
+  flex:1;
+  overflow-y:auto;
+  padding:1rem 1.25rem 1.5rem;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* Tab panes */
+.drawer-pane{display:none}
+.drawer-pane.active{display:block}
+
+/* Inside drawer: save list can be taller since we have more height budget */
+.drawer-body .save-list{max-height:none}
+
+/* ── End tablet drawer ───────────────────────────────────────────────────── */
+
 @media print{
   @page{size:letter;margin:.5in}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -216,7 +334,9 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
   .attr-spinner,
   #health-wound-lbl,
   .derived-spin-row button,
-  [id$="-calc"]{display:none!important}
+  [id$="-calc"],
+  .sidebar-fab,
+  .drawer-backdrop{display:none!important}
 
   /* Remove outer page chrome */
   body{background:#fff;font-size:13px}
@@ -279,7 +399,9 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
            #zone-left-column       — Skills and ability lists (injected by JS)
            #zone-right-column      — Traits, resources, roleplaying (injected by JS)
            #zone-full-width-bottom — Merits, gear, notes (injected by JS)
-       .app-cols > div:last-child — Sidebar (Saves, Config, Import/Export)
+       .desktop-sidebar   — Sidebar column (desktop only, hidden ≤900px)
+       .sidebar-fab       — Floating button (tablet only, ≤900px)
+       .drawer-backdrop   — Modal drawer (tablet only)
      ═══════════════════════════════════════════════════════════════════════════ -->
 <body>
 <div class="page">
@@ -330,8 +452,8 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
   </div>
 </div>
 
-<!-- Sidebar -->
-<div>
+<!-- Desktop sidebar (hidden on tablet via CSS) -->
+<div class="desktop-sidebar">
   <div class="sidebar-card">
     <div class="sidebar-title">Saved characters</div>
     <div id="saveList" class="save-list"><span style="font-size:.8rem;color:var(--faint);font-family:sans-serif">No saved characters yet.</span></div>
@@ -380,47 +502,87 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
     </div>
   </div>
 </div>
-</div>
-</div>
+</div><!-- /.app-cols -->
+</div><!-- /.page -->
+
+<!-- ── Tablet floating button ──────────────────────────────────────────── -->
+<button class="sidebar-fab no-print" onclick="openDrawer()" aria-label="Open sidebar">&#9776;</button>
+
+<!-- ── Tablet modal drawer ─────────────────────────────────────────────── -->
+<div class="drawer-backdrop" id="drawerBackdrop" onclick="closeDrawerOnBackdrop(event)">
+  <div class="drawer-panel" id="drawerPanel">
+    <div class="drawer-pill"></div>
+
+    <!-- Tab bar -->
+    <div class="drawer-tabs" role="tablist">
+      <button class="drawer-tab active" id="dtab-saves"    onclick="switchDrawerTab('saves')"    role="tab">Saved</button>
+      <button class="drawer-tab"        id="dtab-config"   onclick="switchDrawerTab('config')"   role="tab">Configure</button>
+      <button class="drawer-tab"        id="dtab-sheet"    onclick="switchDrawerTab('sheet')"    role="tab">Sheet</button>
+      <button class="drawer-tab"        id="dtab-library"  onclick="switchDrawerTab('library')"  role="tab">Library</button>
+    </div>
+
+    <!-- Tab bodies -->
+    <div class="drawer-body">
+
+      <!-- Saved characters -->
+      <div class="drawer-pane active" id="dpane-saves">
+        <div id="drawerSaveList" class="save-list" style="margin-bottom:10px">
+          <span style="font-size:.8rem;color:var(--faint);font-family:sans-serif">No saved characters yet.</span>
+        </div>
+      </div>
+
+      <!-- Sheet configuration -->
+      <div class="drawer-pane" id="dpane-config">
+        <div class="cfg-preset-row">
+          <label>Preset</label>
+          <select id="drawerPresetSelect" onchange="applyPreset(this.value)">
+            <option value="">— Custom —</option>
+          </select>
+        </div>
+        <div class="hint" style="margin-bottom:6px">Toggle sections on or off. Data is preserved when hidden.</div>
+        <div class="hint" style="margin-bottom:6px">Drag section titles on the sheet to reorder or move between columns.</div>
+        <div style="margin-bottom:8px"><button class="sm" onclick="resetLayout()" style="font-size:.72rem;color:var(--faint)">Reset layout to defaults</button></div>
+        <div id="drawerCfgPanel"></div>
+      </div>
+
+      <!-- Character sheet import/export -->
+      <div class="drawer-pane" id="dpane-sheet">
+        <div class="io-section">
+          <div class="io-row">
+            <button onclick="exportSheet()">&#8615; Export sheet</button>
+            <button onclick="document.getElementById('importSheetFileDrawer').click()">&#8613; Import sheet</button>
+          </div>
+          <input type="file" id="importSheetFileDrawer" accept=".json" style="display:none" onchange="importSheet(this)">
+          <div class="hint">Export saves the current sheet as JSON. Import loads a sheet file.</div>
+        </div>
+      </div>
+
+      <!-- Data library -->
+      <div class="drawer-pane" id="dpane-library">
+        <div class="io-section">
+          <div class="io-row">
+            <button onclick="exportData()">&#8615; Export library</button>
+            <button onclick="document.getElementById('importDataFileDrawer').click()">&#8613; Import library</button>
+          </div>
+          <input type="file" id="importDataFileDrawer" accept=".json" style="display:none" onchange="previewDataImport(this)">
+          <div id="drawerDataImportPreview" style="display:none">
+            <div class="io-preview" id="drawerDataImportSummary"></div>
+            <div class="io-actions">
+              <button class="primary" onclick="commitDataImport('merge')">Merge</button>
+              <button onclick="commitDataImport('replace')">Replace</button>
+              <button class="danger" onclick="cancelDataImport()">Cancel</button>
+            </div>
+          </div>
+          <div class="hint">Merge adds new entries; Replace overwrites the full library.</div>
+        </div>
+      </div>
+
+    </div><!-- /.drawer-body -->
+  </div><!-- /.drawer-panel -->
+</div><!-- /.drawer-backdrop -->
 
 <!-- ═══════════════════════════════════════════════════════════════════════════
      JAVASCRIPT — All application logic. No external libraries or frameworks.
-     Sections in order:
-
-       GLOBALS & CONSTANTS   — ATTRIBUTES, SKILLS, SECTION_DEFS, DB, STATE
-       STARTUP               — loadDB(), rebuildZones()
-       DRAG AND DROP         — initDragAndDrop(), commitDrop(), resetLayout()
-       DROPDOWNS             — refillSelect(), filterSelect()
-       SHEET CONFIG          — buildCfgPanel(), toggleSec(), applyPreset()
-       FORMULA HELPERS       — getAttr(), calcBaseHealth(), calcBaseDefense() etc.
-       CHARACTER GENERATION  — _distribute(), _baseCharacterFields(), generate(), blank()
-       STATE INITIALISATION  — patchState()
-       RENDERING             — renderEditor(), renderSheetZone(), buildSectionHTML()
-         Section builders    — buildBeatsXpHTML(), buildMeritsHTML() etc.
-         Attribute block     — renderAttrBlock(), setAttrDot(), toggleAttrMax()
-         Skill block         — renderSkillBlock(), setSkillRating()
-         Derived traits      — updateDerived(), adjSize()
-         Health track        — renderHealthTrack(), cycleHealth()
-         Willpower tracker   — renderWpTracker(), toggleWpBox()
-         Beats / XP          — adjBeats(), adjXP()
-         Dot tracks          — setDotTrack(), renderDotTrack()
-         Dot-square tracks   — setDotSquareMax(), toggleDotSquare()
-         Resource tracks     — renderResourceTrack(), toggleResourceSquare()
-         Arcana block        — renderArcanaBlock(), setArcana()
-         Renown block        — renderRenownBlock(), setRenown()
-         Forms block         — renderFormsBlock()
-         Weapon list         — renderWeaponList(), addWeapon()
-         Armor list          — renderArmorList(), addArmor()
-         Equipment list      — renderEquipList(), addEquip()
-         Named lists         — renderNamedList(), addNamedItemFromDrop()
-         Rated lists         — renderGenericRatedList(), addGenericRated()
-         Line lists          — renderLineItems(), addLineItem()
-         Merit list          — renderMeritList(), addMerit()
-       SAVE / LOAD           — saveCharacter(), loadSaves(), loadCharacter(), deleteSave()
-       COPY TEXT             — copyText()
-       IMPORT / EXPORT       — exportSheet(), importSheet(), exportData(),
-                               previewDataImport(), commitDataImport()
-       UTILITIES             — downloadJSON(), showStatus(), escH()
      ═══════════════════════════════════════════════════════════════════════════ -->
 <script>
 const ATTRIBUTES={mental:['intelligence','wits','resolve'],physical:['strength','dexterity','stamina'],social:['presence','manipulation','composure']};
@@ -438,7 +600,6 @@ async function loadDB(){
     if(Array.isArray(d[s.db_key]))d[s.db_key].sort((a,b)=>(a.name||'').toLowerCase().localeCompare((b.name||'').toLowerCase()));
   });
   // Populate DB from all db_key values declared in section_definitions
-  // This means new splat content lists require no code changes — only data.json
   SECTION_DEFS=d.section_definitions||[];SEC_DEFAULTS={};SECTION_MAP={};
   SECTION_DEFS.forEach(sd=>{
     SEC_DEFAULTS[sd.key]=sd.default||false;SECTION_MAP[sd.key]=sd;
@@ -452,8 +613,10 @@ async function loadDB(){
   });
   rebuildZones();
   PRESETS=d.sheet_presets||[];
-  const sel=document.getElementById('presetSelect');
-  sel.innerHTML='<option value="">— Custom —</option>'+PRESETS.map(p=>`<option value="${escH(p.name)}">${escH(p.name)}</option>`).join('');
+  // Populate both desktop and drawer preset selects
+  const presetOpts='<option value="">— Custom —</option>'+PRESETS.map(p=>`<option value="${escH(p.name)}">${escH(p.name)}</option>`).join('');
+  document.getElementById('presetSelect').innerHTML=presetOpts;
+  document.getElementById('drawerPresetSelect').innerHTML=presetOpts;
   buildCfgPanel();
 }
 
@@ -465,20 +628,15 @@ function rebuildZones(){
     defaultOrder[sd.zone].push(sd.key);
   });
   const zoneOrder=(STATE.sectionConfig&&STATE.sectionConfig._zoneOrder)||{};
-  // Keys with an explicit placement in any _zoneOrder array — these own their position
   const explicitlyPlaced=new Set(Object.values(zoneOrder).flat());
   const allZones=new Set([...Object.keys(defaultOrder),...Object.keys(zoneOrder)]);
   allZones.forEach(zone=>{
     let keys;
     if(zoneOrder[zone]){
-      // This zone has an explicit order — use it, then append any brand-new keys from
-      // data.json that haven't been placed anywhere yet
       const inArray=new Set(zoneOrder[zone]);
       const extras=(defaultOrder[zone]||[]).filter(k=>!inArray.has(k)&&!explicitlyPlaced.has(k));
       keys=[...zoneOrder[zone],...extras];
     } else {
-      // No override for this zone — use data.json default order, but exclude any key
-      // that has been explicitly moved to another zone
       keys=(defaultOrder[zone]||[]).filter(k=>!explicitlyPlaced.has(k));
     }
     ZONES[zone]=keys.map(k=>SECTION_MAP[k]).filter(Boolean).map(sd=>({...sd}));
@@ -578,16 +736,10 @@ function commitDrop(dragKey,targetZone,insertion){
   if(!dragKey)return;
   if(!STATE.sectionConfig)STATE.sectionConfig={};
   if(!STATE.sectionConfig._zoneOrder)STATE.sectionConfig._zoneOrder={};
-
-  // Get the current key order for the target zone (all keys, visible + hidden)
   const currentOrder=(ZONES[targetZone]||[]).map(sd=>sd.key);
-
-  // Remove dragKey from whatever zone it's currently in
   Object.keys(STATE.sectionConfig._zoneOrder).forEach(z=>{
     STATE.sectionConfig._zoneOrder[z]=STATE.sectionConfig._zoneOrder[z].filter(k=>k!==dragKey);
   });
-
-  // Build the new order for the target zone: existing keys (minus dragKey) with dragKey spliced in
   const newOrder=currentOrder.filter(k=>k!==dragKey);
   let insertIdx=newOrder.length;
   if(insertion){
@@ -597,7 +749,6 @@ function commitDrop(dragKey,targetZone,insertion){
   }
   newOrder.splice(insertIdx,0,dragKey);
   STATE.sectionConfig._zoneOrder[targetZone]=newOrder;
-
   rebuildZones();
   renderEditor();
 }
@@ -628,23 +779,26 @@ function fillDescFromDrop(dId,descId,dbList){
 }
 
 function buildCfgPanel(){
-  const el=document.getElementById('cfgPanel');if(!el)return;
   const groups={};
   SECTION_DEFS.forEach(sd=>{const g=sd.group||'Other';if(!groups[g])groups[g]=[];groups[g].push(sd);});
-  el.innerHTML=Object.entries(groups).map(([gname,sds])=>{
+  const html=Object.entries(groups).map(([gname,sds])=>{
     const collapsed=getCfgGroupCollapsed(gname);
     const sorted=[...sds].sort((a,b)=>a.label.localeCompare(b.label));
     return `<div class="cfg-group-hdr" onclick="toggleCfgGroup('${escH(gname)}')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between">
       <span>${escH(gname)}</span>
-      <span class="item-toggle" id="cfg-chevron-${escH(gname)}" style="${collapsed?'':'transform:rotate(90deg)'}">&#9654;</span>
+      <span class="item-toggle cfg-chevron-${escH(gname)}" style="${collapsed?'':'transform:rotate(90deg)'}">&#9654;</span>
     </div>
-    <div id="cfg-group-${escH(gname)}" style="display:${collapsed?'none':'block'}">
+    <div class="cfg-group-body-${escH(gname)}" style="display:${collapsed?'none':'block'}">
       <div class="cfg-grid">${sorted.map(sd=>`
         <label class="cfg-chk"><input type="checkbox" data-sec="${sd.key}" onchange="toggleSec('${sd.key}',this.checked)"> ${escH(sd.label)}</label>`).join('')}
       </div>
     </div>`;
   }).join('');
+  // Write to both desktop and drawer config panels
+  document.getElementById('cfgPanel').innerHTML=html;
+  document.getElementById('drawerCfgPanel').innerHTML=html;
 }
+
 function getCfgGroupCollapsed(gname){
   try{
     const s=sessionStorage.getItem('cfgGroups');
@@ -654,12 +808,15 @@ function getCfgGroupCollapsed(gname){
   return gname!=='Mortal';
 }
 function toggleCfgGroup(gname){
-  const body=document.getElementById('cfg-group-'+gname);
-  const chev=document.getElementById('cfg-chevron-'+gname);
-  if(!body)return;
-  const nowCollapsed=body.style.display!=='none';
-  body.style.display=nowCollapsed?'none':'block';
-  if(chev)chev.style.transform=nowCollapsed?'':'rotate(90deg)';
+  // Toggle all matching elements (desktop + drawer may both be present)
+  const bodies=document.querySelectorAll(`.cfg-group-body-${gname}`);
+  const chevrons=document.querySelectorAll(`.cfg-chevron-${gname}`);
+  // Determine current state from first found body
+  const first=bodies[0];
+  if(!first)return;
+  const nowCollapsed=first.style.display!=='none';
+  bodies.forEach(b=>b.style.display=nowCollapsed?'none':'block');
+  chevrons.forEach(c=>c.style.transform=nowCollapsed?'':'rotate(90deg)');
   try{
     const s=sessionStorage.getItem('cfgGroups');
     const map=s?JSON.parse(s):{};
@@ -679,13 +836,20 @@ function secVisible(key){
   const cfg=getSecConfig();
   const v=cfg[key];
   if(v===undefined)return SEC_DEFAULTS[key]||false;
-  if(typeof v==='object')return v.visible!==false; // legacy shape compat
+  if(typeof v==='object')return v.visible!==false;
   return v!==false;
 }
 function toggleSec(secId,enabled){
   getSecConfig()[secId]=enabled;
   document.getElementById('secblock-'+secId)?.classList.toggle('hidden',!enabled);
   if(SECTION_MAP[secId]?.zone==='header')renderDynamicHeader();
+  // Keep both cfg panels in sync
+  syncCfgCheckboxes();
+}
+function syncCfgCheckboxes(){
+  document.querySelectorAll('.cfg-chk input[type=checkbox]').forEach(chk=>{
+    const sec=chk.getAttribute('data-sec');if(sec)chk.checked=secVisible(sec);
+  });
 }
 function applySectionConfig(){
   getSecConfig();
@@ -693,18 +857,60 @@ function applySectionConfig(){
     const vis=secVisible(sd.key);
     document.getElementById('secblock-'+sd.key)?.classList.toggle('hidden',!vis);
   });
-  document.querySelectorAll('.cfg-chk input[type=checkbox]').forEach(chk=>{
-    const sec=chk.getAttribute('data-sec');if(sec)chk.checked=secVisible(sec);
-  });
+  syncCfgCheckboxes();
 }
 function applyPreset(presetName){
   if(!presetName)return;
   const preset=PRESETS.find(p=>p.name===presetName);if(!preset)return;
   STATE.sectionConfig={...preset.config};
-  // presets don't include layout overrides — start fresh
   delete STATE.sectionConfig._zoneOrder;
+  // Sync both preset selects to show the applied preset
+  document.getElementById('presetSelect').value=presetName;
+  document.getElementById('drawerPresetSelect').value=presetName;
   rebuildZones();renderEditor();showStatus(`Preset "${presetName}" applied.`);
 }
+
+// ── Tablet drawer ─────────────────────────────────────────────────────────────
+let _activeDrawerTab='saves';
+
+function openDrawer(){
+  document.getElementById('drawerBackdrop').classList.add('open');
+  document.body.style.overflow='hidden'; // prevent background scroll
+  // Refresh the drawer save list when opening
+  _refreshDrawerSaveList();
+}
+function closeDrawer(){
+  document.getElementById('drawerBackdrop').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeDrawerOnBackdrop(e){
+  // Close only when clicking the backdrop itself, not the panel inside it
+  if(e.target===document.getElementById('drawerBackdrop'))closeDrawer();
+}
+function switchDrawerTab(tab){
+  _activeDrawerTab=tab;
+  document.querySelectorAll('.drawer-tab').forEach(el=>{
+    el.classList.toggle('active',el.id==='dtab-'+tab);
+  });
+  document.querySelectorAll('.drawer-pane').forEach(el=>{
+    el.classList.toggle('active',el.id==='dpane-'+tab);
+  });
+}
+
+function _refreshDrawerSaveList(){
+  const list=lsGetIndex();
+  const el=document.getElementById('drawerSaveList');
+  if(!list.length){
+    el.innerHTML='<span style="font-size:.8rem;color:var(--faint);font-family:sans-serif">No saved characters yet.</span>';
+    return;
+  }
+  el.innerHTML=list.map(s=>`
+    <div class="save-item ${s.id===currentSaveId?'active':''}" onclick="loadCharacter('${s.id}');closeDrawer()">
+      <span class="si-name">${escH(s.name||'Unnamed')}</span>
+      <button class="sm danger" onclick="event.stopPropagation();deleteSave('${s.id}')">Del</button>
+    </div>`).join('');
+}
+// ── End tablet drawer ─────────────────────────────────────────────────────────
 
 function getAttr(k){return(STATE.attributes||{})[k]||0;}
 function getSkill(k){const s=(STATE.skills||{})[k];return s?s.rating||0:0;}
@@ -865,7 +1071,6 @@ function renderDynamicHeader(){
   const el=document.getElementById('dynamicHeader');if(!el)return;
   const hdrSecs=(ZONES['header']||[]).filter(sd=>sd.type==='header-fields');
   if(!hdrSecs.length){el.innerHTML='';return;}
-  const cfg=getSecConfig();
   el.innerHTML=hdrSecs.map(sd=>{
     const hidden=secVisible(sd.key)?'':'hidden';
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
@@ -1239,7 +1444,6 @@ function renderAttrBlock(){
 }
 function setAttrDot(attr,val){
   if(!STATE.attributes)STATE.attributes={};
-  const max=STATE.attrMaxDots||5;
   const cur=STATE.attributes[attr]||1;
   STATE.attributes[attr]=Math.max(1,Math.min(10,val===cur?val-1:val));
   renderAttrBlock();updateDerived();
@@ -1432,9 +1636,7 @@ function toggleDotSquare(sk,idx){
   const sqKey=sk+'_squares';
   const max=(SECTION_DEFS.find(s=>(s.state_key||s.key)===sk)||{}).max||10;
   if(!Array.isArray(STATE[sqKey])||STATE[sqKey].length!==max)STATE[sqKey]=Array(max).fill(false);
-  // Count currently filled squares
   const filled=STATE[sqKey].filter(Boolean).length;
-  // Clicking the last filled square unfills it; otherwise fill up to and including idx
   if(idx===filled-1) STATE[sqKey]=STATE[sqKey].map((_,i)=>i<filled-1);
   else STATE[sqKey]=STATE[sqKey].map((_,i)=>i<=idx);
   const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk)||{key:sk,state_key:sk};
@@ -1516,7 +1718,6 @@ function setRenown(sk,rkey,val){
 }
 
 function renderFormsBlock(sd){
-  // sd is the section definition — read db_key to find the right forms list
   const dbKey=(sd&&sd.db_key)||'werewolf_forms';
   const tableId=sd?`forms-table-inner-${sd.key}`:'forms-table-inner';
   const el=document.getElementById(tableId);if(!el)return;
@@ -1894,13 +2095,19 @@ function saveCharacter(){
 }
 function loadSaves(){
   const list=lsGetIndex();
+  // Update desktop sidebar
   const el=document.getElementById('saveList');
-  if(!list.length){el.innerHTML='<span style="font-size:.8rem;color:var(--faint);font-family:sans-serif">No saved characters yet.</span>';return;}
-  el.innerHTML=list.map(s=>`
-    <div class="save-item ${s.id===currentSaveId?'active':''}" onclick="loadCharacter('${s.id}')">
-      <span class="si-name">${escH(s.name||'Unnamed')}</span>
-      <button class="sm danger" onclick="event.stopPropagation();deleteSave('${s.id}')">Del</button>
-    </div>`).join('');
+  if(!list.length){
+    el.innerHTML='<span style="font-size:.8rem;color:var(--faint);font-family:sans-serif">No saved characters yet.</span>';
+  } else {
+    el.innerHTML=list.map(s=>`
+      <div class="save-item ${s.id===currentSaveId?'active':''}" onclick="loadCharacter('${s.id}')">
+        <span class="si-name">${escH(s.name||'Unnamed')}</span>
+        <button class="sm danger" onclick="event.stopPropagation();deleteSave('${s.id}')">Del</button>
+      </div>`).join('');
+  }
+  // Also refresh drawer save list (may already be open)
+  _refreshDrawerSaveList();
 }
 function loadCharacter(id){
   try{
@@ -1942,7 +2149,6 @@ function exportData(){
 }
 let _pendingDataImport=null;
 function getDataKeys(){
-  // Derive content list keys from section_definitions db_key values — order-deduped
   return [...new Set(SECTION_DEFS.filter(s=>s.db_key).map(s=>s.db_key))];
 }
 function previewDataImport(input){
@@ -1960,8 +2166,12 @@ function previewDataImport(input){
         const newEntries=inc.filter(x=>!curNames.has(x.name));
         return inc.length>0?`<b>${k}</b>: ${inc.length} in file, <b>${newEntries.length} new</b>`:null;
       }).filter(Boolean);
-      document.getElementById('dataImportSummary').innerHTML=lines.join('<br>');
+      const summaryHTML=lines.join('<br>');
+      // Show preview in whichever panel is relevant
+      document.getElementById('dataImportSummary').innerHTML=summaryHTML;
       document.getElementById('dataImportPreview').style.display='';
+      document.getElementById('drawerDataImportSummary').innerHTML=summaryHTML;
+      document.getElementById('drawerDataImportPreview').style.display='';
     }catch{showStatus('Import failed — invalid JSON file.');}
   };
   reader.readAsText(file);input.value='';
@@ -1996,8 +2206,11 @@ function commitDataImport(mode){
   refillSelect('weaponDrop',DB.weapons||[]);refillSelect('armorDrop',DB.armor||[]);refillSelect('equipDrop',DB.equipment||[]);
 }
 function cancelDataImport(){
-  _pendingDataImport=null;document.getElementById('dataImportPreview').style.display='none';
+  _pendingDataImport=null;
+  document.getElementById('dataImportPreview').style.display='none';
   document.getElementById('dataImportSummary').innerHTML='';
+  document.getElementById('drawerDataImportPreview').style.display='none';
+  document.getElementById('drawerDataImportSummary').innerHTML='';
 }
 function downloadJSON(obj,filename){
   const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});
