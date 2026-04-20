@@ -192,6 +192,47 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .sec-block.dragging{opacity:.4}
 .drop-zone-highlight{outline:2px dashed var(--border);outline-offset:-2px;border-radius:4px;background:var(--chip)}
 
+/* ── Mobile tracker tap targets (≤900px) ─────────────────────────────────── */
+/* Dots and squares are enlarged to ~44px touch targets on mobile.            */
+/* A transparent padding area provides the tap surface without changing the   */
+/* visual size of the dot/square itself.                                      */
+@media(max-width:900px){
+  /* Attribute, skill, merit, dot-track, arcana, renown dots */
+  .dot{
+    width:14px;height:14px;
+    padding:14px;
+    /* Shift visual dot to center within the padded tap area */
+    background-clip:content-box;
+    border-width:1.5px;
+    box-sizing:content-box;
+    border-radius:50%;
+    /* Negative margin so dots don't blow out their container width */
+    margin:-14px;
+    position:relative;
+  }
+  .dot.filled{background-color:var(--text);background-clip:content-box;}
+  /* Re-space dot rows so the negative margin trick doesn't collapse them */
+  .dot-row{gap:6px;flex-wrap:wrap;}
+  .attr-dots{gap:4px;}
+
+  /* Health boxes */
+  .hbox{width:32px;height:32px;}
+  .hbox svg{width:22px;height:22px;}
+
+  /* Willpower circles and squares */
+  .tcircle{width:18px;height:18px;}
+  .tsquare{width:32px;height:32px;border-radius:3px;}
+
+  /* Resource track squares (Mana, Essence, Vitae, Glamour) */
+  .rsquare{min-height:32px;}
+  .resource-track-grid{gap:4px;}
+
+  /* Skill row rote checkbox */
+  .skill-rote{width:20px;height:20px;}
+}
+
+/* ── End mobile tracker tap targets ──────────────────────────────────────── */
+
 /* ── Tablet sidebar modal drawer (≤900px) ────────────────────────────────── */
 
 /* The desktop sidebar column — hidden on tablet */
@@ -199,6 +240,43 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 @media(max-width:900px){
   .desktop-sidebar{display:none}
   .app-cols{grid-template-columns:1fr}
+
+  /* Full-width zones must not overflow the viewport */
+  #zone-full-width-top,
+  #zone-full-width-bottom{
+    max-width:100%;
+    overflow-x:hidden;
+  }
+
+  /* Forms table: allow horizontal scroll within its own wrapper */
+  .forms-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    max-width:100%;
+  }
+
+  /* Struct fields in weapon/armor/equipment cards: single column on mobile */
+  .struct-fields{
+    grid-template-columns:1fr 1fr !important;
+  }
+
+  /* Item cards: ensure they don't overflow */
+  .item-card{
+    max-width:100%;
+    overflow:hidden;
+  }
+
+  /* Item header: allow wrapping on narrow screens */
+  .item-hd{
+    flex-wrap:wrap;
+    gap:4px;
+  }
+
+  /* Key stat summary: full width on wrap */
+  .item-key-stat{
+    width:100%;
+    order:10;
+  }
 }
 
 /* Floating trigger button — only visible on tablet */
@@ -309,6 +387,47 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .drawer-body .save-list{max-height:none}
 
 /* ── End tablet drawer ───────────────────────────────────────────────────── */
+
+/* ── Textarea mobile resize handle ──────────────────────────────────────── */
+/* The native browser resize grip doesn't work on most mobile browsers.      */
+/* We wrap textareas in a .ta-wrap and add a visible touch drag handle.      */
+.ta-wrap{position:relative;width:100%;}
+.ta-resize-handle{
+  display:none; /* hidden on desktop */
+}
+@media(max-width:900px){
+  textarea{
+    resize:none; /* disable native grip — replaced by our handle */
+    min-height:60px;
+  }
+  .ta-resize-handle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    height:28px;
+    background:var(--chip);
+    border:1px solid var(--border-light);
+    border-top:none;
+    border-radius:0 0 4px 4px;
+    cursor:ns-resize;
+    touch-action:none;
+    user-select:none;
+    color:var(--faint);
+    font-size:.65rem;
+    font-family:sans-serif;
+    letter-spacing:.05em;
+    flex-shrink:0;
+  }
+  .ta-resize-handle:active{background:var(--border-light);}
+  /* Remove bottom radius from textarea when handle is present */
+  .ta-wrap textarea{
+    border-radius:4px 4px 0 0;
+    width:100%;
+    display:block;
+  }
+}
+/* ── End textarea mobile resize handle ───────────────────────────────────── */
 
 @media print{
   @page{size:letter;margin:.5in}
@@ -657,6 +776,8 @@ function initDragAndDrop(){
     secEl.setAttribute('draggable','true');
     secEl.classList.add('draggable');
     const key=block.id.replace('secblock-','');
+
+    // ── Mouse drag (desktop) ──────────────────────────────────────────────
     secEl.addEventListener('dragstart',e=>{
       _dragKey=key;
       _pendingInsertion=null;
@@ -672,6 +793,99 @@ function initDragAndDrop(){
       document.querySelectorAll('.drop-zone-highlight').forEach(z=>
         z.classList.remove('drop-zone-highlight'));
     });
+
+    // ── Touch drag (mobile) ───────────────────────────────────────────────
+    secEl.addEventListener('touchstart',e=>{
+      // Only initiate on a single-finger touch on the handle itself
+      if(e.touches.length!==1)return;
+      _dragKey=key;
+      _pendingInsertion=null;
+      block.classList.add('dragging');
+      // Create a floating ghost element
+      const rect=block.getBoundingClientRect();
+      const ghost=block.cloneNode(true);
+      ghost.id='touch-drag-ghost';
+      ghost.style.cssText=`position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;opacity:.6;pointer-events:none;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.25);border-radius:4px;`;
+      document.body.appendChild(ghost);
+      secEl._touchGhost=ghost;
+      secEl._touchStartX=e.touches[0].clientX;
+      secEl._touchStartY=e.touches[0].clientY;
+      secEl._ghostOffsetX=e.touches[0].clientX-rect.left;
+      secEl._touchBlockRect=rect;
+    },{passive:true});
+
+    secEl.addEventListener('touchmove',e=>{
+      if(!_dragKey||_dragKey!==key)return;
+      e.preventDefault();
+      const touch=e.touches[0];
+      const ghost=secEl._touchGhost;
+      if(ghost){
+        ghost.style.left=(touch.clientX-secEl._ghostOffsetX)+'px';
+        ghost.style.top=(touch.clientY-(secEl._touchBlockRect.height/2))+'px';
+      }
+      // Hide ghost briefly to get element underneath
+      if(ghost)ghost.style.display='none';
+      const target=document.elementFromPoint(touch.clientX,touch.clientY);
+      if(ghost)ghost.style.display='';
+      // Clear highlights
+      document.querySelectorAll('.sec-block').forEach(b=>
+        b.classList.remove('drag-over-before','drag-over-after'));
+      document.querySelectorAll('.drop-zone-highlight').forEach(z=>
+        z.classList.remove('drop-zone-highlight'));
+      if(!target)return;
+      // Find which zone container and block we're over
+      const zoneEl=target.closest('[id^="zone-"]');
+      if(!zoneEl)return;
+      const zoneId=zoneEl.id;
+      const capturedZone=Object.entries(ZONE_IDS).find(([z,id])=>id===zoneId)?.[0];
+      if(!capturedZone)return;
+      const blocks=[...zoneEl.querySelectorAll(':scope>.sec-block[id^="secblock-"]')]
+        .filter(b=>b.id!=='secblock-'+_dragKey&&!b.classList.contains('hidden'));
+      if(!blocks.length){
+        zoneEl.classList.add('drop-zone-highlight');
+        _pendingInsertion={zone:capturedZone,block:null,before:false};
+        return;
+      }
+      let closest=null,closestDist=Infinity,insertBefore=true;
+      blocks.forEach(b=>{
+        const rect=b.getBoundingClientRect();
+        const mid=rect.top+rect.height/2;
+        const dist=Math.abs(touch.clientY-mid);
+        if(dist<closestDist){closestDist=dist;closest=b;insertBefore=touch.clientY<mid;}
+      });
+      if(closest){
+        closest.classList.add(insertBefore?'drag-over-before':'drag-over-after');
+        _pendingInsertion={zone:capturedZone,block:closest,before:insertBefore};
+      }
+    },{passive:false});
+
+    secEl.addEventListener('touchend',e=>{
+      // Remove ghost
+      const ghost=secEl._touchGhost;
+      if(ghost){ghost.remove();secEl._touchGhost=null;}
+      block.classList.remove('dragging');
+      document.querySelectorAll('.sec-block').forEach(b=>
+        b.classList.remove('dragging','drag-over-before','drag-over-after'));
+      document.querySelectorAll('.drop-zone-highlight').forEach(z=>
+        z.classList.remove('drop-zone-highlight'));
+      if(!_dragKey||!_pendingInsertion){_dragKey=null;_pendingInsertion=null;return;}
+      const ins=_pendingInsertion;
+      const dk=_dragKey;
+      _dragKey=null;_pendingInsertion=null;
+      commitDrop(dk,ins.zone,ins.block?{block:ins.block,before:ins.before}:null);
+    });
+
+    secEl.addEventListener('touchcancel',()=>{
+      const ghost=secEl._touchGhost;
+      if(ghost){ghost.remove();secEl._touchGhost=null;}
+      block.classList.remove('dragging');
+      document.querySelectorAll('.sec-block').forEach(b=>
+        b.classList.remove('dragging','drag-over-before','drag-over-after'));
+      document.querySelectorAll('.drop-zone-highlight').forEach(z=>
+        z.classList.remove('drop-zone-highlight'));
+      _dragKey=null;_pendingInsertion=null;
+    });
+    // ── End touch drag ────────────────────────────────────────────────────
   });
 
   Object.entries(ZONE_IDS).forEach(([zone,containerId])=>{
@@ -1275,8 +1489,8 @@ function buildSectionHTML(sd){
     const sk=sd.state_key||sd.key;
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec" style="margin-top:18px">${lbl}</div>
-      <textarea id="${sk}-textarea" rows="4" style="resize:vertical;line-height:1.5"
-        oninput="STATE['${sk}']=this.value">${escH(STATE[sk]||'')}</textarea></div>`;
+      ${taWrap(`<textarea id="${sk}-textarea" rows="4" style="resize:vertical;line-height:1.5"
+        oninput="STATE['${sk}']=this.value">${escH(STATE[sk]||'')}</textarea>`)}</div>`;
   }
 
   if(t==='resource-track'){
@@ -1801,7 +2015,7 @@ function renderGenericRatedList(sd){
       </div>
       <div class="item-body">
         <div class="field-wrap" style="margin-bottom:5px"><span class="field-lbl">Description</span>
-          <textarea class="field-inp" rows="2" onchange="STATE['${sk}'][${i}].desc=this.value">${escH(m.desc||'')}</textarea>
+          ${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE['${sk}'][${i}].desc=this.value">${escH(m.desc||'')}</textarea>`)}
         </div>
         <div class="field-wrap"><span class="field-lbl">Rating</span><div class="dot-row">${dots}</div></div>
       </div></div>`;
@@ -1830,8 +2044,8 @@ function renderNamedList(sk,listId){
         <button class="sm danger" onclick="event.stopPropagation();removeNamedItem('${sk}',${i},'${listId}')">Remove</button>
       </div>
       <div class="item-body">
-        <textarea rows="2" style="font-size:.8rem" placeholder="Description…"
-          onchange="STATE['${sk}'][${i}].desc=this.value">${escH(item.desc||'')}</textarea>
+        ${taWrap(`<textarea rows="2" style="font-size:.8rem" placeholder="Description…"
+          onchange="STATE['${sk}'][${i}].desc=this.value">${escH(item.desc||'')}</textarea>`)}
       </div></div>`).join('');
 }
 function removeNamedItem(sk,i,listId){STATE[sk].splice(i,1);renderNamedList(sk,listId);}
@@ -1876,7 +2090,7 @@ function renderMeritList(){
       </div>
       <div class="item-body">
         <div class="field-wrap" style="margin-bottom:5px"><span class="field-lbl">Description</span>
-          <textarea class="field-inp" rows="2" onchange="STATE.merits[${i}].desc=this.value">${escH(m.desc||'')}</textarea>
+          ${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.merits[${i}].desc=this.value">${escH(m.desc||'')}</textarea>`)}
         </div>
         <div class="field-wrap"><span class="field-lbl">Rating</span><div class="dot-row">${dots}</div></div>
       </div></div>`;
@@ -1912,7 +2126,7 @@ function renderWeaponList(){
     const equippedChk=`<label class="equip-chk-wrap" onclick="event.stopPropagation()"><input type="checkbox" ${w.equipped?'checked':''} onchange="STATE.weapons[${i}].equipped=this.checked;updateDerived()"> Equipped</label>`;
     const sharedFields=`<div class="field-wrap"><span class="field-lbl">Damage</span><input class="field-inp" type="number" value="${w.damage||0}" onchange="STATE.weapons[${i}].damage=+this.value"></div><div class="field-wrap"><span class="field-lbl">Initiative mod</span><input class="field-inp" type="number" value="${w.initiative_mod||0}" onchange="STATE.weapons[${i}].initiative_mod=+this.value;updateDerived()"></div><div class="field-wrap"><span class="field-lbl">Strength req</span><input class="field-inp" type="number" value="${w.strength_req||0}" onchange="STATE.weapons[${i}].strength_req=+this.value"></div><div class="field-wrap"><span class="field-lbl">Size</span><input class="field-inp" type="number" value="${w.size||0}" onchange="STATE.weapons[${i}].size=+this.value"></div><div class="field-wrap"><span class="field-lbl">Availability</span><div class="dot-row">${availDots}</div></div>`;
     const rangedFields=isRanged?`<div class="field-wrap"><span class="field-lbl">Ranges (S/M/L)</span><input class="field-inp" type="text" value="${escH(w.ranges||'')}" placeholder="e.g. 20/40/80" onchange="STATE.weapons[${i}].ranges=this.value"></div><div class="field-wrap"><span class="field-lbl">Clip</span><input class="field-inp" type="number" value="${w.clip||0}" onchange="STATE.weapons[${i}].clip=+this.value"></div>`:'';
-    const notesField=`<div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span><textarea class="field-inp" rows="2" onchange="STATE.weapons[${i}].notes=this.value">${escH(w.notes||'')}</textarea></div>`;
+    const notesField=`<div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span>${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.weapons[${i}].notes=this.value">${escH(w.notes||'')}</textarea>`)}</div>`;
     return `<div class="item-card open"><div class="item-hd" onclick="toggleCard(this)">
       <span class="item-toggle">&#9654;</span>
       <input class="item-name" value="${escH(w.name)}" placeholder="Weapon name" onclick="event.stopPropagation()" onchange="STATE.weapons[${i}].name=this.value">
@@ -1952,7 +2166,7 @@ function renderArmorList(){
         <div class="field-wrap"><span class="field-lbl">Speed penalty</span><input class="field-inp" type="number" value="${a.speed_penalty||0}" onchange="STATE.armor[${i}].speed_penalty=+this.value;updateDerived()"></div>
         <div class="field-wrap"><span class="field-lbl">Strength req</span><input class="field-inp" type="number" value="${a.strength_req||0}" onchange="STATE.armor[${i}].strength_req=+this.value"></div>
         <div class="field-wrap"><span class="field-lbl">Availability</span><div class="dot-row">${availDots}</div></div>
-        <div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span><textarea class="field-inp" rows="2" onchange="STATE.armor[${i}].notes=this.value">${escH(a.notes||'')}</textarea></div>
+        <div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span>${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.armor[${i}].notes=this.value">${escH(a.notes||'')}</textarea>`)}</div>
       </div></div></div>`;
   }).join('');
 }
@@ -1983,7 +2197,7 @@ function renderEquipList(){
         <div class="field-wrap" style="grid-column:span 2"><span class="field-lbl">Availability (1–10)</span><div class="dot-row">${eAvailDots}</div></div>
       </div>
       <div class="field-wrap"><span class="field-lbl">Description</span>
-        <textarea class="field-inp" rows="2" onchange="STATE.equipment[${i}].desc=this.value">${escH(e.desc||'')}</textarea>
+        ${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.equipment[${i}].desc=this.value">${escH(e.desc||'')}</textarea>`)}
       </div></div></div>`;
   }).join('');
 }
@@ -2002,6 +2216,38 @@ function toggleCard(el){el.closest('.item-card').classList.toggle('open');}
 function collapseAll(){document.querySelectorAll('.item-card').forEach(c=>c.classList.remove('open'));}
 function expandAll(){document.querySelectorAll('.item-card').forEach(c=>c.classList.add('open'));}
 function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ── Textarea mobile resize ─────────────────────────────────────────────────
+// Wraps a <textarea> string in a .ta-wrap div with a touch-drag resize handle.
+// The handle is CSS-hidden on desktop and visible on mobile (≤900px).
+function taWrap(textareaHTML){
+  return `<div class="ta-wrap">${textareaHTML}<div class="ta-resize-handle" ontouchstart="initTaResize(event,this)" onmousedown="initTaResize(event,this)">⠿ drag to resize</div></div>`;
+}
+
+function initTaResize(e,handle){
+  const wrap=handle.parentElement;
+  const ta=wrap.querySelector('textarea');
+  if(!ta)return;
+  e.preventDefault();
+  const startY=e.touches?e.touches[0].clientY:e.clientY;
+  const startH=ta.offsetHeight;
+  function onMove(ev){
+    const y=ev.touches?ev.touches[0].clientY:ev.clientY;
+    const newH=Math.max(48,startH+(y-startY));
+    ta.style.height=newH+'px';
+  }
+  function onEnd(){
+    document.removeEventListener('mousemove',onMove);
+    document.removeEventListener('mouseup',onEnd);
+    document.removeEventListener('touchmove',onMove);
+    document.removeEventListener('touchend',onEnd);
+  }
+  document.addEventListener('mousemove',onMove,{passive:false});
+  document.addEventListener('mouseup',onEnd);
+  document.addEventListener('touchmove',onMove,{passive:false});
+  document.addEventListener('touchend',onEnd);
+}
+// ── End textarea mobile resize ─────────────────────────────────────────────
 
 function copyText(){
   const a=k=>getAttr(k),sk=k=>getSkill(k),gm=calcGearMods();
