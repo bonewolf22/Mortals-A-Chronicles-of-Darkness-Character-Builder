@@ -198,6 +198,7 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 @media(max-width:900px){
   /* Attribute, skill, merit, dot-track, arcana, renown dots */
   .dot{
+    width:16px;height:16px;
     position:relative;
   }
   .dot::after{
@@ -207,7 +208,7 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
     transform:translate(-50%,-50%);
     width:44px;height:44px;
   }
-  /* Re-space dot rows to avoid tap area overlap */
+  /* Re-space dot rows to accommodate larger dots */
   .dot-row{gap:8px;flex-wrap:wrap;}
   .attr-dots{gap:6px;}
 
