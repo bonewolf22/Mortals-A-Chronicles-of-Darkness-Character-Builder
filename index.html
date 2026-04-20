@@ -1431,8 +1431,8 @@ function buildSectionHTML(sd){
   if(t==='attributes')return `<div class="sec-block ${hidden}" id="secblock-attributes">
     <div class="merit-toggle-hd"><span class="sec">Attributes <span style="font-weight:400;font-size:.6rem;color:var(--faint)">(1–10)</span></span>
       <div style="display:flex;gap:4px">
-        <button id="attrMaxToggle" class="sm" onclick="toggleAttrMax()" style="font-size:.62rem;padding:2px 7px">5-dot max</button>
-        <button id="attrSpinnerToggle" class="sm" onclick="toggleAttrSpinner()" style="font-size:.62rem;padding:2px 7px">Show number values</button>
+        <button id="attrMaxToggle" class="sm" onclick="event.stopPropagation();toggleAttrMax()" style="font-size:.62rem;padding:2px 7px">5-dot max</button>
+        <button id="attrSpinnerToggle" class="sm" onclick="event.stopPropagation();toggleAttrSpinner()" style="font-size:.62rem;padding:2px 7px">Show number values</button>
       </div>
     </div>
     <div class="sec-collapsible-body"><div id="attrBlock"></div></div></div>`;
@@ -1670,7 +1670,7 @@ function buildBeatsXpHTML(sd,hidden){
 function buildMeritsHTML(sd,hidden){
   return `<div class="sec-block ${hidden}" id="secblock-merits">
     <div class="merit-toggle-hd"><span class="sec">Merits</span>
-      <button id="meritMaxToggle" class="sm" onclick="toggleMeritMax()" style="font-size:.62rem;padding:2px 7px">5-dot max</button>
+      <button id="meritMaxToggle" class="sm" onclick="event.stopPropagation();toggleMeritMax()" style="font-size:.62rem;padding:2px 7px">5-dot max</button>
     </div>
     <div class="sec-collapsible-body">
     <hr style="border:none;border-top:1px solid var(--border-light);margin-bottom:8px">
@@ -2325,8 +2325,36 @@ function addEquip(){
 function setAvailability(key,i,val,renderFn){STATE[key][i].availability=val;renderFn();}
 function removeStruct(key,i,renderFn){STATE[key].splice(i,1);renderFn();updateDerived();}
 function toggleCard(el){el.closest('.item-card').classList.toggle('open');}
-function collapseAll(){document.querySelectorAll('.item-card').forEach(c=>c.classList.remove('open'));}
-function expandAll(){document.querySelectorAll('.item-card').forEach(c=>c.classList.add('open'));}
+function collapseAll(){
+  document.querySelectorAll('.item-card').forEach(c=>c.classList.remove('open'));
+  // Also collapse all collapsible sec-blocks
+  const collapsed=_getCollapsed();
+  COLLAPSIBLE_ZONES.forEach(zone=>{
+    const container=document.getElementById(ZONE_IDS[zone]);
+    if(!container)return;
+    container.querySelectorAll(':scope>.sec-block[id^="secblock-"]').forEach(block=>{
+      const key=block.id.replace('secblock-','');
+      block.classList.add('sec-collapsed');
+      collapsed.add(key);
+    });
+  });
+  _saveCollapsed(collapsed);
+}
+function expandAll(){
+  document.querySelectorAll('.item-card').forEach(c=>c.classList.add('open'));
+  // Also expand all collapsible sec-blocks
+  const collapsed=_getCollapsed();
+  COLLAPSIBLE_ZONES.forEach(zone=>{
+    const container=document.getElementById(ZONE_IDS[zone]);
+    if(!container)return;
+    container.querySelectorAll(':scope>.sec-block[id^="secblock-"]').forEach(block=>{
+      const key=block.id.replace('secblock-','');
+      block.classList.remove('sec-collapsed');
+      collapsed.delete(key);
+    });
+  });
+  _saveCollapsed(collapsed);
+}
 function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 // ── Textarea mobile resize ─────────────────────────────────────────────────
