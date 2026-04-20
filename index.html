@@ -44,11 +44,19 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 /* Collapsible section headers */
 .sec.collapsible{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
 .sec.collapsible:hover{color:var(--text);}
+/* For irregular headers (attributes, merits) the toggle hd also needs flex+pointer */
+.merit-toggle-hd.collapsible{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.merit-toggle-hd.collapsible:hover .sec{color:var(--text);}
 .sec-chevron{font-size:.7em;transition:transform .2s;flex-shrink:0;margin-left:6px;}
 .sec-block.sec-collapsed .sec-chevron{transform:rotate(-90deg);}
-.sec-block.sec-collapsed>*:not(.sec){display:none!important;}
-/* Keep the sec itself visible when collapsed */
-.sec-block.sec-collapsed>.sec{display:flex!important;margin-bottom:0;border-bottom-color:transparent;}
+/* sec-collapsible-body: wrap all content below the section header in this div.
+   When the section is collapsed, this div is hidden. The header stays visible.
+   Every section type in buildSectionHTML must use this wrapper. */
+.sec-collapsible-body{display:block;}
+.sec-block.sec-collapsed .sec-collapsible-body{display:none;}
+/* When collapsed, remove bottom border from header so it doesn't float */
+.sec-block.sec-collapsed .sec{margin-bottom:0;border-bottom-color:transparent;}
+.sec-block.sec-collapsed .merit-toggle-hd{margin-bottom:0;}
 .hdr-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:6px 10px;margin-bottom:6px}
 @media(max-width:600px){.hdr-grid{grid-template-columns:1fr 1fr}}
 .hdr-field{display:flex;flex-direction:column;gap:2px}
@@ -1030,18 +1038,19 @@ function initCollapsibleSections(){
     const container=document.getElementById(ZONE_IDS[zone]);
     if(!container)return;
     container.querySelectorAll(':scope>.sec-block[id^="secblock-"]').forEach(block=>{
-      const secEl=block.querySelector('.sec');
-      if(!secEl||secEl.dataset.collapseInit)return;
-      secEl.dataset.collapseInit='1';
       const key=block.id.replace('secblock-','');
-      secEl.classList.add('collapsible');
-      // Add chevron span
+      // Find the clickable header — either .sec or .merit-toggle-hd (attributes, merits)
+      const toggleHd=block.querySelector('.merit-toggle-hd')||block.querySelector('.sec');
+      if(!toggleHd||toggleHd.dataset.collapseInit)return;
+      toggleHd.dataset.collapseInit='1';
+      toggleHd.classList.add('collapsible');
+      // Add chevron to the header
       const chevron=document.createElement('span');
       chevron.className='sec-chevron';
       chevron.innerHTML='&#9660;'; // ▼
-      secEl.appendChild(chevron);
-      // Click handler on the whole header
-      secEl.addEventListener('click',e=>toggleSectionCollapse(key,e));
+      toggleHd.appendChild(chevron);
+      // Click handler
+      toggleHd.addEventListener('click',e=>toggleSectionCollapse(key,e));
     });
   });
   _applyCollapsedState();
@@ -1426,14 +1435,15 @@ function buildSectionHTML(sd){
         <button id="attrSpinnerToggle" class="sm" onclick="toggleAttrSpinner()" style="font-size:.62rem;padding:2px 7px">Show number values</button>
       </div>
     </div>
-    <div id="attrBlock"></div></div>`;
+    <div class="sec-collapsible-body"><div id="attrBlock"></div></div></div>`;
 
   if(t==='skills')return `<div class="sec-block ${hidden}" id="secblock-skills">
     <div class="sec">Skills <span style="font-weight:400;font-size:.6rem;color:var(--faint)">(0–5 · ◆ = rote)</span></div>
-    <div id="skillBlock"></div></div>`;
+    <div class="sec-collapsible-body"><div id="skillBlock"></div></div></div>`;
 
   if(t==='derived-traits')return `<div class="sec-block ${hidden}" id="secblock-other-traits">
     <div class="sec">Other traits <span style="font-weight:400;font-size:.62rem;color:var(--faint)">(auto-calc — adjustable)</span></div>
+    <div class="sec-collapsible-body">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-family:sans-serif;font-size:.82rem">
       <span style="color:var(--muted);min-width:36px">Size</span>
       <div class="spin-row"><button class="spin" onclick="adjSize(-1)">−</button><span class="av" id="v-size" style="font-size:1rem">5</span><button class="spin" onclick="adjSize(1)">+</button></div>
@@ -1495,7 +1505,7 @@ function buildSectionHTML(sd){
     <div style="text-align:right;margin-top:4px">
       <button class="sm" onclick="resetDerivedOverrides()" style="font-size:.62rem;color:var(--faint)">Reset to formula</button>
     </div>
-  </div>`;
+    </div></div>`;
 
   if(t==='dot-track'){
     const sk=sd.state_key||sd.key,val=STATE[sk]||0,max=sd.max||10;
@@ -1503,10 +1513,10 @@ function buildSectionHTML(sd){
       `<span class="dot${val>=d?' filled':''}" onclick="setDotTrack('${sk}',${d},${max})"></span>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
-      <div class="integrity-row">
+      <div class="sec-collapsible-body"><div class="integrity-row">
         <div class="dot-row" id="${sk}-dots">${dots}</div>
         <span id="${sk}-val-lbl" style="color:var(--muted);font-size:.72rem;font-family:sans-serif;margin-left:4px">(${val}/${max})</span>
-      </div></div>`;
+      </div></div></div>`;
   }
 
   if(t==='dot-square-track'){
@@ -1520,7 +1530,7 @@ function buildSectionHTML(sd){
       `<span class="tsquare${i<filled?' on':''}" onclick="toggleDotSquare('${sk}',${i})"></span>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
-      <div class="tracker-wrap" style="margin-bottom:4px">
+      <div class="sec-collapsible-body"><div class="tracker-wrap" style="margin-bottom:4px">
         <div class="tracker-lbl">
           <span>${lbl}</span>
           <span class="derived-spin-row">
@@ -1532,7 +1542,7 @@ function buildSectionHTML(sd){
         </div>
         <div class="tracker-circles" id="${sk}-dots">${circles}</div>
         <div class="tracker-squares" id="${sk}-squares">${sqs}</div>
-      </div></div>`;
+      </div></div></div>`;
   }
 
   if(t==='named-list'){
@@ -1542,6 +1552,7 @@ function buildSectionHTML(sd){
     const rcStyle=sd.zone==='right-column'?'margin-top:12px':'';
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="${rcStyle}">
       <div class="sec" style="${rcStyle}">${lbl}</div>
+      <div class="sec-collapsible-body">
       <div id="${listId}"></div>
       <div class="add-row">
         <input id="${sId}" placeholder="Search or type…" style="flex:1" oninput="filterSelectAndFill('${sId}','${dId}','${descId}',${dbRef})">
@@ -1550,6 +1561,7 @@ function buildSectionHTML(sd){
       </div>
       <input id="${descId}" placeholder="Description (auto-fills from selection)…"
         style="width:100%;margin-top:4px;font-family:sans-serif;font-size:.82rem;padding:3px 6px;border:1px solid var(--border-light);border-radius:3px;background:var(--surface);color:var(--text)">
+      </div>
     </div>`;
   }
 
@@ -1558,11 +1570,12 @@ function buildSectionHTML(sd){
     const linesId=`${sd.key}-lines`,inputId=`${sd.key}-new`;
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-top:12px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
+      <div class="sec-collapsible-body">
       <div id="${linesId}" class="lines-block"></div>
       <div class="add-row">
         <input id="${inputId}" placeholder="${escH(ph)}" style="flex:1">
         <button onclick="addLineItem('${sk}','${inputId}','${linesId}')">Add</button>
-      </div></div>`;
+      </div></div></div>`;
   }
 
   if(t==='rated-list'){if(sd.key==='merits')return buildMeritsHTML(sd,hidden);return buildGenericRatedHTML(sd,hidden);}
@@ -1574,16 +1587,20 @@ function buildSectionHTML(sd){
     const sk=sd.state_key||sd.key;
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec" style="margin-top:18px">${lbl}</div>
+      <div class="sec-collapsible-body">
       ${taWrap(`<textarea id="${sk}-textarea" rows="4" style="resize:vertical;line-height:1.5"
-        oninput="STATE['${sk}']=this.value">${escH(STATE[sk]||'')}</textarea>`)}</div>`;
+        oninput="STATE['${sk}']=this.value">${escH(STATE[sk]||'')}</textarea>`)}
+      </div></div>`;
   }
 
   if(t==='resource-track'){
     const sk=sd.state_key||sd.key;
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
+      <div class="sec-collapsible-body">
       <div class="resource-track-grid" id="${sk}-rt-row0"></div>
       <div class="resource-track-grid" id="${sk}-rt-row1"></div>
+      </div>
     </div>`;
   }
 
@@ -1596,7 +1613,7 @@ function buildSectionHTML(sd){
       </div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec">Arcana <span style="font-weight:400;font-size:.6rem;color:var(--faint)">(0–5)</span></div>
-      ${rows}
+      <div class="sec-collapsible-body">${rows}</div>
     </div>`;
   }
 
@@ -1610,14 +1627,14 @@ function buildSectionHTML(sd){
       </div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">Renown</div>
-      ${rows}
+      <div class="sec-collapsible-body">${rows}</div>
     </div>`;
   }
 
   if(t==='forms-block'){
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec" style="margin-top:14px">${lbl}</div>
-      <div class="forms-wrap"><div class="forms-table" id="forms-table-inner-${sd.key}"></div></div>
+      <div class="sec-collapsible-body"><div class="forms-wrap"><div class="forms-table" id="forms-table-inner-${sd.key}"></div></div></div>
     </div>`;
   }
 
@@ -1655,6 +1672,7 @@ function buildMeritsHTML(sd,hidden){
     <div class="merit-toggle-hd"><span class="sec">Merits</span>
       <button id="meritMaxToggle" class="sm" onclick="toggleMeritMax()" style="font-size:.62rem;padding:2px 7px">5-dot max</button>
     </div>
+    <div class="sec-collapsible-body">
     <hr style="border:none;border-top:1px solid var(--border-light);margin-bottom:8px">
     <div id="meritList"></div>
     <div class="add-row">
@@ -1662,13 +1680,15 @@ function buildMeritsHTML(sd,hidden){
       <select id="meritDrop"><option disabled selected value="">— pick —</option></select>
       <button onclick="addMerit()">Add</button>
     </div>
-    <div class="hint">Click dots to set rating.</div></div>`;
+    <div class="hint">Click dots to set rating.</div>
+    </div></div>`;
 }
 function buildGenericRatedHTML(sd,hidden){
   const sk=sd.state_key||sd.key,max=sd.max_rating||5,dbKey=sd.db_key,dbRef=dbKey?`DB.${dbKey}`:'[]';
   const sId=`${sd.key}-search`,dId=`${sd.key}-drop`,listId=`${sd.key}-rated-list`;
   return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
     <div class="sec" style="margin-top:14px">${escH(sd.label)}</div>
+    <div class="sec-collapsible-body">
     <hr style="border:none;border-top:1px solid var(--border-light);margin-bottom:8px">
     <div id="${listId}"></div>
     <div class="add-row">
@@ -1676,35 +1696,42 @@ function buildGenericRatedHTML(sd,hidden){
       <select id="${dId}"><option disabled selected value="">— pick —</option></select>
       <button onclick="addGenericRated('${sk}','${sId}','${dId}','${listId}',${max},${dbRef})">Add</button>
     </div>
-    <div class="hint">Click dots to set rating (1–${max}).</div></div>`;
+    <div class="hint">Click dots to set rating (1–${max}).</div>
+    </div></div>`;
 }
 function buildWeaponsHTML(hidden){
   return `<div class="sec-block ${hidden}" id="secblock-weapons">
-    <div class="sec">Weapons</div><div id="weaponList"></div>
+    <div class="sec">Weapons</div>
+    <div class="sec-collapsible-body"><div id="weaponList"></div>
     <div class="add-row">
       <input id="weaponSearch" placeholder="Search…" oninput="filterSelect('weaponSearch','weaponDrop',DB.weapons)">
       <select id="weaponDrop"><option disabled selected value="">— pick —</option></select>
       <button onclick="addWeapon()">Add</button>
     </div>
-    <div class="hint">Tick Equipped to apply Initiative modifier to derived traits.</div></div>`;
+    <div class="hint">Tick Equipped to apply Initiative modifier to derived traits.</div>
+    </div></div>`;
 }
 function buildArmorHTML(hidden){
   return `<div class="sec-block ${hidden}" id="secblock-armor">
-    <div class="sec">Armor</div><div id="armorList"></div>
+    <div class="sec">Armor</div>
+    <div class="sec-collapsible-body"><div id="armorList"></div>
     <div class="add-row">
       <input id="armorSearch" placeholder="Search…" oninput="filterSelect('armorSearch','armorDrop',DB.armor)">
       <select id="armorDrop"><option disabled selected value="">— pick —</option></select>
       <button onclick="addArmor()">Add</button>
     </div>
-    <div class="hint">Tick Equipped to apply Defense, Speed penalties to derived traits.</div></div>`;
+    <div class="hint">Tick Equipped to apply Defense, Speed penalties to derived traits.</div>
+    </div></div>`;
 }
 function buildEquipmentHTML(hidden){
   return `<div class="sec-block ${hidden}" id="secblock-equipment">
-    <div class="sec">Equipment</div><div id="equipList"></div>
+    <div class="sec">Equipment</div>
+    <div class="sec-collapsible-body"><div id="equipList"></div>
     <div class="add-row">
       <input id="equipSearch" placeholder="Search…" oninput="filterSelect('equipSearch','equipDrop',DB.equipment)">
       <select id="equipDrop"><option disabled selected value="">— pick —</option></select>
       <button onclick="addEquip()">Add</button>
+    </div>
     </div></div>`;
 }
 
