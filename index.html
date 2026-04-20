@@ -193,27 +193,23 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .drop-zone-highlight{outline:2px dashed var(--border);outline-offset:-2px;border-radius:4px;background:var(--chip)}
 
 /* ── Mobile tracker tap targets (≤900px) ─────────────────────────────────── */
-/* Dots and squares are enlarged to ~44px touch targets on mobile.            */
-/* A transparent padding area provides the tap surface without changing the   */
-/* visual size of the dot/square itself.                                      */
+/* Dots use a ::after pseudo-element to extend the tap area without changing  */
+/* the visual appearance of the dot itself.                                   */
 @media(max-width:900px){
   /* Attribute, skill, merit, dot-track, arcana, renown dots */
   .dot{
-    width:14px;height:14px;
-    padding:14px;
-    /* Shift visual dot to center within the padded tap area */
-    background-clip:content-box;
-    border-width:1.5px;
-    box-sizing:content-box;
-    border-radius:50%;
-    /* Negative margin so dots don't blow out their container width */
-    margin:-14px;
     position:relative;
   }
-  .dot.filled{background-color:var(--text);background-clip:content-box;}
-  /* Re-space dot rows so the negative margin trick doesn't collapse them */
-  .dot-row{gap:6px;flex-wrap:wrap;}
-  .attr-dots{gap:4px;}
+  .dot::after{
+    content:'';
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:44px;height:44px;
+  }
+  /* Re-space dot rows to avoid tap area overlap */
+  .dot-row{gap:8px;flex-wrap:wrap;}
+  .attr-dots{gap:6px;}
 
   /* Health boxes */
   .hbox{width:32px;height:32px;}
@@ -587,7 +583,10 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
     </div>
     <div class="hint" style="margin-bottom:6px">Toggle sections on or off. Data is preserved when hidden.</div>
     <div class="hint" style="margin-bottom:6px">Drag section titles on the sheet to reorder or move between columns.</div>
-    <div style="margin-bottom:8px"><button class="sm" onclick="resetLayout()" style="font-size:.72rem;color:var(--faint)">Reset layout to defaults</button></div>
+    <div style="margin-bottom:8px;display:flex;gap:6px;flex-wrap:wrap">
+      <button class="sm layout-lock-btn" onclick="toggleLayoutLock()" style="font-size:.72rem;color:var(--faint)">🔓 Lock layout</button>
+      <button class="sm" onclick="resetLayout()" style="font-size:.72rem;color:var(--faint)">Reset layout to defaults</button>
+    </div>
     <div id="cfgPanel"></div>
   </div>
   <div class="sidebar-card">
@@ -660,7 +659,10 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
         </div>
         <div class="hint" style="margin-bottom:6px">Toggle sections on or off. Data is preserved when hidden.</div>
         <div class="hint" style="margin-bottom:6px">Drag section titles on the sheet to reorder or move between columns.</div>
-        <div style="margin-bottom:8px"><button class="sm" onclick="resetLayout()" style="font-size:.72rem;color:var(--faint)">Reset layout to defaults</button></div>
+        <div style="margin-bottom:8px;display:flex;gap:6px;flex-wrap:wrap">
+          <button class="sm layout-lock-btn" onclick="toggleLayoutLock()" style="font-size:.72rem;color:var(--faint)">🔓 Lock layout</button>
+          <button class="sm" onclick="resetLayout()" style="font-size:.72rem;color:var(--faint)">Reset layout to defaults</button>
+        </div>
         <div id="drawerCfgPanel"></div>
       </div>
 
@@ -779,6 +781,7 @@ function initDragAndDrop(){
 
     // ── Mouse drag (desktop) ──────────────────────────────────────────────
     secEl.addEventListener('dragstart',e=>{
+      if(STATE.layoutLocked){e.preventDefault();return;}
       _dragKey=key;
       _pendingInsertion=null;
       block.classList.add('dragging');
@@ -798,6 +801,7 @@ function initDragAndDrop(){
     secEl.addEventListener('touchstart',e=>{
       // Only initiate on a single-finger touch on the handle itself
       if(e.touches.length!==1)return;
+      if(STATE.layoutLocked)return;
       _dragKey=key;
       _pendingInsertion=null;
       block.classList.add('dragging');
@@ -965,6 +969,20 @@ function commitDrop(dragKey,targetZone,insertion){
   STATE.sectionConfig._zoneOrder[targetZone]=newOrder;
   rebuildZones();
   renderEditor();
+}
+
+function toggleLayoutLock(){
+  STATE.layoutLocked=!STATE.layoutLocked;
+  updateLayoutLockButton();
+  showStatus(STATE.layoutLocked?'Layout locked.':'Layout unlocked.');
+}
+function updateLayoutLockButton(){
+  document.querySelectorAll('.layout-lock-btn').forEach(btn=>{
+    const locked=STATE.layoutLocked||false;
+    btn.textContent=locked?'🔒 Layout locked':'🔓 Lock layout';
+    btn.style.color=locked?'var(--accent)':'var(--faint)';
+    btn.style.fontWeight=locked?'700':'';
+  });
 }
 
 function resetLayout(){
@@ -1175,7 +1193,7 @@ function _baseCharacterFields(attrs,skills){
     defense:Math.min(dexterity,wits)+athletics,initiative:dexterity+composure,speed:strength+dexterity+5,
     integrity:7,derivedOverrides:{},
     tilts:[],conditions:[],aspirations:[],merits:[],weapons:[],armor:[],equipment:[],notes:'',
-    meritMaxDots:5,sectionConfig:{},...base};
+    meritMaxDots:5,sectionConfig:{},...base,layoutLocked:false};
 }
 function generate(){
   const d=window._DB_RAW||{};
@@ -1263,6 +1281,7 @@ function patchState(){
   if(!STATE.meritMaxDots)STATE.meritMaxDots=5;
   if(!STATE.attrMaxDots)STATE.attrMaxDots=5;
   if(STATE.attrShowSpinner===undefined)STATE.attrShowSpinner=false;
+  if(STATE.layoutLocked===undefined)STATE.layoutLocked=false;
   if(!STATE.sectionConfig)STATE.sectionConfig={};
   (STATE.weapons||[]).forEach(w=>{if(w.equipped===undefined)w.equipped=false;});
   (STATE.armor||[]).forEach(a=>{if(a.equipped===undefined)a.equipped=false;if(a.speed_penalty===undefined)a.speed_penalty=0;});
@@ -1278,6 +1297,7 @@ function renderEditor(){
   renderSheetZone('right-column','zone-right-column');
   renderSheetZone('full-width-bottom','zone-full-width-bottom');
   applySectionConfig();
+  updateLayoutLockButton();
   requestAnimationFrame(()=>initDragAndDrop());
 }
 
