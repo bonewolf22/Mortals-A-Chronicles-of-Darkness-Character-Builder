@@ -39,8 +39,16 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .app-cols{display:grid;grid-template-columns:1fr 290px;gap:1.25rem;align-items:start}
 @media(max-width:800px){.app-cols{grid-template-columns:1fr}}
 .sb-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem}
-.sec{font-size:.65rem;font-family:sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;padding-bottom:5px;border-bottom:1px solid var(--border-light);margin-bottom:8px;margin-top:14px}
+.sec{font-size:.8rem;font-family:sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;padding-bottom:5px;border-bottom:1px solid var(--border-light);margin-bottom:8px;margin-top:14px}
 .sec:first-child{margin-top:0}
+/* Collapsible section headers */
+.sec.collapsible{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.sec.collapsible:hover{color:var(--text);}
+.sec-chevron{font-size:.7em;transition:transform .2s;flex-shrink:0;margin-left:6px;}
+.sec-block.sec-collapsed .sec-chevron{transform:rotate(-90deg);}
+.sec-block.sec-collapsed>*:not(.sec){display:none!important;}
+/* Keep the sec itself visible when collapsed */
+.sec-block.sec-collapsed>.sec{display:flex!important;margin-bottom:0;border-bottom-color:transparent;}
 .hdr-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:6px 10px;margin-bottom:6px}
 @media(max-width:600px){.hdr-grid{grid-template-columns:1fr 1fr}}
 .hdr-field{display:flex;flex-direction:column;gap:2px}
@@ -206,7 +214,7 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
     position:absolute;
     top:50%;left:50%;
     transform:translate(-50%,-50%);
-    width:44px;height:44px;
+    width:34px;height:34px;
   }
   /* Re-space dot rows to accommodate larger dots */
   .dot-row{gap:8px;flex-wrap:wrap;}
@@ -226,7 +234,9 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 
   /* Skill row rote checkbox */
   .skill-rote{width:20px;height:20px;}
-}
+
+  /* Section headers */
+  .sec{font-size:.9rem;}
 
 /* ── End mobile tracker tap targets ──────────────────────────────────────── */
 
@@ -765,6 +775,35 @@ function rebuildZones(){
   });
 }
 
+// ── Collapsible sections ──────────────────────────────────────────────────
+const LS_COLLAPSED='mortals_plus_collapsed';
+
+function _getCollapsed(){
+  try{const s=localStorage.getItem(LS_COLLAPSED);return s?new Set(JSON.parse(s)):new Set();}
+  catch(e){return new Set();}
+}
+function _saveCollapsed(set){
+  try{localStorage.setItem(LS_COLLAPSED,JSON.stringify([...set]));}catch(e){}
+}
+function toggleSectionCollapse(key,e){
+  if(e){e.stopPropagation();e.preventDefault();}
+  const block=document.getElementById('secblock-'+key);if(!block)return;
+  const collapsed=_getCollapsed();
+  if(collapsed.has(key)){collapsed.delete(key);block.classList.remove('sec-collapsed');}
+  else{collapsed.add(key);block.classList.add('sec-collapsed');}
+  _saveCollapsed(collapsed);
+}
+function _applyCollapsedState(){
+  const collapsed=_getCollapsed();
+  collapsed.forEach(key=>{
+    const block=document.getElementById('secblock-'+key);
+    if(block)block.classList.add('sec-collapsed');
+  });
+}
+// Zones where collapse toggles are added (excludes header and beats)
+const COLLAPSIBLE_ZONES=new Set(['full-width-top','left-column','right-column','full-width-bottom']);
+// ── End collapsible sections ──────────────────────────────────────────────
+
 // ── Drag and drop layout ──────────────────────────────────────────────────────
 let _dragKey=null;
 let _pendingInsertion=null;
@@ -986,6 +1025,28 @@ function updateLayoutLockButton(){
   });
 }
 
+function initCollapsibleSections(){
+  COLLAPSIBLE_ZONES.forEach(zone=>{
+    const container=document.getElementById(ZONE_IDS[zone]);
+    if(!container)return;
+    container.querySelectorAll(':scope>.sec-block[id^="secblock-"]').forEach(block=>{
+      const secEl=block.querySelector('.sec');
+      if(!secEl||secEl.dataset.collapseInit)return;
+      secEl.dataset.collapseInit='1';
+      const key=block.id.replace('secblock-','');
+      secEl.classList.add('collapsible');
+      // Add chevron span
+      const chevron=document.createElement('span');
+      chevron.className='sec-chevron';
+      chevron.innerHTML='&#9660;'; // ▼
+      secEl.appendChild(chevron);
+      // Click handler on the whole header
+      secEl.addEventListener('click',e=>toggleSectionCollapse(key,e));
+    });
+  });
+  _applyCollapsedState();
+}
+
 function resetLayout(){
   if(STATE.sectionConfig)delete STATE.sectionConfig._zoneOrder;
   rebuildZones();renderEditor();
@@ -1194,7 +1255,7 @@ function _baseCharacterFields(attrs,skills){
     defense:Math.min(dexterity,wits)+athletics,initiative:dexterity+composure,speed:strength+dexterity+5,
     integrity:7,derivedOverrides:{},
     tilts:[],conditions:[],aspirations:[],merits:[],weapons:[],armor:[],equipment:[],notes:'',
-    meritMaxDots:5,sectionConfig:{},...base,layoutLocked:false};
+    meritMaxDots:5,sectionConfig:{},...base,layoutLocked:true};
 }
 function generate(){
   const d=window._DB_RAW||{};
@@ -1282,7 +1343,7 @@ function patchState(){
   if(!STATE.meritMaxDots)STATE.meritMaxDots=5;
   if(!STATE.attrMaxDots)STATE.attrMaxDots=5;
   if(STATE.attrShowSpinner===undefined)STATE.attrShowSpinner=false;
-  if(STATE.layoutLocked===undefined)STATE.layoutLocked=false;
+  if(STATE.layoutLocked===undefined)STATE.layoutLocked=true;
   if(!STATE.sectionConfig)STATE.sectionConfig={};
   (STATE.weapons||[]).forEach(w=>{if(w.equipped===undefined)w.equipped=false;});
   (STATE.armor||[]).forEach(a=>{if(a.equipped===undefined)a.equipped=false;if(a.speed_penalty===undefined)a.speed_penalty=0;});
@@ -1299,7 +1360,10 @@ function renderEditor(){
   renderSheetZone('full-width-bottom','zone-full-width-bottom');
   applySectionConfig();
   updateLayoutLockButton();
-  requestAnimationFrame(()=>initDragAndDrop());
+  requestAnimationFrame(()=>{
+    initDragAndDrop();
+    initCollapsibleSections();
+  });
 }
 
 function renderDynamicHeader(){
