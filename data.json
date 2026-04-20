@@ -238,6 +238,28 @@
       "xp_key": "experience"
     },
     {
+      "key": "arcane-beats-xp",
+      "label": "Arcane Beats",
+      "group": "Mage",
+      "zone": "beats",
+      "order": 2,
+      "type": "beats-xp",
+      "default": false,
+      "beats_key": "arcane_beats",
+      "xp_key": "arcane_experience"
+    },
+    {
+      "key": "group-beats-xp",
+      "label": "Group Beats",
+      "group": "Hunter",
+      "zone": "beats",
+      "order": 2,
+      "type": "beats-xp",
+      "default": false,
+      "beats_key": "group_beats",
+      "xp_key": "group_experience"
+    },
+    {
       "key": "attributes",
       "label": "Attributes",
       "group": "Mortal",
@@ -977,6 +999,8 @@
       "name": "Mortal",
       "config": {
         "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
         "attributes": true,
         "skills": true,
         "other-traits": true,
@@ -1043,6 +1067,8 @@
       "name": "Hunter",
       "config": {
         "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": true,
         "attributes": true,
         "skills": true,
         "other-traits": true,
@@ -1109,6 +1135,8 @@
       "name": "Mage",
       "config": {
         "beats-xp": true,
+        "arcane-beats-xp": true,
+        "group-beats-xp": false,
         "attributes": true,
         "skills": true,
         "other-traits": true,
@@ -1175,6 +1203,8 @@
       "name": "Werewolf",
       "config": {
         "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
         "attributes": true,
         "skills": true,
         "other-traits": true,
@@ -1241,6 +1271,8 @@
       "name": "Vampire",
       "config": {
         "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
         "attributes": true,
         "skills": true,
         "other-traits": true,
@@ -1307,6 +1339,8 @@
       "name": "Changeling",
       "config": {
         "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
         "attributes": true,
         "skills": true,
         "other-traits": true,

@@ -22,6 +22,61 @@
   --info:#1a5fa8;--info-bg:#eef4fb;
   --green:#1a6b3a;--green-bg:#edf7f1;
 }
+/* ── Splat themes ─────────────────────────────────────────────────────────── */
+/* Each theme overrides the CSS variables defined in :root above.             */
+/* Apply via: document.body.setAttribute('data-theme', themeName)             */
+/* Colours sampled from the official Onyx Path character sheet PDFs.          */
+
+/* Neutral — the original warm parchment palette. Default for all characters. */
+[data-theme="neutral"]{
+  --bg:#f7f5f0;--surface:#fff;--border:#d4cfc5;--border-light:#e8e4dd;
+  --text:#1a1916;--muted:#6b6760;--faint:#999690;
+  --accent:#2c2218;--accent-hover:#1a140e;
+  --chip:#f0ece4;--tag:#ede9e1;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
+
+/* Mortal — steel blue/navy, matching the Chronicles of Darkness core sheet.  */
+/* Key accent sampled: #284880 (navy blue), blue-grey tones throughout.       */
+[data-theme="mortal"]{
+  --bg:#eef0f4;
+  --surface:#f6f7fa;
+  --border:#b0b8c8;
+  --border-light:#d0d6e4;
+  --text:#141820;
+  --muted:#505870;
+  --faint:#8890a8;
+  --accent:#284880;
+  --accent-hover:#1a3060;
+  --chip:#e0e4ee;
+  --tag:#d8dce8;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
+
+/* Hunter — deep forest green, matching the Hunter: the Vigil 2e sheet.       */
+/* Key accent sampled: #103020 (deep forest green), desaturated teal bg wash. */
+[data-theme="hunter"]{
+  --bg:#eaf0ec;
+  --surface:#f4f8f5;
+  --border:#9ab4a0;
+  --border-light:#c4d8ca;
+  --text:#141c16;
+  --muted:#3a5840;
+  --faint:#7a9880;
+  --accent:#103020;
+  --accent-hover:#0a1e14;
+  --chip:#daeade;
+  --tag:#d0e4d4;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
+/* ── End splat themes ─────────────────────────────────────────────────────── */
+
 body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
 .page{max-width:1000px;margin:0 auto;padding:2rem 1.25rem 5rem}
 h1{font-size:1.6rem;font-weight:normal;letter-spacing:.03em;margin-bottom:.2rem}
@@ -37,7 +92,7 @@ button.danger{color:var(--danger);border-color:transparent}
 button.danger:hover{background:var(--danger-bg)}
 button.sm{font-size:.75rem;padding:.25rem .6rem}
 .app-cols{display:grid;grid-template-columns:1fr 290px;gap:1.25rem;align-items:start}
-@media(max-width:800px){.app-cols{grid-template-columns:1fr}}
+@media(max-width:830px){.app-cols{grid-template-columns:1fr}}
 .sb-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem}
 .sec{font-size:.8rem;font-family:sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;padding-bottom:5px;border-bottom:1px solid var(--border-light);margin-bottom:8px;margin-top:14px}
 .sec:first-child{margin-top:0}
@@ -208,54 +263,43 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .sec-block.dragging{opacity:.4}
 .drop-zone-highlight{outline:2px dashed var(--border);outline-offset:-2px;border-radius:4px;background:var(--chip)}
 
-/* ── Mobile tracker tap targets (≤900px) ─────────────────────────────────── */
+/* ── Touch-device styles ──────────────────────────────────────────────────── */
+/* Applied via JS: body.touch-device when (pointer:coarse) is detected.       */
+/* This is immune to zoom level, DPI, and viewport width.                     */
+
+/* Tracker tap targets — dots, health boxes, willpower, resource squares      */
 /* Dots use a ::after pseudo-element to extend the tap area without changing  */
 /* the visual appearance of the dot itself.                                   */
-@media(max-width:900px){
-  /* Attribute, skill, merit, dot-track, arcana, renown dots */
-  .dot{
-    width:16px;height:16px;
-    position:relative;
-  }
-  .dot::after{
-    content:'';
-    position:absolute;
-    top:50%;left:50%;
-    transform:translate(-50%,-50%);
-    width:34px;height:34px;
-  }
-  /* Re-space dot rows to accommodate larger dots */
-  .dot-row{gap:8px;flex-wrap:wrap;}
-  .attr-dots{gap:6px;}
+body.touch-device .dot{
+  width:16px;height:16px;
+  position:relative;
+}
+body.touch-device .dot::after{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:34px;height:34px;
+}
+body.touch-device .dot-row{gap:8px;flex-wrap:wrap;}
+body.touch-device .attr-dots{gap:6px;}
+body.touch-device .hbox{width:32px;height:32px;}
+body.touch-device .hbox svg{width:22px;height:22px;}
+body.touch-device .tcircle{width:18px;height:18px;}
+body.touch-device .tsquare{width:32px;height:32px;border-radius:3px;}
+body.touch-device .rsquare{min-height:32px;}
+body.touch-device .resource-track-grid{gap:4px;}
+body.touch-device .skill-rote{width:20px;height:20px;}
+body.touch-device .sec{font-size:.9rem;}
 
-  /* Health boxes */
-  .hbox{width:32px;height:32px;}
-  .hbox svg{width:22px;height:22px;}
-
-  /* Willpower circles and squares */
-  .tcircle{width:18px;height:18px;}
-  .tsquare{width:32px;height:32px;border-radius:3px;}
-
-  /* Resource track squares (Mana, Essence, Vitae, Glamour) */
-  .rsquare{min-height:32px;}
-  .resource-track-grid{gap:4px;}
-
-  /* Skill row rote checkbox */
-  .skill-rote{width:20px;height:20px;}
-
-  /* Section headers */
-  .sec{font-size:.9rem;}
-
-/* ── End mobile tracker tap targets ──────────────────────────────────────── */
-
-/* ── Tablet sidebar modal drawer (≤900px) ────────────────────────────────── */
-
-/* The desktop sidebar column — hidden on tablet */
+/* Sidebar: hide desktop sidebar, show FAB drawer trigger */
 .desktop-sidebar{display:block}
-@media(max-width:900px){
-  .desktop-sidebar{display:none}
-  .app-cols{grid-template-columns:1fr}
+body.touch-device .desktop-sidebar{display:none}
+body.touch-device .app-cols{grid-template-columns:1fr}
 
+/* ── Width-based layout reflow (≤830px) ──────────────────────────────────── */
+/* These respond to narrow viewports on any device — desktop or touch.        */
+@media(max-width:830px){
   /* Full-width zones must not overflow the viewport */
   #zone-full-width-top,
   #zone-full-width-bottom{
@@ -317,7 +361,7 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
   transition:background .15s,box-shadow .15s;
 }
 .sidebar-fab:hover{background:var(--accent-hover);box-shadow:0 4px 12px rgba(0,0,0,.3)}
-@media(max-width:900px){.sidebar-fab{display:flex}}
+body.touch-device .sidebar-fab{display:flex}
 
 /* Modal backdrop */
 .drawer-backdrop{
@@ -410,37 +454,35 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .ta-resize-handle{
   display:none; /* hidden on desktop */
 }
-@media(max-width:900px){
-  textarea{
-    resize:none; /* disable native grip — replaced by our handle */
-    min-height:60px;
-  }
-  .ta-resize-handle{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:100%;
-    height:28px;
-    background:var(--chip);
-    border:1px solid var(--border-light);
-    border-top:none;
-    border-radius:0 0 4px 4px;
-    cursor:ns-resize;
-    touch-action:none;
-    user-select:none;
-    color:var(--faint);
-    font-size:.65rem;
-    font-family:sans-serif;
-    letter-spacing:.05em;
-    flex-shrink:0;
-  }
-  .ta-resize-handle:active{background:var(--border-light);}
-  /* Remove bottom radius from textarea when handle is present */
-  .ta-wrap textarea{
-    border-radius:4px 4px 0 0;
-    width:100%;
-    display:block;
-  }
+body.touch-device textarea{
+  resize:none; /* disable native grip — replaced by our handle */
+  min-height:60px;
+}
+body.touch-device .ta-resize-handle{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:28px;
+  background:var(--chip);
+  border:1px solid var(--border-light);
+  border-top:none;
+  border-radius:0 0 4px 4px;
+  cursor:ns-resize;
+  touch-action:none;
+  user-select:none;
+  color:var(--faint);
+  font-size:.65rem;
+  font-family:sans-serif;
+  letter-spacing:.05em;
+  flex-shrink:0;
+}
+body.touch-device .ta-resize-handle:active{background:var(--border-light);}
+/* Remove bottom radius from textarea when handle is present */
+body.touch-device .ta-wrap textarea{
+  border-radius:4px 4px 0 0;
+  width:100%;
+  display:block;
 }
 /* ── End textarea mobile resize handle ───────────────────────────────────── */
 
@@ -533,8 +575,8 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
            #zone-left-column       — Skills and ability lists (injected by JS)
            #zone-right-column      — Traits, resources, roleplaying (injected by JS)
            #zone-full-width-bottom — Merits, gear, notes (injected by JS)
-       .desktop-sidebar   — Sidebar column (desktop only, hidden ≤900px)
-       .sidebar-fab       — Floating button (tablet only, ≤900px)
+       .desktop-sidebar   — Sidebar column (desktop only, hidden on touch devices)
+       .sidebar-fab       — Floating button (touch devices only)
        .drawer-backdrop   — Modal drawer (tablet only)
      ═══════════════════════════════════════════════════════════════════════════ -->
 <body>
@@ -594,6 +636,14 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
   </div>
   <div class="sidebar-card">
     <div class="sidebar-title">Sheet configuration</div>
+    <div class="cfg-preset-row">
+      <label>Theme</label>
+      <select id="themeSelect" onchange="applyTheme(this.value)">
+        <option value="neutral">Neutral</option>
+        <option value="mortal">Mortal</option>
+        <option value="hunter">Hunter</option>
+      </select>
+    </div>
     <div class="cfg-preset-row">
       <label>Preset</label>
       <select id="presetSelect" onchange="applyPreset(this.value)">
@@ -670,6 +720,14 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 
       <!-- Sheet configuration -->
       <div class="drawer-pane" id="dpane-config">
+        <div class="cfg-preset-row">
+          <label>Theme</label>
+          <select id="drawerThemeSelect" onchange="applyTheme(this.value)">
+            <option value="neutral">Neutral</option>
+            <option value="mortal">Mortal</option>
+            <option value="hunter">Hunter</option>
+          </select>
+        </div>
         <div class="cfg-preset-row">
           <label>Preset</label>
           <select id="drawerPresetSelect" onchange="applyPreset(this.value)">
@@ -1033,6 +1091,18 @@ function updateLayoutLockButton(){
   });
 }
 
+function applyTheme(theme){
+  theme=theme||'mortal';
+  STATE.theme=theme;
+  document.body.setAttribute('data-theme',theme);
+  // Keep both selectors in sync
+  const d=document.getElementById('themeSelect');
+  const dr=document.getElementById('drawerThemeSelect');
+  if(d)d.value=theme;
+  if(dr)dr.value=theme;
+  autosave();
+}
+
 function initCollapsibleSections(){
   COLLAPSIBLE_ZONES.forEach(zone=>{
     const container=document.getElementById(ZONE_IDS[zone]);
@@ -1264,7 +1334,7 @@ function _baseCharacterFields(attrs,skills){
     defense:Math.min(dexterity,wits)+athletics,initiative:dexterity+composure,speed:strength+dexterity+5,
     integrity:7,derivedOverrides:{},
     tilts:[],conditions:[],aspirations:[],merits:[],weapons:[],armor:[],equipment:[],notes:'',
-    meritMaxDots:5,sectionConfig:{},...base,layoutLocked:true};
+    meritMaxDots:5,sectionConfig:{},...base,layoutLocked:true,theme:'neutral'};
 }
 function generate(){
   const d=window._DB_RAW||{};
@@ -1353,6 +1423,7 @@ function patchState(){
   if(!STATE.attrMaxDots)STATE.attrMaxDots=5;
   if(STATE.attrShowSpinner===undefined)STATE.attrShowSpinner=false;
   if(STATE.layoutLocked===undefined)STATE.layoutLocked=true;
+  if(!STATE.theme)STATE.theme='neutral';
   if(!STATE.sectionConfig)STATE.sectionConfig={};
   (STATE.weapons||[]).forEach(w=>{if(w.equipped===undefined)w.equipped=false;});
   (STATE.armor||[]).forEach(a=>{if(a.equipped===undefined)a.equipped=false;if(a.speed_penalty===undefined)a.speed_penalty=0;});
@@ -1369,6 +1440,7 @@ function renderEditor(){
   renderSheetZone('full-width-bottom','zone-full-width-bottom');
   applySectionConfig();
   updateLayoutLockButton();
+  applyTheme(STATE.theme||'neutral');
   requestAnimationFrame(()=>{
     initDragAndDrop();
     initCollapsibleSections();
@@ -2359,7 +2431,7 @@ function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
 
 // ── Textarea mobile resize ─────────────────────────────────────────────────
 // Wraps a <textarea> string in a .ta-wrap div with a touch-drag resize handle.
-// The handle is CSS-hidden on desktop and visible on mobile (≤900px).
+// The handle is CSS-hidden on desktop and visible on touch devices (body.touch-device).
 function taWrap(textareaHTML){
   return `<div class="ta-wrap">${textareaHTML}<div class="ta-resize-handle" ontouchstart="initTaResize(event,this)" onmousedown="initTaResize(event,this)">⠿ drag to resize</div></div>`;
 }
@@ -2608,6 +2680,7 @@ function showStatus(msg){
   setTimeout(()=>el.classList.remove('show'),2500);
 }
 
+if(window.matchMedia('(pointer:coarse)').matches)document.body.classList.add('touch-device');
 loadDB();loadSaves();
 </script>
 </body>
