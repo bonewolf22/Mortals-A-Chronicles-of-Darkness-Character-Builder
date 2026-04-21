@@ -2023,16 +2023,8 @@ function buildSectionHTML(sd){
               <input value="${escH(cv.embed4||'')}" oninput="setCipherField('${sk}','embed4',this.value)" placeholder="Embed…">
             </div>
           </div>
-          <div class="cipher-mobile-node">
-            <div class="cipher-mobile-node-lbl">Final Truth</div>
-            ${taWrap('<textarea rows="3" style="resize:vertical;line-height:1.5" oninput="setCipherField(\''+sk+'\',\'final_truth\',this.value)">'+escH(cv.final_truth||'')+'</textarea>')}
-          </div>
         </div>
-      </div>
-    </div>`;
-  }
-
-  if(t==='covers'){
+        <div class="cipher-final-truth" style="margin-top:8px">
     const sk=sd.state_key||sd.key;
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec" style="margin-top:14px">${lbl}</div>
