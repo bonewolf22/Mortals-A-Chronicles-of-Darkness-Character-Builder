@@ -1,6 +1,6 @@
 # Mortals+ — Chronicles of Darkness Character Sheet Builder
 
-A free, browser-based character sheet builder for the Chronicles of Darkness tabletop RPG system. No installation required.
+Mortals+ is a browser-based character builder and live play aid for Chronicles of Darkness. 
 
 **[Open the app →](https://bonewolf22.github.io/Mortals-A-Chronicles-of-Darkness-Character-Builder/)**
 
@@ -8,17 +8,16 @@ A free, browser-based character sheet builder for the Chronicles of Darkness tab
 
 ## Supported splats
 
-| Splat | Status |
-|---|---|
-| Mortal | ✓ |
-| Hunter: the Vigil | ✓ |
-| Mage: the Awakening | ✓ |
-| Werewolf: the Forsaken | ✓ |
-| Vampire: the Requiem | ✓ |
-| Changeling: the Lost | ✓ |
-| Demon: the Descent | ✓ |
+Mortals+ currently supports mortals characters as well as the following games: 
+- Hunter: The Vigil
+- Mage: The Awakening
+- Werewolf: The Forsaken
+- Vampire: The Requiem
+- Changeling: The Lost
+- Demon: The Descent'
+The remaining main splats as well as half-splats (Ghouls, Proximi, Fractals, etc) are planned for future versions. Deviant is planned for v11. 
 
-More splats are planned. See [Contributing](#contributing) if you'd like to help add one.
+See [Contributing](#contributing) if you'd like to help add one.
 
 ---
 
@@ -60,13 +59,15 @@ Section titles are drag handles — drag any section to reorder it or move it be
 
 Click **Print / Save as PDF** in the toolbar. Your browser's print dialog opens — choose **Save as PDF** and set paper size to **Letter**. All interactive controls are hidden; only the character sheet content prints.
 
+This feature currently isn't perfect and is slated for improvement in a future version. 
+
 ---
 
 ## Saving characters
 
 Characters are saved in your **browser's local storage** — no account or server required. This means:
 
-- Saves are private and never leave your device
+- Saves are local to your device
 - Saves are tied to the browser you use. A character saved in Chrome on your laptop won't appear in Firefox or on your phone
 - To move a character between browsers or devices, use **Export sheet** to download a JSON file, then **Import sheet** on the other browser
 
