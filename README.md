@@ -14,7 +14,8 @@ Mortals+ currently supports mortals characters as well as the following games:
 - Werewolf: The Forsaken
 - Vampire: The Requiem
 - Changeling: The Lost
-- Demon: The Descent'
+- Demon: The Descent
+
 The remaining main splats as well as half-splats (Ghouls, Proximi, Fractals, etc) are planned for future versions. Deviant is planned for v11. 
 
 See [Contributing](#contributing) if you'd like to help add one.
