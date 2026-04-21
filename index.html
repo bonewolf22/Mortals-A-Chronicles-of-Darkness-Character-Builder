@@ -75,6 +75,81 @@
   --info:#1a5fa8;--info-bg:#eef4fb;
   --green:#1a6b3a;--green-bg:#edf7f1;
 }
+/* Mage — deep teal-blue, matching the Mage: the Awakening 2e sheet.          */
+/* Key accent sampled: #004868 (deep teal-blue), icy blue-grey wash.          */
+[data-theme="mage"]{
+  --bg:#e8f0f4;
+  --surface:#f2f7fa;
+  --border:#90b0c0;
+  --border-light:#c0d8e4;
+  --text:#101820;
+  --muted:#2a5060;
+  --faint:#6890a0;
+  --accent:#004868;
+  --accent-hover:#003050;
+  --chip:#d4e8f0;
+  --tag:#c8e0ea;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
+
+/* Werewolf — dark sienna/reddish-brown, matching the Werewolf: the Forsaken 2e sheet. */
+/* Key accent sampled: #784840 (dark sienna), warm sandy/bone wash.           */
+[data-theme="werewolf"]{
+  --bg:#f0ebe4;
+  --surface:#f8f4ee;
+  --border:#c0a898;
+  --border-light:#ddd0c4;
+  --text:#1c1410;
+  --muted:#6a4838;
+  --faint:#a08070;
+  --accent:#784840;
+  --accent-hover:#502e28;
+  --chip:#e8ddd4;
+  --tag:#e0d4c8;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
+
+/* Vampire — deep crimson, matching the Vampire: the Requiem 2e sheet.        */
+/* Key accent sampled: #401010 (deep crimson/near-black red), dark red wash.  */
+[data-theme="vampire"]{
+  --bg:#f0eaea;
+  --surface:#faf4f4;
+  --border:#c8a0a0;
+  --border-light:#e0c8c8;
+  --text:#1c1010;
+  --muted:#703030;
+  --faint:#a87878;
+  --accent:#401010;
+  --accent-hover:#280808;
+  --chip:#ecdcdc;
+  --tag:#e4d0d0;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
+
+/* Changeling — rich emerald green, matching the Changeling: the Lost 2e sheet. */
+/* Key accent sampled: #006038 (emerald green), deep green border art.        */
+[data-theme="changeling"]{
+  --bg:#e8f2ec;
+  --surface:#f2f9f4;
+  --border:#80b890;
+  --border-light:#b8d8c4;
+  --text:#101c14;
+  --muted:#1e5830;
+  --faint:#5a9868;
+  --accent:#006038;
+  --accent-hover:#004028;
+  --chip:#d0ecd8;
+  --tag:#c4e4d0;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
 /* ── End splat themes ─────────────────────────────────────────────────────── */
 
 body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
@@ -642,6 +717,10 @@ body.touch-device .ta-wrap textarea{
         <option value="neutral">Neutral</option>
         <option value="mortal">Mortal</option>
         <option value="hunter">Hunter</option>
+        <option value="mage">Mage</option>
+        <option value="werewolf">Werewolf</option>
+        <option value="vampire">Vampire</option>
+        <option value="changeling">Changeling</option>
       </select>
     </div>
     <div class="cfg-preset-row">
@@ -726,6 +805,10 @@ body.touch-device .ta-wrap textarea{
             <option value="neutral">Neutral</option>
             <option value="mortal">Mortal</option>
             <option value="hunter">Hunter</option>
+            <option value="mage">Mage</option>
+            <option value="werewolf">Werewolf</option>
+            <option value="vampire">Vampire</option>
+            <option value="changeling">Changeling</option>
           </select>
         </div>
         <div class="cfg-preset-row">
