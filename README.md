@@ -1,6 +1,6 @@
 # Mortals+ — Chronicles of Darkness Character Sheet Builder
 
-A free, browser-based character sheet builder for the Chronicles of Darkness tabletop RPG system. No installation required.
+Mortals+ is a browser-based character builder and live play aid for Chronicles of Darkness. 
 
 **[Open the app →](https://bonewolf22.github.io/Mortals-A-Chronicles-of-Darkness-Character-Builder/)**
 
