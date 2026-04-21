@@ -8,15 +8,13 @@ Mortals+ is a browser-based character builder and live play aid for Chronicles o
 
 ## Supported splats
 
-Mortals+ currently supports mortals characters as well as the following games: 
 - Hunter: The Vigil
 - Mage: The Awakening
 - Werewolf: The Forsaken
 - Vampire: The Requiem
 - Changeling: The Lost
 - Demon: The Descent
-
-The remaining main splats as well as half-splats (Ghouls, Proximi, Fractals, etc) are planned for future versions. Deviant is planned for v11. 
+- Deviant: The Renegades
 
 See [Contributing](#contributing) if you'd like to help add one.
 
@@ -51,6 +49,7 @@ Each splat adds its own sections on top of the standard sheet:
 - **Vampire** — Clan/Covenant/Bloodline header, Blood Potency, Humanity, Vitae, Banes, Disciplines, Devotions, Rites & Miracles
 - **Changeling** — Needle/Thread/Seeming/Court/Kith header, Wyrd, Clarity, Glamour, Favored Regalia, Frailties, Touchstones, Goblin Debt, Contracts, Pledges, Seeming Blessing/Curse, Kith Blessing
 - **Demon** — Incarnation/Agenda/Catalyst header, Cover Rating, Primum, Aether, Demonic Form, Embeds, Exploits, Cipher (interactive gear diagram with Embed/Interlock/Cipher/Final Truth fields), Covers (identity cards with Cover Rating dot track, description, and per-cover Merits)
+- **Deviant** — Origin/Clade/Forms header, Stability, Acclimation, Flux, Touchstones, Variations (rated by Magnitude), Scars (rated by Magnitude), Adaptations, Origins
 
 ### Layout
 
@@ -60,7 +59,10 @@ Section titles are drag handles — drag any section to reorder it or move it be
 
 Click **Print / Save as PDF** in the toolbar. Your browser's print dialog opens — choose **Save as PDF** and set paper size to **Letter**. All interactive controls are hidden; only the character sheet content prints.
 
-This feature currently isn't perfect and is slated for improvement in a future version. 
+This feature currently isn't perfect and is slated for improvement in a future version.
+
+### Mobile Use
+While the app is primarily intended for use on full displays or tablets, I have done my best to optimize it for mobile use. There is still room for improvement, so additional contributions for mobile use are welcome. 
 
 ---
 
@@ -68,7 +70,7 @@ This feature currently isn't perfect and is slated for improvement in a future v
 
 Characters are saved in your **browser's local storage** — no account or server required. This means:
 
-- Saves are local to your device
+- Saves are local to your device (they are not saved on any servers)
 - Saves are tied to the browser you use. A character saved in Chrome on your laptop won't appear in Firefox or on your phone
 - To move a character between browsers or devices, use **Export sheet** to download a JSON file, then **Import sheet** on the other browser
 
@@ -109,8 +111,6 @@ Distributes dots using standard Chronicles of Darkness starting spreads:
 
 ## Contributing
 
-Contributions to the content library (merits, abilities, weapons, etc.) and new splats are welcome.
-
 Everything that can be customised lives in **`data.json`** — no code changes are needed for most additions. See [CUSTOMISATION_GUIDE.md](CUSTOMISATION_GUIDE.md) for a full walkthrough, from adding a single merit to building a complete new splat.
 
 For code contributions, the entire frontend lives in `index.html` as a single file with no build step or dependencies.
@@ -119,4 +119,4 @@ For code contributions, the entire frontend lives in `index.html` as a single fi
 
 ## License
 
-Fan tool. Chronicles of Darkness is a trademark of Paradox Interactive AB. Not affiliated with or endorsed by Paradox Interactive.
+Fan tool. Chronicles of Darkness is a trademark of Paradox Interactive AB. Not affiliated with or endorsed by Paradox Interactive. Any contributor is welcome to make their own fork of this app as long as they do not charge money or otherwise use it for commercial gain. 
