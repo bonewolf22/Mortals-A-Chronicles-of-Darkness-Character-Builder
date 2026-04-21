@@ -985,6 +985,117 @@
       "state_key": "praxes",
       "default": false,
       "db_key": "praxes"
+    },
+    {
+      "key": "demon-header-fields",
+      "label": "Demon Identity",
+      "group": "Demon",
+      "zone": "header",
+      "order": 7,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        { "key": "demon_incarnation", "label": "Incarnation" },
+        { "key": "demon_agenda",      "label": "Agenda" },
+        { "key": "demon_catalyst",    "label": "Catalyst" }
+      ]
+    },
+    {
+      "key": "cover-beats-xp",
+      "label": "Cover Beats",
+      "group": "Demon",
+      "zone": "beats",
+      "order": 3,
+      "type": "beats-xp",
+      "default": false,
+      "beats_key": "cover_beats",
+      "xp_key": "cover_experience"
+    },
+    {
+      "key": "cover-rating",
+      "label": "Cover",
+      "group": "Demon",
+      "zone": "right-column",
+      "order": 2,
+      "type": "dot-track",
+      "state_key": "cover_rating",
+      "default": false,
+      "max": 10,
+      "default_value": 7
+    },
+    {
+      "key": "primum",
+      "label": "Primum",
+      "group": "Demon",
+      "zone": "right-column",
+      "order": 3,
+      "type": "dot-track",
+      "state_key": "primum",
+      "default": false,
+      "max": 10
+    },
+    {
+      "key": "aether",
+      "label": "Aether",
+      "group": "Demon",
+      "zone": "right-column",
+      "order": 4,
+      "type": "resource-track",
+      "state_key": "aether",
+      "default": false
+    },
+    {
+      "key": "demonic-form",
+      "label": "Demonic Form",
+      "group": "Demon",
+      "zone": "left-column",
+      "order": 3,
+      "type": "named-list",
+      "state_key": "demonic_form",
+      "default": false,
+      "db_key": "demonic_form"
+    },
+    {
+      "key": "embeds",
+      "label": "Embeds",
+      "group": "Demon",
+      "zone": "left-column",
+      "order": 4,
+      "type": "named-list",
+      "state_key": "embeds",
+      "default": false,
+      "db_key": "embeds"
+    },
+    {
+      "key": "exploits",
+      "label": "Exploits",
+      "group": "Demon",
+      "zone": "left-column",
+      "order": 5,
+      "type": "named-list",
+      "state_key": "exploits",
+      "default": false,
+      "db_key": "exploits"
+    },
+    {
+      "key": "cipher",
+      "label": "Cipher",
+      "group": "Demon",
+      "zone": "full-width-bottom",
+      "order": 14,
+      "type": "cipher-block",
+      "state_key": "cipher",
+      "default": false
+    },
+    {
+      "key": "covers",
+      "label": "Covers",
+      "group": "Demon",
+      "zone": "full-width-bottom",
+      "order": 15,
+      "type": "covers",
+      "state_key": "covers",
+      "default": false
     }
   ],
   "_presets_comment": [
@@ -1060,7 +1171,17 @@
         "seeming-blessing": false,
         "seeming-curse": false,
         "kith-blessing": false,
-        "praxes": false
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false
       }
     },
     {
@@ -1128,7 +1249,17 @@
         "seeming-blessing": false,
         "seeming-curse": false,
         "kith-blessing": false,
-        "praxes": false
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false
       }
     },
     {
@@ -1196,7 +1327,17 @@
         "seeming-blessing": false,
         "seeming-curse": false,
         "kith-blessing": false,
-        "praxes": true
+        "praxes": true,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false
       }
     },
     {
@@ -1264,7 +1405,17 @@
         "seeming-blessing": false,
         "seeming-curse": false,
         "kith-blessing": false,
-        "praxes": false
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false
       }
     },
     {
@@ -1332,7 +1483,17 @@
         "seeming-blessing": false,
         "seeming-curse": false,
         "kith-blessing": false,
-        "praxes": false
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false
       }
     },
     {
@@ -1400,7 +1561,96 @@
         "seeming-blessing": true,
         "seeming-curse": true,
         "kith-blessing": true,
-        "praxes": false
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false
+      }
+    },
+    {
+      "name": "Demon",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "cover-beats-xp": true,
+        "attributes": true,
+        "skills": true,
+        "other-traits": true,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": true,
+        "endowments": false,
+        "tactics": false,
+        "weapons": true,
+        "armor": true,
+        "equipment": true,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": true,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": true,
+        "cover-beats-xp": true,
+        "cover-rating": true,
+        "primum": true,
+        "aether": true,
+        "demonic-form": true,
+        "embeds": true,
+        "exploits": true,
+        "cipher": true,
+        "covers": true
       }
     }
   ],
@@ -3244,5 +3494,124 @@
     }
   ],
   "_praxes_comment": "praxes: Mage Praxes — spells the Mage has mastered. Each entry: { name, desc }",
-  "praxes": []
+    "_praxes_comment": "praxes: Mage Praxes — spells the Mage has mastered. Each entry: { name, desc }",
+  "praxes": [],
+  "_demon_comment": "── Demon: the Descent content lists ──────────────────────────────────────────",
+  "_demonic_form_comment": "demonic_form: a demon's Demonic Form manifestations. Each entry: { name, desc }",
+  "demonic_form": [
+    {
+      "name": "Claws",
+      "desc": "The demon manifests razor-edged talons. Adds 2L damage to unarmed attacks. The claws count as a weapon for the purposes of the Relentless attack action."
+    },
+    {
+      "name": "Armored Plates",
+      "desc": "Overlapping plates of supernatural material cover the demon's body, granting 2/2 armour that does not impose a Defense penalty."
+    },
+    {
+      "name": "Enhanced Senses",
+      "desc": "The demon's sensory apparatus exceeds human limits. Negates all penalties from darkness, distance, or distraction for Perception rolls. Also grants the ability to detect Aether within Primum yards."
+    },
+    {
+      "name": "Flight",
+      "desc": "The demon grows wings or manifests a levitation system; Speed is doubled and the demon can fly at full Speed, ignoring ground-level terrain."
+    },
+    {
+      "name": "Hydraulic Frame",
+      "desc": "Reinforced musculature and a reinforced skeleton grant +2 to Strength for feat-of-strength rolls and increase the demon's Size by 1 while manifested."
+    },
+    {
+      "name": "Stygian Shroud",
+      "desc": "The demon radiates unnatural darkness in a Primum-yard radius. Humans and other mortals within the area must succeed on a Resolve + Composure roll or gain the Frightened Condition."
+    },
+    {
+      "name": "Vocal Override",
+      "desc": "The demon's voice resonates at an unnatural frequency. Once per scene the demon may issue a one-word command; any mortal who hears it must succeed on a Resolve + Composure roll or comply for one turn."
+    },
+    {
+      "name": "Electromagnetic Pulse",
+      "desc": "The demon can emit a pulse that disables electronic devices within Primum yards for one turn; affected devices must be manually reset. Costs 1 Aether."
+    }
+  ],
+  "_embeds_comment": "embeds: a demon's known Embeds. Each entry: { name, desc }",
+  "embeds": [
+    {
+      "name": "Broadcast",
+      "desc": "The demon subtly rewrites a mortal's memory of a single recent event, replacing it with a version the demon specifies. The target must be within sight. Contested roll: Manipulation + Subterfuge vs. Resolve + Composure. Duration: Permanent until the inconsistency is pointed out."
+    },
+    {
+      "name": "Calculated Risk",
+      "desc": "The demon perceives probability distributions over an area. For the scene, the demon gains a +2 bonus to all dice pools involving risk assessment, gambling, and tactical planning. Cost: 1 Aether."
+    },
+    {
+      "name": "Clean Slate",
+      "desc": "The demon erases a mortal's memory of the past hour. The target experiences the time as a brief blackout. Dice: Intelligence + Subterfuge. Contested by Resolve + Composure. Duration: Permanent."
+    },
+    {
+      "name": "Cold Read",
+      "desc": "The demon instantly analyses a target's psychological profile. Dice: Wits + Empathy. Success provides the target's Virtue, Vice, and primary emotional state. No cost."
+    },
+    {
+      "name": "Encrypt",
+      "desc": "The demon encodes a message, object, or location in a way only a specific recipient can perceive. The information appears as noise to all others. Duration: Permanent until the recipient decodes it."
+    },
+    {
+      "name": "Fiber Optics",
+      "desc": "The demon taps into any networked electronic device within line of sight, reading its contents or accessing its camera and microphone as if physically present. Dice: Intelligence + Computer. Cost: 1 Aether."
+    },
+    {
+      "name": "Go Bag",
+      "desc": "The demon conceals equipment in a pocket of space outside normal reality. The demon may store up to Size 5 worth of equipment and retrieve any item as an instant action. Cost: 1 Aether to store or retrieve."
+    },
+    {
+      "name": "Hard Reboot",
+      "desc": "The demon force-restarts a mortal's nervous system, immediately ending any Conditions caused by mental powers, drugs, or mundane emotional manipulation. Dice: Intelligence + Medicine. Instant action."
+    },
+    {
+      "name": "Imposter",
+      "desc": "The demon adjusts her Cover identity on the fly, altering superficial appearance details — hair, eye colour, vocal pitch — within the scope of an existing Cover. Duration: Scene."
+    },
+    {
+      "name": "Persistence",
+      "desc": "The demon tags a mortal, vehicle, or location with a microscopic tracking transmitter. She always knows the target's location to within 10 metres for a number of days equal to Primum."
+    },
+    {
+      "name": "Redirect",
+      "desc": "The demon causes a pursuing or attacking individual to momentarily lose track of their target, believing they went a different direction. Dice: Manipulation + Stealth vs. Wits + Composure."
+    },
+    {
+      "name": "Remote Access",
+      "desc": "The demon can remotely operate any machine she has previously touched for a number of turns equal to Primum. Dice: Intelligence + Crafts. Operates at -2 to all related dice pools."
+    }
+  ],
+  "_exploits_comment": "exploits: a demon's known Exploits. Each entry: { name, desc }",
+  "exploits": [
+    {
+      "name": "Blackout",
+      "desc": "Cost: 1 Aether. The demon generates an electromagnetic pulse that disables all non-Unchained technology within Primum × 3 yards for one scene. Dice: Presence + Science. Unchained technology is unaffected."
+    },
+    {
+      "name": "Caustic Ooze",
+      "desc": "Cost: 1 Aether. The demon secretes a corrosive fluid. Targets within arm's reach suffer 1 aggravated damage per turn for a number of turns equal to Primum unless they spend an action removing it."
+    },
+    {
+      "name": "Daemonite",
+      "desc": "Cost: 2 Aether. The demon temporarily installs a fragment of her true self in a mortal, granting that mortal the ability to use one of her Embeds once before the fragment burns out. Dice: Intelligence + Occult."
+    },
+    {
+      "name": "Hellfire",
+      "desc": "Cost: 1 Aether. The demon channels divine fire, hurling a bolt that deals Primum lethal damage at Range: Primum × 5 yards. Dice: Dexterity + Firearms. The fire ignites flammable materials."
+    },
+    {
+      "name": "Shockwave",
+      "desc": "Cost: 1 Aether. The demon releases a burst of kinetic force in all directions, knocking all targets within Primum yards prone and dealing 1 bashing damage. Dice: Strength + Athletics. Instant action."
+    },
+    {
+      "name": "System Failure",
+      "desc": "Cost: 2 Aether. The demon causes a catastrophic failure in one piece of complex machinery (vehicle, computer system, power grid segment). The failure lasts for a scene and cannot be repaired by mundane means during that time."
+    },
+    {
+      "name": "Vanish",
+      "desc": "Cost: 1 Aether. The demon immediately exits demonic form and refreshes her active Cover, appearing as an entirely mundane person. All Compromise suspicion accrued this scene is erased. Instant action."
+    }
+  ]
 }

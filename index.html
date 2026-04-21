@@ -150,6 +150,24 @@
   --info:#1a5fa8;--info-bg:#eef4fb;
   --green:#1a6b3a;--green-bg:#edf7f1;
 }
+/* Demon — gunmetal slate, matching the Demon: the Descent sheet.              */
+/* Key accent sampled: #2a2f38 (near-black steel), cool grey industrial wash.  */
+[data-theme="demon"]{
+  --bg:#eaecf0;
+  --surface:#f4f5f7;
+  --border:#9ca4b0;
+  --border-light:#c8cdd6;
+  --text:#141820;
+  --muted:#404858;
+  --faint:#7880a0;
+  --accent:#2a2f38;
+  --accent-hover:#14181e;
+  --chip:#dde0e8;
+  --tag:#d4d8e4;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
 /* ── End splat themes ─────────────────────────────────────────────────────── */
 
 body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
@@ -337,6 +355,56 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .sec-block.drag-over-after{border-bottom:2px solid var(--accent)}
 .sec-block.dragging{opacity:.4}
 .drop-zone-highlight{outline:2px dashed var(--border);outline-offset:-2px;border-radius:4px;background:var(--chip)}
+
+/* ── Cipher block ─────────────────────────────────────────────────────────── */
+.cipher-outer{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.cipher-diagram{position:relative;width:100%;max-width:560px;margin:0 auto}
+/* SVG gear diagram sits behind the input fields */
+.cipher-svg{display:block;width:100%;height:auto}
+/* Overlay grid: 3 cols × 3 rows over the SVG region */
+.cipher-fields-grid{
+  position:absolute;inset:0;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:1fr 1fr 1fr;
+  pointer-events:none;
+}
+.cipher-cell{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:4px 6px;pointer-events:all;
+}
+.cipher-cell-lbl{font-size:.52rem;font-family:sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);text-align:center;margin-bottom:2px}
+.cipher-cell input{
+  width:100%;font-family:sans-serif;font-size:.78rem;
+  border:none;border-bottom:1.5px solid var(--border);
+  background:rgba(255,255,255,.65);color:var(--text);
+  padding:2px 3px;outline:none;text-align:center;border-radius:0;
+}
+.cipher-cell input:focus{border-bottom-color:var(--accent);background:rgba(255,255,255,.9)}
+/* Centre cipher cell spans middle */
+.cipher-cell.cipher-centre{grid-column:2;grid-row:2;}
+.cipher-cell.cipher-centre input{font-size:.85rem;font-weight:700;background:rgba(255,255,255,.8)}
+.cipher-final-truth{margin-top:4px}
+.cipher-final-truth-lbl{font-size:.62rem;font-family:sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin-bottom:3px}
+
+/* ── Covers section ───────────────────────────────────────────────────────── */
+.covers-list{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.cover-card{border:1px solid var(--border-light);border-radius:6px;overflow:hidden}
+.cover-card-hd{display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer;user-select:none;background:var(--surface)}
+.cover-card-hd:hover{background:var(--chip)}
+.cover-card-name{font-family:sans-serif;font-size:.85rem;font-weight:700;flex:1;border:none;border-bottom:1px solid transparent;background:transparent;color:var(--text);outline:none;padding:1px 0;cursor:text}
+.cover-card-name:focus{border-bottom-color:var(--border-light)}
+.cover-card-toggle{font-size:.65rem;color:var(--faint);transition:transform .15s;flex-shrink:0}
+.cover-card.open .cover-card-toggle{transform:rotate(90deg)}
+.cover-card-body{display:none;padding:8px 10px 12px;border-top:1px solid var(--border-light);background:var(--surface)}
+.cover-card.open .cover-card-body{display:block}
+.cover-meta-row{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;margin-bottom:8px}
+.cover-rating-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;font-family:sans-serif;font-size:.82rem}
+.cover-rating-lbl{color:var(--muted);white-space:nowrap}
+.cover-merits-hd{font-size:.65rem;font-family:sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:8px 0 4px;border-top:1px solid var(--border-light);padding-top:6px}
+.cover-merit-row{display:flex;align-items:center;gap:5px;margin-bottom:3px;font-family:sans-serif;font-size:.8rem}
+.cover-merit-name{flex:1;color:var(--text)}
+.cover-merit-dots{display:flex;gap:2px}
 
 /* ── Touch-device styles ──────────────────────────────────────────────────── */
 /* Applied via JS: body.touch-device when (pointer:coarse) is detected.       */
@@ -721,6 +789,7 @@ body.touch-device .ta-wrap textarea{
         <option value="werewolf">Werewolf</option>
         <option value="vampire">Vampire</option>
         <option value="changeling">Changeling</option>
+        <option value="demon">Demon</option>
       </select>
     </div>
     <div class="cfg-preset-row">
@@ -809,6 +878,7 @@ body.touch-device .ta-wrap textarea{
             <option value="werewolf">Werewolf</option>
             <option value="vampire">Vampire</option>
             <option value="changeling">Changeling</option>
+            <option value="demon">Demon</option>
           </select>
         </div>
         <div class="cfg-preset-row">
@@ -1175,7 +1245,7 @@ function updateLayoutLockButton(){
 }
 
 function applyTheme(theme){
-  theme=theme||'mortal';
+  theme=theme||'neutral';
   STATE.theme=theme;
   document.body.setAttribute('data-theme',theme);
   // Keep both selectors in sync
@@ -1183,7 +1253,10 @@ function applyTheme(theme){
   const dr=document.getElementById('drawerThemeSelect');
   if(d)d.value=theme;
   if(dr)dr.value=theme;
-  autosave();
+  // Silently persist if a character is already saved
+  if(currentSaveId&&STATE.id){
+    try{localStorage.setItem(LS_PREFIX+STATE.id,JSON.stringify(STATE));}catch(e){}
+  }
 }
 
 function initCollapsibleSections(){
@@ -1409,6 +1482,8 @@ function _baseCharacterFields(attrs,skills){
     else if(t==='resource-track')base[sk]=Array(20).fill(false);
     else if(t==='arcana-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
     else if(t==='renown-block')base[sk]={cunning:0,glory:0,honor:0,purity:0,wisdom:0};
+    else if(t==='cipher-block')base[sk]={embed1:'',embed2:'',embed3:'',embed4:'',interlock1:'',interlock2:'',interlock3:'',cipher:'',final_truth:''};
+    else if(t==='covers')base[sk]=[];
   });
   return{id:_uuid(),name:'',concept:'',virtue:'',vice:'',
     attributes:attrs,skills,size,
@@ -1487,6 +1562,21 @@ function patchState(){
       else if(t==='renown-block'){
         if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
         ['cunning','glory','honor','purity','wisdom'].forEach(k=>{if(STATE[sk][k]==null)STATE[sk][k]=0;});
+      }
+      else if(t==='cipher-block'){
+        if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
+        ['embed1','embed2','embed3','embed4','interlock1','interlock2','interlock3','cipher','final_truth'].forEach(k=>{
+          if(STATE[sk][k]==null)STATE[sk][k]='';
+        });
+      }
+      else if(t==='covers'){
+        if(!Array.isArray(STATE[sk]))STATE[sk]=[];
+        STATE[sk].forEach(c=>{
+          if(!c.id)c.id=_uuid();
+          if(c.cover_rating==null)c.cover_rating=7;
+          if(!c.notes)c.notes='';
+          if(!Array.isArray(c.merits))c.merits=[];
+        });
       }
     }
   });
@@ -1575,7 +1665,21 @@ function renderSheetZone(zone,containerId){
     else if(t==='arcana-block')renderArcanaBlock(sd);
     else if(t==='renown-block')renderRenownBlock(sd);
     else if(t==='forms-block')renderFormsBlock(sd);
+    else if(t==='cipher-block'){/* fields rendered inline in buildSectionHTML */}
+    else if(t==='covers')renderCovers(sd.state_key||sd.key,`${sd.state_key||sd.key}-list`);
   });
+}
+
+// Builds one embed+interlock node overlay box for the cipher diagram
+function buildCipherNode(sk,cv,embedKey,embedLbl,interlockKey,interlockLbl){
+  return '<div style="display:flex;flex-direction:column;gap:2px;padding:5px 8px;width:100%">'
+    +'<div class="cipher-cell-lbl" style="font-size:.5rem">'+interlockLbl+'</div>'
+    +'<input style="width:100%;font-family:sans-serif;font-size:.72rem;border:none;border-bottom:1px solid var(--border-light);background:transparent;color:var(--muted);padding:1px 3px;outline:none;text-align:center"'
+    +' value="'+escH(cv[interlockKey]||'')+'" oninput="setCipherField(\''+sk+'\',\''+interlockKey+'\',this.value)" placeholder="Interlock…">'
+    +'<div class="cipher-cell-lbl" style="margin-top:3px">'+embedLbl+'</div>'
+    +'<input style="width:100%;font-family:sans-serif;font-size:.78rem;border:none;border-bottom:1.5px solid var(--border);background:transparent;color:var(--text);padding:2px 3px;outline:none;text-align:center"'
+    +' value="'+escH(cv[embedKey]||'')+'" oninput="setCipherField(\''+sk+'\',\''+embedKey+'\',this.value)" placeholder="Embed…">'
+    +'</div>';
 }
 
 function buildSectionHTML(sd){
@@ -1790,6 +1894,90 @@ function buildSectionHTML(sd){
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec" style="margin-top:14px">${lbl}</div>
       <div class="sec-collapsible-body"><div class="forms-wrap"><div class="forms-table" id="forms-table-inner-${sd.key}"></div></div></div>
+    </div>`;
+  }
+
+  if(t==='cipher-block'){
+    const sk=sd.state_key||sd.key;
+    const cv=STATE[sk]||{};
+    const teethLines=Array.from({length:12},(_,i)=>{
+      const a=i*30*Math.PI/180,r1=50,r2=57;
+      const x1=(280+r1*Math.cos(a)).toFixed(1),y1=(127+r1*Math.sin(a)).toFixed(1);
+      const x2=(280+r2*Math.cos(a)).toFixed(1),y2=(127+r2*Math.sin(a)).toFixed(1);
+      return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="var(--border)" stroke-width="3.5"/>';
+    }).join('');
+    // Layout (matches official sheet):
+    // Top    (y=8)  : Embed 1 only — no interlock
+    // Right  (x=400): Interlock 1 above Embed 2
+    // Bottom (y=182): Interlock 2 above Embed 3
+    // Left   (x=18) : Interlock 3 above Embed 4
+    // Centre         : Cipher
+    // Node rects: top/bottom 130×62, left/right 142×62
+    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
+      <div class="sec" style="margin-top:14px">${lbl}</div>
+      <div class="sec-collapsible-body">
+        <div class="cipher-outer">
+          <div class="cipher-diagram">
+            <svg class="cipher-svg" viewBox="0 0 560 270" xmlns="http://www.w3.org/2000/svg" style="pointer-events:none">
+              <defs>
+                <filter id="gshadow" x="-15%" y="-15%" width="130%" height="130%">
+                  <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,.15)"/>
+                </filter>
+              </defs>
+              <!-- connectors -->
+              <line x1="160" y1="127" x2="226" y2="127" stroke="var(--border)" stroke-width="2"/>
+              <line x1="334" y1="127" x2="400" y2="127" stroke="var(--border)" stroke-width="2"/>
+              <line x1="280" y1="8"   x2="280" y2="73"  stroke="var(--border)" stroke-width="2"/>
+              <line x1="280" y1="181" x2="280" y2="187" stroke="var(--border)" stroke-width="2"/>
+              <!-- centre gear ring -->
+              <circle cx="280" cy="127" r="54" fill="var(--chip)" stroke="var(--border)" stroke-width="2" filter="url(#gshadow)"/>
+              <circle cx="280" cy="127" r="46" fill="var(--surface)" stroke="var(--border-light)" stroke-width="1"/>
+              ${teethLines}
+              <!-- node rects — top (embed 1 only, 44px tall), others 72px tall -->
+              <rect x="215" y="8"   width="130" height="44" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5" filter="url(#gshadow)"/>
+              <rect x="215" y="187" width="130" height="72" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5" filter="url(#gshadow)"/>
+              <rect x="18"  y="91"  width="142" height="72" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5" filter="url(#gshadow)"/>
+              <rect x="400" y="91"  width="142" height="72" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5" filter="url(#gshadow)"/>
+            </svg>
+            <!-- Top: Embed 1 only -->
+            <div style="position:absolute;top:8px;left:215px;width:130px;display:flex;flex-direction:column;gap:2px;padding:5px 8px">
+              <div class="cipher-cell-lbl">Embed 1</div>
+              <input style="width:100%;font-family:sans-serif;font-size:.78rem;border:none;border-bottom:1.5px solid var(--border);background:transparent;color:var(--text);padding:2px 3px;outline:none;text-align:center"
+                value="${escH(cv.embed1||'')}" oninput="setCipherField('${sk}','embed1',this.value)" placeholder="Embed…">
+            </div>
+            <!-- Right: Interlock 1 / Embed 2 -->
+            <div style="position:absolute;top:91px;left:400px;width:142px">${buildCipherNode(sk,cv,'embed2','Embed 2','interlock1','Interlock 1')}</div>
+            <!-- Bottom: Interlock 2 / Embed 3 -->
+            <div style="position:absolute;top:187px;left:215px;width:130px">${buildCipherNode(sk,cv,'embed3','Embed 3','interlock2','Interlock 2')}</div>
+            <!-- Left: Interlock 3 / Embed 4 -->
+            <div style="position:absolute;top:91px;left:18px;width:142px">${buildCipherNode(sk,cv,'embed4','Embed 4','interlock3','Interlock 3')}</div>
+            <!-- Centre: Cipher -->
+            <div style="position:absolute;top:92px;left:228px;width:104px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 6px">
+              <div class="cipher-cell-lbl" style="font-size:.5rem;letter-spacing:.05em">Cipher</div>
+              <input style="width:100%;font-family:sans-serif;font-size:.82rem;font-weight:700;border:none;border-bottom:1.5px solid var(--border);background:transparent;color:var(--text);padding:2px 3px;outline:none;text-align:center"
+                value="${escH(cv.cipher||'')}" oninput="setCipherField('${sk}','cipher',this.value)" placeholder="…">
+            </div>
+          </div>
+          <div class="cipher-final-truth" style="margin-top:8px">
+            <div class="cipher-final-truth-lbl">Final Truth</div>
+            ${taWrap('<textarea rows="3" style="resize:vertical;line-height:1.5" oninput="setCipherField(\''+sk+'\',\'final_truth\',this.value)">'+escH(cv.final_truth||'')+'</textarea>')}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  if(t==='covers'){
+    const sk=sd.state_key||sd.key;
+    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
+      <div class="sec" style="margin-top:14px">${lbl}</div>
+      <div class="sec-collapsible-body">
+        <div class="covers-list" id="${sk}-list"></div>
+        <div class="add-row" style="margin-top:6px">
+          <button onclick="addCover('${sk}')">+ Add Cover</button>
+        </div>
+        <div class="hint">Each Cover represents a false identity. Cover Rating tracks how intact the identity is.</div>
+      </div>
     </div>`;
   }
 
@@ -2263,6 +2451,112 @@ function renderFormsBlock(sd){
       ${traitRows}
     </div>`;
   }).join('');
+}
+
+// ── Cipher functions ──────────────────────────────────────────────────────────
+function setCipherField(sk,field,val){
+  if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
+  STATE[sk][field]=val;
+}
+
+// ── Covers functions ──────────────────────────────────────────────────────────
+function addCover(sk){
+  if(!Array.isArray(STATE[sk]))STATE[sk]=[];
+  STATE[sk].push({id:_uuid(),name:'New Cover',age:'',appearance:'',cover_rating:7,notes:'',merits:[]});
+  renderCovers(sk,`${sk}-list`);
+}
+function removeCover(sk,id){
+  if(!Array.isArray(STATE[sk]))return;
+  STATE[sk]=STATE[sk].filter(c=>c.id!==id);
+  renderCovers(sk,`${sk}-list`);
+}
+function setCoverField(sk,id,field,val){
+  const c=(STATE[sk]||[]).find(x=>x.id===id);if(c)c[field]=val;
+}
+function setCoverRating(sk,id,val){
+  const c=(STATE[sk]||[]).find(x=>x.id===id);if(!c)return;
+  c.cover_rating=c.cover_rating===val?val-1:val;
+  // re-render just the dot row for this cover
+  const dotEl=document.getElementById(`cover-rating-dots-${id}`);
+  if(dotEl)dotEl.innerHTML=buildCoverRatingDots(sk,id,c.cover_rating);
+}
+function buildCoverRatingDots(sk,id,rating){
+  return Array.from({length:10},(_,i)=>i+1).map(d=>
+    `<span class="dot${rating>=d?' filled':''}" onclick="setCoverRating('${sk}','${id}',${d})"></span>`
+  ).join('');
+}
+function addCoverMerit(sk,id){
+  const dropId=`cover-merit-drop-${id}`,searchId=`cover-merit-search-${id}`;
+  const drop=document.getElementById(dropId),search=document.getElementById(searchId);
+  if(!drop||!search)return;
+  const val=(drop.value&&drop.value!=='')?drop.value:search.value.trim();if(!val)return;
+  const c=(STATE[sk]||[]).find(x=>x.id===id);if(!c)return;
+  if(!Array.isArray(c.merits))c.merits=[];
+  const found=DB.merits?DB.merits.find(m=>m.name===val):null;
+  c.merits.push({name:val,rating:found?found.rating||1:1,desc:found?found.desc||'':''});
+  renderCovers(sk,`${sk}-list`);
+}
+function removeCoverMerit(sk,id,mi){
+  const c=(STATE[sk]||[]).find(x=>x.id===id);if(!c||!c.merits)return;
+  c.merits.splice(mi,1);
+  renderCovers(sk,`${sk}-list`);
+}
+function setCoverMeritRating(sk,id,mi,val){
+  const c=(STATE[sk]||[]).find(x=>x.id===id);if(!c||!c.merits)return;
+  c.merits[mi].rating=val;
+  renderCovers(sk,`${sk}-list`);
+}
+function renderCovers(sk,listId){
+  const el=document.getElementById(listId);if(!el)return;
+  const covers=STATE[sk]||[];
+  const meritsDB=DB.merits||[];
+  el.innerHTML=covers.map(c=>{
+    const ratingDots=buildCoverRatingDots(sk,c.id,c.cover_rating||7);
+    const meritRows=(c.merits||[]).map((m,mi)=>{
+      const mDots=Array.from({length:5},(_,i)=>i+1).map(d=>
+        `<span class="dot${(m.rating||0)>=d?' filled':''}" onclick="setCoverMeritRating('${sk}','${c.id}',${mi},${d})"></span>`
+      ).join('');
+      return `<div class="cover-merit-row">
+        <span class="cover-merit-name">${escH(m.name||'')}</span>
+        <div class="cover-merit-dots">${mDots}</div>
+        <button class="sm danger" onclick="removeCoverMerit('${sk}','${c.id}',${mi})">✕</button>
+      </div>`;
+    }).join('');
+    return `<div class="cover-card open" id="cover-card-${c.id}">
+      <div class="cover-card-hd" onclick="toggleCoverCard('${c.id}')">
+        <span class="cover-card-toggle">&#9654;</span>
+        <input class="cover-card-name" value="${escH(c.name||'')}" placeholder="Cover name"
+          onclick="event.stopPropagation()" onchange="setCoverField('${sk}','${c.id}','name',this.value)">
+        <span style="font-size:.72rem;font-family:sans-serif;color:var(--muted);flex-shrink:0">Rating ${c.cover_rating||0}/10</span>
+        <button class="sm danger" onclick="event.stopPropagation();removeCover('${sk}','${c.id}')">Remove</button>
+      </div>
+      <div class="cover-card-body">
+        <div class="cover-rating-row">
+          <span class="cover-rating-lbl">Cover Rating</span>
+          <div class="dot-row" id="cover-rating-dots-${c.id}">${ratingDots}</div>
+          <span style="color:var(--muted);font-size:.72rem;font-family:sans-serif;margin-left:4px">(${c.cover_rating||0}/10)</span>
+        </div>
+        <div class="field-wrap" style="margin-bottom:8px">
+          <span class="field-lbl">Description</span>
+          ${taWrap(`<textarea rows="2" style="resize:vertical" oninput="setCoverField('${sk}','${c.id}','notes',this.value)">${escH(c.notes||'')}</textarea>`)}
+        </div>
+        <div class="cover-merits-hd">Cover Merits</div>
+        ${meritRows}
+        <div class="add-row" style="margin-top:5px">
+          <input id="cover-merit-search-${c.id}" placeholder="Search merits…"
+            oninput="filterSelect('cover-merit-search-${c.id}','cover-merit-drop-${c.id}',DB.merits||[])">
+          <select id="cover-merit-drop-${c.id}"><option disabled selected value="">— pick —</option></select>
+          <button onclick="addCoverMerit('${sk}','${c.id}')">Add</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  // Re-fill all cover merit dropdowns
+  covers.forEach(c=>refillSelect(`cover-merit-drop-${c.id}`,meritsDB));
+}
+function toggleCoverCard(id){
+  const card=document.getElementById(`cover-card-${id}`);
+  if(card)card.classList.toggle('open');
 }
 
 function renderGenericRatedList(sd){
