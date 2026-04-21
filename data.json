@@ -368,7 +368,7 @@
       "key": "tactics",
       "label": "Tactics",
       "group": "Hunter",
-      "zone": "right-column",
+      "zone": "left-column",
       "order": 6,
       "type": "named-list",
       "state_key": "tactics",
@@ -2007,647 +2007,99 @@
   ],
   "merits": [
     {
-      "name": "Armed and Dangerous",
+      "name": "Area of Expertise",
       "rating": 2,
-      "desc": "The entity is accustomed to fighting with weapons. It does not suffer the normal -1 penalty when wielding an improvised weapon, and adds 1 to its weapon attack pools."
+      "desc": "Requires 2 Resolve and 1 Skill Specialty.Choose a Specialty to assign to this Merit. Forgo the +1 bonus afforded by a Specialty, in exchange for a +2."
     },
     {
-      "name": "Brawling Dodge",
-      "rating": 1,
-      "desc": "When the entity uses its action to dodge, it adds its Brawl rating to its Defense instead of doubling Defense. Requires Brawl 2."
-    },
-    {
-      "name": "Danger Sense",
-      "rating": 2,
-      "desc": "The entity receives a +2 bonus to reflexive Wits + Composure rolls to detect surprise or ambush."
-    },
-    {
-      "name": "Fast Reflexes",
-      "rating": 1,
-      "desc": "Each dot adds +1 to the entity's Initiative modifier. Maximum 3 dots."
-    },
-    {
-      "name": "Fighting Finesse",
-      "rating": 2,
-      "desc": "The entity may substitute Finesse for Power when making attacks with a chosen weapon type. Must be taken separately for each weapon type."
-    },
-    {
-      "name": "Fleet of Foot",
-      "rating": 1,
-      "desc": "Each dot adds +1 to the entity's Speed. Maximum 3 dots."
-    },
-    {
-      "name": "Giant",
-      "rating": 4,
-      "desc": "The entity is Size 6 rather than 5 (or the appropriate size for its type). It gains +1 to Health and +1 to unarmed damage."
-    },
-    {
-      "name": "Giant (Greater)",
-      "rating": 4,
-      "desc": "As Giant, but the entity is Size 7. Gains +2 to Health and +1 to unarmed damage. Suitable for Rank 3+ entities."
-    },
-    {
-      "name": "Hardy",
-      "rating": 1,
-      "desc": "Each dot reduces the penalty the entity suffers from wound penalties by 1. Maximum 3 dots."
-    },
-    {
-      "name": "Heavy Hands",
-      "rating": 2,
-      "desc": "The entity's unarmed attacks deal lethal rather than bashing damage."
-    },
-    {
-      "name": "Iron Stamina",
-      "rating": 1,
-      "desc": "Each dot reduces penalties from fatigue or injury by 1 and adds +1 to resist supernatural fatigue effects. Maximum 3 dots."
-    },
-    {
-      "name": "Quick Draw",
-      "rating": 1,
-      "desc": "The entity may draw and ready a weapon as a reflexive action rather than a standard action. Taken separately per weapon type."
-    },
-    {
-      "name": "Relentless",
-      "rating": 2,
-      "desc": "Once per scene, the entity may reroll a failed Athletics-based roll involving pursuit or endurance."
-    },
-    {
-      "name": "Strong Back",
-      "rating": 1,
-      "desc": "The entity adds +1 to its Strength for the purpose of lifting and carrying only. Does not affect combat."
-    },
-    {
-      "name": "Toxin Resistance",
-      "rating": 2,
-      "desc": "The entity adds +2 to all rolls to resist poisons, drugs, and diseases. Supernatural toxins still apply normally unless the entity has additional protections."
-    },
-    {
-      "name": "Unseen Sense",
+      "name":"Ambidextrous",
       "rating": 3,
-      "desc": "The entity automatically senses the presence of a specific category of supernatural being (chosen at purchase) within its Finesse in yards, as a reflexive Wits + Composure roll."
+      "desc": "Available only at character creation. Your character does not suffer the -2 penalty for using his off hand in combat or to perform other actions."
     }
   ],
   "weapons": [
     {
-      "name": "Unarmed Strike",
-      "weapon_type": "melee",
-      "damage": 0,
-      "initiative_mod": 0,
-      "strength_req": 1,
-      "size": 0,
-      "availability": 0,
-      "special": "Deals bashing damage. Lethal with Heavy Hands Merit.",
-      "notes": ""
-    },
-    {
       "name": "Knife",
       "weapon_type": "melee",
-      "damage": 1,
-      "initiative_mod": 0,
+      "damage": 0,
+      "initiative_mod": -1,
       "strength_req": 1,
       "size": 1,
-      "availability": 2,
-      "special": "Can be thrown (Short range 5 yards).",
+      "availability": 1,
       "notes": ""
     },
     {
-      "name": "Hatchet",
-      "weapon_type": "melee",
-      "damage": 2,
-      "initiative_mod": -1,
-      "strength_req": 2,
-      "size": 2,
-      "availability": 2,
-      "special": "Can be thrown.",
-      "notes": ""
-    },
-    {
-      "name": "Club / Baton",
-      "weapon_type": "melee",
-      "damage": 2,
-      "initiative_mod": 0,
-      "strength_req": 2,
-      "size": 2,
-      "availability": 2,
-      "special": "Deals bashing damage.",
-      "notes": ""
-    },
-    {
-      "name": "Machete",
-      "weapon_type": "melee",
-      "damage": 3,
-      "initiative_mod": -1,
-      "strength_req": 2,
-      "size": 2,
-      "availability": 2,
-      "special": "",
-      "notes": ""
-    },
-    {
-      "name": "Spear",
-      "weapon_type": "melee",
-      "damage": 3,
-      "initiative_mod": 0,
-      "strength_req": 3,
-      "size": 4,
-      "availability": 3,
-      "special": "Reach weapon (+1 yard engagement range).",
-      "notes": ""
-    },
-    {
-      "name": "Sword (one-handed)",
-      "weapon_type": "melee",
-      "damage": 3,
-      "initiative_mod": 0,
-      "strength_req": 2,
-      "size": 3,
-      "availability": 3,
-      "special": "",
-      "notes": ""
-    },
-    {
-      "name": "Axe (one-handed)",
-      "weapon_type": "melee",
-      "damage": 3,
-      "initiative_mod": -1,
-      "strength_req": 3,
-      "size": 3,
-      "availability": 3,
-      "special": "",
-      "notes": ""
-    },
-    {
-      "name": "Great Sword",
-      "weapon_type": "melee",
-      "damage": 4,
-      "initiative_mod": -2,
-      "strength_req": 3,
-      "size": 4,
-      "availability": 4,
-      "special": "Two-handed. +1 die from reach.",
-      "notes": ""
-    },
-    {
-      "name": "Sledgehammer",
-      "weapon_type": "melee",
-      "damage": 4,
-      "initiative_mod": -3,
-      "strength_req": 4,
-      "size": 4,
-      "availability": 2,
-      "special": "Two-handed. Bashing damage.",
-      "notes": ""
-    },
-    {
-      "name": "Claws (natural)",
-      "weapon_type": "melee",
-      "damage": 2,
-      "initiative_mod": 1,
-      "strength_req": 1,
-      "size": 0,
-      "availability": 0,
-      "special": "Innate \u2014 cannot be disarmed.",
-      "notes": ""
-    },
-    {
-      "name": "Bite (natural)",
-      "weapon_type": "melee",
-      "damage": 2,
-      "initiative_mod": 0,
-      "strength_req": 1,
-      "size": 0,
-      "availability": 0,
-      "special": "Grapple required in most circumstances. Innate.",
-      "notes": ""
-    },
-    {
-      "name": "Pistol",
-      "weapon_type": "ranged",
-      "damage": 2,
-      "initiative_mod": 0,
-      "strength_req": 2,
-      "size": 1,
-      "availability": 4,
-      "weapon_subtype": "Firearm",
-      "ranges": "20/40/80",
-      "clip": 10,
-      "notes": "Loud. Semi-auto."
-    },
-    {
-      "name": "Shotgun",
-      "weapon_type": "ranged",
-      "damage": 4,
-      "initiative_mod": -1,
-      "strength_req": 3,
-      "size": 3,
-      "availability": 4,
-      "weapon_subtype": "Firearm",
-      "ranges": "20/40/80",
-      "clip": 5,
-      "notes": "Two-handed. 9-again at short range."
-    },
-    {
-      "name": "Rifle",
-      "weapon_type": "ranged",
-      "damage": 4,
-      "initiative_mod": -2,
-      "strength_req": 3,
-      "size": 4,
-      "availability": 4,
-      "weapon_subtype": "Firearm",
-      "ranges": "200/400/800",
-      "clip": 5,
-      "notes": "Two-handed. Bolt-action requires action to rechamber."
-    },
-    {
-      "name": "Assault Rifle",
-      "weapon_type": "ranged",
-      "damage": 4,
-      "initiative_mod": -2,
-      "strength_req": 3,
-      "size": 4,
-      "availability": 5,
-      "weapon_subtype": "Firearm",
-      "ranges": "150/300/600",
-      "clip": 30,
-      "notes": "Two-handed. Can fire in burst (+2 dice, +1 ammo used)."
-    },
-    {
-      "name": "Bow",
-      "weapon_type": "ranged",
-      "damage": 2,
-      "initiative_mod": -2,
-      "strength_req": 3,
-      "size": 4,
-      "availability": 3,
-      "weapon_subtype": "Archery",
-      "ranges": "30/60/120",
-      "clip": 1,
-      "notes": "Silent. Requires action to nock each arrow."
-    },
-    {
-      "name": "Crossbow",
-      "weapon_type": "ranged",
-      "damage": 3,
-      "initiative_mod": -4,
-      "strength_req": 2,
-      "size": 3,
-      "availability": 3,
-      "weapon_subtype": "Archery",
-      "ranges": "40/80/160",
-      "clip": 1,
-      "notes": "Requires action to reload. Does not require Str to maintain draw."
-    },
-    {
-      "name": "Thrown knife",
+      "name": "Pistol, Light",
       "weapon_type": "ranged",
       "damage": 1,
       "initiative_mod": 0,
-      "strength_req": 1,
+      "strength_req": 2,
       "size": 1,
-      "availability": 2,
-      "weapon_subtype": "Thrown",
-      "ranges": "5/10/20",
-      "clip": 1,
-      "notes": "Recoverable after use."
+      "availability": 3,
+      "ranges": "20/40/80",
+      "clip": 17,
+      "notes": ""
     }
   ],
   "armor": [
-    {
-      "name": "Thick Hide",
-      "armor_general": 1,
-      "armor_ballistic": 0,
-      "defense_penalty": 0,
-      "strength_req": 0,
-      "availability": 0,
-      "notes": "Natural toughened skin or hide. Innate; cannot be removed."
-    },
-    {
-      "name": "Iron Skin",
-      "armor_general": 2,
-      "armor_ballistic": 1,
-      "defense_penalty": 0,
-      "strength_req": 0,
-      "availability": 0,
-      "notes": "Hardened supernatural flesh or carapace. Innate."
-    },
-    {
-      "name": "Stone Shell",
-      "armor_general": 4,
-      "armor_ballistic": 2,
-      "defense_penalty": -2,
-      "strength_req": 4,
-      "availability": 0,
-      "notes": "Rocky or mineral plating. Significant mobility penalty. Innate."
-    },
     {
       "name": "Reinforced Clothing",
       "armor_general": 1,
       "armor_ballistic": 0,
       "defense_penalty": 0,
       "strength_req": 1,
-      "availability": 2,
-      "notes": "Heavy leather jacket, padded coat, or similar. No obvious armour appearance."
+      "availability": 1,
+      "notes": "This armor is concealed. Covers torso, arms, and legs."
     },
     {
-      "name": "Leather Armour",
-      "armor_general": 1,
-      "armor_ballistic": 0,
-      "defense_penalty": 0,
-      "strength_req": 1,
-      "availability": 2,
-      "notes": "Hardened leather cuirass and limb guards."
-    },
-    {
-      "name": "Kevlar Vest",
-      "armor_general": 1,
-      "armor_ballistic": 3,
-      "defense_penalty": 0,
-      "strength_req": 1,
-      "availability": 4,
-      "notes": "Concealable under clothing. Excellent ballistic protection; weak against melee."
-    },
-    {
-      "name": "Chainmail",
-      "armor_general": 2,
-      "armor_ballistic": 1,
-      "defense_penalty": -1,
-      "strength_req": 3,
-      "availability": 3,
-      "notes": "Historical or ritual chainmail."
-    },
-    {
-      "name": "Flak Jacket",
-      "armor_general": 2,
-      "armor_ballistic": 4,
-      "defense_penalty": -1,
-      "strength_req": 2,
-      "availability": 4,
-      "notes": "Military-grade body armour. Obvious and conspicuous."
-    },
-    {
-      "name": "Full Plate",
-      "armor_general": 3,
-      "armor_ballistic": 1,
+      "name": "Plate",
+      "armor_general": 4,
+      "armor_ballistic": 2,
       "defense_penalty": -2,
-      "strength_req": 4,
-      "availability": 4,
-      "notes": "Full suit of plate armour. Conspicuous and restrictive. Historical or ritual use."
-    },
-    {
-      "name": "Riot Gear",
-      "armor_general": 3,
-      "armor_ballistic": 4,
-      "defense_penalty": -2,
+      "speed_penalty": -3,
       "strength_req": 3,
       "availability": 4,
-      "notes": "Full riot control armour including helmet and shield. Severely conspicuous."
+      "notes": "Covers torso, arms, and legs."
     }
   ],
   "equipment": [
     {
       "name": "Flashlight",
-      "dice_bonus": 0,
-      "durability": 1,
+      "dice_bonus": 1,
+      "durability": 2,
+      "size": 1,
+      "structure": 3,
+      "availability": 1,
+      "desc": "Die bonus subtracts from any penalties due to darkness, and adds to any rolls to search in the dark. Some can also be used as a club. Also can blind a subject. Roll Dexterity + Athletics, subtracting opponent's Defense. The victim’s player. If your character scores more successes than the subject, the subject is blinded for one turn. Victims with especially acute senses are blinded for two turns."
+    },
+    {
+      "name": "Smartphone",
+      "dice_bonus": 1,
+      "durability": 2,
       "size": 1,
       "structure": 1,
-      "availability": 2,
-      "desc": "Heavy-duty torch. Counts as a club (Damage +1) if used as an improvised weapon."
-    },
-    {
-      "name": "Rope (10m)",
-      "dice_bonus": 0,
-      "durability": 2,
-      "size": 3,
-      "structure": 5,
-      "availability": 2,
-      "desc": "Sturdy hemp or nylon rope. Can bear up to 250kg. Useful for climbing, restraint, or rigging."
-    },
-    {
-      "name": "Lock picks",
-      "dice_bonus": 2,
-      "durability": 1,
-      "size": 1,
-      "structure": 2,
-      "availability": 4,
-      "desc": "A set of picks and tension wrenches. Adds +2 to Larceny rolls to open mechanical locks."
-    },
-    {
-      "name": "First aid kit",
-      "dice_bonus": 1,
-      "durability": 1,
-      "size": 2,
-      "structure": 3,
-      "availability": 2,
-      "desc": "Basic medical supplies. Allows a Medicine roll to heal 1 bashing damage outside of combat. Single use before restocking."
-    },
-    {
-      "name": "Mobile phone",
-      "dice_bonus": 0,
-      "durability": 1,
-      "size": 1,
-      "structure": 2,
-      "availability": 2,
-      "desc": "A smartphone with camera, GPS, and internet access. Battery lasts approximately one day of moderate use."
-    },
-    {
-      "name": "Handcuffs",
-      "dice_bonus": 0,
-      "durability": 3,
-      "size": 1,
-      "structure": 4,
-      "availability": 4,
-      "desc": "Steel restraints. Escapable with a Strength + Athletics roll at -3, or with a Larceny roll and something to pick the lock."
-    },
-    {
-      "name": "Binoculars",
-      "dice_bonus": 2,
-      "durability": 1,
-      "size": 1,
-      "structure": 2,
-      "availability": 2,
-      "desc": "Optical magnification x10. Removes the -2 penalty for observing targets at medium range."
-    },
-    {
-      "name": "Occult texts",
-      "dice_bonus": 1,
-      "durability": 2,
-      "size": 2,
-      "structure": 4,
-      "availability": 3,
-      "desc": "A collection of grimoires, field notes, or translated manuscripts. Adds +1 to Occult rolls on relevant topics at Storyteller discretion."
-    },
-    {
-      "name": "Ritual components",
-      "dice_bonus": 0,
-      "durability": 1,
-      "size": 2,
-      "structure": 3,
-      "availability": 3,
-      "desc": "Candles, chalk, salt, herbs, and other materials commonly used in supernatural rituals. Counts as having materials for one scene of ritual preparation."
-    },
-    {
-      "name": "Zip ties (x10)",
-      "dice_bonus": 0,
-      "durability": 1,
-      "size": 1,
-      "structure": 2,
-      "availability": 2,
-      "desc": "Plastic cable restraints. Easier to apply than handcuffs but also easier to escape (Strength roll at no penalty to break)."
-    },
-    {
-      "name": "Gas mask",
-      "dice_bonus": 0,
-      "durability": 2,
-      "size": 2,
-      "structure": 4,
-      "availability": 4,
-      "desc": "Provides immunity to airborne toxins, tear gas, and smoke inhalation. Imposes -1 to Perception rolls. Filter lasts approximately 4 hours."
-    },
-    {
-      "name": "Burner phone",
-      "dice_bonus": 0,
-      "durability": 1,
-      "size": 1,
-      "structure": 2,
-      "availability": 2,
-      "desc": "A prepaid phone with no traceable registration. Useful for anonymous communication. No internet access."
+      "availability": 1,
+      "desc": "Increases dice bonus to +2 if bought at Availability 3. A smartphone with camera, GPS, and internet access. Battery lasts approximately one day of moderate use."
     }
   ],
   "tilts": [
     {
       "name": "Arm Wrack",
-      "desc": "One of the character's arms is damaged and unusable. They cannot use two-handed weapons or take actions requiring both arms. Any action using that arm suffers a -2 penalty. Ended when the injury is healed to Aggravated or with a Medicine roll."
+      "desc": "One of the character's arms is damaged and unusable. They cannot use two-handed weapons or take actions requiring both arms. Any action suffers a -2 offhand penalty if taken with the offhand. Ended when the injury is healed."
     },
     {
       "name": "Beaten Down",
-      "desc": "The character has taken a serious beating and their will to fight is shaken. They must spend a Willpower point to take any aggressive action. Ended when they regain Willpower or the scene ends."
-    },
-    {
-      "name": "Blind",
-      "desc": "The character cannot see. All actions relying on sight automatically fail or suffer -3 dice. Attacks against the character gain +2 dice. Ended when vision is restored or the duration expires."
-    },
-    {
-      "name": "Deafened",
-      "desc": "The character cannot hear. Perception rolls involving sound automatically fail. Social actions involving communication may also fail. Surprise attacks are far more likely. Ended when hearing is restored."
-    },
-    {
-      "name": "Exhausted",
-      "desc": "The character is physically spent. All Physical dice pools suffer a -2 penalty. The character cannot sprint. Ended with a scene of rest or the expenditure of Willpower."
-    },
-    {
-      "name": "Leg Wrack",
-      "desc": "One of the character's legs is damaged. Their Speed is halved and they cannot run. Climbing, jumping, and similar actions suffer -2. Ended when the injury is healed to Aggravated or with a Medicine roll."
-    },
-    {
-      "name": "Knocked Down",
-      "desc": "The character has been knocked prone. All physical actions suffer a -2 penalty until they stand. Standing up costs their action for the turn. Ranged attacks against them gain +2 dice."
-    },
-    {
-      "name": "Stunned",
-      "desc": "The character is dazed and loses their next action entirely. They may still defend reflexively. Ended automatically after one turn."
-    },
-    {
-      "name": "Notched Blade",
-      "desc": "A melee weapon has been damaged. It inflicts -1 damage per attack. If rolled again, the weapon breaks entirely. Ended when the weapon is repaired or replaced."
-    },
-    {
-      "name": "Poisoned",
-      "desc": "The character has been exposed to a toxin. They suffer a cumulative -1 penalty to all dice pools each turn until treated. A Medicine roll can slow or end the effect. Severity depends on the poison."
-    },
-    {
-      "name": "Burning",
-      "desc": "The character is on fire. They suffer 1 point of Aggravated damage per turn until the fire is extinguished. Taking a full action to stop, drop, and roll reduces this. Water or a fire extinguisher ends the Tilt immediately."
-    },
-    {
-      "name": "Drowning",
-      "desc": "The character is submerged and running out of air. They may hold their breath for a number of turns equal to Stamina. After that, they begin taking Lethal damage each turn. Ended when they reach air."
-    },
-    {
-      "name": "Immobilized",
-      "desc": "The character cannot move from their current position. They may still act from that position but cannot close distance or flee. Ended when the restraint is removed or broken."
-    },
-    {
-      "name": "Afraid",
-      "desc": "The character is gripped by fear of a specific thing or person. They must succeed on a Resolve + Composure roll to approach or act against the source of fear. Failure means they must flee or freeze. Ended when the source is removed or the scene ends."
-    },
-    {
-      "name": "Confused",
-      "desc": "The character is disoriented and cannot act with purpose. All Mental and Social dice pools suffer -2. The character cannot use complex plans or coordinate actions. Ended when the cause is resolved or the scene ends."
-    },
-    {
-      "name": "Distracted",
-      "desc": "The character's attention is divided. All Perception rolls suffer -2 and they lose their Defense against the first attack in any turn they take a non-combat action. Ended when the distraction is removed."
-    },
-    {
-      "name": "Insensate",
-      "desc": "The character is overwhelmed and unresponsive. They cannot take actions or make decisions. They may still be moved and will defend themselves reflexively. Ended when the cause is resolved."
+      "desc": "The player must spend a point of Willpower each time he wants the character to take a violent action. Ends when the character surrenders." 
     }
   ],
   "conditions": [
     {
-      "name": "Afraid",
-      "desc": "The character is frightened of a specific thing, person, or situation (note the source). They must spend a Willpower point to approach or act against it. Resolved: when the character flees the source or successfully overcomes it at personal cost."
-    },
-    {
-      "name": "Aggressive",
-      "desc": "The character is consumed by anger and violent impulse. They gain +2 to attack rolls but suffer -2 to all non-combat actions. They must succeed on a Resolve + Composure roll to avoid lashing out when provoked. Resolved: when the character walks away from a fight they could have won, or calms down through roleplay."
-    },
-    {
-      "name": "Broken",
-      "desc": "The character's will is shattered. They cannot spend Willpower points and suffer -2 to all dice pools. Resolved: with extended downtime, therapy, or a Beat-worthy moment of recovery."
-    },
-    {
-      "name": "Confused",
-      "desc": "The character does not understand what is happening around them. They must succeed on a Wits + Composure roll before taking any planned action, or waste their action. Resolved: when someone takes time to explain the situation and the character accepts it."
-    },
-    {
-      "name": "Demoralized",
-      "desc": "The character has lost confidence in themselves or their cause. They cannot spend Willpower on actions related to their Vice, and suffer -1 to Resolve-based rolls. Resolved: when the character accomplishes something meaningful against the odds."
-    },
-    {
-      "name": "Distracted",
-      "desc": "The character's attention is pulled in two directions. They lose their Defense in any turn they take a non-combat action and suffer -2 to Perception rolls. Resolved: when the source of distraction is handled or removed."
-    },
-    {
-      "name": "Embarrassed",
-      "desc": "The character has been publicly humiliated and their reputation is at stake. Social rolls in the relevant group suffer -2 until they restore their standing. Resolved: when the character successfully reasserts themselves in the relevant social context."
-    },
-    {
-      "name": "Enervated",
-      "desc": "The character's supernatural potency is diminished. The cost of activating supernatural abilities increases by 1 (Essence, Willpower, etc.). Resolved: at the end of the scene or when the character rests fully."
+      "name": "Blind",
+      "desc": "Any rolls requiring sight may only use a chance die. If another sense can be reasonably substituted, make the roll at -3 instead."
     },
     {
       "name": "Inspired",
-      "desc": "The character is energised and motivated. Once per scene, they may reroll a failed dice pool related to their current goal and take the better result. Resolved: when the character uses the benefit, or at the end of the session."
-    },
-    {
-      "name": "Leveraged",
-      "desc": "Someone has leverage over the character \u2014 blackmail, a hostage, a secret. The character must comply with one reasonable demand per scene or face consequences. Resolved: when the leverage is neutralised or the character accepts the consequences."
-    },
-    {
-      "name": "Obsessed",
-      "desc": "The character is fixated on a specific goal or object and cannot let it go. They gain +2 to actions directly related to the obsession but must spend Willpower to act contrary to it. Resolved: when the obsession is fulfilled, destroyed, or deliberately abandoned at personal cost."
-    },
-    {
-      "name": "Shaken",
-      "desc": "The character has been rattled and their confidence is undermined. They suffer -2 to Composure rolls and cannot spend Willpower to add dice to rolls. Resolved: when the character succeeds at a significant action despite the odds."
-    },
-    {
-      "name": "Stunned",
-      "desc": "The character is shocked or overwhelmed and cannot act. They lose their action this turn and cannot use Defense. Resolved: automatically at the start of their next turn."
-    },
-    {
-      "name": "Swooned",
-      "desc": "The character is overwhelmed by attraction or admiration for someone. They suffer -2 to rolls made against that person and must succeed on a Composure roll to act against their interests. Resolved: when the relationship changes significantly or the character deliberately pulls back."
-    },
-    {
-      "name": "Tempted",
-      "desc": "The character is being drawn toward a Vice or a course of action they know is wrong. They must succeed on a Resolve + Composure roll to resist acting on the temptation each scene. Resolved: when the character resists the temptation at a moment of genuine cost, or gives in."
-    },
-    {
-      "name": "Wanton",
-      "desc": "The character's Beast (or equivalent drive) is surging to the surface. They gain +1 to Physical actions but must spend Willpower to take any restrained, careful, or social action. Resolved: when the character expresses or suppresses the drive through meaningful action."
+      "desc": "When your character takes an action pertaining to that inspiration, you may resolve this Condition. Gain a Willpower point, and consider the roll an Exceptional Success on three successes, instead of five"
     }
   ],
   "_endowments_comment": [
