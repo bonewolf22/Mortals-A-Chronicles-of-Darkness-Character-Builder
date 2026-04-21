@@ -386,6 +386,19 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .cipher-cell.cipher-centre input{font-size:.85rem;font-weight:700;background:rgba(255,255,255,.8)}
 .cipher-final-truth{margin-top:4px}
 .cipher-final-truth-lbl{font-size:.62rem;font-family:sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin-bottom:3px}
+/* Mobile cipher: vertical stack replaces diagram below 600px */
+.cipher-mobile-stack{display:none}
+.cipher-mobile-node{border:1px solid var(--border-light);border-radius:6px;padding:8px 10px;margin-bottom:6px;background:var(--surface)}
+.cipher-mobile-node-lbl{font-size:.58rem;font-family:sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+.cipher-mobile-field{display:flex;flex-direction:column;gap:2px;margin-bottom:5px}
+.cipher-mobile-field:last-child{margin-bottom:0}
+.cipher-mobile-field-lbl{font-size:.52rem;font-family:sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.cipher-mobile-field input{font-family:sans-serif;font-size:.85rem;border:none;border-bottom:1.5px solid var(--border);background:transparent;color:var(--text);padding:2px 0;outline:none;width:100%}
+.cipher-mobile-field input:focus{border-bottom-color:var(--accent)}
+@media(max-width:600px){
+  .cipher-diagram{display:none}
+  .cipher-mobile-stack{display:block}
+}
 
 /* ── Covers section ───────────────────────────────────────────────────────── */
 .covers-list{display:flex;flex-direction:column;gap:10px;margin-top:4px}
@@ -1960,6 +1973,58 @@ function buildSectionHTML(sd){
           </div>
           <div class="cipher-final-truth" style="margin-top:8px">
             <div class="cipher-final-truth-lbl">Final Truth</div>
+            ${taWrap('<textarea rows="3" style="resize:vertical;line-height:1.5" oninput="setCipherField(\''+sk+'\',\'final_truth\',this.value)">'+escH(cv.final_truth||'')+'</textarea>')}
+          </div>
+        </div>
+        <!-- Mobile fallback: vertical stack shown below 600px instead of diagram -->
+        <div class="cipher-mobile-stack">
+          <div class="cipher-mobile-node">
+            <div class="cipher-mobile-node-lbl">Cipher</div>
+            <div class="cipher-mobile-field">
+              <input style="font-weight:700" value="${escH(cv.cipher||'')}" oninput="setCipherField('${sk}','cipher',this.value)" placeholder="Cipher name…">
+            </div>
+          </div>
+          <div class="cipher-mobile-node">
+            <div class="cipher-mobile-node-lbl">Embed 1</div>
+            <div class="cipher-mobile-field">
+              <input value="${escH(cv.embed1||'')}" oninput="setCipherField('${sk}','embed1',this.value)" placeholder="Embed…">
+            </div>
+          </div>
+          <div class="cipher-mobile-node">
+            <div class="cipher-mobile-node-lbl">Interlock 1 / Embed 2</div>
+            <div class="cipher-mobile-field">
+              <div class="cipher-mobile-field-lbl">Interlock 1</div>
+              <input value="${escH(cv.interlock1||'')}" oninput="setCipherField('${sk}','interlock1',this.value)" placeholder="Interlock…">
+            </div>
+            <div class="cipher-mobile-field">
+              <div class="cipher-mobile-field-lbl">Embed 2</div>
+              <input value="${escH(cv.embed2||'')}" oninput="setCipherField('${sk}','embed2',this.value)" placeholder="Embed…">
+            </div>
+          </div>
+          <div class="cipher-mobile-node">
+            <div class="cipher-mobile-node-lbl">Interlock 2 / Embed 3</div>
+            <div class="cipher-mobile-field">
+              <div class="cipher-mobile-field-lbl">Interlock 2</div>
+              <input value="${escH(cv.interlock2||'')}" oninput="setCipherField('${sk}','interlock2',this.value)" placeholder="Interlock…">
+            </div>
+            <div class="cipher-mobile-field">
+              <div class="cipher-mobile-field-lbl">Embed 3</div>
+              <input value="${escH(cv.embed3||'')}" oninput="setCipherField('${sk}','embed3',this.value)" placeholder="Embed…">
+            </div>
+          </div>
+          <div class="cipher-mobile-node">
+            <div class="cipher-mobile-node-lbl">Interlock 3 / Embed 4</div>
+            <div class="cipher-mobile-field">
+              <div class="cipher-mobile-field-lbl">Interlock 3</div>
+              <input value="${escH(cv.interlock3||'')}" oninput="setCipherField('${sk}','interlock3',this.value)" placeholder="Interlock…">
+            </div>
+            <div class="cipher-mobile-field">
+              <div class="cipher-mobile-field-lbl">Embed 4</div>
+              <input value="${escH(cv.embed4||'')}" oninput="setCipherField('${sk}','embed4',this.value)" placeholder="Embed…">
+            </div>
+          </div>
+          <div class="cipher-mobile-node">
+            <div class="cipher-mobile-node-lbl">Final Truth</div>
             ${taWrap('<textarea rows="3" style="resize:vertical;line-height:1.5" oninput="setCipherField(\''+sk+'\',\'final_truth\',this.value)">'+escH(cv.final_truth||'')+'</textarea>')}
           </div>
         </div>
