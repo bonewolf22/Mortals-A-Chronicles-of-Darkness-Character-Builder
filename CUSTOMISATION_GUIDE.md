@@ -139,7 +139,7 @@ Descriptions should include enough mechanical detail that a player can use the a
 
 ### Named ability lists (name + desc)
 
-The following use `name` + `desc` only (no rating): `contracts`, `pledges`, `praxes`, `tactics`.
+The following use `name` + `desc` only (no rating): `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`.
 
 ```json
 {
@@ -422,7 +422,7 @@ Add every new key to every existing preset, set to `false`:
 "manifestations": false
 ```
 
-Do this for all existing presets (Mortal, Hunter, Mage, Werewolf, Vampire, Changeling).
+Do this for all existing presets (Mortal, Hunter, Mage, Werewolf, Vampire, Changeling, Demon).
 
 ### Step 4 — Add the new preset
 
@@ -446,7 +446,7 @@ No code changes are required. The app derives its content key registry from `sec
 
 The only exception is if you need a **genuinely new section type** not in the existing list. That requires code changes in `index.html`. But for the vast majority of splat sections, existing types are sufficient.
 
-**Available section types:** `header-fields`, `beats-xp`, `attributes`, `skills`, `derived-traits`, `dot-track`, `dot-square-track`, `line-list`, `named-list`, `rated-list`, `resource-track`, `arcana-block`, `renown-block`, `forms-block`, `weapons`, `armor`, `equipment`, `textarea`
+**Available section types:** `header-fields`, `beats-xp`, `attributes`, `skills`, `derived-traits`, `dot-track`, `dot-square-track`, `line-list`, `named-list`, `rated-list`, `resource-track`, `arcana-block`, `renown-block`, `forms-block`, `cipher-block`, `covers`, `weapons`, `armor`, `equipment`, `textarea`
 
 ---
 
@@ -455,7 +455,7 @@ The only exception is if you need a **genuinely new section type** not in the ex
 A few things are wired into the app code and can't be changed via `data.json` alone:
 
 - **The `athletics` skill key** — used in the Defense formula. You can rename its label, but not its key.
-- **Section types** — the `type` field must be one of the supported types listed above. Adding a custom type requires editing `index.html`.
+- **Section types** — the `type` field must be one of the supported types listed above. Adding a custom type requires editing `index.html`. The two Demon-specific types (`cipher-block` and `covers`) are code-backed and cannot be repurposed for other splats via data alone.
 - **Derived stat formulas** — Health, Willpower, Defense, Initiative, and Speed are calculated from fixed attribute combinations. These can only be changed in code.
 - **The 9 core attributes** — attributes are fixed in the app and not driven by `data.json`. Their labels can be changed in code but they cannot be added or removed via data.
 - **Resource track size** — all resource tracks (Mana, Essence, Vitae, Glamour) are always 20 squares. This is hardcoded.
