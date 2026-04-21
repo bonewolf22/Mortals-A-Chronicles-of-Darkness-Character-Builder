@@ -168,6 +168,24 @@
   --info:#1a5fa8;--info-bg:#eef4fb;
   --green:#1a6b3a;--green-bg:#edf7f1;
 }
+/* Deviant — deep crimson-black, matching the Deviant: the Renegades sheet.   */
+/* Key accent sampled: #3a0a0a (very dark red-black), heavy dark palette.     */
+[data-theme="deviant"]{
+  --bg:#f0eaea;
+  --surface:#f9f4f4;
+  --border:#c0a0a0;
+  --border-light:#ddc8c8;
+  --text:#1a1010;
+  --muted:#604040;
+  --faint:#a08080;
+  --accent:#3a0a0a;
+  --accent-hover:#200404;
+  --chip:#ecdcdc;
+  --tag:#e4d0d0;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
 /* ── End splat themes ─────────────────────────────────────────────────────── */
 
 body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
@@ -803,6 +821,7 @@ body.touch-device .ta-wrap textarea{
         <option value="vampire">Vampire</option>
         <option value="changeling">Changeling</option>
         <option value="demon">Demon</option>
+        <option value="deviant">Deviant</option>
       </select>
     </div>
     <div class="cfg-preset-row">
@@ -892,6 +911,7 @@ body.touch-device .ta-wrap textarea{
             <option value="vampire">Vampire</option>
             <option value="changeling">Changeling</option>
             <option value="demon">Demon</option>
+            <option value="deviant">Deviant</option>
           </select>
         </div>
         <div class="cfg-preset-row">
@@ -1490,7 +1510,7 @@ function _baseCharacterFields(attrs,skills){
     if(!sk||sk in base)return;
     if(t==='line-list'||t==='named-list'||t==='rated-list')base[sk]=[];
     else if(t==='textarea')base[sk]='';
-    else if(t==='dot-track')base[sk]=sd.default_value||7;
+    else if(t==='dot-track')base[sk]=sd.default_value||1;
     else if(t==='dot-square-track'){base[sk]=sd.max||10;base[sk+'_squares']=Array(sd.max||10).fill(false);}
     else if(t==='resource-track')base[sk]=Array(20).fill(false);
     else if(t==='arcana-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
@@ -1558,7 +1578,7 @@ function patchState(){
     else if(sk){
       if(t==='line-list'||t==='named-list'||t==='rated-list'){if(!STATE[sk])STATE[sk]=[];}
       else if(t==='textarea'){if(STATE[sk]==null)STATE[sk]='';}
-      else if(t==='dot-track'){if(STATE[sk]==null)STATE[sk]=sd.default_value||7;}
+      else if(t==='dot-track'){if(STATE[sk]==null)STATE[sk]=sd.default_value||1;}
       else if(t==='dot-square-track'){
         if(STATE[sk]==null)STATE[sk]=sd.max||10;
         const sqKey=sk+'_squares';

@@ -17,6 +17,7 @@ A free, browser-based character sheet builder for the Chronicles of Darkness tab
 | Vampire: the Requiem | ✓ |
 | Changeling: the Lost | ✓ |
 | Demon: the Descent | ✓ |
+| Deviant: the Renegades | ✓ |
 
 More splats are planned. See [Contributing](#contributing) if you'd like to help add one.
 
@@ -51,6 +52,7 @@ Each splat adds its own sections on top of the standard sheet:
 - **Vampire** — Clan/Covenant/Bloodline header, Blood Potency, Humanity, Vitae, Banes, Disciplines, Devotions, Rites & Miracles
 - **Changeling** — Needle/Thread/Seeming/Court/Kith header, Wyrd, Clarity, Glamour, Favored Regalia, Frailties, Touchstones, Goblin Debt, Contracts, Pledges, Seeming Blessing/Curse, Kith Blessing
 - **Demon** — Incarnation/Agenda/Catalyst header, Cover Rating, Primum, Aether, Demonic Form, Embeds, Exploits, Cipher (interactive gear diagram with Embed/Interlock/Cipher/Final Truth fields), Covers (identity cards with Cover Rating dot track, description, and per-cover Merits)
+- **Deviant** — Origin/Clade/Forms header, Variation, Stability, Acclimation, Flux, Touchstones, Variations, Scars, Origins
 
 ### Layout
 

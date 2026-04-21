@@ -1,12 +1,12 @@
 {
   "_file_comment": [
-    "Chronicles of Darkness — Mortals+ data file.",
+    "Chronicles of Darkness \u2014 Mortals+ data file.",
     "This file has three sections: CONFIGURATION, then CONTENT.",
     "CONFIGURATION keys drive the app structure and should be edited carefully.",
     "CONTENT keys are lists of game entries freely added, removed, or replaced.",
     "Use the in-app Data Library import/export to share or update content safely."
   ],
-  "_config_comment": "── CONFIGURATION ─────────────────────────────────────────────────────────────",
+  "_config_comment": "\u2500\u2500 CONFIGURATION \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
   "_skills_comment": [
     "skill_definitions: ordered list of all skills available on the sheet.",
     "Each entry: { key, label, category }",
@@ -63,7 +63,7 @@
       "key": "athletics",
       "label": "Athletics",
       "category": "physical",
-      "_note": "athletics key is used in the Defense formula — renaming the label is safe, but do not change the key"
+      "_note": "athletics key is used in the Defense formula \u2014 renaming the label is safe, but do not change the key"
     },
     {
       "key": "brawl",
@@ -148,40 +148,40 @@
     "  label:      display name shown in the Sheet Configuration panel and on the PDF",
     "  group:      config panel group header: Mortal | Hunter | (future splats)",
     "  zone:       where on the sheet this section appears:",
-    "                header            — character header row",
-    "                beats             — beats/XP tracker row (between header and full-width-top)",
-    "                full-width-top    — full-width area below beats, above the two columns",
-    "                left-column       — left column (skills area)",
-    "                right-column      — right column (traits/conditions area)",
-    "                full-width-bottom — full-width area below the two columns",
+    "                header            \u2014 character header row",
+    "                beats             \u2014 beats/XP tracker row (between header and full-width-top)",
+    "                full-width-top    \u2014 full-width area below beats, above the two columns",
+    "                left-column       \u2014 left column (skills area)",
+    "                right-column      \u2014 right column (traits/conditions area)",
+    "                full-width-bottom \u2014 full-width area below the two columns",
     "  order:      sort order within the zone (lower = higher on sheet)",
-    "  type:       rendering type — see list below",
+    "  type:       rendering type \u2014 see list below",
     "  default:    true = visible by default, false = hidden by default",
     "  state_key:  STATE field this section reads/writes (defaults to key if omitted)",
-    "  max_rating: for rated-list — maximum dot rating (default 5)",
-    "  max:        for dot-track — number of dots (default 10)",
-    "  beats_key:  for beats-xp — STATE key for the beats counter (default: 'beats')",
-    "  xp_key:     for beats-xp — STATE key for the experience counter (default: 'experience')",
+    "  max_rating: for rated-list \u2014 maximum dot rating (default 5)",
+    "  max:        for dot-track \u2014 number of dots (default 10)",
+    "  beats_key:  for beats-xp \u2014 STATE key for the beats counter (default: 'beats')",
+    "  xp_key:     for beats-xp \u2014 STATE key for the experience counter (default: 'experience')",
     "",
     "Section types:",
-    "  attributes      — the 9 core attributes (special renderer)",
-    "  skills          — the 27 skills with rote/specialty (special renderer)",
-    "  derived-traits  — health, willpower, defense, initiative, speed (special renderer)",
-    "  dot-track       — a simple 1–N dot track (e.g. Integrity, Humanity)",
-    "  header-fields   — text fields in the character header",
-    "  beats-xp        — a beats counter + XP counter pair (zone: beats)",
-    "  line-list       — a simple list of text lines (e.g. Aspirations, Touchstones)",
-    "  named-list      — collapsible cards with name + description (e.g. Tilts, Tactics)",
-    "  rated-list      — collapsible cards with name + rating + description (e.g. Merits, Endowments)",
-    "  resource-track  — 20 manually-toggled squares in 2 rows of 10 (Mana, Essence, Vitae)",
-    "  arcana-block    — fixed rated list from the section's fields array (Mage Arcana)",
-    "  renown-block    — five named 5-dot tracks in a single block (Werewolf Renown)",
-    "  forms-block     — live reference table showing per-form calculated stats",
-    "  weapons         — weapon cards with full weapon fields (special renderer)",
-    "  armor           — armor cards with full armor fields (special renderer)",
-    "  equipment       — equipment cards with full equipment fields (special renderer)",
-    "  textarea        — a multi-line text area (e.g. Notes, The Code)",
-    "  dot-square-track — dot row (max rating) above square row (current value), like Willpower but data-driven (e.g. Clarity)"
+    "  attributes      \u2014 the 9 core attributes (special renderer)",
+    "  skills          \u2014 the 27 skills with rote/specialty (special renderer)",
+    "  derived-traits  \u2014 health, willpower, defense, initiative, speed (special renderer)",
+    "  dot-track       \u2014 a simple 1\u2013N dot track (e.g. Integrity, Humanity)",
+    "  header-fields   \u2014 text fields in the character header",
+    "  beats-xp        \u2014 a beats counter + XP counter pair (zone: beats)",
+    "  line-list       \u2014 a simple list of text lines (e.g. Aspirations, Touchstones)",
+    "  named-list      \u2014 collapsible cards with name + description (e.g. Tilts, Tactics)",
+    "  rated-list      \u2014 collapsible cards with name + rating + description (e.g. Merits, Endowments)",
+    "  resource-track  \u2014 20 manually-toggled squares in 2 rows of 10 (Mana, Essence, Vitae)",
+    "  arcana-block    \u2014 fixed rated list from the section's fields array (Mage Arcana)",
+    "  renown-block    \u2014 five named 5-dot tracks in a single block (Werewolf Renown)",
+    "  forms-block     \u2014 live reference table showing per-form calculated stats",
+    "  weapons         \u2014 weapon cards with full weapon fields (special renderer)",
+    "  armor           \u2014 armor cards with full armor fields (special renderer)",
+    "  equipment       \u2014 equipment cards with full equipment fields (special renderer)",
+    "  textarea        \u2014 a multi-line text area (e.g. Notes, The Code)",
+    "  dot-square-track \u2014 dot row (max rating) above square row (current value), like Willpower but data-driven (e.g. Clarity)"
   ],
   "section_definitions": [
     {
@@ -295,7 +295,8 @@
       "type": "dot-track",
       "state_key": "integrity",
       "default": true,
-      "max": 10
+      "max": 10,
+      "default_value": 7
     },
     {
       "key": "tilts",
@@ -526,7 +527,8 @@
       "type": "dot-track",
       "state_key": "wisdom",
       "default": false,
-      "max": 10
+      "max": 10,
+      "default_value": 7
     },
     {
       "key": "mana",
@@ -641,7 +643,8 @@
       "type": "dot-track",
       "state_key": "harmony",
       "default": false,
-      "max": 10
+      "max": 10,
+      "default_value": 7
     },
     {
       "key": "essence",
@@ -751,7 +754,8 @@
       "type": "dot-track",
       "state_key": "humanity",
       "default": false,
-      "max": 10
+      "max": 10,
+      "default_value": 7
     },
     {
       "key": "blood-potency",
@@ -995,9 +999,18 @@
       "type": "header-fields",
       "default": false,
       "fields": [
-        { "key": "demon_incarnation", "label": "Incarnation" },
-        { "key": "demon_agenda",      "label": "Agenda" },
-        { "key": "demon_catalyst",    "label": "Catalyst" }
+        {
+          "key": "demon_incarnation",
+          "label": "Incarnation"
+        },
+        {
+          "key": "demon_agenda",
+          "label": "Agenda"
+        },
+        {
+          "key": "demon_catalyst",
+          "label": "Catalyst"
+        }
       ]
     },
     {
@@ -1096,11 +1109,111 @@
       "type": "covers",
       "state_key": "covers",
       "default": false
+    },
+    {
+      "key": "deviant-header-fields",
+      "label": "Deviant Identity",
+      "group": "Deviant",
+      "zone": "header",
+      "order": 8,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "dev_origin",
+          "label": "Origin"
+        },
+        {
+          "key": "dev_clade",
+          "label": "Clade"
+        },
+        {
+          "key": "dev_forms",
+          "label": "Forms"
+        }
+      ]
+    },
+    {
+      "key": "stability",
+      "label": "Stability",
+      "group": "Deviant",
+      "zone": "right-column",
+      "order": 3,
+      "type": "dot-square-track",
+      "state_key": "stability",
+      "default": false,
+      "max": 10,
+      "default_value": 7
+    },
+    {
+      "key": "acclimation",
+      "label": "Acclimation",
+      "group": "Deviant",
+      "zone": "right-column",
+      "order": 4,
+      "type": "dot-track",
+      "state_key": "acclimation",
+      "default": false,
+      "max": 5
+    },
+    {
+      "key": "flux",
+      "label": "Flux",
+      "group": "Deviant",
+      "zone": "right-column",
+      "order": 5,
+      "type": "resource-track",
+      "state_key": "flux",
+      "default": false
+    },
+    {
+      "key": "deviant-touchstones",
+      "label": "Touchstones",
+      "group": "Deviant",
+      "zone": "right-column",
+      "order": 7,
+      "type": "line-list",
+      "state_key": "deviant_touchstones",
+      "default": false
+    },
+    {
+      "key": "variations",
+      "label": "Variations",
+      "group": "Deviant",
+      "zone": "left-column",
+      "order": 3,
+      "type": "rated-list",
+      "state_key": "variations",
+      "default": false,
+      "max_rating": 5,
+      "db_key": "variations"
+    },
+    {
+      "key": "scars",
+      "label": "Scars",
+      "group": "Deviant",
+      "zone": "left-column",
+      "order": 4,
+      "type": "rated-list",
+      "state_key": "scars",
+      "default": false,
+      "max_rating": 5,
+      "db_key": "scars"
+    },
+    {
+      "key": "origins",
+      "label": "Origins",
+      "group": "Deviant",
+      "zone": "full-width-bottom",
+      "order": 16,
+      "type": "textarea",
+      "state_key": "origins",
+      "default": false
     }
   ],
   "_presets_comment": [
     "sheet_presets: named sectionConfig snapshots.",
-    "Applying a preset does a full reset — all sections are set to the values listed.",
+    "Applying a preset does a full reset \u2014 all sections are set to the values listed.",
     "Every section key must be present in each preset.",
     "To add a preset: add an entry with a name and a config covering all section keys.",
     "The 'Mortal' preset represents the default starting configuration."
@@ -1181,7 +1294,15 @@
         "embeds": false,
         "exploits": false,
         "cipher": false,
-        "covers": false
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false
       }
     },
     {
@@ -1259,7 +1380,15 @@
         "embeds": false,
         "exploits": false,
         "cipher": false,
-        "covers": false
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false
       }
     },
     {
@@ -1337,7 +1466,15 @@
         "embeds": false,
         "exploits": false,
         "cipher": false,
-        "covers": false
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false
       }
     },
     {
@@ -1415,7 +1552,15 @@
         "embeds": false,
         "exploits": false,
         "cipher": false,
-        "covers": false
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false
       }
     },
     {
@@ -1493,7 +1638,15 @@
         "embeds": false,
         "exploits": false,
         "cipher": false,
-        "covers": false
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false
       }
     },
     {
@@ -1571,7 +1724,15 @@
         "embeds": false,
         "exploits": false,
         "cipher": false,
-        "covers": false
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false
       }
     },
     {
@@ -1642,7 +1803,6 @@
         "kith-blessing": false,
         "praxes": false,
         "demon-header-fields": true,
-        "cover-beats-xp": true,
         "cover-rating": true,
         "primum": true,
         "aether": true,
@@ -1650,11 +1810,105 @@
         "embeds": true,
         "exploits": true,
         "cipher": true,
-        "covers": true
+        "covers": true,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false
+      }
+    },
+    {
+      "name": "Deviant",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": true,
+        "skills": true,
+        "other-traits": true,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": true,
+        "endowments": false,
+        "tactics": false,
+        "weapons": true,
+        "armor": true,
+        "equipment": true,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": true,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": true,
+        "stability": true,
+        "acclimation": true,
+        "flux": true,
+        "deviant-touchstones": true,
+        "variations": true,
+        "scars": true,
+        "origins": true
       }
     }
   ],
-  "_content_comment": "── CONTENT ───────────────────────────────────────────────────────────────────",
+  "_content_comment": "\u2500\u2500 CONTENT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
   "_names_comment": [
     "mortal_names: names used by the Generate Baseline button.",
     "Add or remove names freely. Order does not matter."
@@ -1729,7 +1983,7 @@
     "Stefan Ionescu",
     "Takeshi Mori",
     "Tariq Abdullahi",
-    "Teresa Álvarez",
+    "Teresa \u00c1lvarez",
     "Thomas Eriksen",
     "Valentina Cruz",
     "Victor Morozov",
@@ -1950,7 +2204,7 @@
       "strength_req": 1,
       "size": 0,
       "availability": 0,
-      "special": "Innate — cannot be disarmed.",
+      "special": "Innate \u2014 cannot be disarmed.",
       "notes": ""
     },
     {
@@ -2367,7 +2621,7 @@
     },
     {
       "name": "Leveraged",
-      "desc": "Someone has leverage over the character — blackmail, a hostage, a secret. The character must comply with one reasonable demand per scene or face consequences. Resolved: when the leverage is neutralised or the character accepts the consequences."
+      "desc": "Someone has leverage over the character \u2014 blackmail, a hostage, a secret. The character must comply with one reasonable demand per scene or face consequences. Resolved: when the leverage is neutralised or the character accepts the consequences."
     },
     {
       "name": "Obsessed",
@@ -2407,129 +2661,14 @@
       "desc": "The hunter blesses herself against supernatural harm. For the rest of the scene she adds her Benediction dots as a bonus to resistance rolls against supernatural powers."
     },
     {
-      "name": "Benediction: Consecration",
-      "rating": 2,
-      "desc": "The hunter sanctifies a location. Creatures of darkness suffer a penalty equal to her Benediction dots on all actions taken within the consecrated area until the next sunrise."
-    },
-    {
-      "name": "Benediction: Exorcism",
-      "rating": 3,
-      "desc": "The hunter performs a rite of exorcism. On a successful extended action she can drive a possessing entity from its host or force a haunting spirit to manifest and face her directly."
-    },
-    {
-      "name": "Benediction: Stigmata",
-      "rating": 4,
-      "desc": "The hunter channels holy suffering into offensive power. She may spend Willpower to inflict lethal damage on supernatural creatures through touch, treating it as aggravated against creatures of darkness."
-    },
-    {
-      "name": "Benediction: The Flames of Purity",
-      "rating": 5,
-      "desc": "The hunter calls down divine fire. She may ignite a target she can see within Short range; the fire counts as a supernatural weapon and inflicts aggravated damage to creatures of darkness."
-    },
-    {
-      "name": "Castigation: Diablerie Ward",
+      "name": "Castigation: Deny",
       "rating": 1,
-      "desc": "The hunter marks herself with infernal sigils that cause pain to vampires who attempt to drain her blood, inflicting a Tilt on the attacker."
+      "desc": "The hunter denies a supernatural being use of one of its powers for the scene. Contested roll: Presence + Intimidation vs. Resolve + Supernatural Tolerance."
     },
     {
-      "name": "Castigation: Infernal Tongue",
-      "rating": 2,
-      "desc": "The hunter speaks the language of Hell. She can communicate with demons and read infernal script, and gains a bonus on rolls to understand or resist demonic influence."
-    },
-    {
-      "name": "Castigation: Shadow Step",
-      "rating": 3,
-      "desc": "The hunter dissolves into shadow and re-emerges elsewhere. Once per scene she may teleport up to a number of yards equal to her Castigation dots times ten, so long as both points are in darkness."
-    },
-    {
-      "name": "Castigation: Hellfire",
-      "rating": 4,
-      "desc": "The hunter projects hellfire as a ranged weapon. She may make ranged attacks with Dexterity + Athletics; the fire inflicts aggravated damage to supernatural creatures and ignores armour."
-    },
-    {
-      "name": "Castigation: The Beast's Skin",
-      "rating": 5,
-      "desc": "The hunter assumes a demonic form, gaining enhanced physical attributes and supernatural resilience. While transformed she is treated as a supernatural creature herself and is immune to most mundane harm."
-    },
-    {
-      "name": "Elixir: Null",
+      "name": "Elixir: Clarity",
       "rating": 1,
-      "desc": "A bitter draught that suppresses the hunter's own supernatural aura for a scene, making her invisible to powers that detect supernatural beings."
-    },
-    {
-      "name": "Elixir: The Jade Tincture",
-      "rating": 2,
-      "desc": "A paralytic compound distilled from rare herbs. On a successful attack the target must succeed on a Stamina roll or be Immobilized for a number of turns equal to the hunter's Elixir dots."
-    },
-    {
-      "name": "Elixir: The Gilded Cage",
-      "rating": 3,
-      "desc": "An alchemical compound that suppresses supernatural powers. A target who ingests or is injected with this elixir loses access to supernatural abilities for one scene per success."
-    },
-    {
-      "name": "Elixir: Eye of Ra",
-      "rating": 4,
-      "desc": "Heightens perception to supernatural levels. For one scene the hunter can perceive all invisible, shrouded, or supernaturally concealed entities and gains a bonus to all Wits-based rolls."
-    },
-    {
-      "name": "Elixir: The Philosopher's Stone",
-      "rating": 5,
-      "desc": "The great work of the Ascending Ones. A dose grants temporary immunity to a specific type of supernatural power chosen when brewed, lasting for one full day."
-    },
-    {
-      "name": "Globalvision: Ghost Channel",
-      "rating": 1,
-      "desc": "The hunter can tune a camera or recording device to capture supernatural phenomena invisible to the naked eye, producing verifiable evidence of the entity's presence."
-    },
-    {
-      "name": "Globalvision: Signal Trace",
-      "rating": 2,
-      "desc": "By analysing electromagnetic interference the hunter can pinpoint the general location of supernatural activity within a radius equal to her Globalvision dots in miles."
-    },
-    {
-      "name": "Globalvision: Dead Air",
-      "rating": 3,
-      "desc": "The hunter broadcasts on a frequency that disrupts supernatural cognition. Entities within earshot must succeed on a Resolve + Composure roll or suffer a penalty to all mental actions for the scene."
-    },
-    {
-      "name": "Globalvision: The Feed",
-      "rating": 4,
-      "desc": "The hunter streams directly to a Network Zero cell. Allies watching the feed may spend their action to relay tactical information, granting the hunter a bonus die on her next roll."
-    },
-    {
-      "name": "Globalvision: Viral Truth",
-      "rating": 5,
-      "desc": "The hunter releases authenticated evidence of the supernatural into a public channel before it can be suppressed. For one chapter, attempts by supernatural entities to maintain their Masquerade-equivalent in the affected area suffer a significant penalty."
-    },
-    {
-      "name": "Profession: Working the Beat",
-      "rating": 1,
-      "desc": "The hunter's day job gives her access to restricted information. Once per session she may ask the Storyteller one question about a target as if she had made a successful research roll."
-    },
-    {
-      "name": "Profession: Muscle Memory",
-      "rating": 2,
-      "desc": "Years of physical labour have honed the hunter's body. She may re-roll one failed die on any Strength or Stamina roll once per scene."
-    },
-    {
-      "name": "Profession: Union Benefits",
-      "rating": 3,
-      "desc": "The hunter calls in favours from her network of working contacts. Once per story she may requisition specialised equipment worth up to Resources 3 without cost."
-    },
-    {
-      "name": "Thaumatechnology: Implanted Weapon",
-      "rating": 2,
-      "desc": "A supernatural organ grafted into the hunter's body that functions as a concealable weapon. It counts as a magical weapon, inflicting lethal damage on entities that resist mundane harm."
-    },
-    {
-      "name": "Thaumatechnology: Hazard Sense",
-      "rating": 3,
-      "desc": "A harvested sensory organ grants the hunter preternatural threat awareness. She is never considered surprised and always acts in the first turn of combat."
-    },
-    {
-      "name": "Thaumatechnology: Regenerative Tissue",
-      "rating": 4,
-      "desc": "Grafted supernatural tissue accelerates healing. Once per scene the hunter may heal two levels of bashing or one level of lethal damage as a reflexive action."
+      "desc": "A distilled compound that clears supernatural mental influence. The drinker immediately ends any active Dominated, Enthralled, or mind-controlled Condition."
     }
   ],
   "_werewolf_forms_comment": [
@@ -2641,119 +2780,9 @@
       "desc": "Purges toxins, disease, and minor supernatural taints from a living body, removing poison or disease Tilts on a success."
     },
     {
-      "name": "Craftsman's Eye (Matter 1)",
+      "name": "Ward (Prime 1)",
       "rating": 1,
-      "desc": "The mage perceives the structure and composition of any crafted object, learning its materials, how it was made, and any flaws."
-    },
-    {
-      "name": "Death Sight (Death 1)",
-      "rating": 1,
-      "desc": "Allows the mage to perceive ghosts, death resonance, and the condition of the recently dead within sensory range."
-    },
-    {
-      "name": "Elsewise (Fate 3)",
-      "rating": 3,
-      "desc": "The mage glimpses the immediate futures of a scene, granting her a reflexive chance to redirect one enemy's attack to a different target each turn."
-    },
-    {
-      "name": "Eye of the Storm (Forces 2)",
-      "rating": 2,
-      "desc": "The mage reads electrical, magnetic, and thermal patterns, letting her detect concealed technology and power sources through solid barriers."
-    },
-    {
-      "name": "Fate's Thread (Fate 1)",
-      "rating": 1,
-      "desc": "The mage perceives the threads of Fate binding those nearby, revealing oaths, prophecies, and connections to other people or objects."
-    },
-    {
-      "name": "Forensic Gaze (Death 2)",
-      "rating": 2,
-      "desc": "By touching a corpse the mage relives the last moments of its life, learning cause of death, identity of attackers, and the emotional state at time of death."
-    },
-    {
-      "name": "Grass Rope (Life 1)",
-      "rating": 1,
-      "desc": "The mage reads the resonance of living things in the area, detecting hidden creatures, tracking quarry through wilderness, and assessing the health of an ecosystem."
-    },
-    {
-      "name": "Imbue Item (Prime 2)",
-      "rating": 2,
-      "desc": "Charges a mundane object with Mana, allowing it to store and release magical energy; the item can later be used as a mana source by any mage who knows the Imbuement."
-    },
-    {
-      "name": "Interconnections (Space 1)",
-      "rating": 1,
-      "desc": "The mage senses sympathetic links between people and objects in her presence, identifying Yantras and gauging the strength of existing connections."
-    },
-    {
-      "name": "Know the Name (Prime 1)",
-      "rating": 1,
-      "desc": "Reveals the true Supernal nature of an object or being, identifying whether it is magical, its approximate power level, and the Arcana used in any active spells upon it."
-    },
-    {
-      "name": "Left-Handed Spanner (Matter 3)",
-      "rating": 3,
-      "desc": "The mage causes a crafted device to fail catastrophically or perfectly, with no apparent cause; machines stop, weapons jam, or structures collapse at her will."
-    },
-    {
-      "name": "Luck Curse (Fate 2)",
-      "rating": 2,
-      "desc": "Tangles the threads of Fate around a target, imposing a penalty on all rolls for the duration as minor misfortunes pile up."
-    },
-    {
-      "name": "Nimbus Thorn (Prime 3)",
-      "rating": 3,
-      "desc": "The mage externalises her Nimbus as a weapon, dealing damage equal to her Gnosis on a successful touch attack; the damage is Supernal and bypasses mundane armour."
-    },
-    {
-      "name": "Omen Gazing (Time 1)",
-      "rating": 1,
-      "desc": "The mage reads temporal resonance around a person or place, gaining impressions of significant past and likely future events."
-    },
-    {
-      "name": "Perfect Moment (Time 2)",
-      "rating": 2,
-      "desc": "The mage attunes to the flow of time, gaining a bonus to Initiative and allowing her to act at the exact right moment once per scene without penalty."
-    },
-    {
-      "name": "Pulse of the Living World (Life 3)",
-      "rating": 3,
-      "desc": "The mage reaches out through the web of living things, sensing the location and rough emotional state of every living creature within a large radius."
-    },
-    {
-      "name": "Read the Outgoing (Mind 1)",
-      "rating": 1,
-      "desc": "The mage scans surface thoughts and emotional states; she cannot read specific words but gains a general sense of intent, deception, and strong feelings."
-    },
-    {
-      "name": "Shatter (Forces 3)",
-      "rating": 3,
-      "desc": "The mage directs kinetic force into a single object or person with devastating precision, dealing aggravated damage to inorganic matter or a heavy bashing blow to living targets."
-    },
-    {
-      "name": "Shifting Sands (Space 2)",
-      "rating": 2,
-      "desc": "The mage warps local space around a target, causing attackers to misjudge distance and angle; the target gains a bonus to Defence for the duration."
-    },
-    {
-      "name": "Spider's Web (Space 3)",
-      "rating": 3,
-      "desc": "The mage anchors sympathetic threads to every target in the scene, allowing her to monitor their location and communicate mentally with any of them for the rest of the chapter."
-    },
-    {
-      "name": "Touch of the Grave (Death 3)",
-      "rating": 3,
-      "desc": "The mage channels death energy through physical contact, draining a target's Willpower and inflicting bashing damage as vital force is siphoned away."
-    },
-    {
-      "name": "Unseen Shield (Mind 2)",
-      "rating": 2,
-      "desc": "Erects a subconscious barrier against mental intrusion; all attempts to read, influence, or control the target's mind suffer a significant penalty."
-    },
-    {
-      "name": "Vance's Principia (Matter 2)",
-      "rating": 2,
-      "desc": "The mage transmutes the surface of an object, altering its material properties without changing its shape — wood becomes steel-hard, cloth becomes fireproof."
+      "desc": "The mage inscribes a magical alarm on a surface or object; she is mentally alerted when a supernatural being touches or crosses it."
     }
   ],
   "_arcana_attainments_comment": "arcana_attainments: Mage Arcana Attainments. Each entry: { name, rating, desc }",
@@ -2767,46 +2796,6 @@
       "name": "Dedicated Magical Tool",
       "rating": 1,
       "desc": "The mage has attuned a personal tool to her magic; when used as a Yantra it provides an additional bonus die beyond the standard Yantra bonus."
-    },
-    {
-      "name": "High Speech Mastery",
-      "rating": 1,
-      "desc": "The mage's command of High Speech is exceptional; she may use it as a Yantra for free without it counting against her Yantra limit for a casting."
-    },
-    {
-      "name": "Mana Sensitivity (Prime 1)",
-      "rating": 1,
-      "desc": "The mage can passively sense Mana flows and concentrations without spending an action, and knows the Mana level of any Hallow she spends time near."
-    },
-    {
-      "name": "Potency Attainment (Any 2)",
-      "rating": 2,
-      "desc": "In her primary Arcanum the mage automatically adds one to the Potency of her spells without spending additional Reach or Mana."
-    },
-    {
-      "name": "Prolonged Casting (Any 2)",
-      "rating": 2,
-      "desc": "The mage may extend the Duration of spells in her primary Arcanum by one step without spending Reach, reflecting deep attunement to that Arcanum's flow."
-    },
-    {
-      "name": "Quicken Spell (Any 3)",
-      "rating": 3,
-      "desc": "The mage may cast Praxis spells in her primary Arcanum as a reflexive action once per scene, reducing casting time to near-instantaneous."
-    },
-    {
-      "name": "Spell Mastery (Any 2)",
-      "rating": 2,
-      "desc": "The mage has mastered a specific Rote to the point of Praxis; she casts it without needing the Rote's dice bonus and it costs one fewer Reach."
-    },
-    {
-      "name": "Temporal Sympathy (Time 2)",
-      "rating": 2,
-      "desc": "The mage can use past versions of a target as a sympathetic connection, reducing the penalty for casting through Time without a current sympathetic link."
-    },
-    {
-      "name": "Veil Mastery (Mind 3)",
-      "rating": 3,
-      "desc": "The mage's understanding of Mind magic extends to perfect concealment of her own thoughts and intentions; mundane and supernatural attempts to read her mind automatically fail unless she allows it."
     }
   ],
   "_legacy_attainments_comment": "legacy_attainments: Mage Legacy Attainments. Each entry: { name, rating, desc }",
@@ -2820,21 +2809,6 @@
       "name": "Second Attainment",
       "rating": 2,
       "desc": "The second Legacy Attainment, typically requiring Gnosis 3 or higher. Record the specific Attainment name and effect here."
-    },
-    {
-      "name": "Third Attainment",
-      "rating": 3,
-      "desc": "The third Legacy Attainment, typically requiring Gnosis 5 or higher. Record the specific Attainment name and effect here."
-    },
-    {
-      "name": "Fourth Attainment",
-      "rating": 4,
-      "desc": "The fourth Legacy Attainment, available only to highly advanced mages. Record the specific Attainment name and effect here."
-    },
-    {
-      "name": "Fifth Attainment",
-      "rating": 5,
-      "desc": "The fifth and final Legacy Attainment, the pinnacle of the Legacy's mysteries. Record the specific Attainment name and effect here."
     }
   ],
   "_gifts_comment": "gifts: Werewolf Gifts. Each entry: { name, rating, desc }",
@@ -2850,94 +2824,9 @@
       "desc": "Floods the body with primal fury, adding the werewolf's Primal Urge to a single Strength roll as bonus dice. Can be used once per scene without cost."
     },
     {
-      "name": "Call the Hunt (Pack 3)",
-      "rating": 3,
-      "desc": "Broadcasts a spiritual hunting call to all pack members regardless of distance; all who hear it know the prey's general location and gain a bonus to pursuit rolls for the scene."
-    },
-    {
-      "name": "Crushing Blow (Strength 2)",
-      "rating": 2,
-      "desc": "The werewolf's strike lands with bone-shattering force; on a successful attack she may apply the Arm Wrack or Leg Wrack Tilt to the target without a called shot."
-    },
-    {
-      "name": "Death Howl (Death 2)",
-      "rating": 2,
-      "desc": "A haunting howl that stuns prey with visions of death; all enemies in earshot must succeed on a Composure + Resolve roll or lose their next action."
-    },
-    {
-      "name": "Dominance Aura (Dominance 2)",
-      "rating": 2,
-      "desc": "The werewolf's authority becomes supernaturally palpable; Dominated subjects gain the Obedient Condition towards her and other pack members gain a bonus to social rolls against the same targets."
-    },
-    {
-      "name": "Eyes of the Crow (Insight 1)",
+      "name": "Sense the Unnatural (Perception 1)",
       "rating": 1,
-      "desc": "Grants the werewolf perfect vision in darkness and allows her to read the emotional resonance of a scene, detecting recent strong emotions like fear, violence, or grief."
-    },
-    {
-      "name": "Flee Before Me (Dominance 3)",
-      "rating": 3,
-      "desc": "The werewolf releases a wave of primal terror; all non-supernatural beings in the area must succeed on a Resolve + Composure roll or flee at top speed for the rest of the scene."
-    },
-    {
-      "name": "Ghostly Howl (Insight 2)",
-      "rating": 2,
-      "desc": "The werewolf's howl crosses the Gauntlet, communicating a simple message to spirits in the Shadow nearby and drawing their attention to a point of her choosing."
-    },
-    {
-      "name": "Hone Gastro (Purity 1)",
-      "rating": 1,
-      "desc": "The werewolf's natural weapons become spiritually charged; her teeth and claws inflict aggravated damage to spirits and other supernatural beings for the scene."
-    },
-    {
-      "name": "Iron Resilience (Resilience 1)",
-      "rating": 1,
-      "desc": "The werewolf ignores wound penalties for the scene and may continue acting normally until incapacitated, shrugging off injuries that would cripple a lesser being."
-    },
-    {
-      "name": "Loping Stride (Swiftness 1)",
-      "rating": 1,
-      "desc": "Doubles the werewolf's Speed for the scene and allows her to move through difficult terrain without penalty."
-    },
-    {
-      "name": "Pack Awareness (Pack 1)",
-      "rating": 1,
-      "desc": "The werewolf always knows the direction and rough distance to each pack member, and can sense when a pack member is in danger or experiencing strong emotions."
-    },
-    {
-      "name": "Primal Fear (Cunning 2)",
-      "rating": 2,
-      "desc": "The werewolf exploits an enemy's deepest survival instincts; the target loses half their dice pool (rounded up) on all actions for the scene as fight-or-flight overwhelms higher thought."
-    },
-    {
-      "name": "Read the Wind (Insight 1)",
-      "rating": 1,
-      "desc": "The werewolf's senses extend to supernatural acuity; she can track any target she has scented within the last 24 hours regardless of terrain, and detects ambushes before they are sprung."
-    },
-    {
-      "name": "Rending Claws (Strength 3)",
-      "rating": 3,
-      "desc": "The werewolf's attacks tear through armour; her natural weapons ignore all mundane armour and reduce supernatural armour by her Strength modifier."
-    },
-    {
-      "name": "Shadow Step (Cunning 3)",
-      "rating": 3,
-      "desc": "The werewolf blurs through space with unnatural speed; once per scene she may move up to her Speed times three as an instant action without triggering attacks of opportunity."
-    },
-    {
-      "name": "Slip Away (Cunning 1)",
-      "rating": 1,
-      "desc": "The werewolf becomes supernaturally difficult to track and remember; witnesses who do not already know her forget her appearance within minutes and tracking attempts suffer a significant penalty."
-    },
-    {
-      "name": "Strengthen the Boundary (Purity 2)",
-      "rating": 2,
-      "desc": "The werewolf reinforces the Gauntlet around an area, making it harder for spirits to cross and imposing a penalty on all Reaching and Stepping Sideways attempts for the rest of the scene."
-    },
-    {
-      "name": "Unbreakable (Resilience 3)",
-      "rating": 3,
-      "desc": "Once per story the werewolf may survive a single killing blow, remaining at one Health box regardless of damage dealt; she still suffers all lesser damage normally."
+      "desc": "The werewolf passively detects supernatural beings and phenomena within Primal Urge \u00d7 10 yards; she knows something is present and its general direction, but not its nature."
     }
   ],
   "_rites_comment": "rites: Werewolf Rites. Each entry: { name, rating, desc }",
@@ -2951,46 +2840,6 @@
       "name": "Rite of Healing (Rite 1)",
       "rating": 1,
       "desc": "A ceremony of blood and howling that accelerates supernatural recovery; each participant heals one additional lethal damage per day for the next week."
-    },
-    {
-      "name": "Rite of the Hunting Ground (Rite 2)",
-      "rating": 2,
-      "desc": "Formally claims territory for the pack, spiritually marking borders and alerting nearby spirits to the pack's ownership; trespassers suffer a Bane Tilt while within the territory."
-    },
-    {
-      "name": "Rite of Contrition (Rite 1)",
-      "rating": 1,
-      "desc": "An act of public atonement before the pack and Luna; if performed sincerely after a Harmony-breaking action it reduces the Harmony loss by one."
-    },
-    {
-      "name": "Rite of Binding (Rite 2)",
-      "rating": 2,
-      "desc": "Binds a spirit into an object, location, or the werewolf herself as a fetish or talen, compelling it to serve a defined purpose until the binding is broken."
-    },
-    {
-      "name": "Rite of the Spirit Brand (Rite 2)",
-      "rating": 2,
-      "desc": "Marks a spirit with the pack's spiritual signature; the branded spirit cannot hide from pack members, cannot willingly leave the territory, and suffers a penalty to all rolls while branded."
-    },
-    {
-      "name": "Rite of Warding (Rite 2)",
-      "rating": 2,
-      "desc": "Creates a spiritual barrier around a location that repels spirits of a specific type chosen at casting; spirits must succeed on a Resistance roll to enter."
-    },
-    {
-      "name": "Rite of the Totem (Rite 3)",
-      "rating": 3,
-      "desc": "Formally binds a spirit to the pack as its Totem, establishing the pack's spiritual identity and granting access to the Totem's Influences and Numina as pack boons."
-    },
-    {
-      "name": "Rite of Renown (Rite 3)",
-      "rating": 3,
-      "desc": "A formal recognition ceremony conducted before witnesses; if the Renown deed is accepted, the werewolf gains the Renown dots immediately rather than waiting for story-end."
-    },
-    {
-      "name": "Rite of the Moon's Blessing (Rite 3)",
-      "rating": 3,
-      "desc": "Calls on Luna's favour during a critical moment; all pack members gain a bonus to rolls made in service of their Auspice duty for the duration of the scene."
     }
   ],
   "_disciplines_comment": "disciplines: Vampire Disciplines. Each entry: { name, rating, desc }",
@@ -3001,29 +2850,9 @@
       "desc": "The vampire communicates directly with animals, conveying simple commands and receiving impressions in return; animals will not attack her unless compelled by supernatural means."
     },
     {
-      "name": "Animalism 2: Beckoning",
-      "rating": 2,
-      "desc": "The vampire calls a specific type of animal to her location; a number of creatures equal to her Animalism dots arrive within minutes if any are in the area."
-    },
-    {
-      "name": "Animalism 3: Subsume the Lesser Spirit",
-      "rating": 3,
-      "desc": "The vampire projects her consciousness into an animal's body, controlling it completely while her own body lies catatonic; she experiences everything through the animal's senses."
-    },
-    {
       "name": "Auspex 1: Heightened Senses",
       "rating": 1,
       "desc": "All physical senses operate at supernatural levels; the vampire can see in total darkness, hear whispered conversations across rooms, and smell individuals by their blood."
-    },
-    {
-      "name": "Auspex 2: Aura Perception",
-      "rating": 2,
-      "desc": "The vampire reads the emotional and supernatural aura of a target, learning their general emotional state, whether they are supernatural, and any active supernatural effects on them."
-    },
-    {
-      "name": "Auspex 3: The Spirits Touch",
-      "rating": 3,
-      "desc": "By touching an object the vampire receives psychic impressions of its history and the emotions of those who have handled it, with the most recent and intense impressions being clearest."
     },
     {
       "name": "Celerity 1: Swiftness",
@@ -3031,89 +2860,14 @@
       "desc": "The vampire moves with inhuman speed; she adds her Celerity dots to Initiative and may move an additional number of yards equal to her Celerity on each action."
     },
     {
-      "name": "Celerity 2: Fleetness",
-      "rating": 2,
-      "desc": "The vampire's speed becomes truly supernatural; she may take an additional instant action each turn, though both actions suffer a penalty equal to half her Celerity (round up)."
-    },
-    {
-      "name": "Celerity 3: Blink",
-      "rating": 3,
-      "desc": "The vampire moves so quickly she appears to teleport; once per scene she may move up to her Speed times five as a reflexive action that cannot be interrupted."
-    },
-    {
       "name": "Dominate 1: Mesmerise",
       "rating": 1,
       "desc": "The vampire issues a single spoken command which the target must obey immediately; the command must be short, direct, and completable within a few minutes."
     },
     {
-      "name": "Dominate 2: The Forgetful Mind",
-      "rating": 2,
-      "desc": "The vampire edits a target's memories, removing, altering, or implanting recollections; the target believes the altered memories completely unless confronted with contradicting evidence."
-    },
-    {
-      "name": "Dominate 3: Conditioning",
-      "rating": 3,
-      "desc": "Through repeated sessions the vampire installs a deep compulsion in a target's psyche; the conditioned subject will obey a standing order automatically whenever the trigger condition is met."
-    },
-    {
-      "name": "Majesty 1: Awe",
-      "rating": 1,
-      "desc": "The vampire's presence becomes magnetically compelling; all who can see her must succeed on a Composure + Resolve roll or treat her as a trusted acquaintance for the scene."
-    },
-    {
-      "name": "Majesty 2: Revelation",
-      "rating": 2,
-      "desc": "The vampire's gaze compels honesty; a touched target answers her questions truthfully for the scene, though they may remain silent on topics they find deeply shameful."
-    },
-    {
-      "name": "Majesty 3: Entrancement",
-      "rating": 3,
-      "desc": "The vampire captivates a target completely; the enthralled subject will protect, serve, and obey her for days equal to her Majesty dots, and remembers the experience fondly."
-    },
-    {
-      "name": "Nightmare 1: Dread",
-      "rating": 1,
-      "desc": "The vampire projects supernatural fear at a target; the victim suffers the Shaken Condition and must succeed on a Resolve + Composure roll or flee the vampire's presence."
-    },
-    {
-      "name": "Nightmare 2: Eyes of the Serpent",
-      "rating": 2,
-      "desc": "The vampire's gaze paralyses a target with primal terror, inflicting the Paralysed Tilt; the target stands frozen until the vampire breaks eye contact or the end of the scene."
-    },
-    {
-      "name": "Nightmare 3: The Red Fear",
-      "rating": 3,
-      "desc": "The vampire manifests a target's deepest fear as a vivid hallucination; the victim is Immobilised and takes bashing damage from shock each turn until they succeed on a breaking point."
-    },
-    {
-      "name": "Obfuscate 1: Cloak of Shadows",
-      "rating": 1,
-      "desc": "The vampire becomes difficult to notice while standing still; observers must succeed on a Wits + Composure roll to perceive her, even if they are looking directly at her."
-    },
-    {
-      "name": "Obfuscate 2: Unseen Passage",
-      "rating": 2,
-      "desc": "The vampire moves invisibly even while in motion; she may walk, run, and act normally without being seen, though interacting with objects may reveal her position."
-    },
-    {
       "name": "Resilience 1: Endurance",
       "rating": 1,
       "desc": "The vampire's flesh becomes unnaturally tough; she adds her Resilience dots to her effective Stamina for the purposes of resisting damage and environmental hazards."
-    },
-    {
-      "name": "Resilience 2: Revive the Sleeper",
-      "rating": 2,
-      "desc": "The vampire can rouse herself from Torpor or day sleep in response to immediate danger, waking instantly at the cost of a point of Vitae per level of Resilience."
-    },
-    {
-      "name": "Vigor 1: Prowess",
-      "rating": 1,
-      "desc": "The vampire channels Vitae into raw physical power; she adds her Vigor dots to her effective Strength for a single action, including feats of strength and damage rolls."
-    },
-    {
-      "name": "Vigor 2: Crush",
-      "rating": 2,
-      "desc": "The vampire's grip becomes supernaturally powerful; she automatically wins any contested Strength roll and may crush objects rated at Durability up to her Vigor dots as an instant action."
     }
   ],
   "_devotions_comment": "devotions: Vampire Devotions and Coils. Each entry: { name, rating, desc }",
@@ -3124,59 +2878,9 @@
       "desc": "The vampire has partially tamed her Beast; she gains a bonus to resist frenzy rolls and the threshold for triggering frenzy increases by one step."
     },
     {
-      "name": "Coil of the Beast 2: Lure the Beast",
-      "rating": 2,
-      "desc": "The vampire can voluntarily enter a controlled frenzy state, gaining the physical benefits of frenzy while retaining conscious direction of her actions."
-    },
-    {
-      "name": "Coil of the Beast 3: Lullaby for the Beast",
-      "rating": 3,
-      "desc": "The vampire can suppress another Kindred's Beast temporarily; the target is immune to frenzy for a scene but also loses access to Vitae-fuelled powers during that time."
-    },
-    {
-      "name": "Coil of Blood 1: Blood Seeps Slowly",
+      "name": "Coil of Mortality 1: Mortal Resilience",
       "rating": 1,
-      "desc": "The vampire's nightly Vitae expenditure is reduced by one; she may go an additional night without feeding before suffering hunger penalties."
-    },
-    {
-      "name": "Coil of Blood 2: Herd the Herd",
-      "rating": 2,
-      "desc": "The vampire's feeding becomes more efficient; she extracts maximum Vitae from each feeding and mortals she has fed on before do not notice unusual quantities of blood loss."
-    },
-    {
-      "name": "Coil of Blood 3: Surcease of Seasons",
-      "rating": 3,
-      "desc": "The vampire no longer needs to feed daily; she requires Vitae only once per week without penalty, and may enter a meditative state to reduce her needs further."
-    },
-    {
-      "name": "Coil of Banes 1: Know Thy Bane",
-      "rating": 1,
-      "desc": "The vampire has studied her Bane deeply; she reduces damage taken from her Bane by one point per attack and can recognise her Bane being deployed against her before it affects her."
-    },
-    {
-      "name": "Coil of Banes 2: Bear the Bane",
-      "rating": 2,
-      "desc": "The vampire has hardened herself against her Bane; she may act normally for one additional turn after suffering her Bane before any penalties take effect."
-    },
-    {
-      "name": "Devotion: Bifurcated Strike (Celerity + Vigor)",
-      "rating": 2,
-      "desc": "The vampire makes two simultaneous attacks against the same target; both attacks use the same roll and the target can only apply Defence once against both."
-    },
-    {
-      "name": "Devotion: Awe-Inspiring Dread (Majesty + Nightmare)",
-      "rating": 3,
-      "desc": "The vampire projects simultaneous fascination and terror; targets are simultaneously Enthralled and Shaken, unable to flee but unable to act against her."
-    },
-    {
-      "name": "Devotion: Unseen Predator (Obfuscate + Vigor)",
-      "rating": 2,
-      "desc": "The vampire may make melee attacks while Obfuscated without breaking concealment; each successful hit does not reveal her position as long as she stays in motion."
-    },
-    {
-      "name": "Devotion: Psychic Assault (Dominate + Auspex)",
-      "rating": 3,
-      "desc": "The vampire delivers a telepathic assault against a target she has read with Aura Perception; the target suffers bashing damage equal to the vampire's successes and gains the Confused Condition."
+      "desc": "The vampire's body begins to mimic mortal processes; she no longer suffers the Aura flaw and passes as human to all mundane inspection including medical examination."
     }
   ],
   "_vampire_rites_comment": "vampire_rites: Vampire Rites and Miracles. Each entry: { name, rating, desc }",
@@ -3190,50 +2894,10 @@
       "name": "Rite of Warding (Rite 1)",
       "rating": 1,
       "desc": "Marks a doorway or window with vitae-drawn symbols that alert the vampire when a supernatural being attempts to cross, waking her from day sleep if necessary."
-    },
-    {
-      "name": "Rite of the Loyal Herd (Rite 2)",
-      "rating": 2,
-      "desc": "Performed over a willing mortal; the subject becomes instinctively protective of the vampire and will not speak about her to outsiders without a successful Resolve roll."
-    },
-    {
-      "name": "Rite of Communion (Rite 2)",
-      "rating": 2,
-      "desc": "The covenant's ritual of blood sharing; participants gain a temporary sympathetic link and can sense each other's general emotional state for the chapter."
-    },
-    {
-      "name": "Miracle: Touch of Pestilence (Crúac 2)",
-      "rating": 2,
-      "desc": "The vampire channels blight through physical contact; the target contracts a debilitating illness that imposes cumulative penalties each night until cured by supernatural means."
-    },
-    {
-      "name": "Miracle: Blood Price (Crúac 3)",
-      "rating": 3,
-      "desc": "The vampire marks a target with a blood curse; the next time the target attempts to harm the vampire the curse activates, dealing bashing damage equal to the vampire's Blood Potency."
-    },
-    {
-      "name": "Miracle: Rigor Mortis (Crúac 2)",
-      "rating": 2,
-      "desc": "The vampire channels deathly stillness into a target's muscles; the target suffers the Immobilised Tilt for a number of turns equal to the vampire's successes."
-    },
-    {
-      "name": "Theban Sorcery: Blinding the Pagan (Theban 1)",
-      "rating": 1,
-      "desc": "The vampire calls on divine punishment; a non-Christian supernatural being in her presence must succeed on a Stamina roll or be struck Blind for the scene."
-    },
-    {
-      "name": "Theban Sorcery: Liar's Plague (Theban 2)",
-      "rating": 2,
-      "desc": "The vampire invokes a plague of honesty on a target; the subject is compelled to answer all questions truthfully for the scene and physically cannot speak deliberate falsehoods."
-    },
-    {
-      "name": "Theban Sorcery: Wrathful Judgement (Theban 3)",
-      "rating": 3,
-      "desc": "The vampire pronounces divine sentence on a transgressor; the target takes aggravated damage each turn they act against the vampire's stated interests until they submit or the scene ends."
     }
   ],
   "_tactics_comment": [
-    "tactics: Hunter tactics — coordinated cell manoeuvres.",
+    "tactics: Hunter tactics \u2014 coordinated cell manoeuvres.",
     "Each entry: { name, desc }",
     "  desc: rules summary of what the tactic does and how to execute it"
   ],
@@ -3310,160 +2974,12 @@
       "desc": "Cost: 1 Glamour. Dice: Wits + Crafts + Wyrd. Action: Instant. Duration: Lasting. The changeling touches an object and learns its origin, maker, age, and any supernatural properties. Loophole: Free if the object was made by a hobgoblin or fetch. Seeming Benefit (Wizened): No cost if the object is a crafted tool."
     },
     {
-      "name": "Contracts of Artifice 2: Repairing the Tarnished",
-      "desc": "Cost: 1 Glamour. Dice: Intelligence + Crafts + Wyrd. Action: Extended (each roll = 1 minute). Duration: Lasting. Repairs a broken or damaged object as if the changeling had the tools and time to fix it properly. Loophole: Free if the object was damaged by a Keeper's servant. Seeming Benefit (Wizened): Repairs in a single roll regardless of complexity."
+      "name": "Contracts of Dream 1: Pathfinder",
+      "desc": "Cost: 1 Glamour. Dice: Wits + Survival + Wyrd. Action: Instant. Duration: Scene. The changeling always knows the fastest route to any location she has previously visited, and cannot become lost by mundane means. Loophole: Free if used in the Hedge. Seeming Benefit (Fairest): Also applies to places she has only heard described in vivid detail."
     },
     {
-      "name": "Contracts of Artifice 3: Imbue the Profane",
-      "desc": "Cost: 2 Glamour. Dice: Intelligence + Crafts + Wyrd. Action: Extended. Duration: Wyrd days. The changeling imbues a mundane object with a single minor supernatural quality (e.g. always sharp, never runs dry). Loophole: Free if worked on during a token-forging ritual. Seeming Benefit (Wizened): Duration is Wyrd weeks."
-    },
-    {
-      "name": "Contracts of Artifice 4: The Toymaker's Revenge",
-      "desc": "Cost: 3 Glamour. Dice: Dexterity + Crafts + Wyrd vs. target's Stamina + Wyrd. Action: Instant. Duration: Lasting. The changeling animates a crafted object to attack or restrain a target. The object acts on the changeling's Initiative with Strength and Dexterity equal to the changeling's Wyrd. Loophole: Cost reduced to 1 Glamour if the object is a token. Seeming Benefit (Wizened): Animated objects gain +2 to all actions."
-    },
-    {
-      "name": "Contracts of Artifice 5: Rewrite the Maker's Image",
-      "desc": "Cost: 4 Glamour. Dice: Intelligence + Crafts + Wyrd. Action: Extended. Duration: Lasting. Permanently alters the nature of a crafted object, changing its function or properties entirely. Can transform a mundane weapon into a token or alter a token's powers. Loophole: Free if performed in a hollow. Seeming Benefit (Wizened): May alter two properties instead of one."
-    },
-    {
-      "name": "Contracts of Darkness 1: A Shadow's Breath",
-      "desc": "Cost: 1 Glamour. Dice: Wits + Stealth + Wyrd. Action: Instant. Duration: Scene. The changeling and anything she carries become nearly invisible in shadow, gaining a bonus equal to Wyrd on Stealth rolls in dim or dark conditions. Loophole: Free between sunset and sunrise on a moonless night. Seeming Benefit (Darkling): Also adds Wyrd to Defence while in shadow."
-    },
-    {
-      "name": "Contracts of Darkness 2: Creeping Dread",
-      "desc": "Cost: 1 Glamour. Dice: Manipulation + Intimidation + Wyrd vs. Composure + Wyrd. Action: Instant. Duration: Scene. The changeling fills a target with irrational dread of shadows and dark spaces; the target suffers a penalty equal to the changeling's successes on all rolls made in dim or dark environments. Loophole: Free if the target has previously harmed the changeling. Seeming Benefit (Darkling): Also inflicts the Frightened Condition."
-    },
-    {
-      "name": "Contracts of Darkness 3: Night's Swift Passage",
-      "desc": "Cost: 2 Glamour. Dice: Dexterity + Stealth + Wyrd. Action: Instant. Duration: Scene. The changeling steps into one shadow and emerges from any other shadow within line of sight as an instant action; she may do this a number of times per scene equal to her Wyrd. Loophole: Free at night in a place of strong Wyrd. Seeming Benefit (Darkling): May bring one willing person per dot of Wyrd."
-    },
-    {
-      "name": "Contracts of Darkness 4: Cloak of the Night",
-      "desc": "Cost: 3 Glamour. Dice: Wits + Stealth + Wyrd. Action: Instant. Duration: Scene. The changeling wraps herself in living shadow, becoming completely invisible even to supernatural senses that detect glamour; only cold iron or a Contract can pierce the veil. Loophole: Free on the Winter Solstice. Seeming Benefit (Darkling): Also silences all sounds the changeling makes."
-    },
-    {
-      "name": "Contracts of Darkness 5: Embrace of Shadows",
-      "desc": "Cost: 4 Glamour. Dice: Presence + Occult + Wyrd. Action: Instant. Duration: Scene. The changeling summons a zone of supernatural darkness in a radius equal to Wyrd yards; those inside (except the changeling) are Blind and Deafened, and all supernatural senses fail. The changeling sees and moves normally. Loophole: Free during a total lunar eclipse. Seeming Benefit (Darkling): The darkness also inflicts 1 bashing damage per turn to those inside."
-    },
-    {
-      "name": "Contracts of Elements 1: Commune with the Land",
-      "desc": "Cost: 1 Glamour. Dice: Wits + Occult + Wyrd. Action: Instant. Duration: Lasting. The changeling communes with a chosen element (fire, water, earth, air, etc.) in her immediate environment, learning its recent history — what has passed through, touched, or disturbed it in the last day. Loophole: Free at dawn or dusk. Seeming Benefit (Elemental): Extends history recalled to a week."
-    },
-    {
-      "name": "Contracts of Elements 2: Elemental Might",
-      "desc": "Cost: 1 Glamour. Dice: Strength + Brawl + Wyrd. Action: Instant. Duration: Scene. The changeling suffuses her body with her chosen element, adding Wyrd to Strength for the scene and causing her unarmed strikes to deal damage of the element's type (fire = lethal, earth = bashing, etc.). Loophole: Free if she is in direct contact with a large quantity of her element. Seeming Benefit (Elemental): Also adds Wyrd to Stamina."
-    },
-    {
-      "name": "Contracts of Elements 3: Ride the Whirlwind",
-      "desc": "Cost: 2 Glamour. Dice: Dexterity + Athletics + Wyrd. Action: Instant. Duration: Scene. The changeling moves through or as her element; an air-aspected changeling can fly, a water-aspected can breathe underwater, a fire-aspected is immune to fire. Speed is doubled. Loophole: Free in an environment dominated by her element. Seeming Benefit (Elemental): Duration extends to a day."
-    },
-    {
-      "name": "Contracts of Elements 4: Calling the Element",
-      "desc": "Cost: 3 Glamour. Dice: Intelligence + Occult + Wyrd. Action: Instant. Duration: Scene. The changeling summons and shapes her element from nothing, creating a volume equal to Wyrd cubic yards. The element behaves naturally but the changeling can direct it with a Wits + Occult roll. Loophole: Free during a natural event involving her element (storm, flood, earthquake). Seeming Benefit (Elemental): Volume doubles."
-    },
-    {
-      "name": "Contracts of Elements 5: Become the Primordial",
-      "desc": "Cost: 4 Glamour. Dice: Stamina + Occult + Wyrd. Action: Instant. Duration: Scene. The changeling transforms her body entirely into her element, becoming immune to physical damage while in elemental form. She can move through her element freely and attack using it at range (Dexterity + Brawl + Wyrd, lethal damage). Loophole: Free during a catastrophic natural event. Seeming Benefit (Elemental): Duration extends to a day and she may take others into her elemental form."
-    },
-    {
-      "name": "Contracts of Fleeting Spring 1: Cupid's Eye",
-      "desc": "Cost: 1 Glamour. Dice: Wits + Empathy + Wyrd. Action: Instant. Duration: Lasting. The changeling discerns the target's strongest desire at this moment, gaining a +2 bonus to Social rolls against the target for the scene if she acts to further that desire. Loophole: Free if the target is in the grip of strong emotion. Seeming Benefit (Fairest): Also learns the target's second greatest desire."
-    },
-    {
-      "name": "Contracts of Fleeting Spring 2: Sight of the Heart's Longing",
-      "desc": "Cost: 1 Glamour. Dice: Intelligence + Empathy + Wyrd. Action: Instant. Duration: Scene. The changeling sees the emotional state of all people in line of sight as coloured auras; she gains a +2 to all Social rolls and cannot be Surprised by emotional outbursts or hidden hostility. Loophole: Free during Spring or at a festival. Seeming Benefit (Fairest): Also reads surface thoughts for one target per turn."
-    },
-    {
-      "name": "Contracts of Fleeting Spring 3: Warming the Cold Heart",
-      "desc": "Cost: 2 Glamour. Dice: Manipulation + Persuasion + Wyrd vs. Resolve + Wyrd. Action: Instant. Duration: Scene. The changeling inflames a target's desires, making them susceptible to offers that promise to fulfil those desires; the target suffers a penalty equal to the changeling's successes to resist relevant Social rolls. Loophole: Free if the changeling genuinely offers to help the target achieve their desire. Seeming Benefit (Fairest): Effect persists for a day."
-    },
-    {
-      "name": "Contracts of Fleeting Spring 4: Gift of Fortune's Favor",
-      "desc": "Cost: 3 Glamour. Dice: Presence + Persuasion + Wyrd. Action: Instant. Duration: Scene. The changeling channels hope and desire into a single action, adding Wyrd as a bonus to any one roll for herself or a touched ally. If the roll succeeds, the target gains an additional success equal to the changeling's Wyrd. Loophole: Free if used to help someone achieve a long-held dream. Seeming Benefit (Fairest): May be used reflexively after seeing the dice result."
-    },
-    {
-      "name": "Contracts of Fleeting Spring 5: Verdant, Roiling Heart",
-      "desc": "Cost: 4 Glamour. Dice: Manipulation + Empathy + Wyrd. Action: Instant. Duration: Scene. The changeling floods an area with the raw emotion of Spring; all mortals and changelings within Wyrd yards are overcome with a chosen emotion (joy, desire, hope) and suffer a penalty equal to the changeling's Wyrd on any roll that contradicts that emotion. Loophole: Free at the Spring Equinox. Seeming Benefit (Fairest): The changeling may exclude individuals from the effect."
-    },
-    {
-      "name": "Contracts of Fleeting Summer 1: Might of the Terrible Brute",
-      "desc": "Cost: 1 Glamour. Dice: Strength + Athletics + Wyrd. Action: Reflexive. Duration: Turn. The changeling channels Summer's fury, adding Wyrd to Strength for one action. This stacks with other Strength bonuses. Loophole: Free when defending against an unprovoked attack. Seeming Benefit (Ogre): Also adds Wyrd to Brawl or Weaponry rolls for the same action."
-    },
-    {
-      "name": "Contracts of Fleeting Summer 2: Hassle in the Castle",
-      "desc": "Cost: 1 Glamour. Dice: Manipulation + Intimidation + Wyrd vs. Composure + Wyrd. Action: Instant. Duration: Scene. The changeling radiates threat and menace; the target suffers a penalty equal to the changeling's successes on all Social rolls not based on Intimidation, and must succeed on a Resolve + Composure roll to attack the changeling directly. Loophole: Free if the changeling has been wronged by the target this scene. Seeming Benefit (Ogre): All present are affected, not just one target."
-    },
-    {
-      "name": "Contracts of Fleeting Summer 3: Read the Wind",
-      "desc": "Cost: 2 Glamour. Dice: Wits + Athletics + Wyrd. Action: Reflexive. Duration: Scene. The changeling heightens her combat instincts; she adds Wyrd to Defence and Initiative for the scene, and may reroll one failed attack or dodge roll per turn. Loophole: Free if she is outnumbered. Seeming Benefit (Ogre): Also adds Wyrd to all Physical resistance rolls."
-    },
-    {
-      "name": "Contracts of Fleeting Summer 4: Scorched Earth",
-      "desc": "Cost: 3 Glamour. Dice: Strength + Athletics + Wyrd. Action: Instant. Duration: Lasting. The changeling unleashes Summer's wrath in a burst, dealing Wyrd lethal damage to all targets in a Wyrd-yard radius and setting the area alight. Loophole: Free if used to protect a trothmate from lethal harm. Seeming Benefit (Ogre): Damage is aggravated instead of lethal."
-    },
-    {
-      "name": "Contracts of Fleeting Summer 5: The Living Summer",
-      "desc": "Cost: 4 Glamour. Dice: Stamina + Athletics + Wyrd. Action: Instant. Duration: Scene. The changeling becomes Summer incarnate: immune to heat and fire, adding Wyrd to all Physical Attributes, and any target she strikes gains the Burning Tilt (1 lethal/turn). Loophole: Free on the Summer Solstice. Seeming Benefit (Ogre): Also regenerates 1 bashing or lethal wound per turn."
-    },
-    {
-      "name": "Contracts of Fleeting Autumn 1: Witches' Intuition",
-      "desc": "Cost: 1 Glamour. Dice: Wits + Occult + Wyrd. Action: Instant. Duration: Lasting. The changeling senses the presence of supernatural beings, tokens, or active Contracts within Wyrd yards, learning their general type but not their identity. Loophole: Free in a place of strong Wyrd. Seeming Benefit (Wizened): Also detects mortal psychics and hedge mages."
-    },
-    {
-      "name": "Contracts of Fleeting Autumn 2: The Mien of the Terrible Beast",
-      "desc": "Cost: 1 Glamour. Dice: Presence + Intimidation + Wyrd vs. Composure + Wyrd. Action: Instant. Duration: Scene. The changeling's mien warps into something monstrous; the target gains the Frightened Condition and suffers a penalty equal to the changeling's Wyrd on all rolls against her. Loophole: Free if the target has previously shown fear of the changeling. Seeming Benefit (Darkling): Also blinds the target to the changeling's actions for one turn."
-    },
-    {
-      "name": "Contracts of Fleeting Autumn 3: Omen of Dawn",
-      "desc": "Cost: 2 Glamour. Dice: Intelligence + Occult + Wyrd. Action: Instant. Duration: Lasting. The changeling reads an omen about a specific course of action, learning whether it will succeed or fail and one significant complication. The GM provides a truthful but cryptic answer. Loophole: Free if performed at dawn. Seeming Benefit (Wizened): The omen is unambiguous."
-    },
-    {
-      "name": "Contracts of Fleeting Autumn 4: Boon of the Scuttling Spider",
-      "desc": "Cost: 3 Glamour. Dice: Intelligence + Occult + Wyrd. Action: Extended. Duration: Wyrd days. The changeling lays a curse on a target; choose one Attribute — the target's effective rating in that Attribute is reduced by the changeling's Wyrd for the duration. Loophole: Free if the target broke a pledge with the changeling. Seeming Benefit (Darkling): Affects two Attributes."
-    },
-    {
-      "name": "Contracts of Fleeting Autumn 5: Curse of the Withered Heart",
-      "desc": "Cost: 4 Glamour. Dice: Manipulation + Occult + Wyrd vs. Resolve + Wyrd. Action: Extended. Duration: Lasting. The changeling places a lasting curse on a target, inflicting a persistent Condition that reflects a fundamental failure or weakness. The curse can only be lifted by fulfilling a specific condition set at casting. Loophole: Free during Samhain. Seeming Benefit (Darkling): The changeling sets two conditions for breaking the curse instead of one."
-    },
-    {
-      "name": "Contracts of Fleeting Winter 1: The Dragon Lament",
-      "desc": "Cost: 1 Glamour. Dice: Manipulation + Subterfuge + Wyrd. Action: Instant. Duration: Scene. The changeling projects an aura of deep sorrow; mortals and changelings who fail a Composure + Wyrd roll are reluctant to act against her and suffer a −2 penalty to hostile actions. Loophole: Free if the changeling has genuinely suffered loss recently. Seeming Benefit (Elemental): Also suppresses anger and hostility in the area."
-    },
-    {
-      "name": "Contracts of Fleeting Winter 2: Icy Demeanour",
-      "desc": "Cost: 1 Glamour. Dice: Composure + Subterfuge + Wyrd vs. Wits + Wyrd. Action: Instant. Duration: Scene. The changeling becomes emotionally unreadable; all attempts to read her emotions, detect lies, or use Social powers against her suffer a penalty equal to her Wyrd. She also gains +2 to resist Social manipulation. Loophole: Free if the changeling has not spoken in the past hour. Seeming Benefit (Fairest): Also renders her immune to Conditions caused by emotional manipulation."
-    },
-    {
-      "name": "Contracts of Fleeting Winter 3: Numbing the Warm Heart",
-      "desc": "Cost: 2 Glamour. Dice: Manipulation + Persuasion + Wyrd vs. Composure + Wyrd. Action: Instant. Duration: Scene. The changeling drains warmth and hope from a target; the target loses all Willpower points currently spent on beneficial effects and cannot regain Willpower for the duration. Loophole: Free if performed during a blizzard or heavy snowfall. Seeming Benefit (Fairest): Also inflicts the Despondent Condition."
-    },
-    {
-      "name": "Contracts of Fleeting Winter 4: On Gossamer Wings",
-      "desc": "Cost: 3 Glamour. Dice: Dexterity + Stealth + Wyrd. Action: Reflexive. Duration: Scene. The changeling and everything she carries becomes intangible to mundane matter for the scene; she can pass through walls and ignore physical attacks, though she also cannot interact physically. Supernatural attacks still affect her. Loophole: Free during a blizzard. Seeming Benefit (Darkling): May take one willing person with her."
-    },
-    {
-      "name": "Contracts of Fleeting Winter 5: Riding the Black Steed",
-      "desc": "Cost: 4 Glamour. Dice: Presence + Intimidation + Wyrd. Action: Instant. Duration: Scene. The changeling embodies Winter's cold finality; she radiates dread and hopelessness in a Wyrd-yard radius, inflicting the Broken Condition on all who fail a Resolve + Composure roll and reducing all dice pools in the area by her Wyrd. Loophole: Free at the Winter Solstice. Seeming Benefit (Darkling): Also suppresses all supernatural powers based on warmth, fire, or hope."
-    },
-    {
-      "name": "Goblin Contract: Barrow-Robber's Harvest",
-      "desc": "Cost: 1 Glamour + 1 Goblin Debt. Dice: Intelligence + Larceny + Wyrd. Action: Instant. Duration: Lasting. The changeling touches a locked container, vault, or warded space and it opens as if she had the key. Also suppresses a single magical ward or alarm for the scene. No Loophole. No Seeming Benefit."
-    },
-    {
-      "name": "Goblin Contract: Last Dregs of Lucidity",
-      "desc": "Cost: 1 Glamour + 1 Goblin Debt. Dice: Resolve + Composure + Wyrd. Action: Reflexive. Duration: Instant. The changeling may immediately reroll any failed Clarity roll, taking the better result. Must be activated before the consequences of the failed roll are described. No Loophole. No Seeming Benefit."
-    },
-    {
-      "name": "Goblin Contract: Mirror, Mirror",
-      "desc": "Cost: 2 Glamour + 2 Goblin Debt. Dice: Manipulation + Subterfuge + Wyrd vs. Wits + Wyrd. Action: Instant. Duration: Scene. The changeling perfectly duplicates the appearance, voice, and surface mannerisms of a person she has observed for at least an hour; even supernatural detection fails unless it exceeds her Wyrd in successes. No Loophole. No Seeming Benefit."
-    },
-    {
-      "name": "Goblin Contract: Shooter's Bargain",
-      "desc": "Cost: 1 Glamour + 1 Goblin Debt. Dice: Dexterity + Firearms or Athletics + Wyrd. Action: Reflexive. Duration: Instant. The changeling's next ranged attack or thrown weapon cannot miss; it automatically hits and deals maximum damage. No Loophole. No Seeming Benefit."
-    },
-    {
-      "name": "Goblin Contract: The Fae Mount",
-      "desc": "Cost: 2 Glamour + 1 Goblin Debt. Dice: Animal Ken + Wyrd. Action: Instant. Duration: Scene. Summons a hobgoblin mount appropriate to the changeling's nature — swift, tireless, and loyal for the scene. The mount has Speed 20, Size 5, and will not leave the changeling behind. No Loophole. No Seeming Benefit."
+      "name": "Contracts of the Hearth 1: Hospitality's Grace",
+      "desc": "Cost: 1 Glamour. Dice: Presence + Socialize + Wyrd. Action: Instant. Duration: Scene. The changeling becomes a welcome guest; her host will not ask her to leave and gains a bonus on all social rolls made in the host's presence. Loophole: Free if the changeling has been formally invited. Seeming Benefit (Fairest): The bonus applies to all social rolls for the scene, not just those made near the host."
     }
   ],
   "_pledges_comment": [
@@ -3474,29 +2990,16 @@
   "pledges": [
     {
       "name": "Oath of the Iron Vow",
-      "desc": "Type: Oath. A solemn promise sworn on cold iron that binds the changeling to a specific course of action. Boon: The changeling gains +2 to all rolls directly related to fulfilling the oath. Sanction: Breaking the oath inflicts a Clarity roll at −3 and costs all accumulated Glamour. Duration: Until the oath is fulfilled or broken."
+      "desc": "Type: Oath. A solemn promise sworn on cold iron. Boon: +2 to all rolls directly related to fulfilling the oath. Sanction: Breaking the oath inflicts a Clarity roll at \u22123 and costs all accumulated Glamour. Duration: Until fulfilled or broken."
     },
     {
       "name": "Bargain of Fair Exchange",
-      "desc": "Type: Bargain. A mutual agreement between two parties to exchange services or goods. Boon: Both parties gain the Informed Condition regarding the other's intent to fulfil their side. Sanction: The defaulting party suffers a −3 penalty to all Social rolls with the other party for a month and must pay double the original debt. Duration: Until both parties have fulfilled their obligations."
-    },
-    {
-      "name": "Sealing of the Hollow",
-      "desc": "Type: Sealing. A pledge that binds a group to a shared space or resource, typically a hollow. Boon: All parties may enter the sealed space freely and are alerted (vivid dream) if the space is threatened. Sanction: Any party who violates the terms is barred from the space permanently and loses 1 dot of Wyrd. Duration: Indefinite until all parties agree to dissolve it."
-    },
-    {
-      "name": "Troth of the Motley",
-      "desc": "Type: Oath. The founding pledge of a motley, binding its members to mutual aid and loyalty. Boon: Each member gains a +1 bonus to all rolls made to directly aid another motley member. Sanction: Betraying a motley member halves the traitor's Glamour pool for a season. Duration: Indefinite; dissolves if fewer than two members remain."
-    },
-    {
-      "name": "Bargain of the Hidden Name",
-      "desc": "Type: Bargain. A deal in which the changeling trades a secret — often her true name or a piece of her history — for a service or information. Boon: The recipient of the secret owes a favour of equivalent weight; the changeling may call it in once. Sanction: If the recipient reveals the secret, they gain the Guilty Condition and owe the changeling a debt of twice the original value. Duration: Until the favour is called in or the secret is revealed."
+      "desc": "Type: Bargain. A mutual agreement to exchange services or goods. Boon: Both parties gain the Informed Condition regarding the other's intent. Sanction: Defaulting party suffers \u22123 to all Social rolls with the other party for a month. Duration: Until both parties have fulfilled their obligations."
     }
   ],
-  "_praxes_comment": "praxes: Mage Praxes — spells the Mage has mastered. Each entry: { name, desc }",
-    "_praxes_comment": "praxes: Mage Praxes — spells the Mage has mastered. Each entry: { name, desc }",
+  "_praxes_comment": "praxes: Mage Praxes \u2014 spells the Mage has mastered. Each entry: { name, desc }",
   "praxes": [],
-  "_demon_comment": "── Demon: the Descent content lists ──────────────────────────────────────────",
+  "_demon_comment": "\u2500\u2500 Demon: the Descent content lists \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
   "_demonic_form_comment": "demonic_form: a demon's Demonic Form manifestations. Each entry: { name, desc }",
   "demonic_form": [
     {
@@ -3508,110 +3011,82 @@
       "desc": "Overlapping plates of supernatural material cover the demon's body, granting 2/2 armour that does not impose a Defense penalty."
     },
     {
-      "name": "Enhanced Senses",
-      "desc": "The demon's sensory apparatus exceeds human limits. Negates all penalties from darkness, distance, or distraction for Perception rolls. Also grants the ability to detect Aether within Primum yards."
-    },
-    {
-      "name": "Flight",
-      "desc": "The demon grows wings or manifests a levitation system; Speed is doubled and the demon can fly at full Speed, ignoring ground-level terrain."
-    },
-    {
-      "name": "Hydraulic Frame",
-      "desc": "Reinforced musculature and a reinforced skeleton grant +2 to Strength for feat-of-strength rolls and increase the demon's Size by 1 while manifested."
-    },
-    {
-      "name": "Stygian Shroud",
-      "desc": "The demon radiates unnatural darkness in a Primum-yard radius. Humans and other mortals within the area must succeed on a Resolve + Composure roll or gain the Frightened Condition."
-    },
-    {
-      "name": "Vocal Override",
-      "desc": "The demon's voice resonates at an unnatural frequency. Once per scene the demon may issue a one-word command; any mortal who hears it must succeed on a Resolve + Composure roll or comply for one turn."
-    },
-    {
-      "name": "Electromagnetic Pulse",
-      "desc": "The demon can emit a pulse that disables electronic devices within Primum yards for one turn; affected devices must be manually reset. Costs 1 Aether."
+      "name": "Wings",
+      "desc": "The demon grows functional wings, gaining a flight Speed equal to her normal Speed \u00d7 2. Hovering requires a Dexterity + Athletics roll in high winds."
     }
   ],
   "_embeds_comment": "embeds: a demon's known Embeds. Each entry: { name, desc }",
   "embeds": [
     {
       "name": "Broadcast",
-      "desc": "The demon subtly rewrites a mortal's memory of a single recent event, replacing it with a version the demon specifies. The target must be within sight. Contested roll: Manipulation + Subterfuge vs. Resolve + Composure. Duration: Permanent until the inconsistency is pointed out."
+      "desc": "The demon subtly rewrites a mortal's memory of a single recent event, replacing it with a version the demon specifies. Contested: Manipulation + Subterfuge vs. Resolve + Composure. Duration: Permanent until contradicted."
     },
     {
       "name": "Calculated Risk",
-      "desc": "The demon perceives probability distributions over an area. For the scene, the demon gains a +2 bonus to all dice pools involving risk assessment, gambling, and tactical planning. Cost: 1 Aether."
+      "desc": "Cost: 1 Aether. The demon perceives probability distributions for the scene, gaining +2 to all dice pools involving risk assessment, gambling, and tactical planning."
     },
     {
-      "name": "Clean Slate",
-      "desc": "The demon erases a mortal's memory of the past hour. The target experiences the time as a brief blackout. Dice: Intelligence + Subterfuge. Contested by Resolve + Composure. Duration: Permanent."
-    },
-    {
-      "name": "Cold Read",
-      "desc": "The demon instantly analyses a target's psychological profile. Dice: Wits + Empathy. Success provides the target's Virtue, Vice, and primary emotional state. No cost."
-    },
-    {
-      "name": "Encrypt",
-      "desc": "The demon encodes a message, object, or location in a way only a specific recipient can perceive. The information appears as noise to all others. Duration: Permanent until the recipient decodes it."
-    },
-    {
-      "name": "Fiber Optics",
-      "desc": "The demon taps into any networked electronic device within line of sight, reading its contents or accessing its camera and microphone as if physically present. Dice: Intelligence + Computer. Cost: 1 Aether."
-    },
-    {
-      "name": "Go Bag",
-      "desc": "The demon conceals equipment in a pocket of space outside normal reality. The demon may store up to Size 5 worth of equipment and retrieve any item as an instant action. Cost: 1 Aether to store or retrieve."
-    },
-    {
-      "name": "Hard Reboot",
-      "desc": "The demon force-restarts a mortal's nervous system, immediately ending any Conditions caused by mental powers, drugs, or mundane emotional manipulation. Dice: Intelligence + Medicine. Instant action."
-    },
-    {
-      "name": "Imposter",
-      "desc": "The demon adjusts her Cover identity on the fly, altering superficial appearance details — hair, eye colour, vocal pitch — within the scope of an existing Cover. Duration: Scene."
-    },
-    {
-      "name": "Persistence",
-      "desc": "The demon tags a mortal, vehicle, or location with a microscopic tracking transmitter. She always knows the target's location to within 10 metres for a number of days equal to Primum."
-    },
-    {
-      "name": "Redirect",
-      "desc": "The demon causes a pursuing or attacking individual to momentarily lose track of their target, believing they went a different direction. Dice: Manipulation + Stealth vs. Wits + Composure."
-    },
-    {
-      "name": "Remote Access",
-      "desc": "The demon can remotely operate any machine she has previously touched for a number of turns equal to Primum. Dice: Intelligence + Crafts. Operates at -2 to all related dice pools."
+      "name": "Drop Cover",
+      "desc": "The demon instantly shifts to a different active Cover. The old Cover is suspended, not destroyed. Instant action, no roll required."
     }
   ],
   "_exploits_comment": "exploits: a demon's known Exploits. Each entry: { name, desc }",
   "exploits": [
     {
       "name": "Blackout",
-      "desc": "Cost: 1 Aether. The demon generates an electromagnetic pulse that disables all non-Unchained technology within Primum × 3 yards for one scene. Dice: Presence + Science. Unchained technology is unaffected."
-    },
-    {
-      "name": "Caustic Ooze",
-      "desc": "Cost: 1 Aether. The demon secretes a corrosive fluid. Targets within arm's reach suffer 1 aggravated damage per turn for a number of turns equal to Primum unless they spend an action removing it."
-    },
-    {
-      "name": "Daemonite",
-      "desc": "Cost: 2 Aether. The demon temporarily installs a fragment of her true self in a mortal, granting that mortal the ability to use one of her Embeds once before the fragment burns out. Dice: Intelligence + Occult."
+      "desc": "Cost: 1 Aether. The demon generates an EMP that disables all non-Unchained technology within Primum \u00d7 3 yards for one scene. Dice: Presence + Science."
     },
     {
       "name": "Hellfire",
-      "desc": "Cost: 1 Aether. The demon channels divine fire, hurling a bolt that deals Primum lethal damage at Range: Primum × 5 yards. Dice: Dexterity + Firearms. The fire ignites flammable materials."
-    },
-    {
-      "name": "Shockwave",
-      "desc": "Cost: 1 Aether. The demon releases a burst of kinetic force in all directions, knocking all targets within Primum yards prone and dealing 1 bashing damage. Dice: Strength + Athletics. Instant action."
-    },
-    {
-      "name": "System Failure",
-      "desc": "Cost: 2 Aether. The demon causes a catastrophic failure in one piece of complex machinery (vehicle, computer system, power grid segment). The failure lasts for a scene and cannot be repaired by mundane means during that time."
+      "desc": "Cost: 1 Aether. The demon hurls a bolt of divine fire dealing Primum lethal damage at Range: Primum \u00d7 5 yards. Dice: Dexterity + Firearms. Ignites flammable materials."
     },
     {
       "name": "Vanish",
-      "desc": "Cost: 1 Aether. The demon immediately exits demonic form and refreshes her active Cover, appearing as an entirely mundane person. All Compromise suspicion accrued this scene is erased. Instant action."
+      "desc": "Cost: 1 Aether. The demon exits demonic form and refreshes her active Cover. All Compromise suspicion accrued this scene is erased. Instant action."
+    }
+  ],
+  "variations": [
+    {
+      "name": "Enhanced Physicality",
+      "rating": 1,
+      "desc": "Magnitude 1. The Deviant's body exceeds human limits in one physical attribute. Add Variation dots as bonus dice to all rolls using Strength, Dexterity, or Stamina (choose one at creation). Scar: Conspicuous (the enhancement is visibly inhuman)."
+    },
+    {
+      "name": "Regeneration",
+      "rating": 2,
+      "desc": "Magnitude 2. The Deviant heals damage at a supernatural rate, recovering one lethal damage per turn as a reflexive action. Bashing damage is cleared almost instantly. Cost: 1 Flux. Scar: Painful (the rapid healing is visibly and audibly disturbing)."
+    },
+    {
+      "name": "Sensory Expansion",
+      "rating": 1,
+      "desc": "Magnitude 1. The Deviant gains a new or greatly enhanced sense \u2014 infrared vision, echolocation, or the ability to detect electromagnetic fields. Add Variation as bonus dice to relevant Wits-based perception rolls. Scar: Vulnerable (the enhanced sensory organ is an obvious weak point)."
+    },
+    {
+      "name": "Elemental Blast",
+      "rating": 3,
+      "desc": "Magnitude 3. The Deviant projects destructive energy (fire, electricity, kinetic force) at Range: Variation \u00d7 5 yards, dealing Variation lethal damage. Dice: Dexterity + Athletics. Cost: 1 Flux. Scar: Volatile (uncontrolled discharges occur under stress \u2014 roll Composure or trigger automatically)."
+    }
+  ],
+  "scars": [
+    {
+      "name": "Conspicuous",
+      "rating": 1,
+      "desc": "Magnitude 1. The Deviant's alteration is visibly inhuman and cannot be concealed by mundane means. \u22122 to all Social rolls with mortals who are not aware of the character's nature. Entangled Variations: note linked Variation(s) here."
+    },
+    {
+      "name": "Painful",
+      "rating": 1,
+      "desc": "Magnitude 1. The Deviant's power activates with significant physical pain. Each use costs 1 point of bashing damage in addition to any other costs. Entangled Variations: note linked Variation(s) here."
+    },
+    {
+      "name": "Volatile",
+      "rating": 2,
+      "desc": "Magnitude 2. The power triggers involuntarily under emotional stress. When the Deviant suffers a breaking point or reaches her last three Health boxes, roll Resolve or the Variation activates without her consent. Entangled Variations: note linked Variation(s) here."
+    },
+    {
+      "name": "Vulnerable",
+      "rating": 1,
+      "desc": "Magnitude 1. A specific and obvious weak point exists on the Deviant's body. Attackers who target this location gain +2 to attack rolls and any damage dealt to it ignores the Deviant's Armour. Entangled Variations: note linked Variation(s) here."
     }
   ]
 }
