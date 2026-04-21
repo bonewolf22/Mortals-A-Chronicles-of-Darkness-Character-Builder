@@ -1201,14 +1201,15 @@
       "db_key": "scars"
     },
     {
-      "key": "origins",
-      "label": "Origins",
+      "key": "adaptations",
+      "label": "Adaptations",
       "group": "Deviant",
-      "zone": "full-width-bottom",
-      "order": 16,
-      "type": "textarea",
-      "state_key": "origins",
-      "default": false
+      "zone": "left-column",
+      "order": 5,
+      "type": "named-list",
+      "state_key": "adaptations",
+      "default": false,
+      "db_key": "adaptations"
     }
   ],
   "_presets_comment": [
@@ -1904,7 +1905,8 @@
         "deviant-touchstones": true,
         "variations": true,
         "scars": true,
-        "origins": true
+        "origins": true,
+        "adaptations": true
       }
     }
   ],
