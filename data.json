@@ -314,7 +314,7 @@
       "label": "Conditions",
       "group": "Mortal",
       "zone": "right-column",
-      "order": 11,
+      "order": 12,
       "type": "named-list",
       "state_key": "conditions",
       "default": true,
@@ -325,7 +325,7 @@
       "label": "Aspirations",
       "group": "Mortal",
       "zone": "right-column",
-      "order": 12,
+      "order": 13,
       "type": "line-list",
       "state_key": "aspirations",
       "default": true
