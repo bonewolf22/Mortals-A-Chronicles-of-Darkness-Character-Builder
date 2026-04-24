@@ -2,11 +2,11 @@
 
 Everything in Mortals+ that can be customised lives in one file: **`data.json`**. You don't need to touch any code. This guide walks through every type of change you can make, from adding a merit to building a full new splat.
 
-> **Before you start:** Make a backup copy of `data.json` before editing. It's a plain text file — open it in any text editor (I use Visual Studio Code but Notepad++ would also work well). I recommend not using a full word processor such as Microsoft Word, as they may introduce hidden formatting that will break the file. If the app stops loading after an edit, the JSON is likely malformed (a missing comma or bracket is the most common cause). Paste the file contents into [jsonlint.com](https://jsonlint.com) to find the problem.
+> **Before you start:** Make a backup copy of `data.json` before editing. It's a plain text file — open it in any text editor (VS Code works well; Notepad++ is also fine). Do not use a word processor such as Microsoft Word, as it may introduce hidden formatting that will break the file. If the app stops loading after an edit, the JSON is likely malformed — paste the file contents into [jsonlint.com](https://jsonlint.com) to find the problem.
 
-> **Testing Changes:** I test my changes by using the Live Server plugin through Visual Studio Code. 
+> **Testing changes:** Use the Live Server extension in VS Code (`Go Live` button). Do not open `index.html` directly via `file://` — the app won't load.
 
-> **Deploying changes:** Mortals+ is a static web app hosted on GitHub Pages, which you are free to make your own fork of. After editing `data.json`, commit and push the change to the repository. The live app updates automatically within a minute or two.
+> **Deploying changes:** Mortals+ is a static web app hosted on GitHub Pages. After editing `data.json`, commit and push to `main`. The live app updates automatically within a minute or two.
 
 ---
 
@@ -21,7 +21,8 @@ Everything in Mortals+ that can be customised lives in one file: **`data.json`**
 7. [Adding a splat-specific beats tracker](#7-adding-a-splat-specific-beats-tracker)
 8. [Creating a new preset](#8-creating-a-new-preset)
 9. [Adding a new splat](#9-adding-a-new-splat)
-10. [What you cannot change in data.json](#10-what-you-cannot-change-in-datajson)
+10. [Section definition reference](#10-section-definition-reference)
+11. [What you cannot change in data.json](#11-what-you-cannot-change-in-datajson)
 
 ---
 
@@ -31,7 +32,7 @@ The app ships with a starter library of merits, weapons, tilts, and splat abilit
 
 ### Merits
 
-Find the `"merits"` list in `data.json`. Each entry looks like this:
+Find the `"merits"` list in `data.json`. Each entry:
 
 ```json
 {
@@ -41,19 +42,9 @@ Find the `"merits"` list in `data.json`. Each entry looks like this:
 }
 ```
 
-Add a new entry anywhere in the list (the app sorts them alphabetically on load, so order doesn't matter):
-
-```json
-{
-  "name": "Eidetic Memory",
-  "rating": 2,
-  "desc": "The character never forgets anything witnessed and gains a +2 bonus to recall information."
-}
-```
+The app sorts all content lists alphabetically on load, so order in the file doesn't matter.
 
 ### Tilts and Conditions
-
-Find the `"tilts"` or `"conditions"` list. Each entry has a name and description only:
 
 ```json
 {
@@ -64,7 +55,7 @@ Find the `"tilts"` or `"conditions"` list. Each entry has a name and description
 
 ### Weapons
 
-Melee weapon:
+Melee:
 ```json
 {
   "name": "Machete",
@@ -78,7 +69,7 @@ Melee weapon:
 }
 ```
 
-Ranged weapon — add `ranges` (short/medium/long in yards) and `clip`:
+Ranged — add `ranges` (short/medium/long in yards) and `clip`:
 ```json
 {
   "name": "Hunting Rifle",
@@ -125,7 +116,7 @@ Ranged weapon — add `ranges` (short/medium/long in yards) and `clip`:
 
 ### Rated ability lists (name + rating + desc)
 
-All of the following use the same `name` + `rating` + `desc` format: `endowments`, `rotes`, `arcana_attainments`, `legacy_attainments`, `gifts`, `rites`, `disciplines`, `devotions`, `vampire_rites`, `variations`, `scars`.
+All of the following use `{ name, rating, desc }`: `endowments`, `rotes`, `arcana_attainments`, `legacy_attainments`, `gifts`, `rites`, `disciplines`, `devotions`, `vampire_rites`, `variations`, `scars`, `haunts`.
 
 ```json
 {
@@ -135,32 +126,24 @@ All of the following use the same `name` + `rating` + `desc` format: `endowments
 }
 ```
 
-For `variations` and `scars`, the `rating` field represents Magnitude (1–5):
-
-```json
-{
-  "name": "Enhanced Physicality",
-  "rating": 1,
-  "desc": "Magnitude 1. Add Variation dots as bonus dice to Strength rolls. Scar: Conspicuous."
-}
-```
+For `variations` and `scars`, `rating` represents Magnitude (1–5).
 
 Descriptions should include enough mechanical detail that a player can use the ability at the table without opening a book — cost, dice pool, action type, duration, and any relevant conditions.
 
 ### Named ability lists (name + desc)
 
-The following use `name` + `desc` only (no rating): `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`.
+The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `bestowment`.
 
 ```json
 {
   "name": "Contracts of Artifice 1: Knowing Touch",
-  "desc": "Cost: 1 Glamour. Dice: Wits + Crafts + Wyrd. Action: Instant. Duration: Lasting. The changeling touches an object and learns its origin, maker, age, and supernatural properties. Loophole: Free if the object was made by a hobgoblin. Seeming Benefit (Wizened): No cost if the object is a crafted tool."
+  "desc": "Cost: 1 Glamour. Dice: Wits + Crafts + Wyrd. Action: Instant. Duration: Lasting.\nThe changeling touches an object and learns its origin, maker, age, and supernatural properties."
 }
 ```
 
 ### Werewolf forms
 
-The Forms table is data-driven. Each entry in `werewolf_forms` defines one form column:
+The Forms table is data-driven. Each entry in `werewolf_forms` defines one column:
 
 ```json
 {
@@ -183,21 +166,19 @@ The Forms table is data-driven. Each entry in `werewolf_forms` defines one form 
 }
 ```
 
-`attr_mods` lists only the attributes that change from the character's base scores. Size and derived stats are recalculated automatically.
-
-> **Note:** Unlike other content lists, `werewolf_forms` preserves its order and is not sorted alphabetically. Forms appear in the table in the order listed.
+`attr_mods` lists only the attributes that change from base scores. `werewolf_forms` is one of the few lists that preserves order — columns appear in the table in the order listed.
 
 ---
 
 ## 2. Editing the default sheet layout
 
-Every section on the sheet is defined in `section_definitions`. Each entry includes a `zone` and an `order` that determines where it appears on a fresh sheet. Dragging and dropping sections on a character sheet overrides the location on a character-by-character basis; the locations listed in data.json remain unchanged and will be used for future characters. 
+Every section is defined in `section_definitions`. Each entry has a `zone` and `order` that set where it appears on a fresh sheet. Dragging sections on a character sheet overrides layout per character; `section_definitions` values are the defaults for new characters.
 
 ### Zones
 
 | Zone | Where it appears |
 |---|---|
-| `header` | Character header row (identity fields only) |
+| `header` | Character header row — identity fields only |
 | `beats` | Beats/XP tracker row |
 | `full-width-top` | Full-width area above the two columns |
 | `left-column` | Left column |
@@ -206,19 +187,19 @@ Every section on the sheet is defined in `section_definitions`. Each entry inclu
 
 ### Default layout philosophy
 
-- **Left column** — Skills and all power/ability lists (Disciplines, Gifts, Rotes, Contracts, Variations, Scars, etc.)
-- **Right column** — Derived traits (order 1), power level stat (order 2), morality track (order 3), resource track (order 4), splat-specific blocks (order 5), then roleplaying features (Aspirations order 5, Tactics order 6, Touchstones/Obsessions/Banes etc. orders 7+)
-- **Full-width bottom** — Merits (order 10), Attainments (orders 11–12), reference tables (13+), Weapons (20), Armor (21), Equipment (22), Notes (50)
+- **Left column** — Skills (order 2) and all power/ability lists (order 3+)
+- **Right column** — Other Traits (1), power stat (2), morality track (3), resource track (4), splat-specific blocks (5–19), Tilts (20), Conditions (21), Aspirations (22)
+- **Full-width bottom** — Merits (10), Attainments (11–12), reference tables (13+), Weapons (20), Armor (21), Equipment (22), Notes (50)
+
+Tilts, Conditions, and Aspirations are at orders 20–22 so all splat stats render above them by default.
 
 ### Example: move a section
 
-Find the entry in `section_definitions` and change its `zone` and/or `order`:
+Change `zone` and/or `order` on the section definition:
 
 ```json
 {
   "key": "merits",
-  "label": "Merits",
-  "group": "Mortal",
   "zone": "right-column",
   "order": 6,
   ...
@@ -229,23 +210,17 @@ Find the entry in `section_definitions` and change its `zone` and/or `order`:
 
 ## 3. Changing section visibility defaults
 
-Every section has a `"default"` field: `true` means it appears on a new blank sheet, `false` means it's hidden until toggled on.
+Every section has a `"default"` field: `true` = visible on new sheets, `false` = hidden until toggled on.
 
-To make Touchstones visible by default on all new sheets, find its entry and change `"default": false` to `"default": true`.
-
-> **Note:** Changing `default` only affects new characters. Existing saved characters preserve their own visibility settings.
+Changing `default` only affects new characters. Existing saved characters preserve their own visibility settings.
 
 ---
 
 ## 4. Renaming sections and skills
 
-### Renaming a section
+Change the `"label"` field on any section or skill definition. The new name appears in the config panel and on the sheet. Keys must never be changed — they are permanent identifiers used in save files.
 
-Change the `"label"` field on any section definition. The new name appears in the config panel and on the sheet. The `"key"` must not be changed.
-
-### Renaming a skill
-
-Change the `"label"` field on any skill definition. The `athletics` key in particular must not be changed — it is used in the Defense formula.
+The `athletics` skill key in particular must not be changed — it is used in the Defense formula.
 
 ---
 
@@ -261,7 +236,7 @@ Change the `"label"` field on any skill definition. The `athletics` key in parti
 }
 ```
 
-The `category` must be `"mental"`, `"physical"`, or `"social"`.
+`category` must be `"mental"`, `"physical"`, or `"social"`.
 
 ### Removing a skill
 
@@ -271,7 +246,7 @@ Delete the entry from `skill_definitions`. Saved character data for that skill i
 
 ## 6. Adjusting the name generator
 
-The **Generate baseline** button picks a random name from the `mortal_names` list. Add, remove, or replace names freely:
+The **Generate baseline** button picks a random name from the `mortal_names` list:
 
 ```json
 "mortal_names": [
@@ -285,9 +260,7 @@ The **Generate baseline** button picks a random name from the `mortal_names` lis
 
 ## 7. Adding a splat-specific beats tracker
 
-Each splat can have its own beats currency. The `beats-xp` section type supports multiple trackers natively.
-
-Add a new entry to `section_definitions`:
+Each splat can have its own beats currency. Add a new entry to `section_definitions`:
 
 ```json
 {
@@ -303,17 +276,17 @@ Add a new entry to `section_definitions`:
 }
 ```
 
-Then add `"arcane-beats-xp": false` to every existing preset, and set it to `true` in the Mage preset. No code changes required.
+Then add `"arcane-beats-xp": false` to every existing preset, and `true` in the Mage preset. No code changes required.
 
 ---
 
 ## 8. Creating a new preset
 
-Presets replace `sectionConfig` entirely when applied. Any section key not listed in the preset falls back to its `default` value from `section_definitions`.
+Presets replace `sectionConfig` entirely when applied. Any key not listed falls back to its `default` value from `section_definitions`.
 
 **You only need to list:**
 - Sections that should be `true` in this preset
-- Sections whose `default` is `true` but should be `false` in this preset (currently: `beats-xp`, `attributes`, `skills`, `other-traits`, `merits`, `weapons`, `armor`, `equipment`, `notes`, `mortal-header-fields`, `integrity`, `tilts`, `conditions`, `aspirations`)
+- Sections whose `default` is `true` but should be `false` in this preset
 
 ```json
 {
@@ -336,18 +309,20 @@ Presets replace `sectionConfig` entirely when applied. Any section key not liste
     "geist-header-fields": true,
     "synergy": true,
     "plasm": true,
-    "manifestations": true
+    "keys": true,
+    "haunts": true,
+    "remembrance-traits": true
   }
 }
 ```
 
-> **Tip:** Copy an existing preset as a starting point. The verbose style of listing every key as `false` is also fine — it makes the preset self-documenting.
+> **Tip:** Copy an existing preset as a starting point. The verbose style of listing every key is also fine — it makes the preset self-documenting.
 
 ---
 
 ## 9. Adding a new splat
 
-A new splat is a combination of new content lists, new section definitions, and a new preset. **All steps are data.json changes only** — no code editing required for standard section types. Adding a new section type (similar to how Werewolf Forms and Demon Ciphers are very particular to those splats) will require adding additional code to index.html. 
+A new splat is a combination of new content lists, new section definitions, and a new preset. **All steps are `data.json` changes only** for standard section types. A new section type (like Demon's Cipher diagram or Werewolf's Forms table) requires additional code in `index.html`.
 
 ### Step 1 — Add content lists
 
@@ -358,16 +333,15 @@ Add any new ability lists to `data.json`. Rated lists use `{ name, rating, desc 
   {
     "name": "Boneyard 1",
     "rating": 1,
-    "desc": "Cost: 1 Plasm. Dice: Intelligence + Occult + Psyche. Action: Instant. Duration: Scene. The Sin-Eater suffuses an area with death energy, gaining awareness of everything within Psyche yards."
+    "desc": "Cost: 1 Plasm. Dice: Intelligence + Occult + Psyche. Action: Instant."
   }
 ]
 ```
 
 ### Step 2 — Add section definitions
 
-Add sections to `section_definitions`. Use existing types where possible. I have mostly used named-list and rated-list sections. For example, while Changeling Contracts include many fields when presented in the rulebook, most can be comfortably included in the description. 
+Use existing types where possible. For a morality track (starts at 7):
 
-For a morality track (starts at 7):
 ```json
 {
   "key": "synergy",
@@ -379,11 +353,13 @@ For a morality track (starts at 7):
   "state_key": "synergy",
   "default": false,
   "max": 10,
-  "default_value": 7
+  "default_value": 7,
+  "print_empty": true
 }
 ```
 
-For a power stat (starts at 1 — no default_value needed):
+For a power stat (starts at 1):
+
 ```json
 {
   "key": "psyche",
@@ -394,11 +370,13 @@ For a power stat (starts at 1 — no default_value needed):
   "type": "dot-track",
   "state_key": "psyche",
   "default": false,
-  "max": 10
+  "max": 10,
+  "print_empty": true
 }
 ```
 
-For a resource track:
+For a resource track (max 20 squares by default):
+
 ```json
 {
   "key": "plasm",
@@ -408,11 +386,13 @@ For a resource track:
   "order": 4,
   "type": "resource-track",
   "state_key": "plasm",
-  "default": false
+  "default": false,
+  "max": 30
 }
 ```
 
 For a rated ability list:
+
 ```json
 {
   "key": "manifestations",
@@ -432,52 +412,80 @@ The `"db_key"` must match the name of the content list added in Step 1.
 
 ### Step 3 — Update existing presets
 
-For each new section whose `default` is `true` — none for typical splat sections since they all default to `false` — add it to existing presets set to `false`. For new sections with `default: false`, no update to existing presets is needed; they will fall back to `false` automatically.
+For new sections with `default: false` (typical for all splat sections), no update to existing presets is needed — they fall back to `false` automatically.
 
 ### Step 4 — Add the new preset
 
-```json
-{
-  "name": "Geist",
-  "config": {
-    "beats-xp": true,
-    "attributes": true,
-    "skills": true,
-    "other-traits": true,
-    "integrity": false,
-    "tilts": true,
-    "conditions": true,
-    "aspirations": true,
-    "merits": true,
-    "weapons": true,
-    "armor": true,
-    "equipment": true,
-    "notes": true,
-    "mortal-header-fields": true,
-    "geist-header-fields": true,
-    "psyche": true,
-    "synergy": true,
-    "plasm": true,
-    "manifestations": true
-  }
-}
-```
+See [Creating a new preset](#8-creating-a-new-preset) above.
 
-### Step 5 — That's it
+### Step 5 — Add theme and selector options
 
-No code changes required for standard section types.
+Add a CSS theme block and `<option>` entries in both theme `<select>` elements in `index.html` (desktop sidebar and drawer). See the existing theme blocks for the pattern. Be careful not to accidentally consume the adjacent `<select>`'s opening tag when editing — this has caused bugs before.
 
-**Available section types:** `header-fields`, `beats-xp`, `attributes`, `skills`, `derived-traits`, `dot-track`, `dot-square-track`, `line-list`, `named-list`, `rated-list`, `resource-track`, `arcana-block`, `renown-block`, `forms-block`, `cipher-block`, `covers`, `weapons`, `armor`, `equipment`, `textarea`
+### Step 6 — Done
+
+No further code changes required for standard section types.
 
 ---
 
-## 10. What you cannot change in data.json
+## 10. Section definition reference
 
-- **The `athletics` skill key** — used in the Defense formula. Rename the label freely, but not the key.
-- **Section types** — must be one of the supported types listed above. New types require editing `index.html`.
-- **Derived stat formulas** — Health, Willpower, Defense, Initiative, and Speed. Code only.
-- **The 9 core attributes** — fixed in the app. Labels can be changed in code but not via data.
-- **Resource track size** — always 20 squares. Hardcoded.
+### Fields
+
+| Field | Required | Description |
+|---|---|---|
+| `key` | yes | Unique identifier. Used in `sectionConfig` and as DOM id prefix (`secblock-{key}`). Never change after release. |
+| `label` | yes | Display name shown in config panel and on sheet. |
+| `group` | yes | Config panel group. Currently: `Mortal`, `Hunter`, `Mage`, `Werewolf`, `Vampire`, `Changeling`, `Demon`, `Deviant`, `Promethean`, `Geist`. |
+| `zone` | yes | `header`, `beats`, `full-width-top`, `left-column`, `right-column`, `full-width-bottom` |
+| `order` | yes | Default sort position within the zone. Gaps are fine (10, 20, 30). Sections from different splats can share order values. |
+| `type` | yes | Section type — see table below. |
+| `default` | yes | `true` = visible on new sheets. `false` = hidden until toggled. |
+| `state_key` | no | STATE field name. Defaults to `key`. Use when the same state key is shared across sections. |
+| `fields` | header-fields, arcana-block | Array of `{ key, label }` entries defining the individual fields. |
+| `max` | dot-track, dot-square-track, labeled-track, resource-track | Number of dots or squares. Default: 10 for dot tracks, 20 for resource-track. |
+| `default_value` | dot-track, dot-square-track, labeled-track | Starting value for new characters. Default: `1`. Set to `7` for morality stats. Do not set on power stats — they start at 1. |
+| `max_rating` | rated-list | Maximum dot rating on cards. Default: 5. |
+| `db_key` | no | Names the content list in `data.json` that populates this section's dropdown. The app derives its full content registry from these values. |
+| `preserve_order` | no | If `true`, the content list named by `db_key` is not sorted alphabetically on load. Use for forms lists where column order matters. |
+| `beats_key` | beats-xp | STATE key for the beats counter. Default: `beats`. |
+| `xp_key` | beats-xp | STATE key for the XP counter. Default: `experience`. |
+| `print_empty` | dot-track, dot-square-track, labeled-track | If `true`, all dots and squares in this section print empty (for pencil-and-paper use). Set on all morality, power stat, and stability tracks. No `index.html` change needed. |
+
+### Section types
+
+| Type | Description |
+|---|---|
+| `header-fields` | Inline-editable fields in the character header. Uses `fields` array. |
+| `beats-xp` | A beats counter + XP counter pair. Uses `beats_key` and `xp_key`. Multiple trackers render side by side in the beats zone. |
+| `attributes` | The 9 core attributes. Special renderer. |
+| `skills` | All skills with rote checkbox and specialty. Special renderer. |
+| `derived-traits` | Health, Willpower, Defense, Initiative, Speed, Size. Special renderer. |
+| `dot-track` | Clickable 1–N dot track (Integrity, Gnosis, Pilgrimage, etc.). State: single integer. |
+| `dot-square-track` | Dot row (max rating) above a square row (current damage or condition). Used for Clarity and Stability. State: `sk` (integer) + `sk_squares` (array of booleans). |
+| `labeled-track` | Vertical 1–N track where each level has a dot toggle and an inline-editable label. Used for Synergy. State: `sk` (integer) + `sk_labels` (string array). |
+| `resource-track` | Manually-toggled squares in rows of 10. Size set by `max` (default 20). State: array of booleans. |
+| `line-list` | Simple list of text lines (Aspirations, Keys, Banes, etc.). |
+| `named-list` | Collapsible cards with name + description (Tilts, Conditions, Transmutations, etc.). |
+| `rated-list` | Collapsible cards with name + dot rating (0–max) + description (Merits, Disciplines, Gifts, etc.). |
+| `arcana-block` | Fixed rated list driven by the section's `fields` array. Used for Mage Arcana. |
+| `renown-block` | Five named 5-dot tracks in a single combined block. Werewolf only. |
+| `forms-block` | Live reference table showing per-form calculated stats. Data-driven from `db_key`. Werewolf only. |
+| `cipher-block` | Visual gear/cross diagram with Embed 1–4, Interlock 1–3, Cipher, and Final Truth fields. Demon only. |
+| `covers` | Structured identity cards with name, age, appearance, Cover Rating, notes, and per-cover Merits. Demon only. |
+| `weapons` | Weapon cards with full weapon fields. Special renderer. |
+| `armor` | Armor cards with full armor fields. Special renderer. |
+| `equipment` | Equipment cards with full equipment fields. Special renderer. |
+| `textarea` | Multi-line free text with markdown support. Shows rendered text by default; click to edit. |
+
+---
+
+## 11. What you cannot change in data.json
+
+- **The `athletics` skill key** — used in the Defense formula. Change the label freely, but not the key.
+- **Section types** — must be one of the types listed above. New types require editing `index.html`.
+- **Derived stat formulas** — Health, Willpower, Defense, Initiative, Speed. Code only.
+- **The 9 core attributes** — fixed in the app. Not configurable via data.
 - **The Werewolf Renown block** — five renown types are hardcoded.
 - **Attribute row labels** — Power, Finesse, Resistance are hardcoded.
 
@@ -485,14 +493,16 @@ No code changes required for standard section types.
 
 ## Tips
 
-**Validate your JSON.** After any edit, paste `data.json` into [jsonlint.com](https://jsonlint.com) before pushing. A single misplaced comma will prevent the app from loading.
+**Validate your JSON.** After any edit, paste `data.json` into [jsonlint.com](https://jsonlint.com) before pushing. A single misplaced comma prevents the app from loading.
 
-**Keys are permanent.** Once a character has been saved with a section key or state key, renaming it will cause saved data to be silently ignored. Always treat keys as permanent identifiers.
+**Keys are permanent.** Once a character has been saved with a section key or state key, renaming it causes saved data to be silently ignored. Always treat keys as permanent.
 
-**Order values don't need to be consecutive.** Use gaps (10, 20, 30) to leave room for insertions.
+**Order values don't need to be consecutive.** Use gaps (10, 20, 30) to leave room for future insertions.
 
-**Same order values across splats are fine.** Sections from different splats can share order values because only one splat's sections are visible at a time.
+**Same order values across splats are fine.** Only one splat's sections are visible at a time.
 
-**Power stats start at 1, morality stats start at 7.** This is controlled by `"default_value": 7` on the section definition. Do not add this to power stats — they should start at 1.
+**Power stats start at 1, morality stats at 7.** Controlled by `"default_value": 7`. Do not add this to power stats.
 
-**Sharing library additions.** Use the in-app **Data library → Export library** to download your current library. Others can use **Import library → Merge** to add your entries without overwriting their own.
+**Set `"print_empty": true` on all dot-track, dot-square-track, and labeled-track sections.** This makes dots and squares print empty for pencil-and-paper use at the table. All existing tracks already have this flag.
+
+**Sharing library additions.** Use **Data library → Export library** to share your content. Others can **Import library → Merge** to add your entries without overwriting theirs.

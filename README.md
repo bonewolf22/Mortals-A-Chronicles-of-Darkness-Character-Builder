@@ -1,6 +1,6 @@
 # Mortals+ — Chronicles of Darkness Character Sheet Builder
 
-Mortals+ is a browser-based character builder and live play aid for Chronicles of Darkness (Second Edition). 
+Mortals+ is a browser-based character builder and live play aid for Chronicles of Darkness (Second Edition).
 
 **[Open the app →](https://bonewolf22.github.io/Mortals-A-Chronicles-of-Darkness-Character-Builder/)**
 
@@ -8,6 +8,7 @@ Mortals+ is a browser-based character builder and live play aid for Chronicles o
 
 ## Supported splats
 
+- Mortal (Chronicles of Darkness core)
 - Hunter: The Vigil
 - Mage: The Awakening
 - Werewolf: The Forsaken
@@ -15,6 +16,8 @@ Mortals+ is a browser-based character builder and live play aid for Chronicles o
 - Changeling: The Lost
 - Demon: The Descent
 - Deviant: The Renegades
+- Promethean: The Created
+- Geist: The Sin-Eaters
 
 See [Contributing](#contributing) if you'd like to help add one.
 
@@ -24,23 +27,37 @@ See [Contributing](#contributing) if you'd like to help add one.
 
 ### Character sheet
 
-- **Attributes** — 9 attributes across Mental, Physical, Social (rated 1–10), displayed as clickable dots with Power/Finesse/Resistance row labels. Toggle between 5-dot and 10-dot display
-- **Skills** — 24 skills across Mental, Physical, Social (rated 0–5), with rote checkbox and specialty field
+- **Attributes** — 9 attributes across Mental, Physical, Social (rated 1–10), displayed as clickable dots with Power/Finesse/Resistance row labels. Toggle between 5-dot and 10-dot display, or show numeric values
+- **Skills** — 24 skills across Mental, Physical, Social (rated 0–5), with rote checkbox and specialty field. Skill names are editable inline
 - **Health track** — typed damage (Bashing / Lethal / Aggravated); click any box to cycle; auto-resizes when Stamina or Size changes
-- **Willpower** — circle and box tracker with adjustable maximum
-- **Derived traits** — Defense, Initiative, Speed; auto-calculated with manual override; gear modifiers shown separately
-- **Beats / Experience** — 5 Beats auto-awards 1 XP; fully data-driven (splat-specific beat trackers can be added without code changes)
+- **Willpower** — dot and box tracker with adjustable maximum
+- **Derived traits** — Defense, Initiative, Speed; auto-calculated from stats with manual override
+- **Beats / Experience** — 5 Beats auto-awards 1 XP; fully data-driven (splat-specific beat trackers can be added in `data.json` without code changes)
 - **Tilts and Conditions** — searchable library with custom entry support
 - **Aspirations** — simple line list
-- **Merits** — searchable library, 5-dot or 10-dot max toggle; rated 0–5 or 0–10
-- **Weapons** — melee and ranged cards with full stat fields; Equipped checkbox applies Initiative modifier to derived traits
-- **Armor** — cards with full stat fields; Equipped checkbox applies Defense and Speed penalties
+- **Merits** — searchable library, 5-dot or 10-dot max toggle
+- **Weapons** — melee and ranged cards with full stat fields; Equipped toggle applies Initiative modifier to derived traits
+- **Armor** — cards with full stat fields; Equipped toggle applies Defense and Speed penalties
 - **Equipment** — cards with dice bonus, durability, size, structure
-- **Splat-Specific Stats** — additional stats for splats (Wisdom, Variations, Ciphers, etc) are available through both presets and a configuration menu 
+- **Notes** — free-text field with markdown support
+
+### Splat sections
+
+Apply a preset from the **Sheet Configuration** panel to enable all sections for a given splat. Sections can also be toggled individually. Each splat adds its own sections on top of the standard sheet:
+
+- **Hunter** — Compact/Conspiracy header, Endowments, Tactics, Touchstones, The Code, Group Beats tracker
+- **Mage** — Path/Order/Legacy/Cabal header, Arcana block (10 Arcana rated 0–5), Gnosis, Wisdom, Mana, Obsessions, Inured Spells, Rotes, Praxes, Arcana Attainments, Legacy Attainments, Arcane Beats tracker
+- **Werewolf** — Auspice/Tribe/Lodge/Pack header, Primal Urge, Harmony, Essence, Renown block (5 renown types), Flesh/Spirit Touchstones, live Forms reference table (calculated stats per form), Gifts, Rites
+- **Vampire** — Clan/Covenant/Bloodline header, Blood Potency, Humanity, Vitae, Banes, Disciplines, Devotions, Vampire Rites
+- **Changeling** — Needle/Thread/Seeming/Court/Kith header, Wyrd, Clarity (dot-square track), Glamour, Favored Regalia, Frailties, Touchstones, Goblin Debt, Contracts, Pledges, Seeming Blessing/Curse, Kith Blessing
+- **Demon** — Incarnation/Agenda/Catalyst header, Cover Rating, Primum, Aether, Demonic Form, Embeds, Exploits, Cipher (interactive gear diagram), Covers (identity cards with per-cover Merits), Cover Beats tracker
+- **Deviant** — Origin/Clade/Forms header, Stability (dot-square track), Acclimation, Flux, Touchstones, Variations (rated by Magnitude), Scars (rated by Magnitude), Adaptations, Origins
+- **Promethean** — Elpis/Torment/Lineage/Refinement/Role header, Pilgrimage, Azoth, Pyros, Transmutations, Bestowment, Refinement Condition, Fixed Alembics, Milestones, Mastered Roles, Vitriol Beats tracker
+- **Geist** — Geist/Burden/Root/Bloom/Krewe header, Synergy (labeled track with per-level labels), Plasm, Keys, Haunts, Remembrance Traits
 
 ### Description formatting
 
-Description fields on power cards (Disciplines, Contracts, Gifts, Tactics, Embeds, etc.) and free-text sections (Notes, The Code, Origins, etc.) support lightweight markdown formatting:
+Description fields support lightweight markdown:
 
 | Syntax | Result |
 |---|---|
@@ -48,36 +65,28 @@ Description fields on power cards (Disciplines, Contracts, Gifts, Tactics, Embed
 | `*text*` | *italic* |
 | `***text***` | ***bold italic*** |
 
-Press Enter for line breaks. Power card descriptions display as rendered text by default — click to edit, click away to return to the formatted view. Free-text sections show a live preview above the text area as you type.
-
-Descriptions in `data.json` use the same syntax. Use `\n` for line breaks in JSON strings.
-
-### Splat sections
-
-Apply a preset from the **Sheet Configuration** panel to enable all sections for a given splat. Sections can also be toggled individually.
-
-Each splat adds its own sections on top of the standard sheet:
-
-- **Hunter** — Compact/Conspiracy header, Endowments, Tactics, Touchstones, The Code
-- **Mage** — Path/Order/Legacy/Cabal header, Arcana block, Gnosis, Wisdom, Mana, Obsessions, Inured Spells, Rotes, Praxes, Arcana Attainments, Legacy Attainments
-- **Werewolf** — Auspice/Tribe/Lodge/Pack header, Primal Urge, Harmony, Essence, Renown block, Flesh/Spirit Touchstones, live Forms reference table, Gifts, Rites
-- **Vampire** — Clan/Covenant/Bloodline header, Blood Potency, Humanity, Vitae, Banes, Disciplines, Devotions, Rites & Miracles
-- **Changeling** — Needle/Thread/Seeming/Court/Kith header, Wyrd, Clarity, Glamour, Favored Regalia, Frailties, Touchstones, Goblin Debt, Contracts, Pledges, Seeming Blessing/Curse, Kith Blessing
-- **Demon** — Incarnation/Agenda/Catalyst header, Cover Rating, Primum, Aether, Demonic Form, Embeds, Exploits, Cipher (interactive gear diagram with Embed/Interlock/Cipher/Final Truth fields), Covers (identity cards with Cover Rating dot track, description, and per-cover Merits)
-- **Deviant** — Origin/Clade/Forms header, Stability, Acclimation, Flux, Touchstones, Variations (rated by Magnitude), Scars (rated by Magnitude), Adaptations, Origins
+Press Enter for line breaks. Fields show rendered text by default — click to edit, click away to save. In `data.json`, use `\n` for line breaks in JSON strings.
 
 ### Layout
 
-Section titles are drag handles — drag any section to reorder it or move it between columns. Layout is saved per character. Use **Reset layout to defaults** to restore the original positions.
+Section titles are drag handles — drag any section to reorder it or move it between columns. Layout is saved per character. Use **Reset layout to defaults** to restore the original positions. Use **Lock layout** to prevent accidental drags during play.
+
+### Collapsible sections
+
+Click any section header to collapse it. Collapsed state is preserved across page refreshes.
 
 ### Print / Save as PDF
 
-Click **Print / Save as PDF** in the toolbar. Your browser's print dialog opens — choose **Save as PDF** and set paper size to **Letter**. All interactive controls are hidden; only the character sheet content prints.
+Click **Print / Save as PDF** in the toolbar. Use your browser's **Save as PDF** destination with **Letter** paper size.
 
-This feature currently isn't perfect and is slated for improvement in a future version.
+- **Chrome is the recommended browser** for printing. Firefox does not reliably handle page breaks at the attributes/columns boundary
+- All collapsed sections and closed item cards are automatically expanded before printing, then restored afterwards
+- Consumable tracks (health, willpower, resource tracks, dot tracks) print empty so they can be filled in pencil at the table
+- Beats trackers do not print — they are live-play tools only
 
-### Mobile Use
-While the app is primarily intended for use on full displays or tablets, I have done my best to optimize it for mobile use. There is still room for improvement, so additional contributions for mobile use are welcome. 
+### Mobile and tablet
+
+On touch devices the desktop sidebar is replaced by a floating button that opens a bottom drawer with the same Save, Configure, Sheet, and Library panels. Section drag-and-drop and textarea resize handles are touch-compatible.
 
 ---
 
@@ -85,18 +94,19 @@ While the app is primarily intended for use on full displays or tablets, I have 
 
 Characters are saved in your **browser's local storage** — no account or server required. This means:
 
-- Saves are local to your device (they are not saved on any servers)
-- Saves are tied to the browser you use. A character saved in Chrome on your laptop won't appear in Firefox or on your phone
-- To move a character between browsers or devices, use **Export sheet** to download a JSON file, then **Import sheet** on the other browser
+- Saves are local to your device and browser
+- To move a character between browsers or devices, use **Export sheet** (downloads a `.json` file) and **Import sheet** on the destination browser
+- Clearing browser data will delete your saves — export important characters
 
 ---
 
 ## Generate baseline
 
-Distributes dots using standard Chronicles of Darkness starting spreads:
+Distributes dots using standard Chronicles of Darkness creation spreads:
 
-- **Attributes** — 5 / 4 / 3 extra dots randomly distributed across the three categories
-- **Skills** — 11 / 7 / 4 dots randomly distributed across the three categories
+- **Attributes** — 5 / 4 / 3 extra dots randomly distributed across three categories
+- **Skills** — 11 / 7 / 4 dots randomly distributed across three categories
+- Name is chosen randomly from the `mortal_names` list in `data.json`
 
 ---
 
@@ -104,10 +114,15 @@ Distributes dots using standard Chronicles of Darkness starting spreads:
 
 Everything that can be customised lives in **`data.json`** — no code changes are needed for most additions. See [CUSTOMISATION_GUIDE.md](CUSTOMISATION_GUIDE.md) for a full walkthrough, from adding a single merit to building a complete new splat.
 
-For code contributions, the entire frontend lives in `index.html` as a single file with no build step or dependencies.
+For code contributions, the entire frontend lives in two files with no build step or external dependencies:
+
+- `index.html` — all HTML, CSS, and JavaScript
+- `data.json` — all configuration and content
+
+Run locally using the **Live Server** VS Code extension (`Go Live` button). Do not open `index.html` directly via `file://` — the `fetch('./data.json')` call will be blocked by browser security.
 
 ---
 
 ## License
 
-Fan tool. Chronicles of Darkness is a trademark of Paradox Interactive AB. Not affiliated with or endorsed by Paradox Interactive. Any contributor is welcome to make their own fork of this app as long as they do not charge money or otherwise use it for commercial gain. 
+Fan tool. Chronicles of Darkness is a trademark of Paradox Interactive AB. Not affiliated with or endorsed by Paradox Interactive. Forks are welcome provided they are not used for commercial gain.
