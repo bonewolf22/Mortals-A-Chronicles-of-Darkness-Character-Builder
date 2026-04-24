@@ -1,12 +1,12 @@
 {
   "_file_comment": [
-    "Chronicles of Darkness — Mortals+ data file.",
+    "Chronicles of Darkness \u2014 Mortals+ data file.",
     "This file has three sections: CONFIGURATION, then CONTENT.",
     "CONFIGURATION keys drive the app structure and should be edited carefully.",
     "CONTENT keys are lists of game entries freely added, removed, or replaced.",
     "Use the in-app Data Library import/export to share or update content safely."
   ],
-  "_config_comment": "── CONFIGURATION ─────────────────────────────────────────────────────────────",
+  "_config_comment": "\u2500\u2500 CONFIGURATION \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
   "_skills_comment": [
     "skill_definitions: ordered list of all skills available on the sheet.",
     "Each entry: { key, label, category }",
@@ -63,7 +63,7 @@
       "key": "athletics",
       "label": "Athletics",
       "category": "physical",
-      "_note": "athletics key is used in the Defense formula — renaming the label is safe, but do not change the key"
+      "_note": "athletics key is used in the Defense formula \u2014 renaming the label is safe, but do not change the key"
     },
     {
       "key": "brawl",
@@ -148,40 +148,40 @@
     "  label:      display name shown in the Sheet Configuration panel and on the PDF",
     "  group:      config panel group header: Mortal | Hunter | (future splats)",
     "  zone:       where on the sheet this section appears:",
-    "                header            — character header row",
-    "                beats             — beats/XP tracker row (between header and full-width-top)",
-    "                full-width-top    — full-width area below beats, above the two columns",
-    "                left-column       — left column (skills area)",
-    "                right-column      — right column (traits/conditions area)",
-    "                full-width-bottom — full-width area below the two columns",
+    "                header            \u2014 character header row",
+    "                beats             \u2014 beats/XP tracker row (between header and full-width-top)",
+    "                full-width-top    \u2014 full-width area below beats, above the two columns",
+    "                left-column       \u2014 left column (skills area)",
+    "                right-column      \u2014 right column (traits/conditions area)",
+    "                full-width-bottom \u2014 full-width area below the two columns",
     "  order:      sort order within the zone (lower = higher on sheet)",
-    "  type:       rendering type — see list below",
+    "  type:       rendering type \u2014 see list below",
     "  default:    true = visible by default, false = hidden by default",
     "  state_key:  STATE field this section reads/writes (defaults to key if omitted)",
-    "  max_rating: for rated-list — maximum dot rating (default 5)",
-    "  max:        for dot-track — number of dots (default 10)",
-    "  beats_key:  for beats-xp — STATE key for the beats counter (default: 'beats')",
-    "  xp_key:     for beats-xp — STATE key for the experience counter (default: 'experience')",
+    "  max_rating: for rated-list \u2014 maximum dot rating (default 5)",
+    "  max:        for dot-track \u2014 number of dots (default 10)",
+    "  beats_key:  for beats-xp \u2014 STATE key for the beats counter (default: 'beats')",
+    "  xp_key:     for beats-xp \u2014 STATE key for the experience counter (default: 'experience')",
     "",
     "Section types:",
-    "  attributes      — the 9 core attributes (special renderer)",
-    "  skills          — the 27 skills with rote/specialty (special renderer)",
-    "  derived-traits  — health, willpower, defense, initiative, speed (special renderer)",
-    "  dot-track       — a simple 1–N dot track (e.g. Integrity, Humanity)",
-    "  header-fields   — text fields in the character header",
-    "  beats-xp        — a beats counter + XP counter pair (zone: beats)",
-    "  line-list       — a simple list of text lines (e.g. Aspirations, Touchstones)",
-    "  named-list      — collapsible cards with name + description (e.g. Tilts, Tactics)",
-    "  rated-list      — collapsible cards with name + rating + description (e.g. Merits, Endowments)",
-    "  resource-track  — 20 manually-toggled squares in 2 rows of 10 (Mana, Essence, Vitae)",
-    "  arcana-block    — fixed rated list from the section's fields array (Mage Arcana)",
-    "  renown-block    — five named 5-dot tracks in a single block (Werewolf Renown)",
-    "  forms-block     — live reference table showing per-form calculated stats",
-    "  weapons         — weapon cards with full weapon fields (special renderer)",
-    "  armor           — armor cards with full armor fields (special renderer)",
-    "  equipment       — equipment cards with full equipment fields (special renderer)",
-    "  textarea        — a multi-line text area (e.g. Notes, The Code)",
-    "  dot-square-track — dot row (max rating) above square row (current value), like Willpower but data-driven (e.g. Clarity)"
+    "  attributes      \u2014 the 9 core attributes (special renderer)",
+    "  skills          \u2014 the 27 skills with rote/specialty (special renderer)",
+    "  derived-traits  \u2014 health, willpower, defense, initiative, speed (special renderer)",
+    "  dot-track       \u2014 a simple 1\u2013N dot track (e.g. Integrity, Humanity)",
+    "  header-fields   \u2014 text fields in the character header",
+    "  beats-xp        \u2014 a beats counter + XP counter pair (zone: beats)",
+    "  line-list       \u2014 a simple list of text lines (e.g. Aspirations, Touchstones)",
+    "  named-list      \u2014 collapsible cards with name + description (e.g. Tilts, Tactics)",
+    "  rated-list      \u2014 collapsible cards with name + rating + description (e.g. Merits, Endowments)",
+    "  resource-track  \u2014 20 manually-toggled squares in 2 rows of 10 (Mana, Essence, Vitae)",
+    "  arcana-block    \u2014 fixed rated list from the section's fields array (Mage Arcana)",
+    "  renown-block    \u2014 five named 5-dot tracks in a single block (Werewolf Renown)",
+    "  forms-block     \u2014 live reference table showing per-form calculated stats",
+    "  weapons         \u2014 weapon cards with full weapon fields (special renderer)",
+    "  armor           \u2014 armor cards with full armor fields (special renderer)",
+    "  equipment       \u2014 equipment cards with full equipment fields (special renderer)",
+    "  textarea        \u2014 a multi-line text area (e.g. Notes, The Code)",
+    "  dot-square-track \u2014 dot row (max rating) above square row (current value), like Willpower but data-driven (e.g. Clarity)"
   ],
   "section_definitions": [
     {
@@ -296,7 +296,8 @@
       "state_key": "integrity",
       "default": true,
       "max": 10,
-      "default_value": 7
+      "default_value": 7,
+      "print_empty": true
     },
     {
       "key": "tilts",
@@ -516,7 +517,8 @@
       "type": "dot-track",
       "state_key": "gnosis",
       "default": false,
-      "max": 10
+      "max": 10,
+      "print_empty": true
     },
     {
       "key": "wisdom",
@@ -528,7 +530,8 @@
       "state_key": "wisdom",
       "default": false,
       "max": 10,
-      "default_value": 7
+      "default_value": 7,
+      "print_empty": true
     },
     {
       "key": "mana",
@@ -632,7 +635,8 @@
       "type": "dot-track",
       "state_key": "primal_urge",
       "default": false,
-      "max": 10
+      "max": 10,
+      "print_empty": true
     },
     {
       "key": "harmony",
@@ -644,7 +648,8 @@
       "state_key": "harmony",
       "default": false,
       "max": 10,
-      "default_value": 7
+      "default_value": 7,
+      "print_empty": true
     },
     {
       "key": "essence",
@@ -755,7 +760,8 @@
       "state_key": "humanity",
       "default": false,
       "max": 10,
-      "default_value": 7
+      "default_value": 7,
+      "print_empty": true
     },
     {
       "key": "blood-potency",
@@ -766,7 +772,8 @@
       "type": "dot-track",
       "state_key": "blood_potency",
       "default": false,
-      "max": 10
+      "max": 10,
+      "print_empty": true
     },
     {
       "key": "vitae",
@@ -864,7 +871,8 @@
       "type": "dot-track",
       "state_key": "wyrd",
       "default": false,
-      "max": 10
+      "max": 10,
+      "print_empty": true
     },
     {
       "key": "clarity",
@@ -875,7 +883,8 @@
       "type": "dot-square-track",
       "state_key": "clarity",
       "default": false,
-      "max": 12
+      "max": 12,
+      "print_empty": true
     },
     {
       "key": "glamour",
@@ -1034,7 +1043,8 @@
       "state_key": "cover_rating",
       "default": false,
       "max": 10,
-      "default_value": 7
+      "default_value": 7,
+      "print_empty": true
     },
     {
       "key": "primum",
@@ -1045,7 +1055,8 @@
       "type": "dot-track",
       "state_key": "primum",
       "default": false,
-      "max": 10
+      "max": 10,
+      "print_empty": true
     },
     {
       "key": "aether",
@@ -1143,7 +1154,8 @@
       "state_key": "stability",
       "default": false,
       "max": 10,
-      "default_value": 7
+      "default_value": 7,
+      "print_empty": true
     },
     {
       "key": "acclimation",
@@ -1154,7 +1166,8 @@
       "type": "dot-track",
       "state_key": "acclimation",
       "default": false,
-      "max": 5
+      "max": 5,
+      "print_empty": true
     },
     {
       "key": "flux",
@@ -1273,7 +1286,8 @@
       "state_key": "pilgrimage",
       "default": false,
       "max": 10,
-      "default_value": 1
+      "default_value": 1,
+      "print_empty": true
     },
     {
       "key": "azoth",
@@ -1284,7 +1298,8 @@
       "type": "dot-track",
       "state_key": "azoth",
       "default": false,
-      "max": 10
+      "max": 10,
+      "print_empty": true
     },
     {
       "key": "pyros",
@@ -1403,7 +1418,8 @@
       "state_key": "synergy",
       "default": false,
       "max": 10,
-      "default_value": 7
+      "default_value": 7,
+      "print_empty": true
     },
     {
       "key": "plasm",
@@ -1451,7 +1467,7 @@
   ],
   "_presets_comment": [
     "sheet_presets: named sectionConfig snapshots.",
-    "Applying a preset does a full reset — all sections are set to the values listed.",
+    "Applying a preset does a full reset \u2014 all sections are set to the values listed.",
     "Every section key must be present in each preset.",
     "To add a preset: add an entry with a name and a config covering all section keys.",
     "The 'Mortal' preset represents the default starting configuration."
@@ -2489,7 +2505,7 @@
       }
     }
   ],
-  "_content_comment": "── CONTENT ───────────────────────────────────────────────────────────────────",
+  "_content_comment": "\u2500\u2500 CONTENT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
   "_names_comment": [
     "mortal_names: names used by the Generate Baseline button.",
     "Add or remove names freely. Order does not matter."
@@ -2564,7 +2580,7 @@
     "Stefan Ionescu",
     "Takeshi Mori",
     "Tariq Abdullahi",
-    "Teresa Álvarez",
+    "Teresa \u00c1lvarez",
     "Thomas Eriksen",
     "Valentina Cruz",
     "Victor Morozov",
@@ -2649,7 +2665,7 @@
       "size": 1,
       "structure": 3,
       "availability": 1,
-      "desc": "Die bonus subtracts from any penalties due to darkness, and adds to any rolls to search in the dark. Some can also be used as a club. Also can blind a subject. Roll Dexterity + Athletics, subtracting opponent's Defense. The victim’s player. If your character scores more successes than the subject, the subject is blinded for one turn. Victims with especially acute senses are blinded for two turns."
+      "desc": "Die bonus subtracts from any penalties due to darkness, and adds to any rolls to search in the dark. Some can also be used as a club. Also can blind a subject. Roll Dexterity + Athletics, subtracting opponent's Defense. The victim\u2019s player. If your character scores more successes than the subject, the subject is blinded for one turn. Victims with especially acute senses are blinded for two turns."
     },
     {
       "name": "Smartphone",
@@ -2900,7 +2916,7 @@
     }
   ],
   "_tactics_comment": [
-    "tactics: Hunter tactics — coordinated cell manoeuvres.",
+    "tactics: Hunter tactics \u2014 coordinated cell manoeuvres.",
     "Each entry: { name, desc }",
     "  desc: rules summary of what the tactic does and how to execute it"
   ],
@@ -2911,7 +2927,7 @@
     },
     {
       "name": "Called Shot",
-      "desc": "**Action**: Instant and resisted\n**Dice Pools**:\n  *Primary*: Strength + Weaponry or Dexterity + Firearms - target's Defense.\n  *Secondary*: Manipulation + Persuasion or Subterfuge (baiting, 1/2); Strength + Brawl (tacking, 1/2)\n**Success**: The opponent suffers the appropriate Tilt for a successful hit on the specified target, and the hunter's attack deals damage as normal with a +1 to his weapon modifier. The target takes a penalty to Initiative equal to the number of participants for the rest of the scene.\n**Exceptional Success**: As success, and the Storyteller offers an immediate surrender in exchange for a non-lethal outcome to the scene. If the players accept, the Tactic’s tar- get submits to whatever fate the hunters choose that can be enacted within the current scene, such as capture or giving something up, as long as it doesn’t involve further violence against the target.\n**Failure or Dramatic Failure**: The target twists or ducks at the last minute, and the primary actor makes a reflexive attack against the secondary actor closest to the target, ignoring Defense."
+      "desc": "**Action**: Instant and resisted\n**Dice Pools**:\n  *Primary*: Strength + Weaponry or Dexterity + Firearms - target's Defense.\n  *Secondary*: Manipulation + Persuasion or Subterfuge (baiting, 1/2); Strength + Brawl (tacking, 1/2)\n**Success**: The opponent suffers the appropriate Tilt for a successful hit on the specified target, and the hunter's attack deals damage as normal with a +1 to his weapon modifier. The target takes a penalty to Initiative equal to the number of participants for the rest of the scene.\n**Exceptional Success**: As success, and the Storyteller offers an immediate surrender in exchange for a non-lethal outcome to the scene. If the players accept, the Tactic\u2019s tar- get submits to whatever fate the hunters choose that can be enacted within the current scene, such as capture or giving something up, as long as it doesn\u2019t involve further violence against the target.\n**Failure or Dramatic Failure**: The target twists or ducks at the last minute, and the primary actor makes a reflexive attack against the secondary actor closest to the target, ignoring Defense."
     }
   ],
   "_contracts_comment": [
@@ -2935,9 +2951,9 @@
     "  desc: include type (Sealing/Oath/Bargain), parties, boons, sanctions, and duration"
   ],
   "pledges": [],
-  "_praxes_comment": "praxes: Mage Praxes — spells the Mage has mastered. Each entry: { name, desc }",
+  "_praxes_comment": "praxes: Mage Praxes \u2014 spells the Mage has mastered. Each entry: { name, desc }",
   "praxes": [],
-  "_demon_comment": "── Demon: the Descent content lists ──────────────────────────────────────────",
+  "_demon_comment": "\u2500\u2500 Demon: the Descent content lists \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
   "_demonic_form_comment": "demonic_form: a demon's Demonic Form manifestations. Each entry: { name, desc }",
   "demonic_form": [
     {
@@ -3007,7 +3023,7 @@
     {
       "name": "Boneyard",
       "rating": 1,
-      "desc": "**Cost:** 1 Plasm per scene\n**Action:** Instant\nThe sin-eater extends their awareness through the Underworld resonance of an area. Allows perception of ghosts and Underworld phenomena within a radius equal to Synergy in yards. Higher ratings expand range and allow active manipulation of the environment.\n**Keys:** Any — each Key modifies the Haunt's specific effects and unlocks deeper manifestations."
+      "desc": "**Cost:** 1 Plasm per scene\n**Action:** Instant\nThe sin-eater extends their awareness through the Underworld resonance of an area. Allows perception of ghosts and Underworld phenomena within a radius equal to Synergy in yards. Higher ratings expand range and allow active manipulation of the environment.\n**Keys:** Any \u2014 each Key modifies the Haunt's specific effects and unlocks deeper manifestations."
     },
     {
       "name": "Caul",
@@ -3046,7 +3062,7 @@
     },
     {
       "name": "Insight (Kinesics)",
-      "desc": "**Transmutation:** Kinesics\n**Persistent:** Your character reads people easily. Gain +1 to Empathy rolls.\n**1st Distillation (Read Intent):** Spend 1 Pyros. Discern a target's current emotional state and immediate intentions. Dice pool: Intelligence + Empathy.\n**2nd Distillation (Open Book):** Spend 1 Pyros. Read a target's surface thoughts and motivations. They cannot lie without your knowing.\n**3rd Distillation (Soul's Mirror):** Spend 2 Pyros. Understand a target completely — secrets, fears, desires — for the scene."
+      "desc": "**Transmutation:** Kinesics\n**Persistent:** Your character reads people easily. Gain +1 to Empathy rolls.\n**1st Distillation (Read Intent):** Spend 1 Pyros. Discern a target's current emotional state and immediate intentions. Dice pool: Intelligence + Empathy.\n**2nd Distillation (Open Book):** Spend 1 Pyros. Read a target's surface thoughts and motivations. They cannot lie without your knowing.\n**3rd Distillation (Soul's Mirror):** Spend 2 Pyros. Understand a target completely \u2014 secrets, fears, desires \u2014 for the scene."
     },
     {
       "name": "Metamorphosis (Shapeshifting)",

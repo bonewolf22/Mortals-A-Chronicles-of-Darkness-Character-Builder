@@ -362,7 +362,7 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .desc-preview em{font-style:italic}
 .desc-preview-lbl{font-size:.62rem;font-family:sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:2px}
 .has-preview textarea{border-radius:0 0 3px 3px}
-@media print{.desc-display{border:none;padding:0;cursor:default}.desc-edit-hint{display:none}.desc-preview{display:none}.has-preview textarea{display:none}}
+/* desc-display print rules consolidated into main @media print block below */
 .merit-toggle-hd{display:flex;align-items:center;justify-content:space-between;margin-top:14px;margin-bottom:5px}
 .merit-toggle-hd .sec{margin:0;border:none;padding:0}
 .sidebar-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem 1.25rem;margin-bottom:12px}
@@ -724,7 +724,7 @@ body.touch-device .ta-wrap textarea{
   @page{size:letter;margin:.5in}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 
-  /* Hide all live-sheet-only UI */
+  /* ── Hide all live-sheet-only UI ──────────────────────────────────────── */
   .no-print,
   .gen-bar,
   .toolbar,
@@ -746,51 +746,130 @@ body.touch-device .ta-wrap textarea{
   .derived-spin-row button,
   [id$="-calc"],
   .sidebar-fab,
-  .drawer-backdrop{display:none!important}
+  .drawer-backdrop,
+  .sec-chevron{display:none!important}
 
-  /* Remove outer page chrome */
-  body{background:#fff;font-size:13px}
-  .page{max-width:100%;padding:.15in 0 0;margin:0}
+  /* ── Remove outer page chrome ─────────────────────────────────────────── */
+  body{background:#fff;font-size:12px}
+  .page{max-width:100%;padding:.1in 0 0;margin:0}
   h1,.app-sub{display:none}
 
-  /* Sheet fills full width — no sidebar column */
+  /* ── Sheet fills full width — no sidebar column ───────────────────────── */
   .app-cols{display:block}
   #editorCol{width:100%}
 
-  /* Card and surface colours */
+  /* ── Card and surface colours ─────────────────────────────────────────── */
   .sb-card{border:none;padding:0;background:#fff}
 
-  /* Keep two-column layout intact */
-  .sheet-cols{display:grid;grid-template-columns:1.15fr 1fr;gap:0 18px}
+  /* ── Keep attributes and two-column layout on the same page ──────────── */
+  /* Chrome: break-after + break-before on both sides of the seam is        */
+  /* sufficient. Firefox does not reliably honour these across grid          */
+  /* boundaries — Chrome is the recommended browser for printing.           */
+  #zone-full-width-top{display:block;break-after:avoid}
+  .sheet-cols{display:grid;grid-template-columns:1.15fr 1fr;gap:0 18px;break-before:avoid}
 
-  /* Cards: keep open, no collapse */
-  .item-card{break-inside:avoid;border:1px solid var(--border-light)}
+  /* ── Force all collapsible content visible ────────────────────────────── */
+  /* Collapsed sections (.sec-collapsed) must show their body on print.     */
+  /* beforeprint JS expands them, but this CSS rule is the safety net.      */
+  .sec-collapsible-body{display:block!important}
+  .sec-block.sec-collapsed .sec{margin-bottom:5px;border-bottom-color:var(--border-light)}
+
+  /* ── Force all item cards open ────────────────────────────────────────── */
   .item-body{display:block!important}
+  .cover-card-body{display:block!important}
 
-  /* Sections shouldn't break mid-block where avoidable */
-  .sec-block{break-inside:avoid}
+  /* ── desc-display: clean border-free rendering ────────────────────────── */
+  .desc-display{border:none!important;padding:0!important;cursor:default;min-height:0}
+  .desc-ta-wrap{display:none!important}
+  .desc-edit-hint{display:none!important}
 
-  /* Full-width zones can break naturally between children */
-  #zone-full-width-bottom .sec-block{break-inside:avoid}
-
-  /* Health/WP tracker row wrapping */
-  .tracker-circles,.tracker-squares,.health-boxes{flex-wrap:wrap}
-
-  /* Beats zone — hide entirely (live tracking only) */
+  /* ── Beats zone — live tracking only, never prints ────────────────────── */
   #zone-beats{display:none!important}
 
-  /* Empty state never prints */
+  /* ── Empty state never prints ─────────────────────────────────────────── */
   #emptyState{display:none!important}
 
-  /* Faint borders print cleanly */
-  .item-hd{background:#fff}
-  .attr-cell{background:var(--chip)}
+  /* ── Status bar never prints ──────────────────────────────────────────── */
+  .status-bar{display:none!important}
 
-  /* Suppress hover/focus outlines */
+  /* ── Suppress hover/focus outlines ───────────────────────────────────── */
   *:focus{outline:none}
 
-  /* Status bar never prints */
-  .status-bar{display:none!important}
+  /* ── Health/WP tracker row wrapping ──────────────────────────────────── */
+  .tracker-circles,.tracker-squares,.health-boxes{flex-wrap:wrap}
+
+  /* ── Surface colours ──────────────────────────────────────────────────── */
+  .item-hd{background:var(--chip)}
+  .attr-cell{background:var(--chip)}
+
+  /* ── Empty tracks on print ────────────────────────────────────────────── */
+  /* All track state is stored in CSS classes (.filled, .on) applied by JS.  */
+  /* On paper these are filled with pencil, so we print every cell empty.    */
+
+  /* Health boxes: hide the SVG damage marks; keep the box border */
+  .hbox svg{display:none!important}
+
+  /* Willpower: tcircle = permanent dots (always filled circles, keep those) */
+  /* tsquare.on = spent/remaining squares — reset to empty border-only box   */
+  .tsquare.on{background:transparent!important;border-color:var(--border)!important}
+
+  /* Resource tracks (Mana, Plasm, Pyros, Aether, Flux, etc.)               */
+  .rsquare.on{background:transparent!important;border-color:var(--border)!important}
+
+  /* Dot tracks — sections flagged print_empty in data.json get the          */
+  /* .print-empty class stamped by buildSectionHTML. Clear all filled dots   */
+  /* and tcircles within those sections.                                     */
+  .print-empty .dot.filled{background:transparent!important;border-color:var(--border)!important}
+  .print-empty .tcircle{background:transparent!important;border-color:var(--border)!important}
+
+  /* Dot-square tracks: square row (.tsquare.on) cleared by rule above.      */
+
+  /* ── Page-break rules ─────────────────────────────────────────────────── */
+  /*
+   * Strategy:
+   *   - Allow sec-blocks to break freely — they may be long (20 merits, etc.)
+   *   - Prevent breaks AFTER section headers so they don't orphan at page bottom
+   *   - Prevent breaks INSIDE compact atomic units (tracker rows, cards, stat rows)
+   *   - The two-column grid naturally isolates left/right columns per page
+   */
+
+  /* Section headers: never leave a header at the bottom of a page */
+  .sec{break-after:avoid}
+  .merit-toggle-hd{break-after:avoid}
+
+  /* Item cards: keep each card together */
+  .item-card{break-inside:avoid;border:1px solid var(--border-light)}
+
+  /* Cover cards: keep each cover together */
+  .cover-card{break-inside:avoid;border:1px solid var(--border-light)}
+
+  /* Attribute block: keep all three columns of an attribute category together */
+  .attr-block{break-inside:avoid}
+  .attr-category{break-inside:avoid}
+
+  /* Tracker and health components: keep each tracker unit intact */
+  .health-track-wrap{break-inside:avoid}
+  .tracker-wrap{break-inside:avoid}
+
+  /* Derived stats: keep the 3-row grid together */
+  .derived-grid{break-inside:avoid}
+
+  /* Dot-track and dot-square-track rows: compact, keep together */
+  .integrity-row{break-inside:avoid}
+
+  /* Renown, arcana, labeled-track: per-row units */
+  .renown-row{break-inside:avoid}
+  .arcana-row{break-inside:avoid}
+  .labeled-track-row{break-inside:avoid}
+
+  /* Forms table (werewolf forms): keep the whole table together */
+  .forms-wrap{break-inside:avoid}
+
+  /* Cipher block: keep diagram+final truth together */
+  .cipher-outer{break-inside:avoid}
+
+  /* Line items: keep each line together */
+  .line-item-row{break-inside:avoid}
 }
 </style>
 </head>
@@ -1799,6 +1878,7 @@ function buildCipherNode(sk,cv,embedKey,embedLbl,interlockKey,interlockLbl){
 function buildSectionHTML(sd){
   const hidden=secVisible(sd.key)?'':'hidden';
   const t=sd.type,lbl=escH(sd.label);
+  const printEmpty=sd.print_empty?'print-empty':'';
 
   if(t==='beats-xp')return buildBeatsXpHTML(sd,hidden);
   if(t==='attributes')return `<div class="sec-block ${hidden}" id="secblock-attributes">
@@ -1884,7 +1964,7 @@ function buildSectionHTML(sd){
     const sk=sd.state_key||sd.key,val=STATE[sk]||0,max=sd.max||10;
     const dots=Array.from({length:max},(_,i)=>i+1).map(d=>
       `<span class="dot${val>=d?' filled':''}" onclick="setDotTrack('${sk}',${d},${max})"></span>`).join('');
-    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+    return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body"><div class="integrity-row">
         <div class="dot-row" id="${sk}-dots">${dots}</div>
@@ -1901,7 +1981,7 @@ function buildSectionHTML(sd){
     const circles=Array.from({length:max},()=>`<span class="tcircle"></span>`).join('');
     const sqs=Array.from({length:max},(_,i)=>
       `<span class="tsquare${i<filled?' on':''}" onclick="toggleDotSquare('${sk}',${i})"></span>`).join('');
-    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+    return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body"><div class="tracker-wrap" style="margin-bottom:4px">
         <div class="tracker-lbl">
@@ -1934,7 +2014,7 @@ function buildSectionHTML(sd){
           oninput="setLabeledTrackLabel('${sk}',${level-1},this.value)">
       </div>`;
     }).join('');
-    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+    return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body">
         <div id="${sk}-labeled-track">${rows}</div>
@@ -3340,6 +3420,47 @@ function showStatus(msg){
 
 if(window.matchMedia('(pointer:coarse)').matches)document.body.classList.add('touch-device');
 loadDB();loadSaves();
+
+// ── Print expand/restore ───────────────────────────────────────────────────────
+// Before printing: expand all collapsed sections and open all item cards so the
+// print engine sees the full content and can apply break rules correctly.
+// After printing: restore exactly the state the user had.
+(function(){
+  let _printCollapsedKeys=null;
+  let _printClosedCards=null;
+
+  window.addEventListener('beforeprint',function(){
+    // 1. Expand all collapsed sec-blocks
+    _printCollapsedKeys=[];
+    document.querySelectorAll('.sec-block.sec-collapsed').forEach(block=>{
+      _printCollapsedKeys.push(block.id);
+      block.classList.remove('sec-collapsed');
+    });
+    // 2. Open all item cards and cover cards
+    _printClosedCards=[];
+    document.querySelectorAll('.item-card:not(.open),.cover-card:not(.open)').forEach(card=>{
+      _printClosedCards.push(card);
+      card.classList.add('open');
+    });
+  });
+
+  window.addEventListener('afterprint',function(){
+    // Restore collapsed sec-blocks
+    if(_printCollapsedKeys){
+      _printCollapsedKeys.forEach(id=>{
+        const block=document.getElementById(id);
+        if(block)block.classList.add('sec-collapsed');
+      });
+      _printCollapsedKeys=null;
+    }
+    // Restore closed item/cover cards
+    if(_printClosedCards){
+      _printClosedCards.forEach(card=>card.classList.remove('open'));
+      _printClosedCards=null;
+    }
+  });
+})();
+// ── End print expand/restore ──────────────────────────────────────────────────
 </script>
 </body>
 </html>
