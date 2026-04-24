@@ -326,7 +326,7 @@
       "label": "Aspirations",
       "group": "Mortal",
       "zone": "right-column",
-      "order": 22,
+      "order": 23,
       "type": "line-list",
       "state_key": "aspirations",
       "default": true
