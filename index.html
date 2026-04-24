@@ -310,6 +310,21 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .add-row{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:5px}
 .add-row input{flex:1;min-width:110px}
 .hint{font-size:.7rem;font-family:sans-serif;color:var(--faint);margin-top:3px}
+/* ── Markdown description display / edit toggle ──────────────────────────── */
+/* .desc-display — rendered HTML view. Click to switch to textarea.          */
+/* .desc-preview — live preview above full textarea sections.                */
+.desc-display{font-family:sans-serif;font-size:.8rem;line-height:1.55;padding:4px 6px;min-height:2.4em;border:1px solid var(--border-light);border-radius:3px;background:var(--surface);color:var(--text);cursor:text;width:100%;white-space:pre-wrap;word-break:break-word}
+.desc-display:empty::before,.desc-display.empty::before{content:'Click to edit…';color:var(--faint);font-style:italic}
+.desc-display strong{font-weight:700}
+.desc-display em{font-style:italic}
+.desc-edit-hint{font-size:.62rem;font-family:sans-serif;color:var(--faint);margin-top:2px;letter-spacing:.02em}
+.desc-preview{font-family:sans-serif;font-size:.85rem;line-height:1.6;padding:.4rem .6rem;border:1px solid var(--border-light);border-radius:3px 3px 0 0;background:var(--chip);color:var(--text);width:100%;white-space:pre-wrap;word-break:break-word;border-bottom:none}
+.desc-preview:empty::before{content:'Preview will appear here…';color:var(--faint);font-style:italic}
+.desc-preview strong{font-weight:700}
+.desc-preview em{font-style:italic}
+.desc-preview-lbl{font-size:.62rem;font-family:sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:2px}
+.has-preview textarea{border-radius:0 0 3px 3px}
+@media print{.desc-display{border:none;padding:0;cursor:default}.desc-edit-hint{display:none}.desc-preview{display:none}.has-preview textarea{display:none}}
 .merit-toggle-hd{display:flex;align-items:center;justify-content:space-between;margin-top:14px;margin-bottom:5px}
 .merit-toggle-hd .sec{margin:0;border:none;padding:0}
 .sidebar-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem 1.25rem;margin-bottom:12px}
@@ -1877,11 +1892,18 @@ function buildSectionHTML(sd){
 
   if(t==='textarea'){
     const sk=sd.state_key||sd.key;
+    const previewId=`${sk}-preview`;
+    const val=STATE[sk]||'';
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec" style="margin-top:18px">${lbl}</div>
       <div class="sec-collapsible-body">
+      <div class="desc-preview-lbl">Preview</div>
+      <div class="desc-preview" id="${previewId}">${mdH(val)}</div>
+      <div class="has-preview">
       ${taWrap(`<textarea id="${sk}-textarea" rows="4" style="resize:vertical;line-height:1.5"
-        oninput="STATE['${sk}']=this.value">${escH(STATE[sk]||'')}</textarea>`)}
+        oninput="STATE['${sk}']=this.value;updateDescPreview(this,'${previewId}')">${escH(val)}</textarea>`)}
+      </div>
+      <div class="desc-edit-hint" style="margin-top:4px">**bold**&nbsp;&nbsp;*italic*&nbsp;&nbsp;***both***</div>
       </div></div>`;
   }
 
@@ -2042,7 +2064,7 @@ function buildSectionHTML(sd){
         </div>
           <div class="cipher-final-truth" style="margin-top:8px">
             <div class="cipher-final-truth-lbl">Final Truth</div>
-            ${taWrap('<textarea rows="3" style="resize:vertical;line-height:1.5" oninput="setCipherField(\''+sk+'\',\'final_truth\',this.value)">'+escH(cv.final_truth||'')+'</textarea>')}
+            ${descField(`setCipherField('${sk}','final_truth',this.value)`,cv.final_truth||'',3)}
           </div>
       </div>
     </div>`;
@@ -2619,7 +2641,7 @@ function renderCovers(sk,listId){
         </div>
         <div class="field-wrap" style="margin-bottom:8px">
           <span class="field-lbl">Description</span>
-          ${taWrap(`<textarea rows="2" style="resize:vertical" oninput="setCoverField('${sk}','${c.id}','notes',this.value)">${escH(c.notes||'')}</textarea>`)}
+          ${descField(`setCoverField('${sk}','${c.id}','notes',this.value)`,c.notes||'')}
         </div>
         <div class="cover-merits-hd">Cover Merits</div>
         ${meritRows}
@@ -2657,13 +2679,17 @@ function renderGenericRatedList(sd){
       </div>
       <div class="item-body">
         <div class="field-wrap" style="margin-bottom:5px"><span class="field-lbl">Description</span>
-          ${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE['${sk}'][${i}].desc=this.value">${escH(m.desc||'')}</textarea>`)}
+          ${descField(`STATE['${sk}'][${i}].desc=this.value`,m.desc||'')}
         </div>
         <div class="field-wrap"><span class="field-lbl">Rating</span><div class="dot-row">${dots}</div></div>
       </div></div>`;
   }).join('');
 }
-function setGenericRatedRating(sk,i,val,sdKey){STATE[sk][i].rating=val;renderGenericRatedList(SECTION_MAP[sdKey]||{key:sdKey,state_key:sk,max_rating:5});}
+function setGenericRatedRating(sk,i,val,sdKey){
+  const cur=STATE[sk][i].rating||0;
+  STATE[sk][i].rating=Math.max(0,val===cur?val-1:val);
+  renderGenericRatedList(SECTION_MAP[sdKey]||{key:sdKey,state_key:sk,max_rating:5});
+}
 function removeGenericRated(sk,i,sdKey){STATE[sk].splice(i,1);renderGenericRatedList(SECTION_MAP[sdKey]||{key:sdKey,state_key:sk,max_rating:5});}
 function addGenericRated(sk,sId,dId,listId,max,dbList){
   const drop=document.getElementById(dId),search=document.getElementById(sId);
@@ -2686,8 +2712,7 @@ function renderNamedList(sk,listId){
         <button class="sm danger" onclick="event.stopPropagation();removeNamedItem('${sk}',${i},'${listId}')">Remove</button>
       </div>
       <div class="item-body">
-        ${taWrap(`<textarea rows="2" style="font-size:.8rem" placeholder="Description…"
-          onchange="STATE['${sk}'][${i}].desc=this.value">${escH(item.desc||'')}</textarea>`)}
+        ${descField(`STATE['${sk}'][${i}].desc=this.value`,item.desc||'')}
       </div></div>`).join('');
 }
 function removeNamedItem(sk,i,listId){STATE[sk].splice(i,1);renderNamedList(sk,listId);}
@@ -2695,7 +2720,9 @@ function addNamedItemFromDrop(stateKey,sId,dId,descId,listId,renderFn,dbList){
   const drop=document.getElementById(dId),search=document.getElementById(sId);
   const name=(drop.value&&drop.value!=='')?drop.value:search.value.trim();if(!name)return;
   const descEl=document.getElementById(descId);
-  const desc=descEl?descEl.value.trim():'';
+  // Read desc from DB directly to preserve newlines — input elements strip \n from .value
+  const found=Array.isArray(dbList)?dbList.find(x=>x.name===name):null;
+  const desc=found?found.desc||'':(descEl?descEl.value.trim():'');
   if(!STATE[stateKey])STATE[stateKey]=[];
   STATE[stateKey].push({name,desc});renderFn();
   drop.selectedIndex=0;search.value='';if(descEl)descEl.value='';
@@ -2732,7 +2759,7 @@ function renderMeritList(){
       </div>
       <div class="item-body">
         <div class="field-wrap" style="margin-bottom:5px"><span class="field-lbl">Description</span>
-          ${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.merits[${i}].desc=this.value">${escH(m.desc||'')}</textarea>`)}
+          ${descField(`STATE.merits[${i}].desc=this.value`,m.desc||'')}
         </div>
         <div class="field-wrap"><span class="field-lbl">Rating</span><div class="dot-row">${dots}</div></div>
       </div></div>`;
@@ -2768,7 +2795,7 @@ function renderWeaponList(){
     const equippedChk=`<label class="equip-chk-wrap" onclick="event.stopPropagation()"><input type="checkbox" ${w.equipped?'checked':''} onchange="STATE.weapons[${i}].equipped=this.checked;updateDerived()"> Equipped</label>`;
     const sharedFields=`<div class="field-wrap"><span class="field-lbl">Damage</span><input class="field-inp" type="number" value="${w.damage||0}" onchange="STATE.weapons[${i}].damage=+this.value"></div><div class="field-wrap"><span class="field-lbl">Initiative mod</span><input class="field-inp" type="number" value="${w.initiative_mod||0}" onchange="STATE.weapons[${i}].initiative_mod=+this.value;updateDerived()"></div><div class="field-wrap"><span class="field-lbl">Strength req</span><input class="field-inp" type="number" value="${w.strength_req||0}" onchange="STATE.weapons[${i}].strength_req=+this.value"></div><div class="field-wrap"><span class="field-lbl">Size</span><input class="field-inp" type="number" value="${w.size||0}" onchange="STATE.weapons[${i}].size=+this.value"></div><div class="field-wrap"><span class="field-lbl">Availability</span><div class="dot-row">${availDots}</div></div>`;
     const rangedFields=isRanged?`<div class="field-wrap"><span class="field-lbl">Ranges (S/M/L)</span><input class="field-inp" type="text" value="${escH(w.ranges||'')}" placeholder="e.g. 20/40/80" onchange="STATE.weapons[${i}].ranges=this.value"></div><div class="field-wrap"><span class="field-lbl">Clip</span><input class="field-inp" type="number" value="${w.clip||0}" onchange="STATE.weapons[${i}].clip=+this.value"></div>`:'';
-    const notesField=`<div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span>${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.weapons[${i}].notes=this.value">${escH(w.notes||'')}</textarea>`)}</div>`;
+    const notesField=`<div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span>${descField(`STATE.weapons[${i}].notes=this.value`,w.notes||'')}</div>`;
     return `<div class="item-card open"><div class="item-hd" onclick="toggleCard(this)">
       <span class="item-toggle">&#9654;</span>
       <input class="item-name" value="${escH(w.name)}" placeholder="Weapon name" onclick="event.stopPropagation()" onchange="STATE.weapons[${i}].name=this.value">
@@ -2808,7 +2835,7 @@ function renderArmorList(){
         <div class="field-wrap"><span class="field-lbl">Speed penalty</span><input class="field-inp" type="number" value="${a.speed_penalty||0}" onchange="STATE.armor[${i}].speed_penalty=+this.value;updateDerived()"></div>
         <div class="field-wrap"><span class="field-lbl">Strength req</span><input class="field-inp" type="number" value="${a.strength_req||0}" onchange="STATE.armor[${i}].strength_req=+this.value"></div>
         <div class="field-wrap"><span class="field-lbl">Availability</span><div class="dot-row">${availDots}</div></div>
-        <div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span>${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.armor[${i}].notes=this.value">${escH(a.notes||'')}</textarea>`)}</div>
+        <div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span>${descField(`STATE.armor[${i}].notes=this.value`,a.notes||'')}</div>
       </div></div></div>`;
   }).join('');
 }
@@ -2839,7 +2866,7 @@ function renderEquipList(){
         <div class="field-wrap" style="grid-column:span 2"><span class="field-lbl">Availability (1–10)</span><div class="dot-row">${eAvailDots}</div></div>
       </div>
       <div class="field-wrap"><span class="field-lbl">Description</span>
-        ${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.equipment[${i}].desc=this.value">${escH(e.desc||'')}</textarea>`)}
+        ${descField(`STATE.equipment[${i}].desc=this.value`,e.desc||'')}
       </div></div></div>`;
   }).join('');
 }
@@ -2886,6 +2913,64 @@ function expandAll(){
   _saveCollapsed(collapsed);
 }
 function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+// Markdown-lite renderer for description/notes fields.
+// Supports ***bold-italic***, **bold**, *italic*. Input is HTML-escaped first.
+// Newlines are converted to <br> for display in .desc-display and .desc-preview divs.
+function mdH(s){
+  return escH(s)
+    .replace(/\\n/g,'\n')
+    .replace(/\*\*\*(.+?)\*\*\*/g,'<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/\n/g,'<br>');
+}
+// Show the textarea for editing a description field; hide the display div.
+function showDescEdit(displayEl){
+  const fieldWrap=displayEl.parentElement;
+  const taWrapEl=fieldWrap.querySelector('.desc-ta-wrap');
+  const ta=fieldWrap.querySelector('textarea');
+  const hint=fieldWrap.querySelector('.desc-edit-hint');
+  if(!taWrapEl||!ta)return;
+  displayEl.style.display='none';
+  if(hint)hint.style.display='block';
+  taWrapEl.style.display='block';
+  // Auto-size to content, with a minimum of 3 rows worth of height
+  ta.style.height='auto';
+  ta.style.height=Math.max(ta.scrollHeight,72)+'px';
+  ta.focus();
+}
+// Hide the textarea; update and show the display div.
+function hideDescEdit(taEl){
+  const fieldWrap=taEl.closest('.field-wrap');
+  const displayEl=fieldWrap?fieldWrap.querySelector('.desc-display'):null;
+  const taWrapEl=fieldWrap?fieldWrap.querySelector('.desc-ta-wrap'):null;
+  const hint=fieldWrap?fieldWrap.querySelector('.desc-edit-hint'):null;
+  if(!displayEl)return;
+  const val=taEl.value;
+  displayEl.innerHTML=mdH(val)||'';
+  if(!val.trim())displayEl.classList.add('empty');else displayEl.classList.remove('empty');
+  if(taWrapEl)taWrapEl.style.display='none';
+  displayEl.style.display='block';
+  if(hint)hint.style.display='block';
+}
+// Update the live preview div above a full textarea section.
+function updateDescPreview(taEl,previewId){
+  const el=document.getElementById(previewId);
+  if(!el)return;
+  el.innerHTML=mdH(taEl.value)||'';
+}
+// Build the display-div + hidden-textarea pair for card description fields.
+// stateExpr: JS expression string that assigns the value (run via onchange).
+// val: current string value.
+// rows: textarea rows (default 3).
+function descField(stateExpr,val,rows){
+  rows=rows||3;
+  const isEmpty=!(val||'').trim();
+  const displayDiv=`<div class="desc-display${isEmpty?' empty':''}" onclick="showDescEdit(this)">${isEmpty?'':mdH(val)}</div>`;
+  const hint=`<div class="desc-edit-hint" style="display:none">**bold**&nbsp;&nbsp;*italic*&nbsp;&nbsp;***both***</div>`;
+  const ta=taWrap(`<textarea class="field-inp" rows="${rows}" style="resize:vertical;min-height:60px" onchange="${stateExpr}" onblur="hideDescEdit(this)">${escH(val||'')}</textarea>`);
+  return `<div class="field-wrap">${displayDiv}${hint}<div class="desc-ta-wrap" style="display:none">${ta}</div></div>`;
+}
 
 // ── Textarea mobile resize ─────────────────────────────────────────────────
 // Wraps a <textarea> string in a .ta-wrap div with a touch-drag resize handle.
