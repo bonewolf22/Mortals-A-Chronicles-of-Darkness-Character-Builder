@@ -1022,7 +1022,9 @@ async function loadDB(){
 function rebuildZones(){
   ZONES={};
   const defaultOrder={};
-  SECTION_DEFS.forEach(sd=>{
+  // Sort section_definitions by order within each zone before building defaultOrder
+  const sorted=[...SECTION_DEFS].sort((a,b)=>(a.order||0)-(b.order||0));
+  sorted.forEach(sd=>{
     if(!defaultOrder[sd.zone])defaultOrder[sd.zone]=[];
     defaultOrder[sd.zone].push(sd.key);
   });
