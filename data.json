@@ -1,12 +1,12 @@
 {
   "_file_comment": [
-    "Chronicles of Darkness \u2014 Mortals+ data file.",
+    "Chronicles of Darkness — Mortals+ data file.",
     "This file has three sections: CONFIGURATION, then CONTENT.",
     "CONFIGURATION keys drive the app structure and should be edited carefully.",
     "CONTENT keys are lists of game entries freely added, removed, or replaced.",
     "Use the in-app Data Library import/export to share or update content safely."
   ],
-  "_config_comment": "\u2500\u2500 CONFIGURATION \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+  "_config_comment": "── CONFIGURATION ─────────────────────────────────────────────────────────────",
   "_skills_comment": [
     "skill_definitions: ordered list of all skills available on the sheet.",
     "Each entry: { key, label, category }",
@@ -63,7 +63,7 @@
       "key": "athletics",
       "label": "Athletics",
       "category": "physical",
-      "_note": "athletics key is used in the Defense formula \u2014 renaming the label is safe, but do not change the key"
+      "_note": "athletics key is used in the Defense formula — renaming the label is safe, but do not change the key"
     },
     {
       "key": "brawl",
@@ -148,40 +148,40 @@
     "  label:      display name shown in the Sheet Configuration panel and on the PDF",
     "  group:      config panel group header: Mortal | Hunter | (future splats)",
     "  zone:       where on the sheet this section appears:",
-    "                header            \u2014 character header row",
-    "                beats             \u2014 beats/XP tracker row (between header and full-width-top)",
-    "                full-width-top    \u2014 full-width area below beats, above the two columns",
-    "                left-column       \u2014 left column (skills area)",
-    "                right-column      \u2014 right column (traits/conditions area)",
-    "                full-width-bottom \u2014 full-width area below the two columns",
+    "                header            — character header row",
+    "                beats             — beats/XP tracker row (between header and full-width-top)",
+    "                full-width-top    — full-width area below beats, above the two columns",
+    "                left-column       — left column (skills area)",
+    "                right-column      — right column (traits/conditions area)",
+    "                full-width-bottom — full-width area below the two columns",
     "  order:      sort order within the zone (lower = higher on sheet)",
-    "  type:       rendering type \u2014 see list below",
+    "  type:       rendering type — see list below",
     "  default:    true = visible by default, false = hidden by default",
     "  state_key:  STATE field this section reads/writes (defaults to key if omitted)",
-    "  max_rating: for rated-list \u2014 maximum dot rating (default 5)",
-    "  max:        for dot-track \u2014 number of dots (default 10)",
-    "  beats_key:  for beats-xp \u2014 STATE key for the beats counter (default: 'beats')",
-    "  xp_key:     for beats-xp \u2014 STATE key for the experience counter (default: 'experience')",
+    "  max_rating: for rated-list — maximum dot rating (default 5)",
+    "  max:        for dot-track — number of dots (default 10)",
+    "  beats_key:  for beats-xp — STATE key for the beats counter (default: 'beats')",
+    "  xp_key:     for beats-xp — STATE key for the experience counter (default: 'experience')",
     "",
     "Section types:",
-    "  attributes      \u2014 the 9 core attributes (special renderer)",
-    "  skills          \u2014 the 27 skills with rote/specialty (special renderer)",
-    "  derived-traits  \u2014 health, willpower, defense, initiative, speed (special renderer)",
-    "  dot-track       \u2014 a simple 1\u2013N dot track (e.g. Integrity, Humanity)",
-    "  header-fields   \u2014 text fields in the character header",
-    "  beats-xp        \u2014 a beats counter + XP counter pair (zone: beats)",
-    "  line-list       \u2014 a simple list of text lines (e.g. Aspirations, Touchstones)",
-    "  named-list      \u2014 collapsible cards with name + description (e.g. Tilts, Tactics)",
-    "  rated-list      \u2014 collapsible cards with name + rating + description (e.g. Merits, Endowments)",
-    "  resource-track  \u2014 20 manually-toggled squares in 2 rows of 10 (Mana, Essence, Vitae)",
-    "  arcana-block    \u2014 fixed rated list from the section's fields array (Mage Arcana)",
-    "  renown-block    \u2014 five named 5-dot tracks in a single block (Werewolf Renown)",
-    "  forms-block     \u2014 live reference table showing per-form calculated stats",
-    "  weapons         \u2014 weapon cards with full weapon fields (special renderer)",
-    "  armor           \u2014 armor cards with full armor fields (special renderer)",
-    "  equipment       \u2014 equipment cards with full equipment fields (special renderer)",
-    "  textarea        \u2014 a multi-line text area (e.g. Notes, The Code)",
-    "  dot-square-track \u2014 dot row (max rating) above square row (current value), like Willpower but data-driven (e.g. Clarity)"
+    "  attributes      — the 9 core attributes (special renderer)",
+    "  skills          — the 27 skills with rote/specialty (special renderer)",
+    "  derived-traits  — health, willpower, defense, initiative, speed (special renderer)",
+    "  dot-track       — a simple 1–N dot track (e.g. Integrity, Humanity)",
+    "  header-fields   — text fields in the character header",
+    "  beats-xp        — a beats counter + XP counter pair (zone: beats)",
+    "  line-list       — a simple list of text lines (e.g. Aspirations, Touchstones)",
+    "  named-list      — collapsible cards with name + description (e.g. Tilts, Tactics)",
+    "  rated-list      — collapsible cards with name + rating + description (e.g. Merits, Endowments)",
+    "  resource-track  — 20 manually-toggled squares in 2 rows of 10 (Mana, Essence, Vitae)",
+    "  arcana-block    — fixed rated list from the section's fields array (Mage Arcana)",
+    "  renown-block    — five named 5-dot tracks in a single block (Werewolf Renown)",
+    "  forms-block     — live reference table showing per-form calculated stats",
+    "  weapons         — weapon cards with full weapon fields (special renderer)",
+    "  armor           — armor cards with full armor fields (special renderer)",
+    "  equipment       — equipment cards with full equipment fields (special renderer)",
+    "  textarea        — a multi-line text area (e.g. Notes, The Code)",
+    "  dot-square-track — dot row (max rating) above square row (current value), like Willpower but data-driven (e.g. Clarity)"
   ],
   "section_definitions": [
     {
@@ -295,7 +295,7 @@
       "type": "dot-track",
       "state_key": "integrity",
       "default": true,
-      "max": 2,
+      "max": 10,
       "default_value": 7
     },
     {
@@ -303,7 +303,7 @@
       "label": "Tilts",
       "group": "Mortal",
       "zone": "right-column",
-      "order": 5,
+      "order": 20,
       "type": "named-list",
       "state_key": "tilts",
       "default": true,
@@ -314,7 +314,7 @@
       "label": "Conditions",
       "group": "Mortal",
       "zone": "right-column",
-      "order": 6,
+      "order": 21,
       "type": "named-list",
       "state_key": "conditions",
       "default": true,
@@ -325,7 +325,7 @@
       "label": "Aspirations",
       "group": "Mortal",
       "zone": "right-column",
-      "order": 7,
+      "order": 22,
       "type": "line-list",
       "state_key": "aspirations",
       "default": true
@@ -512,7 +512,7 @@
       "label": "Gnosis",
       "group": "Mage",
       "zone": "right-column",
-      "order": 3,
+      "order": 2,
       "type": "dot-track",
       "state_key": "gnosis",
       "default": false,
@@ -523,7 +523,7 @@
       "label": "Wisdom",
       "group": "Mage",
       "zone": "right-column",
-      "order": 2,
+      "order": 3,
       "type": "dot-track",
       "state_key": "wisdom",
       "default": false,
@@ -628,7 +628,7 @@
       "label": "Primal Urge",
       "group": "Werewolf",
       "zone": "right-column",
-      "order": 3,
+      "order": 2,
       "type": "dot-track",
       "state_key": "primal_urge",
       "default": false,
@@ -639,7 +639,7 @@
       "label": "Harmony",
       "group": "Werewolf",
       "zone": "right-column",
-      "order": 2,
+      "order": 3,
       "type": "dot-track",
       "state_key": "harmony",
       "default": false,
@@ -860,7 +860,7 @@
       "label": "Wyrd",
       "group": "Changeling",
       "zone": "right-column",
-      "order": 3,
+      "order": 2,
       "type": "dot-track",
       "state_key": "wyrd",
       "default": false,
@@ -871,7 +871,7 @@
       "label": "Clarity",
       "group": "Changeling",
       "zone": "right-column",
-      "order": 2,
+      "order": 3,
       "type": "dot-square-track",
       "state_key": "clarity",
       "default": false,
@@ -1210,11 +1210,248 @@
       "state_key": "adaptations",
       "default": false,
       "db_key": "adaptations"
+    },
+    {
+      "key": "origins",
+      "label": "Origins",
+      "group": "Deviant",
+      "zone": "full-width-bottom",
+      "order": 46,
+      "type": "textarea",
+      "state_key": "origins",
+      "default": false
+    },
+    {
+      "key": "promethean-header-fields",
+      "label": "Promethean Identity",
+      "group": "Promethean",
+      "zone": "header",
+      "order": 9,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "ptc_elpis",
+          "label": "Elpis"
+        },
+        {
+          "key": "ptc_torment",
+          "label": "Torment"
+        },
+        {
+          "key": "ptc_lineage",
+          "label": "Lineage"
+        },
+        {
+          "key": "ptc_refinement",
+          "label": "Refinement"
+        },
+        {
+          "key": "ptc_role",
+          "label": "Role"
+        }
+      ]
+    },
+    {
+      "key": "vitriol-beats-xp",
+      "label": "Vitriol Beats",
+      "group": "Promethean",
+      "zone": "beats",
+      "order": 4,
+      "type": "beats-xp",
+      "default": false,
+      "beats_key": "vitriol_beats",
+      "xp_key": "vitriol_experience"
+    },
+    {
+      "key": "pilgrimage",
+      "label": "Pilgrimage",
+      "group": "Promethean",
+      "zone": "right-column",
+      "order": 2,
+      "type": "dot-track",
+      "state_key": "pilgrimage",
+      "default": false,
+      "max": 10,
+      "default_value": 1
+    },
+    {
+      "key": "azoth",
+      "label": "Azoth",
+      "group": "Promethean",
+      "zone": "right-column",
+      "order": 3,
+      "type": "dot-track",
+      "state_key": "azoth",
+      "default": false,
+      "max": 10
+    },
+    {
+      "key": "pyros",
+      "label": "Pyros",
+      "group": "Promethean",
+      "zone": "right-column",
+      "order": 4,
+      "type": "resource-track",
+      "state_key": "pyros",
+      "default": false,
+      "max": 20
+    },
+    {
+      "key": "transmutations",
+      "label": "Transmutations",
+      "group": "Promethean",
+      "zone": "left-column",
+      "order": 3,
+      "type": "named-list",
+      "state_key": "transmutations",
+      "default": false,
+      "db_key": "transmutations"
+    },
+    {
+      "key": "bestowment",
+      "label": "Bestowment",
+      "group": "Promethean",
+      "zone": "left-column",
+      "order": 4,
+      "type": "named-list",
+      "state_key": "bestowment",
+      "default": false
+    },
+    {
+      "key": "refinement-condition",
+      "label": "Refinement Condition",
+      "group": "Promethean",
+      "zone": "full-width-bottom",
+      "order": 30,
+      "type": "textarea",
+      "state_key": "refinement_condition",
+      "default": false
+    },
+    {
+      "key": "fixed-alembics",
+      "label": "Fixed Alembics",
+      "group": "Promethean",
+      "zone": "full-width-bottom",
+      "order": 31,
+      "type": "line-list",
+      "state_key": "fixed_alembics",
+      "default": false
+    },
+    {
+      "key": "milestones",
+      "label": "Milestones",
+      "group": "Promethean",
+      "zone": "full-width-bottom",
+      "order": 32,
+      "type": "line-list",
+      "state_key": "milestones",
+      "default": false
+    },
+    {
+      "key": "mastered-roles",
+      "label": "Mastered Roles",
+      "group": "Promethean",
+      "zone": "full-width-bottom",
+      "order": 33,
+      "type": "line-list",
+      "state_key": "mastered_roles",
+      "default": false
+    },
+    {
+      "key": "geist-header-fields",
+      "label": "Geist Identity",
+      "group": "Geist",
+      "zone": "header",
+      "order": 10,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "geist_name",
+          "label": "Geist"
+        },
+        {
+          "key": "geist_burden",
+          "label": "Burden"
+        },
+        {
+          "key": "geist_root",
+          "label": "Root"
+        },
+        {
+          "key": "geist_bloom",
+          "label": "Bloom"
+        },
+        {
+          "key": "geist_krewe",
+          "label": "Krewe"
+        },
+        {
+          "key": "geist_krewe_archetype",
+          "label": "Krewe Archetype"
+        }
+      ]
+    },
+    {
+      "key": "synergy",
+      "label": "Synergy",
+      "group": "Geist",
+      "zone": "right-column",
+      "order": 2,
+      "type": "labeled-track",
+      "state_key": "synergy",
+      "default": false,
+      "max": 10,
+      "default_value": 7
+    },
+    {
+      "key": "plasm",
+      "label": "Plasm",
+      "group": "Geist",
+      "zone": "right-column",
+      "order": 4,
+      "type": "resource-track",
+      "state_key": "plasm",
+      "default": false,
+      "max": 30
+    },
+    {
+      "key": "keys",
+      "label": "Keys",
+      "group": "Geist",
+      "zone": "right-column",
+      "order": 5,
+      "type": "line-list",
+      "state_key": "geist_keys",
+      "default": false
+    },
+    {
+      "key": "haunts",
+      "label": "Haunts",
+      "group": "Geist",
+      "zone": "left-column",
+      "order": 3,
+      "type": "rated-list",
+      "state_key": "haunts",
+      "default": false,
+      "max_rating": 5,
+      "db_key": "haunts"
+    },
+    {
+      "key": "remembrance-traits",
+      "label": "Remembrance Traits",
+      "group": "Geist",
+      "zone": "right-column",
+      "order": 7,
+      "type": "line-list",
+      "state_key": "remembrance_traits",
+      "default": false
     }
   ],
   "_presets_comment": [
     "sheet_presets: named sectionConfig snapshots.",
-    "Applying a preset does a full reset \u2014 all sections are set to the values listed.",
+    "Applying a preset does a full reset — all sections are set to the values listed.",
     "Every section key must be present in each preset.",
     "To add a preset: add an entry with a name and a config covering all section keys.",
     "The 'Mortal' preset represents the default starting configuration."
@@ -1303,7 +1540,24 @@
         "deviant-touchstones": false,
         "variations": false,
         "scars": false,
-        "origins": false
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false
       }
     },
     {
@@ -1389,7 +1643,24 @@
         "deviant-touchstones": false,
         "variations": false,
         "scars": false,
-        "origins": false
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false
       }
     },
     {
@@ -1475,7 +1746,24 @@
         "deviant-touchstones": false,
         "variations": false,
         "scars": false,
-        "origins": false
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false
       }
     },
     {
@@ -1561,7 +1849,24 @@
         "deviant-touchstones": false,
         "variations": false,
         "scars": false,
-        "origins": false
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false
       }
     },
     {
@@ -1647,7 +1952,24 @@
         "deviant-touchstones": false,
         "variations": false,
         "scars": false,
-        "origins": false
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false
       }
     },
     {
@@ -1733,7 +2055,24 @@
         "deviant-touchstones": false,
         "variations": false,
         "scars": false,
-        "origins": false
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false
       }
     },
     {
@@ -1819,7 +2158,24 @@
         "deviant-touchstones": false,
         "variations": false,
         "scars": false,
-        "origins": false
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false
       }
     },
     {
@@ -1906,11 +2262,234 @@
         "variations": true,
         "scars": true,
         "origins": true,
-        "adaptations": true
+        "adaptations": true,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false
+      }
+    },
+    {
+      "name": "Promethean",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": true,
+        "skills": true,
+        "other-traits": true,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": true,
+        "endowments": false,
+        "tactics": false,
+        "weapons": true,
+        "armor": true,
+        "equipment": true,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": false,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": true,
+        "vitriol-beats-xp": true,
+        "pilgrimage": true,
+        "azoth": true,
+        "pyros": true,
+        "transmutations": true,
+        "bestowment": true,
+        "refinement-condition": true,
+        "fixed-alembics": true,
+        "milestones": true,
+        "mastered-roles": true,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false
+      }
+    },
+    {
+      "name": "Geist",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": true,
+        "skills": true,
+        "other-traits": true,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": true,
+        "endowments": false,
+        "tactics": false,
+        "weapons": true,
+        "armor": true,
+        "equipment": true,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": false,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": true,
+        "synergy": true,
+        "plasm": true,
+        "keys": true,
+        "haunts": true,
+        "remembrance-traits": true
       }
     }
   ],
-  "_content_comment": "\u2500\u2500 CONTENT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+  "_content_comment": "── CONTENT ───────────────────────────────────────────────────────────────────",
   "_names_comment": [
     "mortal_names: names used by the Generate Baseline button.",
     "Add or remove names freely. Order does not matter."
@@ -1985,7 +2564,7 @@
     "Stefan Ionescu",
     "Takeshi Mori",
     "Tariq Abdullahi",
-    "Teresa \u00c1lvarez",
+    "Teresa Álvarez",
     "Thomas Eriksen",
     "Valentina Cruz",
     "Victor Morozov",
@@ -2012,7 +2591,7 @@
       "desc": "Requires 2 Resolve and 1 Skill Specialty. Choose a Specialty to assign to this Merit. Forgo the +1 bonus afforded by a Specialty, in exchange for a +2."
     },
     {
-      "name":"Ambidextrous",
+      "name": "Ambidextrous",
       "rating": 3,
       "desc": "Available only at character creation. Your character does not suffer the -2 penalty for using his off hand in combat or to perform other actions."
     }
@@ -2089,7 +2668,7 @@
     },
     {
       "name": "Beaten Down",
-      "desc": "The player must spend a point of Willpower each time he wants the character to take a violent action. Ends when the character surrenders." 
+      "desc": "The player must spend a point of Willpower each time he wants the character to take a violent action. Ends when the character surrenders."
     }
   ],
   "conditions": [
@@ -2321,7 +2900,7 @@
     }
   ],
   "_tactics_comment": [
-    "tactics: Hunter tactics \u2014 coordinated cell manoeuvres.",
+    "tactics: Hunter tactics — coordinated cell manoeuvres.",
     "Each entry: { name, desc }",
     "  desc: rules summary of what the tactic does and how to execute it"
   ],
@@ -2355,14 +2934,10 @@
     "Each entry: { name, desc }",
     "  desc: include type (Sealing/Oath/Bargain), parties, boons, sanctions, and duration"
   ],
-  "pledges": [
-
-  ],
-  "_praxes_comment": "praxes: Mage Praxes \u2014 spells the Mage has mastered. Each entry: { name, desc }",
-  "praxes": [
-
-  ],
-  "_demon_comment": "\u2500\u2500 Demon: the Descent content lists \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+  "pledges": [],
+  "_praxes_comment": "praxes: Mage Praxes — spells the Mage has mastered. Each entry: { name, desc }",
+  "praxes": [],
+  "_demon_comment": "── Demon: the Descent content lists ──────────────────────────────────────────",
   "_demonic_form_comment": "demonic_form: a demon's Demonic Form manifestations. Each entry: { name, desc }",
   "demonic_form": [
     {
@@ -2426,6 +3001,60 @@
       "name": "Power Build-Up",
       "rating": 1,
       "desc": "**Involuntary**\nSee p157 of the Deviant core rulebook for effects."
+    }
+  ],
+  "haunts": [
+    {
+      "name": "Boneyard",
+      "rating": 1,
+      "desc": "**Cost:** 1 Plasm per scene\n**Action:** Instant\nThe sin-eater extends their awareness through the Underworld resonance of an area. Allows perception of ghosts and Underworld phenomena within a radius equal to Synergy in yards. Higher ratings expand range and allow active manipulation of the environment.\n**Keys:** Any — each Key modifies the Haunt's specific effects and unlocks deeper manifestations."
+    },
+    {
+      "name": "Caul",
+      "rating": 1,
+      "desc": "**Cost:** 1 Plasm\n**Action:** Instant\nThe sin-eater drapes their Geist's essence over themselves like a shroud, enhancing physical capabilities. Grants bonus dice to Physical actions equal to activation successes. Higher ratings allow the Geist to manifest more fully, granting more dramatic physical transformations.\n**Keys:** Each Key shapes the nature of the enhancement."
+    },
+    {
+      "name": "Curse",
+      "rating": 1,
+      "desc": "**Cost:** 1 Plasm\n**Dice Pool:** Synergy + Intimidation vs. target's Resolve + Composure\nThe sin-eater channels the envious spite of the dead to inflict misfortune on a target. Success imposes a penalty equal to successes on the target's next action. Higher ratings extend duration or allow more severe curses.\n**Keys:** Modify what type of misfortune manifests."
+    },
+    {
+      "name": "Marionette",
+      "rating": 1,
+      "desc": "**Cost:** 1 Plasm\n**Dice Pool:** Synergy + Persuasion vs. target's Resolve + Composure\nThe sin-eater puppets a ghost or temporarily controls a mortal by imbuing them with Underworld energy. Success allows one directed action per success. Higher ratings allow sustained control or affect multiple targets.\n**Keys:** Determine the nature of control and what types of beings can be affected."
+    },
+    {
+      "name": "Oracle",
+      "rating": 1,
+      "desc": "**Cost:** 1 Plasm\n**Action:** Instant\nThe sin-eater reads the echoes of past events or glimpses probable futures through the lens of death. Successes provide information about the subject's past connections to death, or visions of likely outcomes. Higher ratings provide clearer or more detailed visions.\n**Keys:** Shape the nature and focus of visions received."
+    },
+    {
+      "name": "Shroud",
+      "rating": 1,
+      "desc": "**Cost:** 1 Plasm per scene\n**Action:** Instant\nThe sin-eater draws the veil between life and death around themselves or others. Can render the target difficult to perceive by both the living and the dead, or can anchor a ghost more firmly in the physical world. Higher ratings allow greater concealment or ghostly interaction.\n**Keys:** Modify whether the Shroud hides from the living, the dead, or both."
+    }
+  ],
+  "transmutations": [
+    {
+      "name": "Alchemical Skin (Corporeum)",
+      "desc": "**Transmutation:** Corporeum\n**Persistent:** Your character's skin and body are unnaturally resilient. Reduce bashing damage by 1.\n**1st Distillation (Hardened Flesh):** Spend 1 Pyros. Skin becomes stone-hard for one scene. Gain Armor 1/0.\n**2nd Distillation (Iron Form):** Spend 1 Pyros. Gain Armor 2/1 and immunity to environmental extremes for one scene.\n**3rd Distillation (Living Stone):** Spend 2 Pyros. Become immune to bashing damage and reduce lethal by 2 for one scene. Cannot be moved involuntarily."
+    },
+    {
+      "name": "Electrodynamism (Electrokinesis)",
+      "desc": "**Transmutation:** Electrodynamism\n**Persistent:** Your character generates a faint static charge. Electronics within arm's reach occasionally malfunction.\n**1st Distillation (Jolt):** Spend 1 Pyros. Inflict 1 lethal damage on touch. Dice pool: Dexterity + Athletics.\n**2nd Distillation (Arc):** Spend 1 Pyros. Project electricity up to Azoth yards, dealing 1 lethal + successes. Dice pool: Dexterity + Athletics.\n**3rd Distillation (Thunderstrike):** Spend 2 Pyros. Discharge a devastating bolt (Strength + Azoth in lethal damage, area of effect)."
+    },
+    {
+      "name": "Insight (Kinesics)",
+      "desc": "**Transmutation:** Kinesics\n**Persistent:** Your character reads people easily. Gain +1 to Empathy rolls.\n**1st Distillation (Read Intent):** Spend 1 Pyros. Discern a target's current emotional state and immediate intentions. Dice pool: Intelligence + Empathy.\n**2nd Distillation (Open Book):** Spend 1 Pyros. Read a target's surface thoughts and motivations. They cannot lie without your knowing.\n**3rd Distillation (Soul's Mirror):** Spend 2 Pyros. Understand a target completely — secrets, fears, desires — for the scene."
+    },
+    {
+      "name": "Metamorphosis (Shapeshifting)",
+      "desc": "**Transmutation:** Metamorphosis\n**Persistent:** Your character's body shifts subtly and unconsciously. Gain +1 to Subterfuge for disguise.\n**1st Distillation (Alter Feature):** Spend 1 Pyros. Change one physical feature (hair, eye colour, skin tone) for one scene.\n**2nd Distillation (Assume Form):** Spend 1 Pyros. Copy the appearance of any humanoid you have observed. Grants +3 to impersonation.\n**3rd Distillation (Flawless Replica):** Spend 2 Pyros. Perfectly duplicate another person's appearance, voice, and mannerisms for a full day."
+    },
+    {
+      "name": "Searing Light (Phosphorum)",
+      "desc": "**Transmutation:** Phosphorum\n**Persistent:** Your character emits faint bioluminescence in darkness.\n**1st Distillation (Flash):** Spend 1 Pyros. Blind all who can see you for one turn. Dice pool: Presence + Athletics vs. target's Defense.\n**2nd Distillation (Burning Radiance):** Spend 1 Pyros. Emit searing light dealing 1 lethal damage per turn in close range. Lasts Azoth turns.\n**3rd Distillation (Solar Flare):** Spend 2 Pyros. Release a burst of solar-intensity light in a radius. Deals 2 aggravated damage to all in range and may ignite flammable materials."
     }
   ]
 }

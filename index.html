@@ -186,6 +186,42 @@
   --info:#1a5fa8;--info-bg:#eef4fb;
   --green:#1a6b3a;--green-bg:#edf7f1;
 }
+/* Promethean — deep indigo/violet, matching the Promethean: the Created 2e sheet. */
+/* Key accent sampled: #2a1a4a (deep blue-violet), parchment wash with purple tones. */
+[data-theme="promethean"]{
+  --bg:#eeeaf4;
+  --surface:#f6f4fa;
+  --border:#a898c8;
+  --border-light:#ccc4e0;
+  --text:#140e20;
+  --muted:#3a2860;
+  --faint:#806898;
+  --accent:#2a1a4a;
+  --accent-hover:#180e30;
+  --chip:#ddd8ee;
+  --tag:#d4cee8;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
+/* Geist — cold icy blue-grey, matching the Geist: the Sin-Eaters 2e sheet.    */
+/* Key accent sampled: #1a3040 (deep slate blue), cold blue-grey wash.         */
+[data-theme="geist"]{
+  --bg:#e8eef4;
+  --surface:#f2f6fa;
+  --border:#8aaac0;
+  --border-light:#b8cedd;
+  --text:#0e1820;
+  --muted:#1e4060;
+  --faint:#5880a0;
+  --accent:#1a3040;
+  --accent-hover:#0e1e28;
+  --chip:#d0dce8;
+  --tag:#c8d6e4;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
 /* ── End splat themes ─────────────────────────────────────────────────────── */
 
 body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
@@ -223,9 +259,11 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 /* When collapsed, remove bottom border from header so it doesn't float */
 .sec-block.sec-collapsed .sec{margin-bottom:0;border-bottom-color:transparent;}
 .sec-block.sec-collapsed .merit-toggle-hd{margin-bottom:0;}
-.hdr-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:6px 10px;margin-bottom:6px}
-@media(max-width:600px){.hdr-grid{grid-template-columns:1fr 1fr}}
-.hdr-field{display:flex;flex-direction:column;gap:2px}
+.hdr-grid{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:6px}
+.hdr-field{display:inline-flex;flex-direction:column;gap:2px;min-width:80px}
+.hdr-ce{font-family:sans-serif;font-size:.9rem;border:none;border-bottom:1.5px solid var(--border);background:transparent;color:var(--text);padding:2px 0;outline:none;min-width:80px;white-space:nowrap;cursor:text}
+.hdr-ce:focus{border-bottom-color:var(--accent)}
+.hdr-ce:empty::before{content:attr(data-placeholder);color:var(--faint);pointer-events:none}
 .hdr-lbl{font-size:.65rem;font-family:sans-serif;color:var(--faint);letter-spacing:.06em;text-transform:uppercase}
 .hdr-inp{font-family:sans-serif;font-size:.9rem;border:none;border-bottom:1.5px solid var(--border);background:transparent;color:var(--text);padding:2px 0;outline:none;width:100%}
 .hdr-inp:focus{border-bottom-color:var(--accent)}
@@ -367,6 +405,13 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .renown-row{display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid var(--border-light);font-family:sans-serif;font-size:.82rem}
 .renown-row:last-child{border-bottom:none}
 .renown-lbl{flex:1;font-family:sans-serif;font-size:.82rem}
+/* ── labeled-track ───────────────────────────────────────────────────────── */
+.labeled-track-row{display:flex;align-items:center;gap:7px;padding:3px 0;border-bottom:1px solid var(--border-light);font-family:sans-serif;font-size:.82rem}
+.labeled-track-row:last-child{border-bottom:none}
+.labeled-track-num{font-size:.65rem;font-family:sans-serif;color:var(--faint);width:14px;text-align:right;flex-shrink:0}
+.labeled-track-lbl-inp{flex:1;border:none;border-bottom:1px solid transparent;background:transparent;color:var(--text);font-family:sans-serif;font-size:.82rem;padding:1px 2px;outline:none;min-width:0}
+.labeled-track-lbl-inp:hover{border-bottom-color:var(--border-light)}
+.labeled-track-lbl-inp:focus{border-bottom-color:var(--accent)}
 .forms-wrap{overflow-x:auto;margin-top:4px}
 .forms-table{display:grid;min-width:500px;border:1px solid var(--border-light);border-radius:4px;overflow:hidden}
 .form-col{display:flex;flex-direction:column;border-right:1px solid var(--border-light)}
@@ -837,6 +882,8 @@ body.touch-device .ta-wrap textarea{
         <option value="changeling">Changeling</option>
         <option value="demon">Demon</option>
         <option value="deviant">Deviant</option>
+        <option value="promethean">Promethean</option>
+        <option value="geist">Geist</option>
       </select>
     </div>
     <div class="cfg-preset-row">
@@ -927,6 +974,8 @@ body.touch-device .ta-wrap textarea{
             <option value="changeling">Changeling</option>
             <option value="demon">Demon</option>
             <option value="deviant">Deviant</option>
+            <option value="promethean">Promethean</option>
+            <option value="geist">Geist</option>
           </select>
         </div>
         <div class="cfg-preset-row">
@@ -1529,7 +1578,8 @@ function _baseCharacterFields(attrs,skills){
     else if(t==='textarea')base[sk]='';
     else if(t==='dot-track')base[sk]=sd.default_value||1;
     else if(t==='dot-square-track'){base[sk]=sd.max||10;base[sk+'_squares']=Array(sd.max||10).fill(false);}
-    else if(t==='resource-track')base[sk]=Array(20).fill(false);
+    else if(t==='resource-track')base[sk]=Array(sd.max||20).fill(false);
+    else if(t==='labeled-track'){base[sk]=sd.default_value||1;base[sk+'_labels']=Array(sd.max||10).fill('');}
     else if(t==='arcana-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
     else if(t==='renown-block')base[sk]={cunning:0,glory:0,honor:0,purity:0,wisdom:0};
     else if(t==='cipher-block')base[sk]={embed1:'',embed2:'',embed3:'',embed4:'',interlock1:'',interlock2:'',interlock3:'',cipher:'',final_truth:''};
@@ -1603,7 +1653,14 @@ function patchState(){
         if(!Array.isArray(STATE[sqKey])||STATE[sqKey].length!==max)STATE[sqKey]=Array(max).fill(false);
       }
       else if(t==='resource-track'){
-        if(!Array.isArray(STATE[sk])||STATE[sk].length!==20)STATE[sk]=Array(20).fill(false);
+        const rtMax=sd.max||20;
+        if(!Array.isArray(STATE[sk])||STATE[sk].length!==rtMax)STATE[sk]=Array(rtMax).fill(false);
+      }
+      else if(t==='labeled-track'){
+        if(STATE[sk]==null)STATE[sk]=sd.default_value||1;
+        const lblKey=sk+'_labels';
+        const ltMax=sd.max||10;
+        if(!Array.isArray(STATE[lblKey])||STATE[lblKey].length!==ltMax)STATE[lblKey]=Array(ltMax).fill('');
       }
       else if(t==='arcana-block'){
         if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
@@ -1681,7 +1738,13 @@ function renderDynamicHeader(){
         ${(sd.fields||[]).map(f=>`
           <div class="hdr-field">
             <span class="hdr-lbl">${escH(f.label)}</span>
-            <input class="hdr-inp" value="${escH(STATE[f.key]||'')}" oninput="STATE['${f.key}']=this.value">
+            <div class="hdr-ce" contenteditable="true" spellcheck="false"
+              data-placeholder="${escH(f.label)}"
+              data-key="${escH(f.key)}"
+              oninput="STATE[this.dataset.key]=this.textContent"
+              onkeydown="if(event.key==='Enter'){event.preventDefault()}"
+              onpaste="event.preventDefault();document.execCommand('insertText',false,event.clipboardData.getData('text/plain'))"
+              >${escH(STATE[f.key]||'')}</div>
           </div>`).join('')}
       </div>
     </div>`;
@@ -1712,6 +1775,7 @@ function renderSheetZone(zone,containerId){
     else if(t==='armor'){renderArmorList();refillSelect('armorDrop',DB.armor);}
     else if(t==='equipment'){renderEquipList();refillSelect('equipDrop',DB.equipment);}
     else if(t==='resource-track')renderResourceTrack(sd);
+    else if(t==='labeled-track'){/* rows rendered inline in buildSectionHTML */}
     else if(t==='arcana-block')renderArcanaBlock(sd);
     else if(t==='renown-block')renderRenownBlock(sd);
     else if(t==='forms-block')renderFormsBlock(sd);
@@ -1854,6 +1918,29 @@ function buildSectionHTML(sd){
       </div></div></div>`;
   }
 
+  if(t==='labeled-track'){
+    const sk=sd.state_key||sd.key,max=sd.max||10;
+    const val=STATE[sk]||1;
+    const lblKey=sk+'_labels';
+    const labels=STATE[lblKey]||Array(max).fill('');
+    const rows=Array.from({length:max},(_,i)=>{
+      const level=max-i; // display 10 at top, 1 at bottom
+      const dot=val>=level;
+      return `<div class="labeled-track-row">
+        <span class="labeled-track-num">${level}</span>
+        <span class="dot${dot?' filled':''}" style="flex-shrink:0" onclick="setLabeledTrack('${sk}',${level},${max})"></span>
+        <input class="labeled-track-lbl-inp" value="${escH(labels[level-1]||'')}"
+          placeholder="Label…"
+          oninput="setLabeledTrackLabel('${sk}',${level-1},this.value)">
+      </div>`;
+    }).join('');
+    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+      <div class="sec" style="margin-top:12px">${lbl}</div>
+      <div class="sec-collapsible-body">
+        <div id="${sk}-labeled-track">${rows}</div>
+      </div></div>`;
+  }
+
   if(t==='named-list'){
     const sk=sd.state_key||sd.key,dbKey=sd.db_key,dbRef=dbKey?`DB.${dbKey}`:'[]';
     const sId=`${sd.key}-search`,dId=`${sd.key}-drop`,descId=`${sd.key}-desc`,listId=`${sd.key}-list`;
@@ -1894,28 +1981,24 @@ function buildSectionHTML(sd){
 
   if(t==='textarea'){
     const sk=sd.state_key||sd.key;
-    const previewId=`${sk}-preview`;
     const val=STATE[sk]||'';
+    const stateExpr=`STATE['${sk}']=this.value`;
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec" style="margin-top:18px">${lbl}</div>
       <div class="sec-collapsible-body">
-      <div class="desc-preview-lbl">Preview</div>
-      <div class="desc-preview" id="${previewId}">${mdH(val)}</div>
-      <div class="has-preview">
-      ${taWrap(`<textarea id="${sk}-textarea" rows="4" style="resize:vertical;line-height:1.5"
-        oninput="STATE['${sk}']=this.value;updateDescPreview(this,'${previewId}')">${escH(val)}</textarea>`)}
-      </div>
-      <div class="desc-edit-hint" style="margin-top:4px">**bold**&nbsp;&nbsp;*italic*&nbsp;&nbsp;***both***</div>
+      ${descField(stateExpr,val,6)}
       </div></div>`;
   }
 
   if(t==='resource-track'){
     const sk=sd.state_key||sd.key;
+    const rtMax=sd.max||20;
+    const numRows=Math.ceil(rtMax/10);
+    const rowDivs=Array.from({length:numRows},(_,i)=>`<div class="resource-track-grid" id="${sk}-rt-row${i}"></div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body">
-      <div class="resource-track-grid" id="${sk}-rt-row0"></div>
-      <div class="resource-track-grid" id="${sk}-rt-row1"></div>
+      ${rowDivs}
       </div>
     </div>`;
   }
@@ -2437,20 +2520,50 @@ function renderDotSquareTrack(sd){
 
 function renderResourceTrack(sd){
   const sk=sd.state_key||sd.key;
-  const vals=STATE[sk]||Array(20).fill(false);
-  [0,1].forEach(row=>{
+  const rtMax=sd.max||20;
+  const rowSize=10;
+  const numRows=Math.ceil(rtMax/rowSize);
+  const vals=STATE[sk]||Array(rtMax).fill(false);
+  for(let row=0;row<numRows;row++){
     const el=document.getElementById(`${sk}-rt-row${row}`);if(!el)return;
-    el.innerHTML=Array.from({length:10},(_,i)=>{
-      const idx=row*10+i;
+    const start=row*rowSize,end=Math.min(start+rowSize,rtMax);
+    el.innerHTML=Array.from({length:end-start},(_,i)=>{
+      const idx=start+i;
       return `<div class="rsquare${vals[idx]?' on':''}" onclick="toggleResourceSquare('${sk}',${idx})"></div>`;
     }).join('');
-  });
+  }
 }
 function toggleResourceSquare(sk,idx){
-  if(!Array.isArray(STATE[sk]))STATE[sk]=Array(20).fill(false);
-  STATE[sk][idx]=!STATE[sk][idx];
   const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk);
+  const rtMax=(sd&&sd.max)||20;
+  if(!Array.isArray(STATE[sk])||STATE[sk].length!==rtMax)STATE[sk]=Array(rtMax).fill(false);
+  STATE[sk][idx]=!STATE[sk][idx];
   if(sd)renderResourceTrack(sd);
+}
+
+// ── Labeled-track functions ───────────────────────────────────────────────────
+function setLabeledTrack(sk,val,max){
+  const cur=STATE[sk]||0;
+  STATE[sk]=(val===cur)?val-1:val;
+  STATE[sk]=Math.max(0,Math.min(max,STATE[sk]));
+  // Re-render just the dots without replacing label inputs (to preserve focus)
+  const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk);
+  if(!sd)return;
+  const container=document.getElementById(`${sk}-labeled-track`);if(!container)return;
+  const newVal=STATE[sk];
+  container.querySelectorAll('.labeled-track-row').forEach((row,ri)=>{
+    const level=max-ri;
+    const dot=row.querySelector('.dot');
+    if(dot){
+      if(newVal>=level)dot.classList.add('filled');
+      else dot.classList.remove('filled');
+    }
+  });
+}
+function setLabeledTrackLabel(sk,idx,val){
+  const lblKey=sk+'_labels';
+  if(!Array.isArray(STATE[lblKey]))STATE[lblKey]=[];
+  STATE[lblKey][idx]=val;
 }
 
 function renderArcanaBlock(sd){

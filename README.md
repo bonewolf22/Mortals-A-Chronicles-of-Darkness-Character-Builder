@@ -36,6 +36,7 @@ See [Contributing](#contributing) if you'd like to help add one.
 - **Weapons** — melee and ranged cards with full stat fields; Equipped checkbox applies Initiative modifier to derived traits
 - **Armor** — cards with full stat fields; Equipped checkbox applies Defense and Speed penalties
 - **Equipment** — cards with dice bonus, durability, size, structure
+- **Splat-Specific Stats** — additional stats for splats (Wisdom, Variations, Ciphers, etc) are available through both presets and a configuration menu 
 
 ### Description formatting
 
@@ -87,30 +88,6 @@ Characters are saved in your **browser's local storage** — no account or serve
 - Saves are local to your device (they are not saved on any servers)
 - Saves are tied to the browser you use. A character saved in Chrome on your laptop won't appear in Firefox or on your phone
 - To move a character between browsers or devices, use **Export sheet** to download a JSON file, then **Import sheet** on the other browser
-
----
-
-## Derived stat formulas
-
-| Stat | Formula |
-|---|---|
-| Health | Stamina + Size |
-| Willpower | Resolve + Composure (max 10) |
-| Defense | min(Dexterity, Wits) + Athletics |
-| Initiative | Dexterity + Composure |
-| Speed | Strength + Dexterity + 5 |
-
----
-
-## Damage types
-
-| Symbol | Type |
-|---|---|
-| / | Bashing |
-| X | Lethal |
-| ✱ | Aggravated |
-
-Click any health box to cycle: empty → Bashing → Lethal → Aggravated → empty.
 
 ---
 
