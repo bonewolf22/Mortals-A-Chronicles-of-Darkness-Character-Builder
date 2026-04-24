@@ -362,7 +362,7 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .desc-preview em{font-style:italic}
 .desc-preview-lbl{font-size:.62rem;font-family:sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:2px}
 .has-preview textarea{border-radius:0 0 3px 3px}
-@media print{.desc-display{border:none;padding:0;cursor:default}.desc-edit-hint{display:none}.desc-preview{display:none}.has-preview textarea{display:none}}
+/* desc-display print rules consolidated into main @media print block below */
 .merit-toggle-hd{display:flex;align-items:center;justify-content:space-between;margin-top:14px;margin-bottom:5px}
 .merit-toggle-hd .sec{margin:0;border:none;padding:0}
 .sidebar-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem 1.25rem;margin-bottom:12px}
@@ -724,7 +724,7 @@ body.touch-device .ta-wrap textarea{
   @page{size:letter;margin:.5in}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 
-  /* Hide all live-sheet-only UI */
+  /* ── Hide all live-sheet-only UI ──────────────────────────────────────── */
   .no-print,
   .gen-bar,
   .toolbar,
@@ -746,51 +746,128 @@ body.touch-device .ta-wrap textarea{
   .derived-spin-row button,
   [id$="-calc"],
   .sidebar-fab,
-  .drawer-backdrop{display:none!important}
+  .drawer-backdrop,
+  .sec-chevron{display:none!important}
 
-  /* Remove outer page chrome */
-  body{background:#fff;font-size:13px}
-  .page{max-width:100%;padding:.15in 0 0;margin:0}
+  /* ── Remove outer page chrome ─────────────────────────────────────────── */
+  body{background:#fff;font-size:12px}
+  .page{max-width:100%;padding:.1in 0 0;margin:0}
   h1,.app-sub{display:none}
 
-  /* Sheet fills full width — no sidebar column */
+  /* ── Sheet fills full width — no sidebar column ───────────────────────── */
   .app-cols{display:block}
   #editorCol{width:100%}
 
-  /* Card and surface colours */
+  /* ── Card and surface colours ─────────────────────────────────────────── */
   .sb-card{border:none;padding:0;background:#fff}
 
-  /* Keep two-column layout intact */
-  .sheet-cols{display:grid;grid-template-columns:1.15fr 1fr;gap:0 18px}
+  /* ── Keep attributes and two-column layout on the same page ──────────── */
+  /* Chrome: break-after + break-before on both sides of the seam is        */
+  /* sufficient. Firefox does not reliably honour these across grid          */
+  /* boundaries — Chrome is the recommended browser for printing.           */
+  #zone-full-width-top{display:block;break-after:avoid}
+  .sheet-cols{display:grid;grid-template-columns:1.15fr 1fr;gap:0 18px;break-before:avoid}
 
-  /* Cards: keep open, no collapse */
-  .item-card{break-inside:avoid;border:1px solid var(--border-light)}
+  /* ── Force all collapsible content visible ────────────────────────────── */
+  /* Collapsed sections (.sec-collapsed) must show their body on print.     */
+  /* beforeprint JS expands them, but this CSS rule is the safety net.      */
+  .sec-collapsible-body{display:block!important}
+  .sec-block.sec-collapsed .sec{margin-bottom:5px;border-bottom-color:var(--border-light)}
+
+  /* ── Force all item cards open ────────────────────────────────────────── */
   .item-body{display:block!important}
+  .cover-card-body{display:block!important}
 
-  /* Sections shouldn't break mid-block where avoidable */
-  .sec-block{break-inside:avoid}
+  /* ── desc-display: clean border-free rendering ────────────────────────── */
+  .desc-display{border:none!important;padding:0!important;cursor:default;min-height:0}
+  .desc-ta-wrap{display:none!important}
+  .desc-edit-hint{display:none!important}
 
-  /* Full-width zones can break naturally between children */
-  #zone-full-width-bottom .sec-block{break-inside:avoid}
-
-  /* Health/WP tracker row wrapping */
-  .tracker-circles,.tracker-squares,.health-boxes{flex-wrap:wrap}
-
-  /* Beats zone — hide entirely (live tracking only) */
+  /* ── Beats zone — live tracking only, never prints ────────────────────── */
   #zone-beats{display:none!important}
 
-  /* Empty state never prints */
+  /* ── Empty state never prints ─────────────────────────────────────────── */
   #emptyState{display:none!important}
 
-  /* Faint borders print cleanly */
-  .item-hd{background:#fff}
-  .attr-cell{background:var(--chip)}
+  /* ── Status bar never prints ──────────────────────────────────────────── */
+  .status-bar{display:none!important}
 
-  /* Suppress hover/focus outlines */
+  /* ── Suppress hover/focus outlines ───────────────────────────────────── */
   *:focus{outline:none}
 
-  /* Status bar never prints */
-  .status-bar{display:none!important}
+  /* ── Health/WP tracker row wrapping ──────────────────────────────────── */
+  .tracker-circles,.tracker-squares,.health-boxes{flex-wrap:wrap}
+
+  /* ── Surface colours ──────────────────────────────────────────────────── */
+  .item-hd{background:var(--chip)}
+  .attr-cell{background:var(--chip)}
+
+  /* ── Empty tracks on print ────────────────────────────────────────────── */
+  /* All consumable track state is stored in CSS classes applied by JS.     */
+  /* These print empty so they can be filled in pencil at the table.        */
+
+  /* Health boxes: hide SVG damage marks, keep box borders */
+  .hbox svg{display:none!important}
+
+  /* Willpower squares and dot-square-track damage squares */
+  .tsquare.on{background:transparent!important;border-color:var(--border)!important}
+
+  /* Resource tracks (Mana, Plasm, Pyros, Aether, Flux, etc.) */
+  .rsquare.on{background:transparent!important;border-color:var(--border)!important}
+
+  /* Dot-track, dot-square-track, and labeled-track sections flagged         */
+  /* "print_empty": true in data.json get the .print-empty class stamped by  */
+  /* buildSectionHTML. To add a future section, set print_empty: true in     */
+  /* data.json — no index.html changes needed.                               */
+  .print-empty .dot.filled{background:transparent!important;border-color:var(--border)!important}
+  .print-empty .tcircle{background:transparent!important;border-color:var(--border)!important}
+
+  /* ── Page-break rules ─────────────────────────────────────────────────── */
+  /*
+   * Strategy:
+   *   - Allow sec-blocks to break freely — they may be long (20 merits, etc.)
+   *   - Prevent breaks AFTER section headers so they don't orphan at page bottom
+   *   - Prevent breaks INSIDE compact atomic units (tracker rows, cards, stat rows)
+   *   - The two-column grid naturally isolates left/right columns per page
+   */
+
+  /* Section headers: never leave a header at the bottom of a page */
+  .sec{break-after:avoid}
+  .merit-toggle-hd{break-after:avoid}
+
+  /* Item cards: keep each card together */
+  .item-card{break-inside:avoid;border:1px solid var(--border-light)}
+
+  /* Cover cards: keep each cover together */
+  .cover-card{break-inside:avoid;border:1px solid var(--border-light)}
+
+  /* Attribute block: keep all three columns together */
+  .attr-block{break-inside:avoid}
+  .attr-category{break-inside:avoid}
+
+  /* Tracker and health components: keep each tracker unit intact */
+  .health-track-wrap{break-inside:avoid}
+  .tracker-wrap{break-inside:avoid}
+
+  /* Derived stats: keep the 3-row grid together */
+  .derived-grid{break-inside:avoid}
+
+  /* Dot-track compact rows */
+  .integrity-row{break-inside:avoid}
+
+  /* Renown, arcana, labeled-track: per-row units */
+  .renown-row{break-inside:avoid}
+  .arcana-row{break-inside:avoid}
+  .labeled-track-row{break-inside:avoid}
+
+  /* Forms table (werewolf forms): keep the whole table together */
+  .forms-wrap{break-inside:avoid}
+
+  /* Cipher block: keep diagram and final truth together */
+  .cipher-outer{break-inside:avoid}
+
+  /* Line items: keep each line together */
+  .line-item-row{break-inside:avoid}
 }
 </style>
 </head>
@@ -1033,12 +1110,35 @@ body.touch-device .ta-wrap textarea{
      JAVASCRIPT — All application logic. No external libraries or frameworks.
      ═══════════════════════════════════════════════════════════════════════════ -->
 <script>
+// ── Global constants ──────────────────────────────────────────────────────────
+// ATTRIBUTES and ATTR_LABELS are hardcoded — they cannot be configured via
+// data.json. The 9 attributes are fixed by the Chronicles of Darkness system.
 const ATTRIBUTES={mental:['intelligence','wits','resolve'],physical:['strength','dexterity','stamina'],social:['presence','manipulation','composure']};
 const ATTR_LABELS={intelligence:'Intelligence',wits:'Wits',resolve:'Resolve',strength:'Strength',dexterity:'Dexterity',stamina:'Stamina',presence:'Presence',manipulation:'Manipulation',composure:'Composure'};
+
+// SKILLS, SKILL_LABELS, ALL_SKILLS are populated from data.json skill_definitions.
 let SKILLS={},SKILL_LABELS={},ALL_SKILLS=[];
+
+// SECTION_DEFS    — full array of section definition objects from data.json
+// SEC_DEFAULTS    — map of key → default boolean (true = visible by default)
+// SECTION_MAP     — map of key → section definition object (fast lookup)
+// ZONES           — map of zone name → ordered array of section definitions
+//                   rebuilt by rebuildZones() on load and after drag-drop
+// PRESETS         — array of named preset objects from data.json
 let SECTION_DEFS=[],SEC_DEFAULTS={},SECTION_MAP={},ZONES={},PRESETS=[];
+
+// DB — in-memory content library. Keyed by db_key from section_definitions.
+// Populated from data.json on load. Examples: DB.merits, DB.disciplines, etc.
 const DB={};
+
+// STATE — the active character object. Everything on the sheet reads and writes
+// here. Persisted to localStorage as JSON on save. See patchState() for the
+// full field list and _baseCharacterFields() for initial values.
 let STATE={},currentSaveId=null;
+
+// ── Startup: load data.json ───────────────────────────────────────────────────
+// Fetches data.json once, populates all global data structures, and builds the
+// config panel. Called once on page load. The app is inert until this resolves.
 
 async function loadDB(){
   const d=await fetch('./data.json').then(r=>r.json());
@@ -1068,6 +1168,14 @@ async function loadDB(){
   buildCfgPanel();
 }
 
+// ── Zone layout ───────────────────────────────────────────────────────────────
+// ZONES maps each zone name to an ordered array of section definitions.
+// The default order comes from the `order` field in section_definitions.
+// Per-character drag-drop overrides are stored in STATE.sectionConfig._zoneOrder.
+// rebuildZones() merges these two sources: user overrides take priority, and any
+// sections missing from the override are appended in their default order.
+// CRITICAL: This sort by `order` must be preserved — it was broken and fixed
+// twice. Without it, sections render in data.json insertion order, not order value.
 function rebuildZones(){
   ZONES={};
   const defaultOrder={};
@@ -1093,7 +1201,11 @@ function rebuildZones(){
   });
 }
 
-// ── Collapsible sections ──────────────────────────────────────────────────
+// ── Collapsible sections ──────────────────────────────────────────────────────
+// Collapsed state is persisted separately from character STATE so sections
+// stay collapsed across saves and page refreshes without dirtying the save.
+// Only sections in COLLAPSIBLE_ZONES get toggles — header and beats zones
+// are intentionally always visible.
 const LS_COLLAPSED='mortals_plus_collapsed';
 
 function _getCollapsed(){
@@ -1123,6 +1235,12 @@ const COLLAPSIBLE_ZONES=new Set(['full-width-top','left-column','right-column','
 // ── End collapsible sections ──────────────────────────────────────────────
 
 // ── Drag and drop layout ──────────────────────────────────────────────────────
+// Sections can be dragged by their header (.sec) to reorder within a zone or
+// move between zones. Both mouse (HTML5 drag API) and touch (touchstart/move/end)
+// are supported. The drop target is determined by midpoint distance — whichever
+// sec-block's centre is closest to the pointer gets the before/after indicator.
+// Layout is committed to STATE.sectionConfig._zoneOrder and persisted with save.
+// While layout is locked (STATE.layoutLocked), drag events are blocked.
 let _dragKey=null;
 let _pendingInsertion=null;
 const ZONE_IDS={'beats':'zone-beats','full-width-top':'zone-full-width-top','left-column':'zone-left-column','right-column':'zone-right-column','full-width-bottom':'zone-full-width-bottom'};
@@ -1308,6 +1426,8 @@ function initDragAndDrop(){
   });
 }
 
+// Writes the new section order to STATE.sectionConfig._zoneOrder, then calls
+// rebuildZones() + renderEditor() to re-render the full sheet.
 function commitDrop(dragKey,targetZone,insertion){
   if(!dragKey)return;
   if(!STATE.sectionConfig)STATE.sectionConfig={};
@@ -1343,6 +1463,9 @@ function updateLayoutLockButton(){
   });
 }
 
+// applyTheme — sets data-theme attribute on <body>, which activates one of the
+// CSS variable overrides at the top of the stylesheet. Also syncs both theme
+// selects (desktop sidebar + drawer) and silently persists if already saved.
 function applyTheme(theme){
   theme=theme||'neutral';
   STATE.theme=theme;
@@ -1358,6 +1481,10 @@ function applyTheme(theme){
   }
 }
 
+// initCollapsibleSections — called after every renderEditor(). Finds all
+// sec-blocks in collapsible zones, attaches the collapse chevron and click
+// handler if not already done (idempotent via dataset.collapseInit), then
+// restores previously-collapsed state from localStorage.
 function initCollapsibleSections(){
   COLLAPSIBLE_ZONES.forEach(zone=>{
     const container=document.getElementById(ZONE_IDS[zone]);
@@ -1406,6 +1533,10 @@ function fillDescFromDrop(dId,descId,dbList){
   const el=document.getElementById(descId);if(found&&el)el.value=found.desc||'';
 }
 
+// buildCfgPanel — renders the section toggle checkboxes grouped by splat.
+// Writes to both desktop (#cfgPanel) and drawer (#drawerCfgPanel) so both
+// stay in sync without any further coordination. Groups are collapsible
+// via sessionStorage to avoid overwhelming new users. Called once after loadDB.
 function buildCfgPanel(){
   const groups={};
   SECTION_DEFS.forEach(sd=>{const g=sd.group||'Other';if(!groups[g])groups[g]=[];groups[g].push(sd);});
@@ -1453,6 +1584,11 @@ function toggleCfgGroup(gname){
   }catch(e){}
 }
 
+// ── Section visibility ────────────────────────────────────────────────────────
+// Section visibility is stored in STATE.sectionConfig as a flat key→boolean map.
+// getSecConfig() lazily initialises missing keys from SEC_DEFAULTS.
+// secVisible(key) returns true if the section should currently be shown.
+// Sections not in sectionConfig fall back to their default value.
 function getSecConfig(){
   if(!STATE.sectionConfig)STATE.sectionConfig={};
   SECTION_DEFS.forEach(sd=>{
@@ -1487,6 +1623,9 @@ function applySectionConfig(){
   });
   syncCfgCheckboxes();
 }
+// applyPreset — replaces STATE.sectionConfig entirely with the preset's config
+// object (minus any _zoneOrder, which is always cleared on preset apply).
+// Any key not in the preset config falls back to its SEC_DEFAULTS value.
 function applyPreset(presetName){
   if(!presetName)return;
   const preset=PRESETS.find(p=>p.name===presetName);if(!preset)return;
@@ -1629,6 +1768,12 @@ function showEditor(){
   document.getElementById('editorWrap').style.display='block';
 }
 
+// ── State management ──────────────────────────────────────────────────────────
+// patchState() — called after every load or import to ensure STATE is complete.
+// Adds any fields that are missing (e.g. a character saved before a new splat
+// was added). Safe to call repeatedly — only fills in missing values, never
+// overwrites existing ones. Also enforces array sizes for tracks whose `max`
+// may have changed between versions.
 function patchState(){
   if(!STATE.attributes)STATE.attributes={};
   Object.values(ATTRIBUTES).flat().forEach(a=>{if(STATE.attributes[a]==null)STATE.attributes[a]=1;});
@@ -1709,6 +1854,22 @@ function patchState(){
   (STATE.armor||[]).forEach(a=>{if(a.equipped===undefined)a.equipped=false;if(a.speed_penalty===undefined)a.speed_penalty=0;});
 }
 
+// ── Sheet rendering pipeline ──────────────────────────────────────────────────
+// renderEditor() is the top-level render call. It rebuilds ZONES, populates all
+// zone containers via renderSheetZone(), applies visibility and theme, then
+// initialises drag-drop and collapse in the next animation frame (so the DOM
+// is fully painted before we attach event listeners).
+//
+// renderSheetZone(zone, containerId) iterates the zone's section defs, calls
+// buildSectionHTML() to get the HTML string for each, injects it, then calls
+// the appropriate render function for sections that need live DOM work after
+// injection (attributes, skills, dot tracks, etc.).
+//
+// buildSectionHTML(sd) returns the full HTML string for one section based on
+// sd.type. Every section must wrap its content in <div class="sec-collapsible-body">
+// so the collapse system can hide/show it. New section types must add an `if`
+// branch here, a dispatch case in renderSheetZone, and state init in patchState
+// and _baseCharacterFields.
 function renderEditor(){
   rebuildZones();
   document.getElementById('charName').value=STATE.name||'';
@@ -1799,6 +1960,7 @@ function buildCipherNode(sk,cv,embedKey,embedLbl,interlockKey,interlockLbl){
 function buildSectionHTML(sd){
   const hidden=secVisible(sd.key)?'':'hidden';
   const t=sd.type,lbl=escH(sd.label);
+  const printEmpty=sd.print_empty?'print-empty':'';
 
   if(t==='beats-xp')return buildBeatsXpHTML(sd,hidden);
   if(t==='attributes')return `<div class="sec-block ${hidden}" id="secblock-attributes">
@@ -1884,7 +2046,7 @@ function buildSectionHTML(sd){
     const sk=sd.state_key||sd.key,val=STATE[sk]||0,max=sd.max||10;
     const dots=Array.from({length:max},(_,i)=>i+1).map(d=>
       `<span class="dot${val>=d?' filled':''}" onclick="setDotTrack('${sk}',${d},${max})"></span>`).join('');
-    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+    return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body"><div class="integrity-row">
         <div class="dot-row" id="${sk}-dots">${dots}</div>
@@ -1901,7 +2063,7 @@ function buildSectionHTML(sd){
     const circles=Array.from({length:max},()=>`<span class="tcircle"></span>`).join('');
     const sqs=Array.from({length:max},(_,i)=>
       `<span class="tsquare${i<filled?' on':''}" onclick="toggleDotSquare('${sk}',${i})"></span>`).join('');
-    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+    return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body"><div class="tracker-wrap" style="margin-bottom:4px">
         <div class="tracker-lbl">
@@ -1934,7 +2096,7 @@ function buildSectionHTML(sd){
           oninput="setLabeledTrackLabel('${sk}',${level-1},this.value)">
       </div>`;
     }).join('');
-    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+    return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body">
         <div id="${sk}-labeled-track">${rows}</div>
@@ -3027,10 +3189,18 @@ function expandAll(){
   });
   _saveCollapsed(collapsed);
 }
+// ── Utility: HTML escaping and markdown rendering ─────────────────────────────
+// escH — escapes a string for safe insertion into HTML. Must be called on all
+// user-supplied values before inserting into innerHTML.
 function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-// Markdown-lite renderer for description/notes fields.
-// Supports ***bold-italic***, **bold**, *italic*. Input is HTML-escaped first.
-// Newlines are converted to <br> for display in .desc-display and .desc-preview divs.
+
+// mdH — lightweight markdown renderer for description fields.
+// Input is HTML-escaped first (XSS-safe), then:
+//   \n (literal in JSON) and real newlines → <br>
+//   ***text*** → <strong><em>text</em></strong>
+//   **text**   → <strong>text</strong>
+//   *text*     → <em>text</em>
+// Used in all description display paths. Never called on values written to STATE.
 function mdH(s){
   return escH(s)
     .replace(/\\n/g,'\n')
@@ -3078,6 +3248,12 @@ function updateDescPreview(taEl,previewId){
 // stateExpr: JS expression string that assigns the value (run via onchange).
 // val: current string value.
 // rows: textarea rows (default 3).
+// descField — builds the click-to-edit description UI used on all card fields
+// and textarea sections. Shows rendered markdown by default; clicking reveals
+// the textarea; blurring saves and re-renders the display.
+// stateExpr: JS assignment expression string, e.g. "STATE.merits[0].desc=this.value"
+// val: current raw markdown string (stored in STATE, never HTML-escaped here)
+// rows: textarea row count (default 3)
 function descField(stateExpr,val,rows){
   rows=rows||3;
   const isEmpty=!(val||'').trim();
@@ -3119,6 +3295,8 @@ function initTaResize(e,handle){
 }
 // ── End textarea mobile resize ─────────────────────────────────────────────
 
+// copyText — serialises the current character to a plain-text summary and
+// copies it to the clipboard. Useful for pasting into chat or a text editor.
 function copyText(){
   const a=k=>getAttr(k),sk=k=>getSkill(k),gm=calcGearMods();
   const attrStr=Object.entries(ATTRIBUTES).map(([cat,attrs])=>
@@ -3184,6 +3362,10 @@ ${STATE.notes?'\nNOTES\n  '+STATE.notes:''}
 }
 
 // ── localStorage save/load ────────────────────────────────────────────────────
+// Characters are stored as JSON under the key mortals_plus_save_{uuid}.
+// An index of {id, name} pairs is kept separately under mortals_plus_index
+// so the save list can be populated without loading every character.
+// There is no server — all data is local to the browser.
 const LS_PREFIX='mortals_plus_save_';
 const LS_INDEX='mortals_plus_index';
 
@@ -3340,6 +3522,43 @@ function showStatus(msg){
 
 if(window.matchMedia('(pointer:coarse)').matches)document.body.classList.add('touch-device');
 loadDB();loadSaves();
+
+// ── Print expand/restore ───────────────────────────────────────────────────────
+// Before printing: expand all collapsed sections and open all item cards so the
+// print engine sees full content and break rules apply correctly.
+// After printing: restore exactly the state the user had.
+(function(){
+  let _printCollapsedKeys=null;
+  let _printClosedCards=null;
+
+  window.addEventListener('beforeprint',function(){
+    _printCollapsedKeys=[];
+    document.querySelectorAll('.sec-block.sec-collapsed').forEach(block=>{
+      _printCollapsedKeys.push(block.id);
+      block.classList.remove('sec-collapsed');
+    });
+    _printClosedCards=[];
+    document.querySelectorAll('.item-card:not(.open),.cover-card:not(.open)').forEach(card=>{
+      _printClosedCards.push(card);
+      card.classList.add('open');
+    });
+  });
+
+  window.addEventListener('afterprint',function(){
+    if(_printCollapsedKeys){
+      _printCollapsedKeys.forEach(id=>{
+        const block=document.getElementById(id);
+        if(block)block.classList.add('sec-collapsed');
+      });
+      _printCollapsedKeys=null;
+    }
+    if(_printClosedCards){
+      _printClosedCards.forEach(card=>card.classList.remove('open'));
+      _printClosedCards=null;
+    }
+  });
+})();
+// ── End print expand/restore ──────────────────────────────────────────────────
 </script>
 </body>
 </html>
