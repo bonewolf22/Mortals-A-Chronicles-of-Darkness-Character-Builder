@@ -186,6 +186,42 @@
   --info:#1a5fa8;--info-bg:#eef4fb;
   --green:#1a6b3a;--green-bg:#edf7f1;
 }
+/* Promethean — deep indigo/violet, matching the Promethean: the Created 2e sheet. */
+/* Key accent sampled: #2a1a4a (deep blue-violet), parchment wash with purple tones. */
+[data-theme="promethean"]{
+  --bg:#eeeaf4;
+  --surface:#f6f4fa;
+  --border:#a898c8;
+  --border-light:#ccc4e0;
+  --text:#140e20;
+  --muted:#3a2860;
+  --faint:#806898;
+  --accent:#2a1a4a;
+  --accent-hover:#180e30;
+  --chip:#ddd8ee;
+  --tag:#d4cee8;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
+/* Geist — cold icy blue-grey, matching the Geist: the Sin-Eaters 2e sheet.    */
+/* Key accent sampled: #1a3040 (deep slate blue), cold blue-grey wash.         */
+[data-theme="geist"]{
+  --bg:#e8eef4;
+  --surface:#f2f6fa;
+  --border:#8aaac0;
+  --border-light:#b8cedd;
+  --text:#0e1820;
+  --muted:#1e4060;
+  --faint:#5880a0;
+  --accent:#1a3040;
+  --accent-hover:#0e1e28;
+  --chip:#d0dce8;
+  --tag:#c8d6e4;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
 /* ── End splat themes ─────────────────────────────────────────────────────── */
 
 body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
@@ -223,9 +259,11 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 /* When collapsed, remove bottom border from header so it doesn't float */
 .sec-block.sec-collapsed .sec{margin-bottom:0;border-bottom-color:transparent;}
 .sec-block.sec-collapsed .merit-toggle-hd{margin-bottom:0;}
-.hdr-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:6px 10px;margin-bottom:6px}
-@media(max-width:600px){.hdr-grid{grid-template-columns:1fr 1fr}}
-.hdr-field{display:flex;flex-direction:column;gap:2px}
+.hdr-grid{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:6px}
+.hdr-field{display:inline-flex;flex-direction:column;gap:2px;min-width:80px}
+.hdr-ce{font-family:sans-serif;font-size:.9rem;border:none;border-bottom:1.5px solid var(--border);background:transparent;color:var(--text);padding:2px 0;outline:none;min-width:80px;white-space:nowrap;cursor:text}
+.hdr-ce:focus{border-bottom-color:var(--accent)}
+.hdr-ce:empty::before{content:attr(data-placeholder);color:var(--faint);pointer-events:none}
 .hdr-lbl{font-size:.65rem;font-family:sans-serif;color:var(--faint);letter-spacing:.06em;text-transform:uppercase}
 .hdr-inp{font-family:sans-serif;font-size:.9rem;border:none;border-bottom:1.5px solid var(--border);background:transparent;color:var(--text);padding:2px 0;outline:none;width:100%}
 .hdr-inp:focus{border-bottom-color:var(--accent)}
@@ -310,6 +348,21 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .add-row{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:5px}
 .add-row input{flex:1;min-width:110px}
 .hint{font-size:.7rem;font-family:sans-serif;color:var(--faint);margin-top:3px}
+/* ── Markdown description display / edit toggle ──────────────────────────── */
+/* .desc-display — rendered HTML view. Click to switch to textarea.          */
+/* .desc-preview — live preview above full textarea sections.                */
+.desc-display{font-family:sans-serif;font-size:.8rem;line-height:1.55;padding:4px 6px;min-height:2.4em;border:1px solid var(--border-light);border-radius:3px;background:var(--surface);color:var(--text);cursor:text;width:100%;white-space:pre-wrap;word-break:break-word}
+.desc-display:empty::before,.desc-display.empty::before{content:'Click to edit…';color:var(--faint);font-style:italic}
+.desc-display strong{font-weight:700}
+.desc-display em{font-style:italic}
+.desc-edit-hint{font-size:.62rem;font-family:sans-serif;color:var(--faint);margin-top:2px;letter-spacing:.02em}
+.desc-preview{font-family:sans-serif;font-size:.85rem;line-height:1.6;padding:.4rem .6rem;border:1px solid var(--border-light);border-radius:3px 3px 0 0;background:var(--chip);color:var(--text);width:100%;white-space:pre-wrap;word-break:break-word;border-bottom:none}
+.desc-preview:empty::before{content:'Preview will appear here…';color:var(--faint);font-style:italic}
+.desc-preview strong{font-weight:700}
+.desc-preview em{font-style:italic}
+.desc-preview-lbl{font-size:.62rem;font-family:sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:2px}
+.has-preview textarea{border-radius:0 0 3px 3px}
+@media print{.desc-display{border:none;padding:0;cursor:default}.desc-edit-hint{display:none}.desc-preview{display:none}.has-preview textarea{display:none}}
 .merit-toggle-hd{display:flex;align-items:center;justify-content:space-between;margin-top:14px;margin-bottom:5px}
 .merit-toggle-hd .sec{margin:0;border:none;padding:0}
 .sidebar-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem 1.25rem;margin-bottom:12px}
@@ -352,6 +405,13 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .renown-row{display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid var(--border-light);font-family:sans-serif;font-size:.82rem}
 .renown-row:last-child{border-bottom:none}
 .renown-lbl{flex:1;font-family:sans-serif;font-size:.82rem}
+/* ── labeled-track ───────────────────────────────────────────────────────── */
+.labeled-track-row{display:flex;align-items:center;gap:7px;padding:3px 0;border-bottom:1px solid var(--border-light);font-family:sans-serif;font-size:.82rem}
+.labeled-track-row:last-child{border-bottom:none}
+.labeled-track-num{font-size:.65rem;font-family:sans-serif;color:var(--faint);width:14px;text-align:right;flex-shrink:0}
+.labeled-track-lbl-inp{flex:1;border:none;border-bottom:1px solid transparent;background:transparent;color:var(--text);font-family:sans-serif;font-size:.82rem;padding:1px 2px;outline:none;min-width:0}
+.labeled-track-lbl-inp:hover{border-bottom-color:var(--border-light)}
+.labeled-track-lbl-inp:focus{border-bottom-color:var(--accent)}
 .forms-wrap{overflow-x:auto;margin-top:4px}
 .forms-table{display:grid;min-width:500px;border:1px solid var(--border-light);border-radius:4px;overflow:hidden}
 .form-col{display:flex;flex-direction:column;border-right:1px solid var(--border-light)}
@@ -822,6 +882,8 @@ body.touch-device .ta-wrap textarea{
         <option value="changeling">Changeling</option>
         <option value="demon">Demon</option>
         <option value="deviant">Deviant</option>
+        <option value="promethean">Promethean</option>
+        <option value="geist">Geist</option>
       </select>
     </div>
     <div class="cfg-preset-row">
@@ -912,6 +974,8 @@ body.touch-device .ta-wrap textarea{
             <option value="changeling">Changeling</option>
             <option value="demon">Demon</option>
             <option value="deviant">Deviant</option>
+            <option value="promethean">Promethean</option>
+            <option value="geist">Geist</option>
           </select>
         </div>
         <div class="cfg-preset-row">
@@ -1007,7 +1071,9 @@ async function loadDB(){
 function rebuildZones(){
   ZONES={};
   const defaultOrder={};
-  SECTION_DEFS.forEach(sd=>{
+  // Sort section_definitions by order within each zone before building defaultOrder
+  const sorted=[...SECTION_DEFS].sort((a,b)=>(a.order||0)-(b.order||0));
+  sorted.forEach(sd=>{
     if(!defaultOrder[sd.zone])defaultOrder[sd.zone]=[];
     defaultOrder[sd.zone].push(sd.key);
   });
@@ -1512,7 +1578,8 @@ function _baseCharacterFields(attrs,skills){
     else if(t==='textarea')base[sk]='';
     else if(t==='dot-track')base[sk]=sd.default_value||1;
     else if(t==='dot-square-track'){base[sk]=sd.max||10;base[sk+'_squares']=Array(sd.max||10).fill(false);}
-    else if(t==='resource-track')base[sk]=Array(20).fill(false);
+    else if(t==='resource-track')base[sk]=Array(sd.max||20).fill(false);
+    else if(t==='labeled-track'){base[sk]=sd.default_value||1;base[sk+'_labels']=Array(sd.max||10).fill('');}
     else if(t==='arcana-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
     else if(t==='renown-block')base[sk]={cunning:0,glory:0,honor:0,purity:0,wisdom:0};
     else if(t==='cipher-block')base[sk]={embed1:'',embed2:'',embed3:'',embed4:'',interlock1:'',interlock2:'',interlock3:'',cipher:'',final_truth:''};
@@ -1586,7 +1653,14 @@ function patchState(){
         if(!Array.isArray(STATE[sqKey])||STATE[sqKey].length!==max)STATE[sqKey]=Array(max).fill(false);
       }
       else if(t==='resource-track'){
-        if(!Array.isArray(STATE[sk])||STATE[sk].length!==20)STATE[sk]=Array(20).fill(false);
+        const rtMax=sd.max||20;
+        if(!Array.isArray(STATE[sk])||STATE[sk].length!==rtMax)STATE[sk]=Array(rtMax).fill(false);
+      }
+      else if(t==='labeled-track'){
+        if(STATE[sk]==null)STATE[sk]=sd.default_value||1;
+        const lblKey=sk+'_labels';
+        const ltMax=sd.max||10;
+        if(!Array.isArray(STATE[lblKey])||STATE[lblKey].length!==ltMax)STATE[lblKey]=Array(ltMax).fill('');
       }
       else if(t==='arcana-block'){
         if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
@@ -1664,7 +1738,13 @@ function renderDynamicHeader(){
         ${(sd.fields||[]).map(f=>`
           <div class="hdr-field">
             <span class="hdr-lbl">${escH(f.label)}</span>
-            <input class="hdr-inp" value="${escH(STATE[f.key]||'')}" oninput="STATE['${f.key}']=this.value">
+            <div class="hdr-ce" contenteditable="true" spellcheck="false"
+              data-placeholder="${escH(f.label)}"
+              data-key="${escH(f.key)}"
+              oninput="STATE[this.dataset.key]=this.textContent"
+              onkeydown="if(event.key==='Enter'){event.preventDefault()}"
+              onpaste="event.preventDefault();document.execCommand('insertText',false,event.clipboardData.getData('text/plain'))"
+              >${escH(STATE[f.key]||'')}</div>
           </div>`).join('')}
       </div>
     </div>`;
@@ -1695,6 +1775,7 @@ function renderSheetZone(zone,containerId){
     else if(t==='armor'){renderArmorList();refillSelect('armorDrop',DB.armor);}
     else if(t==='equipment'){renderEquipList();refillSelect('equipDrop',DB.equipment);}
     else if(t==='resource-track')renderResourceTrack(sd);
+    else if(t==='labeled-track'){/* rows rendered inline in buildSectionHTML */}
     else if(t==='arcana-block')renderArcanaBlock(sd);
     else if(t==='renown-block')renderRenownBlock(sd);
     else if(t==='forms-block')renderFormsBlock(sd);
@@ -1837,6 +1918,29 @@ function buildSectionHTML(sd){
       </div></div></div>`;
   }
 
+  if(t==='labeled-track'){
+    const sk=sd.state_key||sd.key,max=sd.max||10;
+    const val=STATE[sk]||1;
+    const lblKey=sk+'_labels';
+    const labels=STATE[lblKey]||Array(max).fill('');
+    const rows=Array.from({length:max},(_,i)=>{
+      const level=max-i; // display 10 at top, 1 at bottom
+      const dot=val>=level;
+      return `<div class="labeled-track-row">
+        <span class="labeled-track-num">${level}</span>
+        <span class="dot${dot?' filled':''}" style="flex-shrink:0" onclick="setLabeledTrack('${sk}',${level},${max})"></span>
+        <input class="labeled-track-lbl-inp" value="${escH(labels[level-1]||'')}"
+          placeholder="Label…"
+          oninput="setLabeledTrackLabel('${sk}',${level-1},this.value)">
+      </div>`;
+    }).join('');
+    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+      <div class="sec" style="margin-top:12px">${lbl}</div>
+      <div class="sec-collapsible-body">
+        <div id="${sk}-labeled-track">${rows}</div>
+      </div></div>`;
+  }
+
   if(t==='named-list'){
     const sk=sd.state_key||sd.key,dbKey=sd.db_key,dbRef=dbKey?`DB.${dbKey}`:'[]';
     const sId=`${sd.key}-search`,dId=`${sd.key}-drop`,descId=`${sd.key}-desc`,listId=`${sd.key}-list`;
@@ -1877,21 +1981,24 @@ function buildSectionHTML(sd){
 
   if(t==='textarea'){
     const sk=sd.state_key||sd.key;
+    const val=STATE[sk]||'';
+    const stateExpr=`STATE['${sk}']=this.value`;
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec" style="margin-top:18px">${lbl}</div>
       <div class="sec-collapsible-body">
-      ${taWrap(`<textarea id="${sk}-textarea" rows="4" style="resize:vertical;line-height:1.5"
-        oninput="STATE['${sk}']=this.value">${escH(STATE[sk]||'')}</textarea>`)}
+      ${descField(stateExpr,val,6)}
       </div></div>`;
   }
 
   if(t==='resource-track'){
     const sk=sd.state_key||sd.key;
+    const rtMax=sd.max||20;
+    const numRows=Math.ceil(rtMax/10);
+    const rowDivs=Array.from({length:numRows},(_,i)=>`<div class="resource-track-grid" id="${sk}-rt-row${i}"></div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body">
-      <div class="resource-track-grid" id="${sk}-rt-row0"></div>
-      <div class="resource-track-grid" id="${sk}-rt-row1"></div>
+      ${rowDivs}
       </div>
     </div>`;
   }
@@ -2042,7 +2149,7 @@ function buildSectionHTML(sd){
         </div>
           <div class="cipher-final-truth" style="margin-top:8px">
             <div class="cipher-final-truth-lbl">Final Truth</div>
-            ${taWrap('<textarea rows="3" style="resize:vertical;line-height:1.5" oninput="setCipherField(\''+sk+'\',\'final_truth\',this.value)">'+escH(cv.final_truth||'')+'</textarea>')}
+            ${descField(`setCipherField('${sk}','final_truth',this.value)`,cv.final_truth||'',3)}
           </div>
       </div>
     </div>`;
@@ -2413,20 +2520,50 @@ function renderDotSquareTrack(sd){
 
 function renderResourceTrack(sd){
   const sk=sd.state_key||sd.key;
-  const vals=STATE[sk]||Array(20).fill(false);
-  [0,1].forEach(row=>{
+  const rtMax=sd.max||20;
+  const rowSize=10;
+  const numRows=Math.ceil(rtMax/rowSize);
+  const vals=STATE[sk]||Array(rtMax).fill(false);
+  for(let row=0;row<numRows;row++){
     const el=document.getElementById(`${sk}-rt-row${row}`);if(!el)return;
-    el.innerHTML=Array.from({length:10},(_,i)=>{
-      const idx=row*10+i;
+    const start=row*rowSize,end=Math.min(start+rowSize,rtMax);
+    el.innerHTML=Array.from({length:end-start},(_,i)=>{
+      const idx=start+i;
       return `<div class="rsquare${vals[idx]?' on':''}" onclick="toggleResourceSquare('${sk}',${idx})"></div>`;
     }).join('');
-  });
+  }
 }
 function toggleResourceSquare(sk,idx){
-  if(!Array.isArray(STATE[sk]))STATE[sk]=Array(20).fill(false);
-  STATE[sk][idx]=!STATE[sk][idx];
   const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk);
+  const rtMax=(sd&&sd.max)||20;
+  if(!Array.isArray(STATE[sk])||STATE[sk].length!==rtMax)STATE[sk]=Array(rtMax).fill(false);
+  STATE[sk][idx]=!STATE[sk][idx];
   if(sd)renderResourceTrack(sd);
+}
+
+// ── Labeled-track functions ───────────────────────────────────────────────────
+function setLabeledTrack(sk,val,max){
+  const cur=STATE[sk]||0;
+  STATE[sk]=(val===cur)?val-1:val;
+  STATE[sk]=Math.max(0,Math.min(max,STATE[sk]));
+  // Re-render just the dots without replacing label inputs (to preserve focus)
+  const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk);
+  if(!sd)return;
+  const container=document.getElementById(`${sk}-labeled-track`);if(!container)return;
+  const newVal=STATE[sk];
+  container.querySelectorAll('.labeled-track-row').forEach((row,ri)=>{
+    const level=max-ri;
+    const dot=row.querySelector('.dot');
+    if(dot){
+      if(newVal>=level)dot.classList.add('filled');
+      else dot.classList.remove('filled');
+    }
+  });
+}
+function setLabeledTrackLabel(sk,idx,val){
+  const lblKey=sk+'_labels';
+  if(!Array.isArray(STATE[lblKey]))STATE[lblKey]=[];
+  STATE[lblKey][idx]=val;
 }
 
 function renderArcanaBlock(sd){
@@ -2619,7 +2756,7 @@ function renderCovers(sk,listId){
         </div>
         <div class="field-wrap" style="margin-bottom:8px">
           <span class="field-lbl">Description</span>
-          ${taWrap(`<textarea rows="2" style="resize:vertical" oninput="setCoverField('${sk}','${c.id}','notes',this.value)">${escH(c.notes||'')}</textarea>`)}
+          ${descField(`setCoverField('${sk}','${c.id}','notes',this.value)`,c.notes||'')}
         </div>
         <div class="cover-merits-hd">Cover Merits</div>
         ${meritRows}
@@ -2657,13 +2794,17 @@ function renderGenericRatedList(sd){
       </div>
       <div class="item-body">
         <div class="field-wrap" style="margin-bottom:5px"><span class="field-lbl">Description</span>
-          ${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE['${sk}'][${i}].desc=this.value">${escH(m.desc||'')}</textarea>`)}
+          ${descField(`STATE['${sk}'][${i}].desc=this.value`,m.desc||'')}
         </div>
         <div class="field-wrap"><span class="field-lbl">Rating</span><div class="dot-row">${dots}</div></div>
       </div></div>`;
   }).join('');
 }
-function setGenericRatedRating(sk,i,val,sdKey){STATE[sk][i].rating=val;renderGenericRatedList(SECTION_MAP[sdKey]||{key:sdKey,state_key:sk,max_rating:5});}
+function setGenericRatedRating(sk,i,val,sdKey){
+  const cur=STATE[sk][i].rating||0;
+  STATE[sk][i].rating=Math.max(0,val===cur?val-1:val);
+  renderGenericRatedList(SECTION_MAP[sdKey]||{key:sdKey,state_key:sk,max_rating:5});
+}
 function removeGenericRated(sk,i,sdKey){STATE[sk].splice(i,1);renderGenericRatedList(SECTION_MAP[sdKey]||{key:sdKey,state_key:sk,max_rating:5});}
 function addGenericRated(sk,sId,dId,listId,max,dbList){
   const drop=document.getElementById(dId),search=document.getElementById(sId);
@@ -2686,8 +2827,7 @@ function renderNamedList(sk,listId){
         <button class="sm danger" onclick="event.stopPropagation();removeNamedItem('${sk}',${i},'${listId}')">Remove</button>
       </div>
       <div class="item-body">
-        ${taWrap(`<textarea rows="2" style="font-size:.8rem" placeholder="Description…"
-          onchange="STATE['${sk}'][${i}].desc=this.value">${escH(item.desc||'')}</textarea>`)}
+        ${descField(`STATE['${sk}'][${i}].desc=this.value`,item.desc||'')}
       </div></div>`).join('');
 }
 function removeNamedItem(sk,i,listId){STATE[sk].splice(i,1);renderNamedList(sk,listId);}
@@ -2695,7 +2835,9 @@ function addNamedItemFromDrop(stateKey,sId,dId,descId,listId,renderFn,dbList){
   const drop=document.getElementById(dId),search=document.getElementById(sId);
   const name=(drop.value&&drop.value!=='')?drop.value:search.value.trim();if(!name)return;
   const descEl=document.getElementById(descId);
-  const desc=descEl?descEl.value.trim():'';
+  // Read desc from DB directly to preserve newlines — input elements strip \n from .value
+  const found=Array.isArray(dbList)?dbList.find(x=>x.name===name):null;
+  const desc=found?found.desc||'':(descEl?descEl.value.trim():'');
   if(!STATE[stateKey])STATE[stateKey]=[];
   STATE[stateKey].push({name,desc});renderFn();
   drop.selectedIndex=0;search.value='';if(descEl)descEl.value='';
@@ -2732,7 +2874,7 @@ function renderMeritList(){
       </div>
       <div class="item-body">
         <div class="field-wrap" style="margin-bottom:5px"><span class="field-lbl">Description</span>
-          ${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.merits[${i}].desc=this.value">${escH(m.desc||'')}</textarea>`)}
+          ${descField(`STATE.merits[${i}].desc=this.value`,m.desc||'')}
         </div>
         <div class="field-wrap"><span class="field-lbl">Rating</span><div class="dot-row">${dots}</div></div>
       </div></div>`;
@@ -2768,7 +2910,7 @@ function renderWeaponList(){
     const equippedChk=`<label class="equip-chk-wrap" onclick="event.stopPropagation()"><input type="checkbox" ${w.equipped?'checked':''} onchange="STATE.weapons[${i}].equipped=this.checked;updateDerived()"> Equipped</label>`;
     const sharedFields=`<div class="field-wrap"><span class="field-lbl">Damage</span><input class="field-inp" type="number" value="${w.damage||0}" onchange="STATE.weapons[${i}].damage=+this.value"></div><div class="field-wrap"><span class="field-lbl">Initiative mod</span><input class="field-inp" type="number" value="${w.initiative_mod||0}" onchange="STATE.weapons[${i}].initiative_mod=+this.value;updateDerived()"></div><div class="field-wrap"><span class="field-lbl">Strength req</span><input class="field-inp" type="number" value="${w.strength_req||0}" onchange="STATE.weapons[${i}].strength_req=+this.value"></div><div class="field-wrap"><span class="field-lbl">Size</span><input class="field-inp" type="number" value="${w.size||0}" onchange="STATE.weapons[${i}].size=+this.value"></div><div class="field-wrap"><span class="field-lbl">Availability</span><div class="dot-row">${availDots}</div></div>`;
     const rangedFields=isRanged?`<div class="field-wrap"><span class="field-lbl">Ranges (S/M/L)</span><input class="field-inp" type="text" value="${escH(w.ranges||'')}" placeholder="e.g. 20/40/80" onchange="STATE.weapons[${i}].ranges=this.value"></div><div class="field-wrap"><span class="field-lbl">Clip</span><input class="field-inp" type="number" value="${w.clip||0}" onchange="STATE.weapons[${i}].clip=+this.value"></div>`:'';
-    const notesField=`<div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span>${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.weapons[${i}].notes=this.value">${escH(w.notes||'')}</textarea>`)}</div>`;
+    const notesField=`<div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span>${descField(`STATE.weapons[${i}].notes=this.value`,w.notes||'')}</div>`;
     return `<div class="item-card open"><div class="item-hd" onclick="toggleCard(this)">
       <span class="item-toggle">&#9654;</span>
       <input class="item-name" value="${escH(w.name)}" placeholder="Weapon name" onclick="event.stopPropagation()" onchange="STATE.weapons[${i}].name=this.value">
@@ -2808,7 +2950,7 @@ function renderArmorList(){
         <div class="field-wrap"><span class="field-lbl">Speed penalty</span><input class="field-inp" type="number" value="${a.speed_penalty||0}" onchange="STATE.armor[${i}].speed_penalty=+this.value;updateDerived()"></div>
         <div class="field-wrap"><span class="field-lbl">Strength req</span><input class="field-inp" type="number" value="${a.strength_req||0}" onchange="STATE.armor[${i}].strength_req=+this.value"></div>
         <div class="field-wrap"><span class="field-lbl">Availability</span><div class="dot-row">${availDots}</div></div>
-        <div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span>${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.armor[${i}].notes=this.value">${escH(a.notes||'')}</textarea>`)}</div>
+        <div class="field-wrap" style="grid-column:1/-1"><span class="field-lbl">Notes</span>${descField(`STATE.armor[${i}].notes=this.value`,a.notes||'')}</div>
       </div></div></div>`;
   }).join('');
 }
@@ -2839,7 +2981,7 @@ function renderEquipList(){
         <div class="field-wrap" style="grid-column:span 2"><span class="field-lbl">Availability (1–10)</span><div class="dot-row">${eAvailDots}</div></div>
       </div>
       <div class="field-wrap"><span class="field-lbl">Description</span>
-        ${taWrap(`<textarea class="field-inp" rows="2" onchange="STATE.equipment[${i}].desc=this.value">${escH(e.desc||'')}</textarea>`)}
+        ${descField(`STATE.equipment[${i}].desc=this.value`,e.desc||'')}
       </div></div></div>`;
   }).join('');
 }
@@ -2886,6 +3028,64 @@ function expandAll(){
   _saveCollapsed(collapsed);
 }
 function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+// Markdown-lite renderer for description/notes fields.
+// Supports ***bold-italic***, **bold**, *italic*. Input is HTML-escaped first.
+// Newlines are converted to <br> for display in .desc-display and .desc-preview divs.
+function mdH(s){
+  return escH(s)
+    .replace(/\\n/g,'\n')
+    .replace(/\*\*\*(.+?)\*\*\*/g,'<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/\n/g,'<br>');
+}
+// Show the textarea for editing a description field; hide the display div.
+function showDescEdit(displayEl){
+  const fieldWrap=displayEl.parentElement;
+  const taWrapEl=fieldWrap.querySelector('.desc-ta-wrap');
+  const ta=fieldWrap.querySelector('textarea');
+  const hint=fieldWrap.querySelector('.desc-edit-hint');
+  if(!taWrapEl||!ta)return;
+  displayEl.style.display='none';
+  if(hint)hint.style.display='block';
+  taWrapEl.style.display='block';
+  // Auto-size to content, with a minimum of 3 rows worth of height
+  ta.style.height='auto';
+  ta.style.height=Math.max(ta.scrollHeight,72)+'px';
+  ta.focus();
+}
+// Hide the textarea; update and show the display div.
+function hideDescEdit(taEl){
+  const fieldWrap=taEl.closest('.field-wrap');
+  const displayEl=fieldWrap?fieldWrap.querySelector('.desc-display'):null;
+  const taWrapEl=fieldWrap?fieldWrap.querySelector('.desc-ta-wrap'):null;
+  const hint=fieldWrap?fieldWrap.querySelector('.desc-edit-hint'):null;
+  if(!displayEl)return;
+  const val=taEl.value;
+  displayEl.innerHTML=mdH(val)||'';
+  if(!val.trim())displayEl.classList.add('empty');else displayEl.classList.remove('empty');
+  if(taWrapEl)taWrapEl.style.display='none';
+  displayEl.style.display='block';
+  if(hint)hint.style.display='block';
+}
+// Update the live preview div above a full textarea section.
+function updateDescPreview(taEl,previewId){
+  const el=document.getElementById(previewId);
+  if(!el)return;
+  el.innerHTML=mdH(taEl.value)||'';
+}
+// Build the display-div + hidden-textarea pair for card description fields.
+// stateExpr: JS expression string that assigns the value (run via onchange).
+// val: current string value.
+// rows: textarea rows (default 3).
+function descField(stateExpr,val,rows){
+  rows=rows||3;
+  const isEmpty=!(val||'').trim();
+  const displayDiv=`<div class="desc-display${isEmpty?' empty':''}" onclick="showDescEdit(this)">${isEmpty?'':mdH(val)}</div>`;
+  const hint=`<div class="desc-edit-hint" style="display:none">**bold**&nbsp;&nbsp;*italic*&nbsp;&nbsp;***both***</div>`;
+  const ta=taWrap(`<textarea class="field-inp" rows="${rows}" style="resize:vertical;min-height:60px" onchange="${stateExpr}" onblur="hideDescEdit(this)">${escH(val||'')}</textarea>`);
+  return `<div class="field-wrap">${displayDiv}${hint}<div class="desc-ta-wrap" style="display:none">${ta}</div></div>`;
+}
 
 // ── Textarea mobile resize ─────────────────────────────────────────────────
 // Wraps a <textarea> string in a .ta-wrap div with a touch-drag resize handle.

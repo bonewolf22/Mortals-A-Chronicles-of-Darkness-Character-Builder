@@ -1,6 +1,6 @@
 # Mortals+ — Chronicles of Darkness Character Sheet Builder
 
-Mortals+ is a browser-based character builder and live play aid for Chronicles of Darkness. 
+Mortals+ is a browser-based character builder and live play aid for Chronicles of Darkness (Second Edition). 
 
 **[Open the app →](https://bonewolf22.github.io/Mortals-A-Chronicles-of-Darkness-Character-Builder/)**
 
@@ -32,10 +32,25 @@ See [Contributing](#contributing) if you'd like to help add one.
 - **Beats / Experience** — 5 Beats auto-awards 1 XP; fully data-driven (splat-specific beat trackers can be added without code changes)
 - **Tilts and Conditions** — searchable library with custom entry support
 - **Aspirations** — simple line list
-- **Merits** — searchable library, 5-dot or 10-dot max toggle
+- **Merits** — searchable library, 5-dot or 10-dot max toggle; rated 0–5 or 0–10
 - **Weapons** — melee and ranged cards with full stat fields; Equipped checkbox applies Initiative modifier to derived traits
 - **Armor** — cards with full stat fields; Equipped checkbox applies Defense and Speed penalties
 - **Equipment** — cards with dice bonus, durability, size, structure
+- **Splat-Specific Stats** — additional stats for splats (Wisdom, Variations, Ciphers, etc) are available through both presets and a configuration menu 
+
+### Description formatting
+
+Description fields on power cards (Disciplines, Contracts, Gifts, Tactics, Embeds, etc.) and free-text sections (Notes, The Code, Origins, etc.) support lightweight markdown formatting:
+
+| Syntax | Result |
+|---|---|
+| `**text**` | **bold** |
+| `*text*` | *italic* |
+| `***text***` | ***bold italic*** |
+
+Press Enter for line breaks. Power card descriptions display as rendered text by default — click to edit, click away to return to the formatted view. Free-text sections show a live preview above the text area as you type.
+
+Descriptions in `data.json` use the same syntax. Use `\n` for line breaks in JSON strings.
 
 ### Splat sections
 
@@ -73,30 +88,6 @@ Characters are saved in your **browser's local storage** — no account or serve
 - Saves are local to your device (they are not saved on any servers)
 - Saves are tied to the browser you use. A character saved in Chrome on your laptop won't appear in Firefox or on your phone
 - To move a character between browsers or devices, use **Export sheet** to download a JSON file, then **Import sheet** on the other browser
-
----
-
-## Derived stat formulas
-
-| Stat | Formula |
-|---|---|
-| Health | Stamina + Size |
-| Willpower | Resolve + Composure (max 10) |
-| Defense | min(Dexterity, Wits) + Athletics |
-| Initiative | Dexterity + Composure |
-| Speed | Strength + Dexterity + 5 |
-
----
-
-## Damage types
-
-| Symbol | Type |
-|---|---|
-| / | Bashing |
-| X | Lethal |
-| ✱ | Aggravated |
-
-Click any health box to cycle: empty → Bashing → Lethal → Aggravated → empty.
 
 ---
 
