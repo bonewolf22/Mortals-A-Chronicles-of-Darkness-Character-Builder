@@ -205,7 +205,8 @@
           "key": "vice",
           "label": "Vice"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "hunter-header-fields",
@@ -224,7 +225,8 @@
           "key": "conspiracy",
           "label": "Conspiracy"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "beats-xp",
@@ -235,7 +237,8 @@
       "type": "beats-xp",
       "default": true,
       "beats_key": "beats",
-      "xp_key": "experience"
+      "xp_key": "experience",
+      "config_category": "Main Splats"
     },
     {
       "key": "arcane-beats-xp",
@@ -246,7 +249,8 @@
       "type": "beats-xp",
       "default": false,
       "beats_key": "arcane_beats",
-      "xp_key": "arcane_experience"
+      "xp_key": "arcane_experience",
+      "config_category": "Main Splats"
     },
     {
       "key": "group-beats-xp",
@@ -257,7 +261,8 @@
       "type": "beats-xp",
       "default": false,
       "beats_key": "group_beats",
-      "xp_key": "group_experience"
+      "xp_key": "group_experience",
+      "config_category": "Main Splats"
     },
     {
       "key": "attributes",
@@ -265,8 +270,9 @@
       "group": "Mortal",
       "zone": "full-width-top",
       "order": 1,
-      "type": "attributes",
-      "default": true
+      "type": "attributes-9",
+      "default": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "skills",
@@ -275,7 +281,8 @@
       "zone": "left-column",
       "order": 2,
       "type": "skills",
-      "default": true
+      "default": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "other-traits",
@@ -284,7 +291,8 @@
       "zone": "right-column",
       "order": 1,
       "type": "derived-traits",
-      "default": true
+      "default": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "integrity",
@@ -297,7 +305,8 @@
       "default": true,
       "max": 10,
       "default_value": 7,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "tilts",
@@ -308,7 +317,8 @@
       "type": "named-list",
       "state_key": "tilts",
       "default": true,
-      "db_key": "tilts"
+      "db_key": "tilts",
+      "config_category": "Main Splats"
     },
     {
       "key": "conditions",
@@ -319,7 +329,8 @@
       "type": "named-list",
       "state_key": "conditions",
       "default": true,
-      "db_key": "conditions"
+      "db_key": "conditions",
+      "config_category": "Main Splats"
     },
     {
       "key": "aspirations",
@@ -329,7 +340,8 @@
       "order": 22,
       "type": "line-list",
       "state_key": "aspirations",
-      "default": true
+      "default": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "touchstones",
@@ -339,7 +351,8 @@
       "order": 7,
       "type": "line-list",
       "state_key": "touchstones",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "merits",
@@ -351,7 +364,8 @@
       "state_key": "merits",
       "default": true,
       "max_rating": 5,
-      "db_key": "merits"
+      "db_key": "merits",
+      "config_category": "Main Splats"
     },
     {
       "key": "endowments",
@@ -363,7 +377,8 @@
       "state_key": "endowments",
       "default": false,
       "max_rating": 5,
-      "db_key": "endowments"
+      "db_key": "endowments",
+      "config_category": "Main Splats"
     },
     {
       "key": "tactics",
@@ -374,7 +389,8 @@
       "type": "named-list",
       "state_key": "tactics",
       "default": false,
-      "db_key": "tactics"
+      "db_key": "tactics",
+      "config_category": "Main Splats"
     },
     {
       "key": "weapons",
@@ -385,7 +401,8 @@
       "type": "weapons",
       "state_key": "weapons",
       "default": true,
-      "db_key": "weapons"
+      "db_key": "weapons",
+      "config_category": "Main Splats"
     },
     {
       "key": "armor",
@@ -396,7 +413,8 @@
       "type": "armor",
       "state_key": "armor",
       "default": true,
-      "db_key": "armor"
+      "db_key": "armor",
+      "config_category": "Main Splats"
     },
     {
       "key": "equipment",
@@ -407,7 +425,8 @@
       "type": "equipment",
       "state_key": "equipment",
       "default": true,
-      "db_key": "equipment"
+      "db_key": "equipment",
+      "config_category": "Main Splats"
     },
     {
       "key": "the-code",
@@ -417,7 +436,8 @@
       "order": 45,
       "type": "textarea",
       "state_key": "the_code",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "notes",
@@ -427,7 +447,8 @@
       "order": 50,
       "type": "textarea",
       "state_key": "notes",
-      "default": true
+      "default": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "mage-header-fields",
@@ -454,7 +475,8 @@
           "key": "mage_cabal",
           "label": "Cabal"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "arcana",
@@ -506,7 +528,8 @@
           "key": "time",
           "label": "Time"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "gnosis",
@@ -518,7 +541,8 @@
       "state_key": "gnosis",
       "default": false,
       "max": 10,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "wisdom",
@@ -531,7 +555,8 @@
       "default": false,
       "max": 10,
       "default_value": 7,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "mana",
@@ -541,7 +566,11 @@
       "order": 4,
       "type": "resource-track",
       "state_key": "mana",
-      "default": false
+      "default": false,
+      "also_groups": [
+        "Proximi"
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "obsessions",
@@ -551,7 +580,8 @@
       "order": 7,
       "type": "line-list",
       "state_key": "obsessions",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "inured-spells",
@@ -561,7 +591,8 @@
       "order": 8,
       "type": "line-list",
       "state_key": "inured_spells",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "rotes",
@@ -573,7 +604,8 @@
       "state_key": "rotes",
       "default": false,
       "max_rating": 5,
-      "db_key": "rotes"
+      "db_key": "rotes",
+      "config_category": "Main Splats"
     },
     {
       "key": "arcana-attainments",
@@ -585,7 +617,8 @@
       "state_key": "arcana_attainments",
       "default": false,
       "max_rating": 5,
-      "db_key": "arcana_attainments"
+      "db_key": "arcana_attainments",
+      "config_category": "Main Splats"
     },
     {
       "key": "legacy-attainments",
@@ -597,7 +630,8 @@
       "state_key": "legacy_attainments",
       "default": false,
       "max_rating": 5,
-      "db_key": "legacy_attainments"
+      "db_key": "legacy_attainments",
+      "config_category": "Main Splats"
     },
     {
       "key": "werewolf-header-fields",
@@ -624,7 +658,8 @@
           "key": "ww_pack",
           "label": "Pack"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "primal-urge",
@@ -636,7 +671,8 @@
       "state_key": "primal_urge",
       "default": false,
       "max": 10,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "harmony",
@@ -649,7 +685,8 @@
       "default": false,
       "max": 10,
       "default_value": 7,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "essence",
@@ -659,7 +696,8 @@
       "order": 4,
       "type": "resource-track",
       "state_key": "essence",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "renown",
@@ -669,7 +707,8 @@
       "order": 5,
       "type": "renown-block",
       "state_key": "renown",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "flesh-touchstones",
@@ -679,7 +718,8 @@
       "order": 7,
       "type": "line-list",
       "state_key": "flesh_touchstones",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "spirit-touchstones",
@@ -689,7 +729,8 @@
       "order": 8,
       "type": "line-list",
       "state_key": "spirit_touchstones",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "werewolf-forms",
@@ -701,7 +742,8 @@
       "state_key": "werewolf_forms",
       "default": false,
       "db_key": "werewolf_forms",
-      "preserve_order": true
+      "preserve_order": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "gifts",
@@ -713,7 +755,8 @@
       "state_key": "gifts",
       "default": false,
       "max_rating": 5,
-      "db_key": "gifts"
+      "db_key": "gifts",
+      "config_category": "Main Splats"
     },
     {
       "key": "rites",
@@ -725,7 +768,8 @@
       "state_key": "rites",
       "default": false,
       "max_rating": 5,
-      "db_key": "rites"
+      "db_key": "rites",
+      "config_category": "Main Splats"
     },
     {
       "key": "vampire-header-fields",
@@ -748,7 +792,8 @@
           "key": "vamp_bloodline",
           "label": "Bloodline"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "humanity",
@@ -761,7 +806,8 @@
       "default": false,
       "max": 10,
       "default_value": 7,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "blood-potency",
@@ -773,7 +819,8 @@
       "state_key": "blood_potency",
       "default": false,
       "max": 10,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "vitae",
@@ -783,7 +830,11 @@
       "order": 4,
       "type": "resource-track",
       "state_key": "vitae",
-      "default": false
+      "default": false,
+      "also_groups": [
+        "Ghoul"
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "banes",
@@ -793,7 +844,8 @@
       "order": 7,
       "type": "line-list",
       "state_key": "banes",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "disciplines",
@@ -805,7 +857,11 @@
       "state_key": "disciplines",
       "default": false,
       "max_rating": 5,
-      "db_key": "disciplines"
+      "db_key": "disciplines",
+      "also_groups": [
+        "Ghoul"
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "devotions",
@@ -817,7 +873,8 @@
       "state_key": "devotions",
       "default": false,
       "max_rating": 5,
-      "db_key": "devotions"
+      "db_key": "devotions",
+      "config_category": "Main Splats"
     },
     {
       "key": "vampire-rites",
@@ -829,7 +886,8 @@
       "state_key": "vampire_rites",
       "default": false,
       "max_rating": 5,
-      "db_key": "vampire_rites"
+      "db_key": "vampire_rites",
+      "config_category": "Main Splats"
     },
     {
       "key": "changeling-header-fields",
@@ -860,7 +918,8 @@
           "key": "ch_kith",
           "label": "Kith"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "wyrd",
@@ -872,7 +931,8 @@
       "state_key": "wyrd",
       "default": false,
       "max": 10,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "clarity",
@@ -884,7 +944,8 @@
       "state_key": "clarity",
       "default": false,
       "max": 12,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "glamour",
@@ -894,7 +955,8 @@
       "order": 4,
       "type": "resource-track",
       "state_key": "glamour",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "favored-regalia",
@@ -904,7 +966,8 @@
       "order": 7,
       "type": "line-list",
       "state_key": "favored_regalia",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "frailties",
@@ -914,7 +977,8 @@
       "order": 8,
       "type": "line-list",
       "state_key": "frailties",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "changeling-touchstones",
@@ -924,7 +988,8 @@
       "order": 9,
       "type": "line-list",
       "state_key": "chang_touchstones",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "goblin-debt",
@@ -934,7 +999,8 @@
       "order": 10,
       "type": "line-list",
       "state_key": "goblin_debt",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "contracts",
@@ -945,7 +1011,8 @@
       "type": "named-list",
       "state_key": "contracts",
       "default": false,
-      "db_key": "contracts"
+      "db_key": "contracts",
+      "config_category": "Main Splats"
     },
     {
       "key": "pledges",
@@ -956,7 +1023,8 @@
       "type": "named-list",
       "state_key": "pledges",
       "default": false,
-      "db_key": "pledges"
+      "db_key": "pledges",
+      "config_category": "Main Splats"
     },
     {
       "key": "seeming-blessing",
@@ -966,7 +1034,8 @@
       "order": 16,
       "type": "textarea",
       "state_key": "seeming_blessing",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "seeming-curse",
@@ -976,7 +1045,8 @@
       "order": 17,
       "type": "textarea",
       "state_key": "seeming_curse",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "kith-blessing",
@@ -986,7 +1056,8 @@
       "order": 18,
       "type": "textarea",
       "state_key": "kith_blessing",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "praxes",
@@ -997,7 +1068,8 @@
       "type": "named-list",
       "state_key": "praxes",
       "default": false,
-      "db_key": "praxes"
+      "db_key": "praxes",
+      "config_category": "Main Splats"
     },
     {
       "key": "demon-header-fields",
@@ -1020,7 +1092,8 @@
           "key": "demon_catalyst",
           "label": "Catalyst"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "cover-beats-xp",
@@ -1031,7 +1104,8 @@
       "type": "beats-xp",
       "default": false,
       "beats_key": "cover_beats",
-      "xp_key": "cover_experience"
+      "xp_key": "cover_experience",
+      "config_category": "Main Splats"
     },
     {
       "key": "cover-rating",
@@ -1044,7 +1118,8 @@
       "default": false,
       "max": 10,
       "default_value": 7,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "primum",
@@ -1056,7 +1131,8 @@
       "state_key": "primum",
       "default": false,
       "max": 10,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "aether",
@@ -1066,7 +1142,8 @@
       "order": 4,
       "type": "resource-track",
       "state_key": "aether",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "demonic-form",
@@ -1077,7 +1154,8 @@
       "type": "named-list",
       "state_key": "demonic_form",
       "default": false,
-      "db_key": "demonic_form"
+      "db_key": "demonic_form",
+      "config_category": "Main Splats"
     },
     {
       "key": "embeds",
@@ -1088,7 +1166,8 @@
       "type": "named-list",
       "state_key": "embeds",
       "default": false,
-      "db_key": "embeds"
+      "db_key": "embeds",
+      "config_category": "Main Splats"
     },
     {
       "key": "exploits",
@@ -1099,7 +1178,8 @@
       "type": "named-list",
       "state_key": "exploits",
       "default": false,
-      "db_key": "exploits"
+      "db_key": "exploits",
+      "config_category": "Main Splats"
     },
     {
       "key": "cipher",
@@ -1109,7 +1189,8 @@
       "order": 14,
       "type": "cipher-block",
       "state_key": "cipher",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "covers",
@@ -1119,7 +1200,8 @@
       "order": 15,
       "type": "covers",
       "state_key": "covers",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "deviant-header-fields",
@@ -1142,7 +1224,8 @@
           "key": "dev_forms",
           "label": "Forms"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "stability",
@@ -1155,7 +1238,8 @@
       "default": false,
       "max": 10,
       "default_value": 7,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "acclimation",
@@ -1167,7 +1251,8 @@
       "state_key": "acclimation",
       "default": false,
       "max": 5,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "flux",
@@ -1177,7 +1262,8 @@
       "order": 5,
       "type": "resource-track",
       "state_key": "flux",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "deviant-touchstones",
@@ -1187,7 +1273,8 @@
       "order": 7,
       "type": "line-list",
       "state_key": "deviant_touchstones",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "variations",
@@ -1199,7 +1286,8 @@
       "state_key": "variations",
       "default": false,
       "max_rating": 5,
-      "db_key": "variations"
+      "db_key": "variations",
+      "config_category": "Main Splats"
     },
     {
       "key": "scars",
@@ -1211,7 +1299,8 @@
       "state_key": "scars",
       "default": false,
       "max_rating": 5,
-      "db_key": "scars"
+      "db_key": "scars",
+      "config_category": "Main Splats"
     },
     {
       "key": "adaptations",
@@ -1222,7 +1311,8 @@
       "type": "named-list",
       "state_key": "adaptations",
       "default": false,
-      "db_key": "adaptations"
+      "db_key": "adaptations",
+      "config_category": "Main Splats"
     },
     {
       "key": "origins",
@@ -1232,7 +1322,8 @@
       "order": 46,
       "type": "textarea",
       "state_key": "origins",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "promethean-header-fields",
@@ -1263,7 +1354,8 @@
           "key": "ptc_role",
           "label": "Role"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "vitriol-beats-xp",
@@ -1274,7 +1366,8 @@
       "type": "beats-xp",
       "default": false,
       "beats_key": "vitriol_beats",
-      "xp_key": "vitriol_experience"
+      "xp_key": "vitriol_experience",
+      "config_category": "Main Splats"
     },
     {
       "key": "pilgrimage",
@@ -1287,7 +1380,8 @@
       "default": false,
       "max": 10,
       "default_value": 1,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "azoth",
@@ -1299,7 +1393,8 @@
       "state_key": "azoth",
       "default": false,
       "max": 10,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "pyros",
@@ -1310,7 +1405,8 @@
       "type": "resource-track",
       "state_key": "pyros",
       "default": false,
-      "max": 20
+      "max": 20,
+      "config_category": "Main Splats"
     },
     {
       "key": "transmutations",
@@ -1321,7 +1417,8 @@
       "type": "named-list",
       "state_key": "transmutations",
       "default": false,
-      "db_key": "transmutations"
+      "db_key": "transmutations",
+      "config_category": "Main Splats"
     },
     {
       "key": "bestowment",
@@ -1331,7 +1428,8 @@
       "order": 4,
       "type": "named-list",
       "state_key": "bestowment",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "refinement-condition",
@@ -1341,7 +1439,8 @@
       "order": 30,
       "type": "textarea",
       "state_key": "refinement_condition",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "fixed-alembics",
@@ -1351,7 +1450,8 @@
       "order": 31,
       "type": "line-list",
       "state_key": "fixed_alembics",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "milestones",
@@ -1361,7 +1461,8 @@
       "order": 32,
       "type": "line-list",
       "state_key": "milestones",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "mastered-roles",
@@ -1371,7 +1472,8 @@
       "order": 33,
       "type": "line-list",
       "state_key": "mastered_roles",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "geist-header-fields",
@@ -1406,7 +1508,8 @@
           "key": "geist_krewe_archetype",
           "label": "Krewe Archetype"
         }
-      ]
+      ],
+      "config_category": "Main Splats"
     },
     {
       "key": "synergy",
@@ -1419,7 +1522,8 @@
       "default": false,
       "max": 10,
       "default_value": 7,
-      "print_empty": true
+      "print_empty": true,
+      "config_category": "Main Splats"
     },
     {
       "key": "plasm",
@@ -1430,7 +1534,8 @@
       "type": "resource-track",
       "state_key": "plasm",
       "default": false,
-      "max": 30
+      "max": 30,
+      "config_category": "Main Splats"
     },
     {
       "key": "keys",
@@ -1440,7 +1545,8 @@
       "order": 5,
       "type": "line-list",
       "state_key": "geist_keys",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
     },
     {
       "key": "haunts",
@@ -1452,7 +1558,8 @@
       "state_key": "haunts",
       "default": false,
       "max_rating": 5,
-      "db_key": "haunts"
+      "db_key": "haunts",
+      "config_category": "Main Splats"
     },
     {
       "key": "remembrance-traits",
@@ -1462,7 +1569,241 @@
       "order": 7,
       "type": "line-list",
       "state_key": "remembrance_traits",
-      "default": false
+      "default": false,
+      "config_category": "Main Splats"
+    },
+    {
+      "key": "entity-header",
+      "label": "Entity Identity",
+      "group": "Ephemeral Entity",
+      "zone": "header",
+      "order": 11,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "entity_type",
+          "label": "Type"
+        },
+        {
+          "key": "entity_rank",
+          "label": "Rank"
+        },
+        {
+          "key": "entity_concept",
+          "label": "Concept"
+        },
+        {
+          "key": "entity_virtue",
+          "label": "Virtue"
+        },
+        {
+          "key": "entity_vice",
+          "label": "Vice"
+        }
+      ],
+      "config_category": "Ephemeral Entities"
+    },
+    {
+      "key": "entity-attributes",
+      "label": "Attributes (Entity)",
+      "group": "Ephemeral Entity",
+      "zone": "full-width-top",
+      "order": 2,
+      "type": "attributes-3",
+      "default": false,
+      "config_category": "Ephemeral Entities"
+    },
+    {
+      "key": "entity-traits",
+      "label": "Other Traits (Entity)",
+      "group": "Ephemeral Entity",
+      "zone": "right-column",
+      "order": 1,
+      "type": "derived-traits-entity",
+      "default": false,
+      "config_category": "Ephemeral Entities"
+    },
+    {
+      "key": "numina",
+      "label": "Numina",
+      "group": "Ephemeral Entity",
+      "zone": "left-column",
+      "order": 3,
+      "type": "named-list",
+      "state_key": "numina",
+      "default": false,
+      "db_key": "numina",
+      "config_category": "Ephemeral Entities"
+    },
+    {
+      "key": "manifestations",
+      "label": "Manifestations",
+      "group": "Ephemeral Entity",
+      "zone": "left-column",
+      "order": 4,
+      "type": "named-list",
+      "state_key": "manifestations",
+      "default": false,
+      "db_key": "manifestations",
+      "config_category": "Ephemeral Entities"
+    },
+    {
+      "key": "influences",
+      "label": "Influences",
+      "group": "Ephemeral Entity",
+      "zone": "left-column",
+      "order": 5,
+      "type": "rated-list",
+      "state_key": "influences",
+      "default": false,
+      "max_rating": 5,
+      "db_key": "influences",
+      "config_category": "Ephemeral Entities"
+    },
+    {
+      "key": "entity-ban",
+      "label": "Ban",
+      "group": "Ephemeral Entity",
+      "zone": "right-column",
+      "order": 7,
+      "type": "textarea",
+      "state_key": "entity_ban",
+      "default": false,
+      "config_category": "Ephemeral Entities"
+    },
+    {
+      "key": "entity-bane",
+      "label": "Bane",
+      "group": "Ephemeral Entity",
+      "zone": "right-column",
+      "order": 8,
+      "type": "textarea",
+      "state_key": "entity_bane",
+      "default": false,
+      "config_category": "Ephemeral Entities"
+    },
+    {
+      "key": "anchors",
+      "label": "Anchors",
+      "group": "Ephemeral Entity",
+      "zone": "right-column",
+      "order": 9,
+      "type": "line-list",
+      "state_key": "anchors",
+      "default": false,
+      "config_category": "Ephemeral Entities"
+    },
+    {
+      "key": "ghoul-header-fields",
+      "label": "Ghoul Identity",
+      "group": "Ghoul",
+      "zone": "header",
+      "order": 5,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "ghoul_regnant_clan",
+          "label": "Regnant's Clan"
+        },
+        {
+          "key": "ghoul_regnant_covenant",
+          "label": "Regnant's Covenant"
+        },
+        {
+          "key": "ghoul_family",
+          "label": "Family"
+        }
+      ],
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "wolf-blooded-header-fields",
+      "label": "Wolf-Blooded Identity",
+      "group": "Wolf-Blooded",
+      "zone": "header",
+      "order": 5,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "wb_tribe",
+          "label": "Tribe"
+        },
+        {
+          "key": "wb_pack",
+          "label": "Pack"
+        }
+      ],
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "tells",
+      "label": "Tells",
+      "group": "Wolf-Blooded",
+      "zone": "left-column",
+      "order": 3,
+      "type": "named-list",
+      "state_key": "tells",
+      "default": false,
+      "db_key": "tells",
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "tension-pool",
+      "label": "Tension Pool",
+      "group": "Wolf-Blooded",
+      "zone": "right-column",
+      "order": 4,
+      "type": "resource-track",
+      "state_key": "tension_pool",
+      "default": false,
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "proximi-header-fields",
+      "label": "Proximi Identity",
+      "group": "Proximi",
+      "zone": "header",
+      "order": 5,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "proximi_dynasty",
+          "label": "Dynasty"
+        },
+        {
+          "key": "proximi_heritage_path",
+          "label": "Heritage Path"
+        }
+      ],
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "blessings",
+      "label": "Blessings",
+      "group": "Proximi",
+      "zone": "left-column",
+      "order": 4,
+      "type": "rated-list",
+      "state_key": "blessings",
+      "default": false,
+      "max_rating": 5,
+      "db_key": "rotes",
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "proximi-curse",
+      "label": "Curse",
+      "group": "Proximi",
+      "zone": "right-column",
+      "order": 6,
+      "type": "textarea",
+      "state_key": "proximi_curse",
+      "default": false,
+      "config_category": "Half-Splats"
     }
   ],
   "_presets_comment": [
@@ -1573,8 +1914,26 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
-      }
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Main Splats"
     },
     {
       "name": "Hunter",
@@ -1676,8 +2035,26 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
-      }
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Main Splats"
     },
     {
       "name": "Mage",
@@ -1779,8 +2156,26 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
-      }
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Main Splats"
     },
     {
       "name": "Werewolf",
@@ -1882,8 +2277,26 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
-      }
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Main Splats"
     },
     {
       "name": "Vampire",
@@ -1985,8 +2398,26 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
-      }
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Main Splats"
     },
     {
       "name": "Changeling",
@@ -2088,8 +2519,26 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
-      }
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Main Splats"
     },
     {
       "name": "Demon",
@@ -2191,8 +2640,26 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
-      }
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Main Splats"
     },
     {
       "name": "Deviant",
@@ -2295,8 +2762,25 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
-      }
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Main Splats"
     },
     {
       "name": "Promethean",
@@ -2398,8 +2882,26 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
-      }
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Main Splats"
     },
     {
       "name": "Geist",
@@ -2501,7 +3003,751 @@
         "plasm": true,
         "keys": true,
         "haunts": true,
-        "remembrance-traits": true
+        "remembrance-traits": true,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Main Splats"
+    },
+    {
+      "name": "Ephemeral Entity",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": false,
+        "skills": false,
+        "other-traits": false,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": false,
+        "endowments": false,
+        "tactics": false,
+        "weapons": false,
+        "armor": false,
+        "equipment": false,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": false,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": true,
+        "entity-attributes": true,
+        "entity-traits": true,
+        "numina": true,
+        "manifestations": true,
+        "influences": true,
+        "entity-ban": true,
+        "entity-bane": true,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Ephemeral Entities"
+    },
+    {
+      "name": "Ephemeral Entity \u2014 Ghost",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": false,
+        "skills": false,
+        "other-traits": false,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": false,
+        "endowments": false,
+        "tactics": false,
+        "weapons": false,
+        "armor": false,
+        "equipment": false,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": false,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": true,
+        "entity-attributes": true,
+        "entity-traits": true,
+        "numina": true,
+        "manifestations": true,
+        "influences": true,
+        "entity-ban": true,
+        "entity-bane": true,
+        "anchors": true,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Ephemeral Entities"
+    },
+    {
+      "name": "Ephemeral Entity \u2014 Supernal",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": false,
+        "skills": false,
+        "other-traits": false,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": false,
+        "endowments": false,
+        "tactics": false,
+        "weapons": false,
+        "armor": false,
+        "equipment": false,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": false,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": true,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": true,
+        "entity-attributes": true,
+        "entity-traits": true,
+        "numina": true,
+        "manifestations": true,
+        "influences": true,
+        "entity-ban": true,
+        "entity-bane": true,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      },
+      "category": "Ephemeral Entities"
+    },
+    {
+      "name": "Ghoul",
+      "category": "Half-Splats",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": true,
+        "skills": true,
+        "other-traits": true,
+        "integrity": true,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": true,
+        "endowments": false,
+        "tactics": false,
+        "weapons": true,
+        "armor": true,
+        "equipment": true,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": true,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": true,
+        "banes": false,
+        "disciplines": true,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": true,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      }
+    },
+    {
+      "name": "Wolf-Blooded",
+      "category": "Half-Splats",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": true,
+        "skills": true,
+        "other-traits": true,
+        "integrity": true,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": true,
+        "endowments": false,
+        "tactics": false,
+        "weapons": true,
+        "armor": true,
+        "equipment": true,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": true,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": true,
+        "tells": true,
+        "tension-pool": true,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false
+      }
+    },
+    {
+      "name": "Proximi",
+      "category": "Half-Splats",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": true,
+        "skills": true,
+        "other-traits": true,
+        "integrity": true,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": true,
+        "endowments": false,
+        "tactics": false,
+        "weapons": true,
+        "armor": true,
+        "equipment": true,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": true,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": true,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": true,
+        "blessings": true,
+        "proximi-curse": true
       }
     }
   ],
@@ -3034,21 +4280,6 @@
       "name": "Curse",
       "rating": 1,
       "desc": "**Cost:** 1 Plasm\n**Dice Pool:** Synergy + Intimidation vs. target's Resolve + Composure\nThe sin-eater channels the envious spite of the dead to inflict misfortune on a target. Success imposes a penalty equal to successes on the target's next action. Higher ratings extend duration or allow more severe curses.\n**Keys:** Modify what type of misfortune manifests."
-    },
-    {
-      "name": "Marionette",
-      "rating": 1,
-      "desc": "**Cost:** 1 Plasm\n**Dice Pool:** Synergy + Persuasion vs. target's Resolve + Composure\nThe sin-eater puppets a ghost or temporarily controls a mortal by imbuing them with Underworld energy. Success allows one directed action per success. Higher ratings allow sustained control or affect multiple targets.\n**Keys:** Determine the nature of control and what types of beings can be affected."
-    },
-    {
-      "name": "Oracle",
-      "rating": 1,
-      "desc": "**Cost:** 1 Plasm\n**Action:** Instant\nThe sin-eater reads the echoes of past events or glimpses probable futures through the lens of death. Successes provide information about the subject's past connections to death, or visions of likely outcomes. Higher ratings provide clearer or more detailed visions.\n**Keys:** Shape the nature and focus of visions received."
-    },
-    {
-      "name": "Shroud",
-      "rating": 1,
-      "desc": "**Cost:** 1 Plasm per scene\n**Action:** Instant\nThe sin-eater draws the veil between life and death around themselves or others. Can render the target difficult to perceive by both the living and the dead, or can anchor a ghost more firmly in the physical world. Higher ratings allow greater concealment or ghostly interaction.\n**Keys:** Modify whether the Shroud hides from the living, the dead, or both."
     }
   ],
   "transmutations": [
@@ -3063,14 +4294,365 @@
     {
       "name": "Insight (Kinesics)",
       "desc": "**Transmutation:** Kinesics\n**Persistent:** Your character reads people easily. Gain +1 to Empathy rolls.\n**1st Distillation (Read Intent):** Spend 1 Pyros. Discern a target's current emotional state and immediate intentions. Dice pool: Intelligence + Empathy.\n**2nd Distillation (Open Book):** Spend 1 Pyros. Read a target's surface thoughts and motivations. They cannot lie without your knowing.\n**3rd Distillation (Soul's Mirror):** Spend 2 Pyros. Understand a target completely \u2014 secrets, fears, desires \u2014 for the scene."
+    }
+  ],
+  "_mortal_generation_comment": "mortal_generation: drives Generate Baseline for mortal characters. Edit to change creation spreads.",
+  "mortal_generation": {
+    "attribute_spreads": [
+      5,
+      4,
+      3
+    ],
+    "skill_spreads": [
+      11,
+      7,
+      4
+    ],
+    "size": 5
+  },
+  "_rank_stats_comment": "rank_stats: per-rank stat ranges for Ephemeral Entity generation. Keys are rank numbers as strings.",
+  "rank_stats": {
+    "1": {
+      "power": [
+        1,
+        3
+      ],
+      "finesse": [
+        1,
+        3
+      ],
+      "resistance": [
+        1,
+        3
+      ],
+      "essence": [
+        10,
+        15
+      ],
+      "integrity": [
+        5,
+        6
+      ],
+      "size": [
+        3,
+        4
+      ],
+      "numina_count": 1,
+      "manifestation_count": 1
+    },
+    "2": {
+      "power": [
+        3,
+        5
+      ],
+      "finesse": [
+        3,
+        5
+      ],
+      "resistance": [
+        2,
+        4
+      ],
+      "essence": [
+        20,
+        25
+      ],
+      "integrity": [
+        5,
+        7
+      ],
+      "size": [
+        4,
+        5
+      ],
+      "numina_count": 2,
+      "manifestation_count": 1
+    },
+    "3": {
+      "power": [
+        5,
+        7
+      ],
+      "finesse": [
+        4,
+        7
+      ],
+      "resistance": [
+        3,
+        5
+      ],
+      "essence": [
+        30,
+        40
+      ],
+      "integrity": [
+        6,
+        8
+      ],
+      "size": [
+        5,
+        6
+      ],
+      "numina_count": 3,
+      "manifestation_count": 1
+    },
+    "4": {
+      "power": [
+        7,
+        10
+      ],
+      "finesse": [
+        6,
+        9
+      ],
+      "resistance": [
+        5,
+        7
+      ],
+      "essence": [
+        50,
+        65
+      ],
+      "integrity": [
+        7,
+        9
+      ],
+      "size": [
+        6,
+        8
+      ],
+      "numina_count": 4,
+      "manifestation_count": 2
+    },
+    "5": {
+      "power": [
+        10,
+        14
+      ],
+      "finesse": [
+        9,
+        13
+      ],
+      "resistance": [
+        7,
+        10
+      ],
+      "essence": [
+        80,
+        100
+      ],
+      "integrity": [
+        8,
+        10
+      ],
+      "size": [
+        7,
+        10
+      ],
+      "numina_count": 5,
+      "manifestation_count": 2
+    }
+  },
+  "_entity_types_comment": "entity_types: used by Entity generation. Each entry has a label, names list, and optional size_override [min,max].",
+  "entity_types": {
+    "spirit": {
+      "label": "Spirit",
+      "names": [
+        "Ember-That-Gnaws",
+        "Shadow Weave",
+        "The Hollow Tide",
+        "Rust-and-Ruin",
+        "Pale Hunger",
+        "The Gnashing Dark",
+        "Iron Throat",
+        "Carrion Wind",
+        "Spite-in-the-Walls",
+        "The Crawling Hush",
+        "Ashfall",
+        "Flicker",
+        "The Patient Rot",
+        "Grief Made Manifest",
+        "Warden of the Threshold"
+      ]
+    },
+    "ghost": {
+      "label": "Ghost",
+      "size_override": [
+        4,
+        5
+      ],
+      "names": [
+        "Margaret Fenn",
+        "Thomas Crail",
+        "Eliza Voss",
+        "Nathaniel Rue",
+        "Clara Hatch",
+        "Silas Mourn",
+        "Dora Ashby",
+        "Edmund Pale",
+        "Violet Thresh",
+        "Constance Grey",
+        "Lottie Vane",
+        "Aldous Sere"
+      ]
+    },
+    "angel": {
+      "label": "Angel",
+      "names": [
+        "Urael",
+        "Sanctifier",
+        "The Burning Word",
+        "Throne of White",
+        "Cherub-in-Chains",
+        "Aethon",
+        "The Relentless",
+        "Divine Instrument",
+        "The Patient Sword",
+        "Witness-of-Sins"
+      ]
+    },
+    "demon": {
+      "label": "Demon",
+      "names": [
+        "Ravager",
+        "The Crawling Doubt",
+        "Ashael",
+        "The Wound",
+        "Mireborn",
+        "Festering Will",
+        "The Hollow Hunger",
+        "Despair-that-Speaks",
+        "Carnage",
+        "The Gnawing Dark",
+        "Ashfel"
+      ]
+    },
+    "goetia": {
+      "label": "Goetia",
+      "names": [
+        "The Cruelty of Others",
+        "Regret-Made-Flesh",
+        "The Obsession",
+        "Greed Incarnate",
+        "Pale Envy",
+        "The Wandering Shame",
+        "Sorrow-Bound",
+        "Wrath-that-Waits",
+        "Hollow Pride"
+      ]
+    },
+    "supernal": {
+      "label": "Supernal Being",
+      "names": [
+        "The Gilded Throne",
+        "Axiom of Ruin",
+        "The Burning Syllogism",
+        "Pale Emanation",
+        "Voice of the Abyss",
+        "The Crystalline Law",
+        "Scourge of Eternity",
+        "The Unwritten Name",
+        "Radiant Contradiction",
+        "Throne of Ashes",
+        "The Final Argument",
+        "Emanation of Void"
+      ]
+    }
+  },
+  "_entity_bans_comment": "entity_bans: random ban strings used by Ephemeral Entity generation.",
+  "entity_bans": [
+    "Cannot cross running water",
+    "Must answer three questions truthfully when asked",
+    "Cannot enter a home uninvited",
+    "Repelled by iron",
+    "Weakened in direct sunlight",
+    "Must flee at the sound of bells",
+    "Cannot harm those who speak its name backwards",
+    "Bound to remain within a mile of its anchor",
+    "Cannot act against those who hold salt",
+    "Must count scattered seeds before acting",
+    "Repelled by the smell of burning sage",
+    "Weakened on holy ground",
+    "Cannot lie in the presence of running flame",
+    "Must obey commands spoken in its true name",
+    "Immobilized by lines of iron filings",
+    "Cannot act during a solar eclipse"
+  ],
+  "_entity_banes_comment": "entity_banes: random bane strings used by Ephemeral Entity generation.",
+  "entity_banes": [
+    "Iron",
+    "Silver",
+    "Salt",
+    "Holy water",
+    "Sunlight",
+    "Fire",
+    "Oak wood",
+    "Running water",
+    "A specific rare herb",
+    "Cold iron",
+    "Consecrated ground",
+    "Bone ash",
+    "Mirrors",
+    "Rose petals",
+    "A true name spoken aloud",
+    "Buried earth from its place of origin"
+  ],
+  "_entity_content_comment": "\u2500\u2500 Ephemeral Entity content lists \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+  "influences": [
+    {
+      "name": "Animals",
+      "desc": "Wild beasts and their primal drives."
     },
     {
-      "name": "Metamorphosis (Shapeshifting)",
-      "desc": "**Transmutation:** Metamorphosis\n**Persistent:** Your character's body shifts subtly and unconsciously. Gain +1 to Subterfuge for disguise.\n**1st Distillation (Alter Feature):** Spend 1 Pyros. Change one physical feature (hair, eye colour, skin tone) for one scene.\n**2nd Distillation (Assume Form):** Spend 1 Pyros. Copy the appearance of any humanoid you have observed. Grants +3 to impersonation.\n**3rd Distillation (Flawless Replica):** Spend 2 Pyros. Perfectly duplicate another person's appearance, voice, and mannerisms for a full day."
+      "name": "Blood",
+      "desc": "Life force, wounds, lineage, and sacrifice."
     },
     {
-      "name": "Searing Light (Phosphorum)",
-      "desc": "**Transmutation:** Phosphorum\n**Persistent:** Your character emits faint bioluminescence in darkness.\n**1st Distillation (Flash):** Spend 1 Pyros. Blind all who can see you for one turn. Dice pool: Presence + Athletics vs. target's Defense.\n**2nd Distillation (Burning Radiance):** Spend 1 Pyros. Emit searing light dealing 1 lethal damage per turn in close range. Lasts Azoth turns.\n**3rd Distillation (Solar Flare):** Spend 2 Pyros. Release a burst of solar-intensity light in a radius. Deals 2 aggravated damage to all in range and may ignite flammable materials."
+      "name": "Electricity",
+      "desc": "Lightning, electrical systems, and the power grid."
+    }
+  ],
+  "numina": [
+    {
+      "name": "Aggressive Meme",
+      "desc": "The entity may communicate an emotion or urge directly into a target\u2019s mind. Spend 1 Essence; target rolls Resolve + Composure vs. the entity\u2019s Power + Finesse. On failure, the target acts on the implanted urge for one scene."
+    },
+    {
+      "name": "Animal Possession",
+      "desc": "The entity may ride an animal, using its body. Spend 1 Essence; roll Power + Finesse vs. the animal\u2019s Resistance. On success, the entity controls the animal for a scene. The entity\u2019s own body remains inert."
+    },
+    {
+      "name": "Blast",
+      "desc": "The entity channels its nature as a ranged attack. Spend 1 Essence; roll Power + Finesse vs. target\u2019s Defense. Deals lethal damage equal to the entity\u2019s Power rating."
+    }
+  ],
+  "manifestations": [
+    {
+      "name": "Assumes Form",
+      "desc": "The entity can reshape its ephemeral appearance to mimic any person, animal, or object it has directly observed. The form is visually convincing but a Wits + Occult roll detects ephemeral inconsistencies."
+    },
+    {
+      "name": "Discorporate",
+      "desc": "When the entity\u2019s Corpus is reduced to 0, it may spend 1 Willpower to dissolve into ephemera rather than being destroyed. It reforms at its anchor after a number of days equal to its Rank."
+    },
+    {
+      "name": "Embed",
+      "desc": "The entity can inhabit an object, using it as a secondary anchor. Spend 1 Essence; the object becomes saturated with the entity\u2019s resonance. While embedded the entity is invisible but can use numina through the object."
+    }
+  ],
+  "_tells_comment": "Wolf-Blooded Tells",
+  "tells": [
+    {
+      "name": "Heightened Senses",
+      "desc": "The wolf-blood's senses of smell, hearing, or sight are sharper than normal. They may catch scents or sounds others miss."
+    },
+    {
+      "name": "Involuntary Shift",
+      "desc": "Under stress or strong emotion, the wolf-blood undergoes a partial, uncontrolled physical change \u2014 eyes, teeth, or nails shifting briefly."
+    },
+    {
+      "name": "Predator's Bearing",
+      "desc": "The wolf-blood carries themselves with an unconscious air of danger. Animals become nervous and people feel uneasy around them."
     }
   ]
 }

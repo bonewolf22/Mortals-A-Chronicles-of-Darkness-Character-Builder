@@ -18,11 +18,12 @@ Everything in Mortals+ that can be customised lives in one file: **`data.json`**
 4. [Renaming sections and skills](#4-renaming-sections-and-skills)
 5. [Adding and removing skills](#5-adding-and-removing-skills)
 6. [Adjusting the name generator](#6-adjusting-the-name-generator)
-7. [Adding a splat-specific beats tracker](#7-adding-a-splat-specific-beats-tracker)
-8. [Creating a new preset](#8-creating-a-new-preset)
-9. [Adding a new splat](#9-adding-a-new-splat)
-10. [Section definition reference](#10-section-definition-reference)
-11. [What you cannot change in data.json](#11-what-you-cannot-change-in-datajson)
+7. [Adjusting generation spreads](#7-adjusting-generation-spreads)
+8. [Adding a splat-specific beats tracker](#8-adding-a-splat-specific-beats-tracker)
+9. [Creating a new preset](#9-creating-a-new-preset)
+10. [Adding a new splat](#10-adding-a-new-splat)
+11. [Section definition reference](#11-section-definition-reference)
+12. [What you cannot change in data.json](#12-what-you-cannot-change-in-datajson)
 
 ---
 
@@ -38,7 +39,7 @@ Find the `"merits"` list in `data.json`. Each entry:
 {
   "name": "Danger Sense",
   "rating": 2,
-  "desc": "The entity receives a +2 bonus to reflexive Wits + Composure rolls to detect surprise or ambush."
+  "desc": "The character receives a +2 bonus to reflexive Wits + Composure rolls to detect surprise or ambush."
 }
 ```
 
@@ -116,7 +117,7 @@ Ranged — add `ranges` (short/medium/long in yards) and `clip`:
 
 ### Rated ability lists (name + rating + desc)
 
-All of the following use `{ name, rating, desc }`: `endowments`, `rotes`, `arcana_attainments`, `legacy_attainments`, `gifts`, `rites`, `disciplines`, `devotions`, `vampire_rites`, `variations`, `scars`, `haunts`.
+All of the following use `{ name, rating, desc }`: `endowments`, `rotes`, `arcana_attainments`, `legacy_attainments`, `gifts`, `rites`, `disciplines`, `devotions`, `vampire_rites`, `variations`, `scars`, `haunts`, `influences`.
 
 ```json
 {
@@ -126,19 +127,30 @@ All of the following use `{ name, rating, desc }`: `endowments`, `rotes`, `arcan
 }
 ```
 
-For `variations` and `scars`, `rating` represents Magnitude (1–5).
+For `variations` and `scars`, `rating` represents Magnitude (1–5). For `influences`, `rating` represents the entity's influence rating (0–5).
 
 Descriptions should include enough mechanical detail that a player can use the ability at the table without opening a book — cost, dice pool, action type, duration, and any relevant conditions.
 
 ### Named ability lists (name + desc)
 
-The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `bestowment`.
+The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `bestowment`, `numina`, `manifestations`.
 
 ```json
 {
-  "name": "Contracts of Artifice 1: Knowing Touch",
-  "desc": "Cost: 1 Glamour. Dice: Wits + Crafts + Wyrd. Action: Instant. Duration: Lasting.\nThe changeling touches an object and learns its origin, maker, age, and supernatural properties."
+  "name": "Terrify",
+  "desc": "The entity projects pure existential dread. Spend 1 Essence; roll Power + Finesse vs. Resolve + Composure. On success, the target flees or freezes and gains the Frightened Tilt."
 }
+```
+
+### Entity bans and banes
+
+`entity_bans` and `entity_banes` are plain string arrays used by Generate Ephemeral Entity to randomly assign a Ban and Bane. Add strings freely:
+
+```json
+"entity_bans": [
+  "Cannot cross running water",
+  "Must answer three questions truthfully when asked"
+]
 ```
 
 ### Werewolf forms
@@ -246,7 +258,7 @@ Delete the entry from `skill_definitions`. Saved character data for that skill i
 
 ## 6. Adjusting the name generator
 
-The **Generate baseline** button picks a random name from the `mortal_names` list:
+The **Generate Mortal** button picks a random name from the `mortal_names` list:
 
 ```json
 "mortal_names": [
@@ -256,9 +268,73 @@ The **Generate baseline** button picks a random name from the `mortal_names` lis
 ]
 ```
 
+Entity names are stored per entity type in `entity_types`:
+
+```json
+"entity_types": {
+  "spirit": {
+    "label": "Spirit",
+    "names": ["Ember-That-Gnaws", "Shadow Weave", "..."]
+  }
+}
+```
+
 ---
 
-## 7. Adding a splat-specific beats tracker
+## 7. Adjusting generation spreads
+
+### Mortal generation
+
+`mortal_generation` controls how dots are distributed by Generate Mortal:
+
+```json
+"mortal_generation": {
+  "attribute_spreads": [5, 4, 3],
+  "skill_spreads": [11, 7, 4],
+  "size": 5
+}
+```
+
+`attribute_spreads` — extra dots distributed across the three attribute categories (on top of the baseline 1 per attribute). `skill_spreads` — dots distributed across the three skill categories.
+
+### Entity generation
+
+`rank_stats` controls stat ranges for Generate Ephemeral Entity, keyed by rank number:
+
+```json
+"rank_stats": {
+  "3": {
+    "power": [5, 7],
+    "finesse": [4, 7],
+    "resistance": [3, 5],
+    "essence": [30, 40],
+    "integrity": [6, 8],
+    "size": [5, 6],
+    "numina_count": 3,
+    "manifestation_count": 1
+  }
+}
+```
+
+Each range is `[min, max]`. `numina_count` and `manifestation_count` control how many abilities are sampled from the library.
+
+### Entity types
+
+Add new entity types to `entity_types`. Each entry needs a `label` and `names` list. Optionally add `size_override` to use a different size range than the rank default:
+
+```json
+"entity_types": {
+  "my_entity": {
+    "label": "My Entity Type",
+    "size_override": [2, 3],
+    "names": ["Name One", "Name Two"]
+  }
+}
+```
+
+---
+
+## 8. Adding a splat-specific beats tracker
 
 Each splat can have its own beats currency. Add a new entry to `section_definitions`:
 
@@ -280,13 +356,11 @@ Then add `"arcane-beats-xp": false` to every existing preset, and `true` in the 
 
 ---
 
-## 8. Creating a new preset
+## 9. Creating a new preset
 
-Presets replace `sectionConfig` entirely when applied. Any key not listed falls back to its `default` value from `section_definitions`.
+Presets replace `sectionConfig` entirely when applied. **Every section key must be listed** — missing keys do not automatically fall back to their `default` value when a preset is applied.
 
-**You only need to list:**
-- Sections that should be `true` in this preset
-- Sections whose `default` is `true` but should be `false` in this preset
+The easiest approach is to copy the Mortal preset as a starting point and modify it. List every section key with `true` or `false`.
 
 ```json
 {
@@ -305,22 +379,31 @@ Presets replace `sectionConfig` entirely when applied. Any key not listed falls 
     "armor": true,
     "equipment": true,
     "notes": true,
-    "mortal-header-fields": true,
+    "mortal-header-fields": false,
     "geist-header-fields": true,
     "synergy": true,
     "plasm": true,
     "keys": true,
     "haunts": true,
-    "remembrance-traits": true
+    "remembrance-traits": true,
+    "entity-header": false,
+    "entity-attributes": false,
+    "entity-traits": false,
+    "numina": false,
+    "manifestations": false,
+    "influences": false,
+    "entity-ban": false,
+    "entity-bane": false,
+    "anchors": false
   }
 }
 ```
 
-> **Tip:** Copy an existing preset as a starting point. The verbose style of listing every key is also fine — it makes the preset self-documenting.
+> **Tip:** After adding a new section to `section_definitions`, you must add it to every existing preset or the app will silently ignore it when a preset is applied.
 
 ---
 
-## 9. Adding a new splat
+## 10. Adding a new splat
 
 A new splat is a combination of new content lists, new section definitions, and a new preset. **All steps are `data.json` changes only** for standard section types. A new section type (like Demon's Cipher diagram or Werewolf's Forms table) requires additional code in `index.html`.
 
@@ -328,29 +411,19 @@ A new splat is a combination of new content lists, new section definitions, and 
 
 Add any new ability lists to `data.json`. Rated lists use `{ name, rating, desc }`. Named lists use `{ name, desc }`.
 
-```json
-"manifestations": [
-  {
-    "name": "Boneyard 1",
-    "rating": 1,
-    "desc": "Cost: 1 Plasm. Dice: Intelligence + Occult + Psyche. Action: Instant."
-  }
-]
-```
-
 ### Step 2 — Add section definitions
 
 Use existing types where possible. For a morality track (starts at 7):
 
 ```json
 {
-  "key": "synergy",
-  "label": "Synergy",
-  "group": "Geist",
+  "key": "my-morality",
+  "label": "My Morality",
+  "group": "My Splat",
   "zone": "right-column",
   "order": 3,
   "type": "dot-track",
-  "state_key": "synergy",
+  "state_key": "my_morality",
   "default": false,
   "max": 10,
   "default_value": 7,
@@ -362,13 +435,13 @@ For a power stat (starts at 1):
 
 ```json
 {
-  "key": "psyche",
-  "label": "Psyche",
-  "group": "Geist",
+  "key": "my-power",
+  "label": "My Power Stat",
+  "group": "My Splat",
   "zone": "right-column",
   "order": 2,
   "type": "dot-track",
-  "state_key": "psyche",
+  "state_key": "my_power",
   "default": false,
   "max": 10,
   "print_empty": true
@@ -379,15 +452,15 @@ For a resource track (max 20 squares by default):
 
 ```json
 {
-  "key": "plasm",
-  "label": "Plasm",
-  "group": "Geist",
+  "key": "my-resource",
+  "label": "My Resource",
+  "group": "My Splat",
   "zone": "right-column",
   "order": 4,
   "type": "resource-track",
-  "state_key": "plasm",
+  "state_key": "my_resource",
   "default": false,
-  "max": 30
+  "max": 20
 }
 ```
 
@@ -395,28 +468,28 @@ For a rated ability list:
 
 ```json
 {
-  "key": "manifestations",
-  "label": "Manifestations",
-  "group": "Geist",
+  "key": "my-abilities",
+  "label": "My Abilities",
+  "group": "My Splat",
   "zone": "left-column",
   "order": 3,
   "type": "rated-list",
-  "state_key": "manifestations",
+  "state_key": "my_abilities",
   "default": false,
   "max_rating": 5,
-  "db_key": "manifestations"
+  "db_key": "my_abilities"
 }
 ```
 
 The `"db_key"` must match the name of the content list added in Step 1.
 
-### Step 3 — Update existing presets
+### Step 3 — Update ALL existing presets
 
-For new sections with `default: false` (typical for all splat sections), no update to existing presets is needed — they fall back to `false` automatically.
+Add the new section keys to **every existing preset** set to `false`. This step is mandatory — skipping it causes silent failures when presets are applied.
 
 ### Step 4 — Add the new preset
 
-See [Creating a new preset](#8-creating-a-new-preset) above.
+See [Creating a new preset](#9-creating-a-new-preset) above. List every section key.
 
 ### Step 5 — Add theme and selector options
 
@@ -428,7 +501,7 @@ No further code changes required for standard section types.
 
 ---
 
-## 10. Section definition reference
+## 11. Section definition reference
 
 ### Fields
 
@@ -436,7 +509,7 @@ No further code changes required for standard section types.
 |---|---|---|
 | `key` | yes | Unique identifier. Used in `sectionConfig` and as DOM id prefix (`secblock-{key}`). Never change after release. |
 | `label` | yes | Display name shown in config panel and on sheet. |
-| `group` | yes | Config panel group. Currently: `Mortal`, `Hunter`, `Mage`, `Werewolf`, `Vampire`, `Changeling`, `Demon`, `Deviant`, `Promethean`, `Geist`. |
+| `group` | yes | Config panel group. Currently: `Mortal`, `Hunter`, `Mage`, `Werewolf`, `Vampire`, `Changeling`, `Demon`, `Deviant`, `Promethean`, `Geist`, `Ephemeral Entity`. |
 | `zone` | yes | `header`, `beats`, `full-width-top`, `left-column`, `right-column`, `full-width-bottom` |
 | `order` | yes | Default sort position within the zone. Gaps are fine (10, 20, 30). Sections from different splats can share order values. |
 | `type` | yes | Section type — see table below. |
@@ -458,17 +531,19 @@ No further code changes required for standard section types.
 |---|---|
 | `header-fields` | Inline-editable fields in the character header. Uses `fields` array. |
 | `beats-xp` | A beats counter + XP counter pair. Uses `beats_key` and `xp_key`. Multiple trackers render side by side in the beats zone. |
-| `attributes` | The 9 core attributes. Special renderer. |
+| `attributes-9` | The 9 core mortal attributes. Special renderer. Note: the section key is `attributes` but the type is `attributes-9`. |
+| `attributes-3` | Power / Finesse / Resistance for Ephemeral Entities. Special renderer. |
 | `skills` | All skills with rote checkbox and specialty. Special renderer. |
-| `derived-traits` | Health, Willpower, Defense, Initiative, Speed, Size. Special renderer. |
+| `derived-traits` | Mortal Health, Willpower, Defense, Initiative, Speed, Size. Special renderer. |
+| `derived-traits-entity` | Entity Corpus, Willpower, Essence, and derived stats. Uses entity formulas. Special renderer. |
 | `dot-track` | Clickable 1–N dot track (Integrity, Gnosis, Pilgrimage, etc.). State: single integer. |
 | `dot-square-track` | Dot row (max rating) above a square row (current damage or condition). Used for Clarity and Stability. State: `sk` (integer) + `sk_squares` (array of booleans). |
 | `labeled-track` | Vertical 1–N track where each level has a dot toggle and an inline-editable label. Used for Synergy. State: `sk` (integer) + `sk_labels` (string array). |
 | `resource-track` | Manually-toggled squares in rows of 10. Size set by `max` (default 20). State: array of booleans. |
-| `line-list` | Simple list of text lines (Aspirations, Keys, Banes, etc.). |
-| `named-list` | Collapsible cards with name + description (Tilts, Conditions, Transmutations, etc.). |
-| `rated-list` | Collapsible cards with name + dot rating (0–max) + description (Merits, Disciplines, Gifts, etc.). |
-| `arcana-block` | Fixed rated list driven by the section's `fields` array. Used for Mage Arcana. |
+| `line-list` | Simple list of text lines (Aspirations, Keys, Banes, Anchors, etc.). |
+| `named-list` | Collapsible cards with name + description (Tilts, Conditions, Numina, Manifestations, etc.). |
+| `rated-list` | Collapsible cards with name + dot rating (0–max) + description (Merits, Disciplines, Gifts, Influences, etc.). |
+| `arcana-block` | Fixed rated list driven by the section's `fields` array. Used for Mage Arcana and Supernal entity Arcana (both use the same section, key `arcana`). |
 | `renown-block` | Five named 5-dot tracks in a single combined block. Werewolf only. |
 | `forms-block` | Live reference table showing per-form calculated stats. Data-driven from `db_key`. Werewolf only. |
 | `cipher-block` | Visual gear/cross diagram with Embed 1–4, Interlock 1–3, Cipher, and Final Truth fields. Demon only. |
@@ -480,12 +555,14 @@ No further code changes required for standard section types.
 
 ---
 
-## 11. What you cannot change in data.json
+## 12. What you cannot change in data.json
 
 - **The `athletics` skill key** — used in the Defense formula. Change the label freely, but not the key.
 - **Section types** — must be one of the types listed above. New types require editing `index.html`.
-- **Derived stat formulas** — Health, Willpower, Defense, Initiative, Speed. Code only.
-- **The 9 core attributes** — fixed in the app. Not configurable via data.
+- **Mortal derived stat formulas** — Health, Willpower, Defense, Initiative, Speed. Code only.
+- **Entity derived stat formulas** — Corpus, Willpower, Defense (rank-dependent), Initiative, Speed. Code only.
+- **The 9 core mortal attributes** — fixed in the app. Not configurable via data.
+- **The 3 entity attributes** — Power, Finesse, Resistance. Fixed in the app.
 - **The Werewolf Renown block** — five renown types are hardcoded.
 - **Attribute row labels** — Power, Finesse, Resistance are hardcoded.
 
@@ -504,5 +581,7 @@ No further code changes required for standard section types.
 **Power stats start at 1, morality stats at 7.** Controlled by `"default_value": 7`. Do not add this to power stats.
 
 **Set `"print_empty": true` on all dot-track, dot-square-track, and labeled-track sections.** This makes dots and squares print empty for pencil-and-paper use at the table. All existing tracks already have this flag.
+
+**Add new sections to every preset.** When you add a section to `section_definitions`, add it to every preset in `sheet_presets` (set to `false` in most, `true` where appropriate). Missing keys cause silent failures when presets are applied.
 
 **Sharing library additions.** Use **Data library → Export library** to share your content. Others can **Import library → Merge** to add your entries without overwriting theirs.
