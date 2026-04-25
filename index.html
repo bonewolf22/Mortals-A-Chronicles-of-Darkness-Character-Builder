@@ -415,6 +415,19 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .status-bar.show{opacity:1}
 .empty-state{text-align:center;padding:4rem 1rem;color:var(--muted);font-family:sans-serif;font-size:.9rem;background:var(--surface);border:1px solid var(--border);border-radius:6px}
 .resource-track-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-bottom:3px}
+/* ── Quintessence/Paradox wheel ───────────────────────────────────────────── */
+.quinpar-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin:4px 0}
+.quinpar-svg-wrap{position:relative;width:180px;height:180px}
+.quinpar-svg{display:block;width:100%;height:100%}
+.quinpar-lbl-top{position:absolute;top:4px;left:50%;transform:translateX(-50%);font-family:sans-serif;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;pointer-events:none}
+.quinpar-lbl-btm{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-family:sans-serif;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;pointer-events:none}
+.quinpar-controls{display:flex;gap:20px;align-items:flex-start;font-family:sans-serif}
+.quinpar-ctrl{display:flex;flex-direction:column;align-items:center;gap:3px}
+.quinpar-ctrl-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.quinpar-ctrl-row{display:flex;align-items:center;gap:5px}
+.quinpar-val{font-size:1.1rem;font-weight:700;min-width:20px;text-align:center}
+/* Print: wheel prints empty (both counts zero) */
+@media print{.quinpar-q-fill,.quinpar-p-fill{fill:transparent!important;stroke:var(--border)!important}}
 .rsquare{width:100%;aspect-ratio:1;border:1.5px solid var(--border);border-radius:2px;cursor:pointer;background:var(--surface);transition:background .1s}
 .rsquare:hover{border-color:var(--muted)}
 .rsquare.on{background:var(--text);border-color:var(--text)}
@@ -1624,7 +1637,7 @@ function buildCfgPanel(){
     </div>
     <div class="cfg-group-body-${slug}" style="display:${collapsed?'none':'block'}">
       <div class="cfg-grid">${sorted.map(sd=>`
-        <label class="cfg-chk"><input type="checkbox" data-sec="${sd.key}" onchange="toggleSec('${sd.key}',this.checked)"> ${escH(sd.label)}</label>`).join('')}
+        <label class="cfg-chk"><input type="checkbox" data-sec="${sd.key}" onchange="toggleSec('${sd.key}',this.checked)"> ${escH(secLabel(sd.key,sd.label))}</label>`).join('')}
       </div>
     </div>`;
     }).join('');
@@ -1707,8 +1720,18 @@ function secVisible(key){
   const cfg=getSecConfig();
   const v=cfg[key];
   if(v===undefined)return SEC_DEFAULTS[key]||false;
-  if(typeof v==='object')return v.visible!==false;
+  if(typeof v==='object')return v.enabled!==false;
   return v!==false;
+}
+// secLabel — returns the display label for a section, respecting any
+// label_override set in the active preset config. Falls back to sd.label.
+// Used by buildSectionHTML and buildCfgPanel to show preset-specific names
+// (e.g. "Spheres" instead of "Arcana" for the Mage Ascension preset).
+function secLabel(key,fallbackLabel){
+  const cfg=getSecConfig();
+  const v=cfg[key];
+  if(v&&typeof v==='object'&&v.label)return v.label;
+  return fallbackLabel;
 }
 function toggleSec(secId,enabled){
   getSecConfig()[secId]=enabled;
@@ -1736,7 +1759,8 @@ function applySectionConfig(){
 function applyPreset(presetName){
   if(!presetName)return;
   const preset=PRESETS.find(p=>p.name===presetName);if(!preset)return;
-  STATE.sectionConfig={...preset.config};
+  // Deep-copy config so object-valued entries (label_override) are preserved
+  STATE.sectionConfig=JSON.parse(JSON.stringify(preset.config));
   delete STATE.sectionConfig._zoneOrder;
   // Sync both preset selects to show the applied preset
   document.getElementById('presetSelect').value=presetName;
@@ -1833,6 +1857,7 @@ function _baseCharacterFields(attrs,skills){
     else if(t==='renown-block')base[sk]={cunning:0,glory:0,honor:0,purity:0,wisdom:0};
     else if(t==='cipher-block')base[sk]={embed1:'',embed2:'',embed3:'',embed4:'',interlock1:'',interlock2:'',interlock3:'',cipher:'',final_truth:''};
     else if(t==='covers')base[sk]=[];
+    else if(t==='quinpar-wheel'){base[sk+'_quintessence']=0;base[sk+'_paradox']=0;}
     else if(t==='attributes-3'){}  // entity attrs handled separately below
     else if(t==='derived-traits-entity'){}  // entity traits handled separately below
   });
@@ -1869,7 +1894,7 @@ function _applySelectedPreset(fallbackName){
   const sel=document.getElementById('presetSelect');
   const chosen=(sel&&sel.value)||'';
   const preset=PRESETS.find(p=>p.name===(chosen||fallbackName));
-  if(preset){STATE.sectionConfig={...preset.config};delete STATE.sectionConfig._zoneOrder;}
+  if(preset){STATE.sectionConfig=JSON.parse(JSON.stringify(preset.config));delete STATE.sectionConfig._zoneOrder;}
 }
 function generateMortal(){
   // Respect the preset selected in the dropdown; fall back to Mortal
@@ -2008,6 +2033,10 @@ function patchState(){
       else if(t==='resource-track'){
         const rtMax=sd.max||20;
         if(!Array.isArray(STATE[sk])||STATE[sk].length!==rtMax)STATE[sk]=Array(rtMax).fill(false);
+      }
+      else if(t==='quinpar-wheel'){
+        if(STATE[sk+'_quintessence']==null)STATE[sk+'_quintessence']=0;
+        if(STATE[sk+'_paradox']==null)STATE[sk+'_paradox']=0;
       }
       else if(t==='labeled-track'){
         if(STATE[sk]==null)STATE[sk]=sd.default_value||1;
@@ -2177,6 +2206,7 @@ function renderSheetZone(zone,containerId){
     else if(t==='forms-block')renderFormsBlock(sd);
     else if(t==='cipher-block'){/* fields rendered inline in buildSectionHTML */}
     else if(t==='covers')renderCovers(sd.state_key||sd.key,`${sd.state_key||sd.key}-list`);
+    else if(t==='quinpar-wheel')renderQuinparWheel(sd.state_key||sd.key);
   });
 }
 
@@ -2194,7 +2224,7 @@ function buildCipherNode(sk,cv,embedKey,embedLbl,interlockKey,interlockLbl){
 
 function buildSectionHTML(sd){
   const hidden=secVisible(sd.key)?'':'hidden';
-  const t=sd.type,lbl=escH(sd.label);
+  const t=sd.type,lbl=escH(secLabel(sd.key,sd.label));
   const printEmpty=sd.print_empty?'print-empty':'';
 
   if(t==='beats-xp')return buildBeatsXpHTML(sd,hidden);
@@ -2402,13 +2432,14 @@ function buildSectionHTML(sd){
 
   if(t==='arcana-block'){
     const sk=sd.state_key||sd.key;
+    const blockLabel=secLabel(sd.key,sd.label);
     const rows=(sd.fields||[]).map(f=>`
       <div class="arcana-row">
         <span class="arcana-lbl">${escH(f.label)}</span>
         <div class="dot-row" id="arcana-dots-${f.key}"></div>
       </div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
-      <div class="sec">Arcana <span style="font-weight:400;font-size:.6rem;color:var(--faint)">(0–5)</span></div>
+      <div class="sec">${escH(blockLabel)} <span style="font-weight:400;font-size:.6rem;color:var(--faint)">(0–5)</span></div>
       <div class="sec-collapsible-body">${rows}</div>
     </div>`;
   }
@@ -2647,6 +2678,46 @@ function buildSectionHTML(sd){
         <button class="sm" onclick="resetEntityDerivedOverrides()" style="font-size:.62rem;color:var(--faint)">Reset to formula</button>
       </div>
       </div></div>`;
+  }
+
+  // ── Quintessence/Paradox wheel ──────────────────────────────────────────────
+  // 20 squares arranged in a circle. Quintessence fills clockwise from pos 0
+  // (top). Paradox fills counter-clockwise from pos 19 (just left of top).
+  // Overlap: Paradox wins. Print: both zero out, all boxes empty.
+  if(t==='quinpar-wheel'){
+    const sk=sd.state_key||sd.key;
+    const qVal=STATE[sk+'_quintessence']||0;
+    const pVal=STATE[sk+'_paradox']||0;
+    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+      <div class="sec" style="margin-top:12px">${lbl}</div>
+      <div class="sec-collapsible-body">
+        <div class="quinpar-wrap">
+          <div class="quinpar-svg-wrap">
+            <svg class="quinpar-svg" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" id="${sk}-wheel-svg"></svg>
+            <div class="quinpar-lbl-top">Quintessence</div>
+            <div class="quinpar-lbl-btm">Paradox</div>
+          </div>
+          <div class="quinpar-controls">
+            <div class="quinpar-ctrl">
+              <div class="quinpar-ctrl-lbl">Quintessence</div>
+              <div class="quinpar-ctrl-row">
+                <button class="spin" onclick="adjQuinpar('${sk}',-1,1)">−</button>
+                <span class="quinpar-val" id="${sk}-q-val">${qVal}</span>
+                <button class="spin" onclick="adjQuinpar('${sk}',1,1)">+</button>
+              </div>
+            </div>
+            <div class="quinpar-ctrl">
+              <div class="quinpar-ctrl-lbl">Paradox</div>
+              <div class="quinpar-ctrl-row">
+                <button class="spin" onclick="adjQuinpar('${sk}',-1,2)">−</button>
+                <span class="quinpar-val" id="${sk}-p-val">${pVal}</span>
+                <button class="spin" onclick="adjQuinpar('${sk}',1,2)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
   }
 
   return '';
@@ -3181,6 +3252,51 @@ function toggleResourceSquare(sk,idx){
   if(!Array.isArray(STATE[sk])||STATE[sk].length!==rtMax)STATE[sk]=Array(rtMax).fill(false);
   STATE[sk][idx]=!STATE[sk][idx];
   if(sd)renderResourceTrack(sd);
+}
+
+// ── Quintessence/Paradox wheel ────────────────────────────────────────────────
+// 20 squares in a circle. Position 0 = 12 o'clock, clockwise.
+// Quintessence fills positions 0..Q-1 (from top, clockwise).
+// Paradox fills positions 19..20-P (from bottom, counter-clockwise).
+// Overlap: Paradox overrides. Print: all boxes empty.
+function renderQuinparWheel(sk){
+  const svg=document.getElementById(sk+'-wheel-svg');if(!svg)return;
+  const Q=STATE[sk+'_quintessence']||0;
+  const P=STATE[sk+'_paradox']||0;
+  const N=20;
+  const cx=90,cy=90,R=72,boxW=11,boxH=11;
+  // Generate 20 squares evenly around the circle
+  const squares=Array.from({length:N},(_,i)=>{
+    const angle=(2*Math.PI*i/N)-(Math.PI/2); // start at top
+    const bx=cx+R*Math.cos(angle)-boxW/2;
+    const by=cy+R*Math.sin(angle)-boxH/2;
+    // Determine fill: Paradox fills from position 19 downward
+    const isQ=i<Q;
+    const pStart=N-P; // Paradox starts at position pStart
+    const isP=P>0&&i>=pStart;
+    const fillClass=isP?'quinpar-p-fill':isQ?'quinpar-q-fill':'quinpar-empty';
+    const fillColor=isP?'var(--danger)':isQ?'var(--info)':'transparent';
+    const strokeColor=isP?'var(--danger)':isQ?'var(--info)':'var(--border)';
+    return `<rect class="${fillClass}" x="${bx.toFixed(2)}" y="${by.toFixed(2)}" width="${boxW}" height="${boxH}"
+      rx="1.5" fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.5"
+      transform="rotate(${(360*i/N).toFixed(2)},${(cx+R*Math.cos(angle)).toFixed(2)},${(cy+R*Math.sin(angle)).toFixed(2)})"/>`;
+  }).join('');
+  svg.innerHTML=squares;
+  // Update labels
+  const qEl=document.getElementById(sk+'-q-val');if(qEl)qEl.textContent=Q;
+  const pEl=document.getElementById(sk+'-p-val');if(pEl)pEl.textContent=P;
+}
+function adjQuinpar(sk,delta,which){
+  // which: 1=Quintessence, 2=Paradox
+  const N=20;
+  if(which===1){
+    const q=STATE[sk+'_quintessence']||0;
+    STATE[sk+'_quintessence']=Math.max(0,Math.min(N,q+delta));
+  } else {
+    const p=STATE[sk+'_paradox']||0;
+    STATE[sk+'_paradox']=Math.max(0,Math.min(N,p+delta));
+  }
+  renderQuinparWheel(sk);
 }
 
 // ── Labeled-track functions ───────────────────────────────────────────────────

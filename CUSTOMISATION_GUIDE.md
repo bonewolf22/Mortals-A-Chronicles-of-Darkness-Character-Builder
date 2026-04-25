@@ -119,6 +119,8 @@ Ranged — add `ranges` (short/medium/long in yards) and `clip`:
 
 All of the following use `{ name, rating, desc }`: `endowments`, `rotes`, `arcana_attainments`, `legacy_attainments`, `gifts`, `rites`, `disciplines`, `devotions`, `vampire_rites`, `variations`, `scars`, `haunts`, `influences`.
 
+The `blessings` section (Proximi) also uses this format but draws from the `rotes` list — there is no separate `blessings` content list. Add Proximi Blessings to `rotes`.
+
 ```json
 {
   "name": "Celerity 1: Rapid Reflexes",
@@ -133,7 +135,7 @@ Descriptions should include enough mechanical detail that a player can use the a
 
 ### Named ability lists (name + desc)
 
-The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `bestowment`, `numina`, `manifestations`.
+The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `bestowment`, `numina`, `manifestations`, `tells`.
 
 ```json
 {
@@ -362,6 +364,19 @@ Presets replace `sectionConfig` entirely when applied. **Every section key must 
 
 The easiest approach is to copy the Mortal preset as a starting point and modify it. List every section key with `true` or `false`.
 
+Each preset must also have a `"category"` field. This controls which group the preset appears under in the Sheet Configuration dropdown. Current categories are `"Main Splats"`, `"Half-Splats"`, and `"Ephemeral Entities"`. You can introduce a new category simply by using a new string — no code changes needed.
+
+```json
+{
+  "name": "Geist",
+  "category": "Main Splats",
+  "config": {
+    "beats-xp": true,
+    ...
+  }
+}
+```
+
 ```json
 {
   "name": "Geist",
@@ -407,97 +422,72 @@ The easiest approach is to copy the Mortal preset as a starting point and modify
 
 A new splat is a combination of new content lists, new section definitions, and a new preset. **All steps are `data.json` changes only** for standard section types. A new section type (like Demon's Cipher diagram or Werewolf's Forms table) requires additional code in `index.html`.
 
-### Step 1 — Add content lists
+### Full splats
+
+#### Step 1 — Add content lists
 
 Add any new ability lists to `data.json`. Rated lists use `{ name, rating, desc }`. Named lists use `{ name, desc }`.
 
-### Step 2 — Add section definitions
+#### Step 2 — Add section definitions
 
-Use existing types where possible. For a morality track (starts at 7):
+Use existing types where possible. Set `group` to your splat's name and `config_category` to `"Main Splats"`. See the [Section definition reference](#11-section-definition-reference) for all available fields and types.
 
-```json
-{
-  "key": "my-morality",
-  "label": "My Morality",
-  "group": "My Splat",
-  "zone": "right-column",
-  "order": 3,
-  "type": "dot-track",
-  "state_key": "my_morality",
-  "default": false,
-  "max": 10,
-  "default_value": 7,
-  "print_empty": true
-}
-```
-
-For a power stat (starts at 1):
-
-```json
-{
-  "key": "my-power",
-  "label": "My Power Stat",
-  "group": "My Splat",
-  "zone": "right-column",
-  "order": 2,
-  "type": "dot-track",
-  "state_key": "my_power",
-  "default": false,
-  "max": 10,
-  "print_empty": true
-}
-```
-
-For a resource track (max 20 squares by default):
-
-```json
-{
-  "key": "my-resource",
-  "label": "My Resource",
-  "group": "My Splat",
-  "zone": "right-column",
-  "order": 4,
-  "type": "resource-track",
-  "state_key": "my_resource",
-  "default": false,
-  "max": 20
-}
-```
-
-For a rated ability list:
-
-```json
-{
-  "key": "my-abilities",
-  "label": "My Abilities",
-  "group": "My Splat",
-  "zone": "left-column",
-  "order": 3,
-  "type": "rated-list",
-  "state_key": "my_abilities",
-  "default": false,
-  "max_rating": 5,
-  "db_key": "my_abilities"
-}
-```
-
-The `"db_key"` must match the name of the content list added in Step 1.
-
-### Step 3 — Update ALL existing presets
+#### Step 3 — Update ALL existing presets
 
 Add the new section keys to **every existing preset** set to `false`. This step is mandatory — skipping it causes silent failures when presets are applied.
 
-### Step 4 — Add the new preset
+#### Step 4 — Add the new preset
 
-See [Creating a new preset](#9-creating-a-new-preset) above. List every section key.
+See [Creating a new preset](#9-creating-a-new-preset) above. List every section key. Set `"category": "Main Splats"`.
 
-### Step 5 — Add theme and selector options
+#### Step 5 — Add theme and selector options
 
 Add a CSS theme block and `<option>` entries in both theme `<select>` elements in `index.html` (desktop sidebar and drawer). See the existing theme blocks for the pattern. Be careful not to accidentally consume the adjacent `<select>`'s opening tag when editing — this has caused bugs before.
 
-### Step 6 — Done
+#### Step 6 — Done
 
 No further code changes required for standard section types.
+
+---
+
+### Half-splats
+
+Half-splats layer onto the mortal sheet base rather than replacing it. They share sections from full splats where appropriate and use a separate config panel group under the *Half-Splats* category.
+
+#### Step 1 — Add content lists (if needed)
+
+Same as full splats. Half-splat sections that share an existing library (e.g. Blessings using Rotes) do not need a new content list — just point `db_key` at the existing one.
+
+#### Step 2 — Add section definitions
+
+Set `"config_category": "Half-Splats"` and `"group"` to your half-splat's name (e.g. `"Ghoul"`).
+
+For sections shared with a full splat, add the half-splat group to `also_groups` on the **existing** section definition rather than creating a duplicate:
+
+```json
+{
+  "key": "disciplines",
+  "group": "Vampire",
+  "also_groups": ["Ghoul"],
+  ...
+}
+```
+
+This renders a linked checkbox under both the Vampire and Ghoul config panel groups. Both checkboxes control the same section.
+
+Use namespaced state keys for identity fields to avoid collisions with the parent splat (e.g. `wb_tribe` not `ww_tribe`).
+
+#### Step 3 — Update ALL existing presets
+
+Same as full splats. Add every new section key set to `false` in all existing presets.
+
+#### Step 4 — Add the new preset
+
+Same as full splats. Set `"category": "Half-Splats"`. Enable the mortal core sections, the half-splat-specific sections, and any shared sections from the parent splat.
+
+#### Step 5 — Done
+
+No theme required — half-splats use the Neutral theme by default. No code changes required for standard section types.
 
 ---
 
@@ -509,7 +499,9 @@ No further code changes required for standard section types.
 |---|---|---|
 | `key` | yes | Unique identifier. Used in `sectionConfig` and as DOM id prefix (`secblock-{key}`). Never change after release. |
 | `label` | yes | Display name shown in config panel and on sheet. |
-| `group` | yes | Config panel group. Currently: `Mortal`, `Hunter`, `Mage`, `Werewolf`, `Vampire`, `Changeling`, `Demon`, `Deviant`, `Promethean`, `Geist`, `Ephemeral Entity`. |
+| `group` | yes | Config panel group. Currently: `Mortal`, `Hunter`, `Mage`, `Werewolf`, `Vampire`, `Changeling`, `Demon`, `Deviant`, `Promethean`, `Geist`, `Ephemeral Entity`, `Ghoul`, `Wolf-Blooded`, `Proximi`. |
+| `config_category` | yes | Config panel category (parent of group). Currently: `Main Splats`, `Half-Splats`, `Ephemeral Entities`. New categories can be created by using a new string. |
+| `also_groups` | no | Array of additional group names. Renders a linked checkbox in each listed group without duplicating the section. Used for sections shared across splats (e.g. Disciplines in both Vampire and Ghoul). |
 | `zone` | yes | `header`, `beats`, `full-width-top`, `left-column`, `right-column`, `full-width-bottom` |
 | `order` | yes | Default sort position within the zone. Gaps are fine (10, 20, 30). Sections from different splats can share order values. |
 | `type` | yes | Section type — see table below. |
@@ -519,7 +511,7 @@ No further code changes required for standard section types.
 | `max` | dot-track, dot-square-track, labeled-track, resource-track | Number of dots or squares. Default: 10 for dot tracks, 20 for resource-track. |
 | `default_value` | dot-track, dot-square-track, labeled-track | Starting value for new characters. Default: `1`. Set to `7` for morality stats. Do not set on power stats — they start at 1. |
 | `max_rating` | rated-list | Maximum dot rating on cards. Default: 5. |
-| `db_key` | no | Names the content list in `data.json` that populates this section's dropdown. The app derives its full content registry from these values. |
+| `db_key` | no | Names the content list in `data.json` that populates this section's dropdown. Can point to an existing list (e.g. `blessings` points to `rotes`). |
 | `preserve_order` | no | If `true`, the content list named by `db_key` is not sorted alphabetically on load. Use for forms lists where column order matters. |
 | `beats_key` | beats-xp | STATE key for the beats counter. Default: `beats`. |
 | `xp_key` | beats-xp | STATE key for the XP counter. Default: `experience`. |
@@ -583,5 +575,11 @@ No further code changes required for standard section types.
 **Set `"print_empty": true` on all dot-track, dot-square-track, and labeled-track sections.** This makes dots and squares print empty for pencil-and-paper use at the table. All existing tracks already have this flag.
 
 **Add new sections to every preset.** When you add a section to `section_definitions`, add it to every preset in `sheet_presets` (set to `false` in most, `true` where appropriate). Missing keys cause silent failures when presets are applied.
+
+**Use `also_groups` for shared sections.** If a half-splat needs a section that already belongs to another splat, add the half-splat's group name to `also_groups` on the existing section definition. Do not duplicate the section definition.
+
+**Half-splat state keys should be namespaced.** Use a short prefix unique to the half-splat (e.g. `wb_` for Wolf-Blooded, `ghoul_` for Ghoul) to avoid collisions with the parent splat's keys.
+
+**Presets must have a `category` field.** Without it, the preset will appear under no group in the dropdown. Use an existing category string or introduce a new one — either works without code changes.
 
 **Sharing library additions.** Use **Data library → Export library** to share your content. Others can **Import library → Merge** to add your entries without overwriting theirs.
