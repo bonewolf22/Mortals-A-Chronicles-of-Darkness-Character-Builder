@@ -299,7 +299,7 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .attr-row-lbl-spacer{font-size:.6rem;line-height:1.4;padding-bottom:3px;border-bottom:1px solid transparent;margin-bottom:2px;flex-shrink:0;visibility:hidden}
 .attr-row-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-size:.55rem;font-family:sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;justify-content:center;min-height:64px}
 .attr-block{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;flex:1}
-.attr-block-entity{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;max-width:420px}
+.attr-block-entity{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
 .attr-category{display:flex;flex-direction:column;gap:5px}
 .attr-cat-lbl{font-size:.6rem;font-family:sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:center;padding-bottom:3px;border-bottom:1px solid var(--border-light);margin-bottom:2px}
 .attr-cell{display:flex;flex-direction:column;gap:2px;padding:6px 4px 5px;background:var(--chip);border-radius:4px;min-height:64px;justify-content:center}
@@ -1194,8 +1194,19 @@ async function loadDB(){
   });
   rebuildZones();
   PRESETS=d.sheet_presets||[];
-  // Populate both desktop and drawer preset selects
-  const presetOpts='<option value="">— Custom —</option>'+PRESETS.map(p=>`<option value="${escH(p.name)}">${escH(p.name)}</option>`).join('');
+  // Populate both desktop and drawer preset selects, grouped by category
+  const presetsByCategory=[];
+  const catOrder=[];
+  PRESETS.forEach(p=>{
+    const cat=p.category||'Other';
+    if(!catOrder.includes(cat))catOrder.push(cat);
+    let group=presetsByCategory.find(g=>g.cat===cat);
+    if(!group){group={cat,presets:[]};presetsByCategory.push(group);}
+    group.presets.push(p);
+  });
+  const presetOpts='<option value="">— Custom —</option>'+presetsByCategory.map(g=>
+    `<optgroup label="${escH(g.cat)}">${g.presets.map(p=>`<option value="${escH(p.name)}">${escH(p.name)}</option>`).join('')}</optgroup>`
+  ).join('');
   document.getElementById('presetSelect').innerHTML=presetOpts;
   document.getElementById('drawerPresetSelect').innerHTML=presetOpts;
   // Entity-specific data
@@ -1578,14 +1589,36 @@ function fillDescFromDrop(dId,descId,dbList){
 // stay in sync without any further coordination. Groups are collapsible
 // via sessionStorage to avoid overwhelming new users. Called once after loadDB.
 function buildCfgPanel(){
+  // Build groups map, respecting also_groups
   const groups={};
-  SECTION_DEFS.forEach(sd=>{const g=sd.group||'Other';if(!groups[g])groups[g]=[];groups[g].push(sd);});
+  const groupCategory={};
+  SECTION_DEFS.forEach(sd=>{
+    const g=sd.group||'Other';
+    if(!groups[g])groups[g]=[];
+    groups[g].push(sd);
+    groupCategory[g]=sd.config_category||'Other';
+    (sd.also_groups||[]).forEach(ag=>{
+      if(!groups[ag])groups[ag]=[];
+      groups[ag].push(sd);
+    });
+  });
+  // Bucket groups into categories, preserving encounter order
+  const catOrder=[];
+  const cats={};
+  Object.keys(groups).forEach(gname=>{
+    const cat=groupCategory[gname]||'Other';
+    if(!cats[cat]){cats[cat]=[];catOrder.push(cat);}
+    cats[cat].push(gname);
+  });
   const slugify=s=>s.toLowerCase().replace(/[^a-z0-9]/g,'-');
-  const html=Object.entries(groups).map(([gname,sds])=>{
-    const slug=slugify(gname);
-    const collapsed=getCfgGroupCollapsed(gname);
-    const sorted=[...sds].sort((a,b)=>a.label.localeCompare(b.label));
-    return `<div class="cfg-group-hdr" onclick="toggleCfgGroup('${escH(gname)}')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between">
+  const html=catOrder.map(cat=>{
+    const catSlug=slugify(cat);
+    const groupsHtml=cats[cat].map(gname=>{
+      const sds=groups[gname];
+      const slug=slugify(gname);
+      const collapsed=getCfgGroupCollapsed(gname);
+      const sorted=[...sds].sort((a,b)=>a.label.localeCompare(b.label));
+      return `<div class="cfg-group-hdr" onclick="toggleCfgGroup('${escH(gname)}')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between">
       <span>${escH(gname)}</span>
       <span class="item-toggle cfg-chevron-${slug}" style="${collapsed?'':'transform:rotate(90deg)'}">&#9654;</span>
     </div>
@@ -1594,8 +1627,14 @@ function buildCfgPanel(){
         <label class="cfg-chk"><input type="checkbox" data-sec="${sd.key}" onchange="toggleSec('${sd.key}',this.checked)"> ${escH(sd.label)}</label>`).join('')}
       </div>
     </div>`;
+    }).join('');
+    const catCollapsed=getCfgCatCollapsed(cat);
+    return `<div class="cfg-cat-hdr" onclick="toggleCfgCat('${escH(cat)}')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding:3px 4px;background:var(--border);border-radius:3px;font-size:.72rem;font-weight:bold;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)">
+      <span>${escH(cat)}</span>
+      <span class="item-toggle cfg-cat-chevron-${catSlug}" style="${catCollapsed?'':'transform:rotate(90deg)'}">&#9654;</span>
+    </div>
+    <div class="cfg-cat-body-${catSlug}" style="display:${catCollapsed?'none':'block'};padding-left:4px">${groupsHtml}</div>`;
   }).join('');
-  // Write to both desktop and drawer config panels
   document.getElementById('cfgPanel').innerHTML=html;
   document.getElementById('drawerCfgPanel').innerHTML=html;
 }
@@ -1624,6 +1663,31 @@ function toggleCfgGroup(gname){
     const map=s?JSON.parse(s):{};
     map[gname]=nowCollapsed;
     sessionStorage.setItem('cfgGroups',JSON.stringify(map));
+  }catch(e){}
+}
+
+function getCfgCatCollapsed(cat){
+  try{
+    const s=sessionStorage.getItem('cfgCats');
+    const map=s?JSON.parse(s):{};
+    if(map[cat]!==undefined)return map[cat];
+  }catch(e){}
+  return false; // categories default to expanded
+}
+function toggleCfgCat(cat){
+  const slug=cat.toLowerCase().replace(/[^a-z0-9]/g,'-');
+  const bodies=document.querySelectorAll(`.cfg-cat-body-${slug}`);
+  const chevrons=document.querySelectorAll(`.cfg-cat-chevron-${slug}`);
+  const first=bodies[0];
+  if(!first)return;
+  const nowCollapsed=first.style.display!=='none';
+  bodies.forEach(b=>b.style.display=nowCollapsed?'none':'block');
+  chevrons.forEach(c=>c.style.transform=nowCollapsed?'':'rotate(90deg)');
+  try{
+    const s=sessionStorage.getItem('cfgCats');
+    const map=s?JSON.parse(s):{};
+    map[cat]=nowCollapsed;
+    sessionStorage.setItem('cfgCats',JSON.stringify(map));
   }catch(e){}
 }
 
@@ -1842,7 +1906,9 @@ function generateMortalSheet(){
     const vals=_distributeSkills(skillDots[cat]||4,skList.length);
     skList.forEach((s,i)=>skills[s].rating=Math.min(5,vals[i]));
   });
+  const savedConfig={...STATE.sectionConfig};
   STATE=_baseCharacterFields(attrs,skills);
+  STATE.sectionConfig=savedConfig;
   STATE.name=names[Math.random()*names.length|0];
   patchState();currentSaveId=null;showEditor(false);renderEditor();
 }
@@ -2553,6 +2619,7 @@ function buildSectionHTML(sd){
         <div class="spin-row">
           <button class="spin" onclick="adjEssenceCurrent(-1)">−</button>
           <span class="av" id="v-essence-current" style="font-size:1rem">0</span>
+          <button class="spin" onclick="adjEssenceCurrent(1)">+</button>
           <span style="font-family:sans-serif;font-size:.8rem;color:var(--muted)">/</span>
           <button class="spin" onclick="adjEntityEssenceMax(-1)">−</button>
           <span class="av" id="v-essence-max" style="font-size:.9rem;color:var(--muted)">0</span>
@@ -2699,7 +2766,7 @@ function renderAttrBlock(){
               `<span class="dot${val>=d?' filled':''}" onclick="setAttrDot('${a}',${d})"></span>`).join('');
             return `<div class="attr-cell">
               <div class="an">${ATTR_LABELS[a]}</div>
-              <div class="attr-dots">${dots}</div>
+              <div class="attr-dots">${dots}${val>maxD?`<span class="attr-overflow">+${val-maxD}</span>`:''}</div>
               <div class="attr-spinner">
                 <button class="spin" style="width:16px;height:16px;font-size:11px" onclick="adjAttr('${a}',-1)">−</button>
                 <span style="font-size:.75rem;font-family:sans-serif;color:var(--muted);min-width:14px;text-align:center" id="v-${a}">${val}</span>
@@ -2715,25 +2782,28 @@ function renderAttrBlock(){
 function setAttrDot(attr,val){
   if(!STATE.attributes)STATE.attributes={};
   const cur=STATE.attributes[attr]||1;
-  STATE.attributes[attr]=Math.max(1,Math.min(10,val===cur?val-1:val));
+  const cap=STATE.attrMaxDots||5;
+  STATE.attributes[attr]=Math.max(1,Math.min(cap,val===cur?val-1:val));
   renderAttrBlock();updateDerived();
 }
 function adjAttr(attr,delta){
   if(!STATE.attributes)STATE.attributes={};
-  STATE.attributes[attr]=Math.max(1,Math.min(10,(STATE.attributes[attr]||1)+delta));
+  const cap=STATE.attrMaxDots||5;
+  STATE.attributes[attr]=Math.max(1,Math.min(cap,(STATE.attributes[attr]||1)+delta));
   renderAttrBlock();updateDerived();
 }
 function toggleAttrMax(){
-  STATE.attrMaxDots=(STATE.attrMaxDots===5)?10:5;
+  const cur=STATE.attrMaxDots||5;
+  STATE.attrMaxDots=cur===5?10:cur===10?15:5;
   renderAttrBlock();
 }
 function updateAttrMaxToggle(){
   const el=document.getElementById('attrMaxToggle');if(!el)return;
-  const ext=(STATE.attrMaxDots||5)>5;
-  el.textContent=ext?'10-dot max':'5-dot max';
-  el.style.background=ext?'var(--info-bg)':'';
-  el.style.borderColor=ext?'var(--info)':'';
-  el.style.color=ext?'var(--info)':'';
+  const v=STATE.attrMaxDots||5;
+  el.textContent=v===5?'5-dot max':v===10?'10-dot max':'15-dot max';
+  el.style.background=v>5?'var(--info-bg)':'';
+  el.style.borderColor=v>5?'var(--info)':'';
+  el.style.color=v>5?'var(--info)':'';
 }
 function toggleAttrSpinner(){
   STATE.attrShowSpinner=!STATE.attrShowSpinner;
@@ -2755,10 +2825,10 @@ function renderAttr3Block(){
   const el=document.getElementById('attr3Block');if(!el)return;
   const maxD=STATE.attr3MaxDots||5;
   const showSpin=STATE.attr3ShowSpinner||false;
-  el.innerHTML=`<div class="attr-block-entity${showSpin?'':' attr-spinners-hidden'}" style="max-width:420px">
+  el.innerHTML=`<div class="attr-block-entity${showSpin?'':' attr-spinners-hidden'}">
     ${ENTITY_ATTRS.map(a=>{
       const val=getEntityAttr(a.key)||1;
-      const dots=Array.from({length:Math.min(maxD,10)},(_,i)=>i+1).map(d=>
+      const dots=Array.from({length:maxD},(_,i)=>i+1).map(d=>
         `<span class="dot${val>=d?' filled':''}" onclick="setEntityAttrDot('${a.key}',${d})"></span>`).join('');
       return `<div class="attr-cell">
         <div class="an">${a.label}</div>
@@ -2777,25 +2847,28 @@ function renderAttr3Block(){
 function setEntityAttrDot(attr,val){
   if(!STATE.entity_attrs)STATE.entity_attrs={};
   const cur=STATE.entity_attrs[attr]||1;
-  STATE.entity_attrs[attr]=Math.max(1,Math.min(10,val===cur?val-1:val));
+  const cap=STATE.attr3MaxDots||5;
+  STATE.entity_attrs[attr]=Math.max(1,Math.min(cap,val===cur?val-1:val));
   renderAttr3Block();updateEntityDerived();
 }
 function adjEntityAttr(attr,delta){
   if(!STATE.entity_attrs)STATE.entity_attrs={};
-  STATE.entity_attrs[attr]=Math.max(1,Math.min(10,(STATE.entity_attrs[attr]||1)+delta));
+  const cap=STATE.attr3MaxDots||5;
+  STATE.entity_attrs[attr]=Math.max(1,Math.min(cap,(STATE.entity_attrs[attr]||1)+delta));
   renderAttr3Block();updateEntityDerived();
 }
 function toggleAttr3Max(){
-  STATE.attr3MaxDots=(STATE.attr3MaxDots===5)?10:5;
+  const cur=STATE.attr3MaxDots||5;
+  STATE.attr3MaxDots=cur===5?10:cur===10?15:5;
   renderAttr3Block();
 }
 function updateAttr3MaxToggle(){
   const el=document.getElementById('attr3MaxToggle');if(!el)return;
-  const ext=(STATE.attr3MaxDots||5)>5;
-  el.textContent=ext?'10-dot max':'5-dot max';
-  el.style.background=ext?'var(--info-bg)':'';
-  el.style.borderColor=ext?'var(--info)':'';
-  el.style.color=ext?'var(--info)':'';
+  const v=STATE.attr3MaxDots||5;
+  el.textContent=v===5?'5-dot max':v===10?'10-dot max':'15-dot max';
+  el.style.background=v>5?'var(--info-bg)':'';
+  el.style.borderColor=v>5?'var(--info)':'';
+  el.style.color=v>5?'var(--info)':'';
 }
 function toggleAttr3Spinner(){
   STATE.attr3ShowSpinner=!STATE.attr3ShowSpinner;
