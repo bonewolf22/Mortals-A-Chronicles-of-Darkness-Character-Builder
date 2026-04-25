@@ -427,7 +427,7 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .quinpar-ctrl-row{display:flex;align-items:center;gap:5px}
 .quinpar-val{font-size:1.1rem;font-weight:700;min-width:20px;text-align:center}
 /* Print: wheel SVG prints, but hide the +/- controls and numeric values */
-@media print{.quinpar-controls{display:none!important}}
+@media print{.quinpar-controls{display:none!important}.quinpar-svg rect{fill:transparent!important;stroke:var(--border)!important}.quinpar-svg line{display:none!important}}
 .rsquare{width:100%;aspect-ratio:1;border:1.5px solid var(--border);border-radius:2px;cursor:pointer;background:var(--surface);transition:background .1s}
 .rsquare:hover{border-color:var(--muted)}
 .rsquare.on{background:var(--text);border-color:var(--text)}

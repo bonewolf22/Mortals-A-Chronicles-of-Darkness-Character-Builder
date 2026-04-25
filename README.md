@@ -26,7 +26,9 @@ Mortals+ is a browser-based character builder and live play aid for Chronicles o
 - Wolf-Blooded
 - Proximi
 
-See [Contributing](#contributing) if you'd like to help add one.
+**Other**
+- Mage: The Ascension (via the Chronicles of Darkness Translation Guide)
+- Horrors (Chronicles of Darkness core / Hunter: The Vigil antagonists)
 
 ---
 
@@ -53,7 +55,7 @@ See [Contributing](#contributing) if you'd like to help add one.
 Apply a preset from the **Sheet Configuration** panel to enable all sections for a given splat. Sections can also be toggled individually. Each splat adds its own sections on top of the standard sheet:
 
 - **Hunter** — Compact/Conspiracy header, Endowments, Tactics, Touchstones, The Code, Group Beats tracker
-- **Mage** — Path/Order/Legacy/Cabal header, Arcana block (10 Arcana rated 0–5), Gnosis, Wisdom, Mana, Obsessions, Inured Spells, Rotes, Praxes, Arcana Attainments, Legacy Attainments, Arcane Beats tracker
+- **Mage** — Path/Order/Legacy/Cabal header, Arcana block (10 Arcana rated 0–5), Gnosis, Wisdom, Mana, Obsessions, Inured Spells, Rotes, Praxes, Arcana Attainments, Legacy Attainments, Arcane Beats tracker, Nimbus, Yantras, Magical Tools
 - **Werewolf** — Auspice/Tribe/Lodge/Pack header, Primal Urge, Harmony, Essence, Renown block (5 renown types), Flesh/Spirit Touchstones, live Forms reference table (calculated stats per form), Gifts, Rites
 - **Vampire** — Clan/Covenant/Bloodline header, Blood Potency, Humanity, Vitae, Banes, Disciplines, Devotions, Vampire Rites
 - **Changeling** — Needle/Thread/Seeming/Court/Kith header, Wyrd, Clarity (dot-square track), Glamour, Favored Regalia, Frailties, Touchstones, Goblin Debt, Contracts, Pledges, Seeming Blessing/Curse, Kith Blessing
@@ -68,6 +70,11 @@ Apply a preset from the **Sheet Configuration** panel to enable all sections for
 - **Ghoul** — Regnant's Clan/Covenant/Family identity, Disciplines (shared with Vampire), Vitae (shared with Vampire)
 - **Wolf-Blooded** — Tribe/Pack identity, Tells, Tension Pool
 - **Proximi** — Dynasty/Heritage Path identity, Blessings (draws from Rotes library), Mana (shared with Mage), Curse
+
+**Other presets** are available for non-standard play:
+
+- **Mage (Ascension)** — Uses the Mage: the Ascension Translation Guide. Replaces Awakening sections with Ascension equivalents: Spheres (10 Arcana, same dots), Arete (Gnosis), Practices (Yantras), Foci (Magical Tools), Resonance (Nimbus), Sphere Attainments. Adds a Quintessence & Paradox wheel: a circular 20-square track where Quintessence fills clockwise and Paradox counter-clockwise; increasing Paradox decrements Quintessence automatically. Avatar Essence/Affiliation/Sect identity header. Wisdom, Praxes, Obsessions, and Inured Spells off by default.
+- **Horror** — For Chronicles of Darkness antagonists. Standard mortal sheet with Horror Identity (Type, Concept), Potency (dot-track), and Dread Powers (named-list)
 
 ### Generation
 

@@ -119,7 +119,7 @@ Ranged — add `ranges` (short/medium/long in yards) and `clip`:
 
 All of the following use `{ name, rating, desc }`: `endowments`, `rotes`, `arcana_attainments`, `legacy_attainments`, `gifts`, `rites`, `disciplines`, `devotions`, `vampire_rites`, `variations`, `scars`, `haunts`, `influences`.
 
-The `blessings` section (Proximi) also uses this format but draws from the `rotes` list — there is no separate `blessings` content list. Add Proximi Blessings to `rotes`.
+The `blessings` section (Proximi) draws from the `rotes` list — there is no separate `blessings` content list. Add Proximi Blessings to `rotes`.
 
 ```json
 {
@@ -135,7 +135,7 @@ Descriptions should include enough mechanical detail that a player can use the a
 
 ### Named ability lists (name + desc)
 
-The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `bestowment`, `numina`, `manifestations`, `tells`.
+The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `bestowment`, `numina`, `manifestations`, `tells`, `yantras`, `magical_tools`, `dread_powers`.
 
 ```json
 {
@@ -499,15 +499,15 @@ No theme required — half-splats use the Neutral theme by default. No code chan
 |---|---|---|
 | `key` | yes | Unique identifier. Used in `sectionConfig` and as DOM id prefix (`secblock-{key}`). Never change after release. |
 | `label` | yes | Display name shown in config panel and on sheet. |
-| `group` | yes | Config panel group. Currently: `Mortal`, `Hunter`, `Mage`, `Werewolf`, `Vampire`, `Changeling`, `Demon`, `Deviant`, `Promethean`, `Geist`, `Ephemeral Entity`, `Ghoul`, `Wolf-Blooded`, `Proximi`. |
-| `config_category` | yes | Config panel category (parent of group). Currently: `Main Splats`, `Half-Splats`, `Ephemeral Entities`. New categories can be created by using a new string. |
+| `group` | yes | Config panel group. Currently: `Mortal`, `Hunter`, `Mage`, `Mage (Ascension)`, `Werewolf`, `Vampire`, `Changeling`, `Demon`, `Deviant`, `Promethean`, `Geist`, `Ephemeral Entity`, `Ghoul`, `Wolf-Blooded`, `Proximi`, `Horror`. |
+| `config_category` | yes | Config panel category (parent of group). Currently: `Main Splats`, `Half-Splats`, `Ephemeral Entities`, `Other`. New categories can be created by using a new string. Category order in the panel follows the order sections first appear in `data.json`. |
 | `also_groups` | no | Array of additional group names. Renders a linked checkbox in each listed group without duplicating the section. Used for sections shared across splats (e.g. Disciplines in both Vampire and Ghoul). |
 | `zone` | yes | `header`, `beats`, `full-width-top`, `left-column`, `right-column`, `full-width-bottom` |
 | `order` | yes | Default sort position within the zone. Gaps are fine (10, 20, 30). Sections from different splats can share order values. |
 | `type` | yes | Section type — see table below. |
 | `default` | yes | `true` = visible on new sheets. `false` = hidden until toggled. |
 | `state_key` | no | STATE field name. Defaults to `key`. Use when the same state key is shared across sections. |
-| `fields` | header-fields, arcana-block | Array of `{ key, label }` entries defining the individual fields. |
+| `fields` | header-fields, arcana-block, renown-block, cipher-block | Array of `{ key, label }` entries defining the individual fields. |
 | `max` | dot-track, dot-square-track, labeled-track, resource-track | Number of dots or squares. Default: 10 for dot tracks, 20 for resource-track. |
 | `default_value` | dot-track, dot-square-track, labeled-track | Starting value for new characters. Default: `1`. Set to `7` for morality stats. Do not set on power stats — they start at 1. |
 | `max_rating` | rated-list | Maximum dot rating on cards. Default: 5. |
@@ -536,10 +536,11 @@ No theme required — half-splats use the Neutral theme by default. No code chan
 | `named-list` | Collapsible cards with name + description (Tilts, Conditions, Numina, Manifestations, etc.). |
 | `rated-list` | Collapsible cards with name + dot rating (0–max) + description (Merits, Disciplines, Gifts, Influences, etc.). |
 | `arcana-block` | Fixed rated list driven by the section's `fields` array. Used for Mage Arcana and Supernal entity Arcana (both use the same section, key `arcana`). |
-| `renown-block` | Five named 5-dot tracks in a single combined block. Werewolf only. |
+| `renown-block` | Named 5-dot tracks driven by the section's `fields` array. Werewolf only (currently). Fields: Cunning, Glory, Honor, Purity, Wisdom. |
 | `forms-block` | Live reference table showing per-form calculated stats. Data-driven from `db_key`. Werewolf only. |
-| `cipher-block` | Visual gear/cross diagram with Embed 1–4, Interlock 1–3, Cipher, and Final Truth fields. Demon only. |
+| `cipher-block` | Visual gear/cross diagram with Embed 1–4, Interlock 1–3, Cipher, and Final Truth fields driven by the section's `fields` array. Demon only. |
 | `covers` | Structured identity cards with name, age, appearance, Cover Rating, notes, and per-cover Merits. Demon only. |
+| `quinpar-wheel` | Circular 20-square track for Quintessence and Paradox. Quintessence fills clockwise from the left; Paradox counter-clockwise. Increasing Paradox decrements Quintessence to keep their sum at 20. State: `sk_quintessence` and `sk_paradox` (integers). Controls hide on print; SVG prints as-is. |
 | `weapons` | Weapon cards with full weapon fields. Special renderer. |
 | `armor` | Armor cards with full armor fields. Special renderer. |
 | `equipment` | Equipment cards with full equipment fields. Special renderer. |
@@ -555,7 +556,6 @@ No theme required — half-splats use the Neutral theme by default. No code chan
 - **Entity derived stat formulas** — Corpus, Willpower, Defense (rank-dependent), Initiative, Speed. Code only.
 - **The 9 core mortal attributes** — fixed in the app. Not configurable via data.
 - **The 3 entity attributes** — Power, Finesse, Resistance. Fixed in the app.
-- **The Werewolf Renown block** — five renown types are hardcoded.
 - **Attribute row labels** — Power, Finesse, Resistance are hardcoded.
 
 ---
