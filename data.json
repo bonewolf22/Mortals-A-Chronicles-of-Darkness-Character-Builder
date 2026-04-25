@@ -365,7 +365,8 @@
       "default": true,
       "max_rating": 5,
       "db_key": "merits",
-      "config_category": "Main Splats"
+      "config_category": "Main Splats",
+      "special_renderer": "merits"
     },
     {
       "key": "endowments",
@@ -708,7 +709,29 @@
       "type": "renown-block",
       "state_key": "renown",
       "default": false,
-      "config_category": "Main Splats"
+      "config_category": "Main Splats",
+      "fields": [
+        {
+          "key": "cunning",
+          "label": "Cunning"
+        },
+        {
+          "key": "glory",
+          "label": "Glory"
+        },
+        {
+          "key": "honor",
+          "label": "Honor"
+        },
+        {
+          "key": "purity",
+          "label": "Purity"
+        },
+        {
+          "key": "wisdom",
+          "label": "Wisdom"
+        }
+      ]
     },
     {
       "key": "flesh-touchstones",
@@ -1190,7 +1213,45 @@
       "type": "cipher-block",
       "state_key": "cipher",
       "default": false,
-      "config_category": "Main Splats"
+      "config_category": "Main Splats",
+      "fields": [
+        {
+          "key": "embed1",
+          "label": "Embed 1"
+        },
+        {
+          "key": "embed2",
+          "label": "Embed 2"
+        },
+        {
+          "key": "embed3",
+          "label": "Embed 3"
+        },
+        {
+          "key": "embed4",
+          "label": "Embed 4"
+        },
+        {
+          "key": "interlock1",
+          "label": "Interlock 1"
+        },
+        {
+          "key": "interlock2",
+          "label": "Interlock 2"
+        },
+        {
+          "key": "interlock3",
+          "label": "Interlock 3"
+        },
+        {
+          "key": "cipher",
+          "label": "Cipher"
+        },
+        {
+          "key": "final_truth",
+          "label": "Final Truth"
+        }
+      ]
     },
     {
       "key": "covers",
@@ -1573,6 +1634,152 @@
       "config_category": "Main Splats"
     },
     {
+      "key": "nimbus",
+      "label": "Nimbus",
+      "group": "Mage",
+      "zone": "full-width-bottom",
+      "order": 34,
+      "type": "textarea",
+      "state_key": "nimbus",
+      "default": false,
+      "config_category": "Main Splats"
+    },
+    {
+      "key": "yantras",
+      "label": "Yantras",
+      "group": "Mage",
+      "zone": "left-column",
+      "order": 6,
+      "type": "named-list",
+      "state_key": "yantras",
+      "default": false,
+      "db_key": "yantras",
+      "config_category": "Main Splats"
+    },
+    {
+      "key": "magical-tools",
+      "label": "Magical Tools",
+      "group": "Mage",
+      "zone": "left-column",
+      "order": 7,
+      "type": "named-list",
+      "state_key": "magical_tools",
+      "default": false,
+      "db_key": "magical_tools",
+      "config_category": "Main Splats"
+    },
+    {
+      "key": "ghoul-header-fields",
+      "label": "Ghoul Identity",
+      "group": "Ghoul",
+      "zone": "header",
+      "order": 5,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "ghoul_regnant_clan",
+          "label": "Regnant's Clan"
+        },
+        {
+          "key": "ghoul_regnant_covenant",
+          "label": "Regnant's Covenant"
+        },
+        {
+          "key": "ghoul_family",
+          "label": "Family"
+        }
+      ],
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "wolf-blooded-header-fields",
+      "label": "Wolf-Blooded Identity",
+      "group": "Wolf-Blooded",
+      "zone": "header",
+      "order": 5,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "wb_tribe",
+          "label": "Tribe"
+        },
+        {
+          "key": "wb_pack",
+          "label": "Pack"
+        }
+      ],
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "tells",
+      "label": "Tells",
+      "group": "Wolf-Blooded",
+      "zone": "left-column",
+      "order": 3,
+      "type": "named-list",
+      "state_key": "tells",
+      "default": false,
+      "db_key": "tells",
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "tension-pool",
+      "label": "Tension Pool",
+      "group": "Wolf-Blooded",
+      "zone": "right-column",
+      "order": 4,
+      "type": "resource-track",
+      "state_key": "tension_pool",
+      "default": false,
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "proximi-header-fields",
+      "label": "Proximi Identity",
+      "group": "Proximi",
+      "zone": "header",
+      "order": 5,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "proximi_dynasty",
+          "label": "Dynasty"
+        },
+        {
+          "key": "proximi_heritage_path",
+          "label": "Heritage Path"
+        }
+      ],
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "blessings",
+      "label": "Blessings",
+      "group": "Proximi",
+      "zone": "left-column",
+      "order": 4,
+      "type": "rated-list",
+      "state_key": "blessings",
+      "default": false,
+      "max_rating": 5,
+      "db_key": "rotes",
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "proximi-curse",
+      "label": "Curse",
+      "group": "Proximi",
+      "zone": "right-column",
+      "order": 6,
+      "type": "textarea",
+      "state_key": "proximi_curse",
+      "default": false,
+      "config_category": "Half-Splats"
+    },
+    {
       "key": "entity-header",
       "label": "Entity Identity",
       "group": "Ephemeral Entity",
@@ -1695,155 +1902,9 @@
       "config_category": "Ephemeral Entities"
     },
     {
-      "key": "ghoul-header-fields",
-      "label": "Ghoul Identity",
-      "group": "Ghoul",
-      "zone": "header",
-      "order": 5,
-      "type": "header-fields",
-      "default": false,
-      "fields": [
-        {
-          "key": "ghoul_regnant_clan",
-          "label": "Regnant's Clan"
-        },
-        {
-          "key": "ghoul_regnant_covenant",
-          "label": "Regnant's Covenant"
-        },
-        {
-          "key": "ghoul_family",
-          "label": "Family"
-        }
-      ],
-      "config_category": "Half-Splats"
-    },
-    {
-      "key": "wolf-blooded-header-fields",
-      "label": "Wolf-Blooded Identity",
-      "group": "Wolf-Blooded",
-      "zone": "header",
-      "order": 5,
-      "type": "header-fields",
-      "default": false,
-      "fields": [
-        {
-          "key": "wb_tribe",
-          "label": "Tribe"
-        },
-        {
-          "key": "wb_pack",
-          "label": "Pack"
-        }
-      ],
-      "config_category": "Half-Splats"
-    },
-    {
-      "key": "tells",
-      "label": "Tells",
-      "group": "Wolf-Blooded",
-      "zone": "left-column",
-      "order": 3,
-      "type": "named-list",
-      "state_key": "tells",
-      "default": false,
-      "db_key": "tells",
-      "config_category": "Half-Splats"
-    },
-    {
-      "key": "tension-pool",
-      "label": "Tension Pool",
-      "group": "Wolf-Blooded",
-      "zone": "right-column",
-      "order": 4,
-      "type": "resource-track",
-      "state_key": "tension_pool",
-      "default": false,
-      "config_category": "Half-Splats"
-    },
-    {
-      "key": "proximi-header-fields",
-      "label": "Proximi Identity",
-      "group": "Proximi",
-      "zone": "header",
-      "order": 5,
-      "type": "header-fields",
-      "default": false,
-      "fields": [
-        {
-          "key": "proximi_dynasty",
-          "label": "Dynasty"
-        },
-        {
-          "key": "proximi_heritage_path",
-          "label": "Heritage Path"
-        }
-      ],
-      "config_category": "Half-Splats"
-    },
-    {
-      "key": "blessings",
-      "label": "Blessings",
-      "group": "Proximi",
-      "zone": "left-column",
-      "order": 4,
-      "type": "rated-list",
-      "state_key": "blessings",
-      "default": false,
-      "max_rating": 5,
-      "db_key": "rotes",
-      "config_category": "Half-Splats"
-    },
-    {
-      "key": "proximi-curse",
-      "label": "Curse",
-      "group": "Proximi",
-      "zone": "right-column",
-      "order": 6,
-      "type": "textarea",
-      "state_key": "proximi_curse",
-      "default": false,
-      "config_category": "Half-Splats"
-    },
-    {
-      "key": "nimbus",
-      "label": "Nimbus",
-      "group": "Mage",
-      "zone": "full-width-bottom",
-      "order": 34,
-      "type": "textarea",
-      "state_key": "nimbus",
-      "default": false,
-      "config_category": "Main Splats"
-    },
-    {
-      "key": "yantras",
-      "label": "Yantras",
-      "group": "Mage",
-      "zone": "left-column",
-      "order": 6,
-      "type": "named-list",
-      "state_key": "yantras",
-      "default": false,
-      "db_key": "yantras",
-      "config_category": "Main Splats"
-    },
-    {
-      "key": "magical-tools",
-      "label": "Magical Tools",
-      "group": "Mage",
-      "zone": "left-column",
-      "order": 7,
-      "type": "named-list",
-      "state_key": "magical_tools",
-      "default": false,
-      "db_key": "magical_tools",
-      "config_category": "Main Splats"
-    },
-    {
       "key": "ascension-header-fields",
       "label": "Ascension Identity",
-      "group": "Mage",
+      "group": "Mage (Ascension)",
       "zone": "header",
       "order": 3,
       "type": "header-fields",
@@ -1867,7 +1928,7 @@
     {
       "key": "quintessence-paradox",
       "label": "Quintessence & Paradox",
-      "group": "Mage",
+      "group": "Mage (Ascension)",
       "zone": "right-column",
       "order": 4,
       "type": "quinpar-wheel",
@@ -1918,6 +1979,120 @@
       "state_key": "dread_powers",
       "default": false,
       "db_key": "dread_powers",
+      "config_category": "Other"
+    },
+    {
+      "key": "ascension-arcana",
+      "label": "Spheres",
+      "group": "Mage (Ascension)",
+      "zone": "left-column",
+      "order": 3,
+      "type": "arcana-block",
+      "state_key": "arcana",
+      "default": false,
+      "fields": [
+        {
+          "key": "death",
+          "label": "Death"
+        },
+        {
+          "key": "fate",
+          "label": "Fate"
+        },
+        {
+          "key": "forces",
+          "label": "Forces"
+        },
+        {
+          "key": "life",
+          "label": "Life"
+        },
+        {
+          "key": "matter",
+          "label": "Matter"
+        },
+        {
+          "key": "mind",
+          "label": "Mind"
+        },
+        {
+          "key": "prime",
+          "label": "Prime"
+        },
+        {
+          "key": "space",
+          "label": "Space"
+        },
+        {
+          "key": "spirit",
+          "label": "Spirit"
+        },
+        {
+          "key": "time",
+          "label": "Time"
+        }
+      ],
+      "config_category": "Other"
+    },
+    {
+      "key": "ascension-gnosis",
+      "label": "Arete",
+      "group": "Mage (Ascension)",
+      "zone": "right-column",
+      "order": 2,
+      "type": "dot-track",
+      "state_key": "gnosis",
+      "default": false,
+      "max": 10,
+      "print_empty": true,
+      "config_category": "Other"
+    },
+    {
+      "key": "ascension-yantras",
+      "label": "Practices",
+      "group": "Mage (Ascension)",
+      "zone": "left-column",
+      "order": 6,
+      "type": "named-list",
+      "state_key": "yantras",
+      "default": false,
+      "db_key": "yantras",
+      "config_category": "Other"
+    },
+    {
+      "key": "ascension-magical-tools",
+      "label": "Foci",
+      "group": "Mage (Ascension)",
+      "zone": "left-column",
+      "order": 7,
+      "type": "named-list",
+      "state_key": "magical_tools",
+      "default": false,
+      "db_key": "magical_tools",
+      "config_category": "Other"
+    },
+    {
+      "key": "ascension-nimbus",
+      "label": "Resonance",
+      "group": "Mage (Ascension)",
+      "zone": "full-width-bottom",
+      "order": 34,
+      "type": "textarea",
+      "state_key": "nimbus",
+      "default": false,
+      "config_category": "Other"
+    },
+    {
+      "key": "ascension-attainments",
+      "label": "Sphere Attainments",
+      "group": "Mage (Ascension)",
+      "zone": "full-width-bottom",
+      "order": 11,
+      "type": "rated-list",
+      "state_key": "arcana_attainments",
+      "default": false,
+      "max_rating": 5,
+      "db_key": "arcana_attainments",
       "config_category": "Other"
     }
   ],
@@ -2054,7 +2229,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2183,7 +2364,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2312,7 +2499,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2441,7 +2634,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2570,7 +2769,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2699,7 +2904,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2828,7 +3039,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2957,7 +3174,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -3086,7 +3309,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -3215,7 +3444,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -3344,7 +3579,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Ephemeral Entities"
     },
@@ -3473,7 +3714,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Ephemeral Entities"
     },
@@ -3602,7 +3849,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Ephemeral Entities"
     },
@@ -3732,7 +3985,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       }
     },
     {
@@ -3861,7 +4120,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       }
     },
     {
@@ -3990,7 +4255,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       }
     },
     {
@@ -4003,7 +4274,7 @@
         "attributes": true,
         "skills": true,
         "other-traits": true,
-        "integrity": false,
+        "integrity": true,
         "tilts": true,
         "conditions": true,
         "aspirations": true,
@@ -4019,21 +4290,15 @@
         "mortal-header-fields": true,
         "hunter-header-fields": false,
         "mage-header-fields": false,
-        "arcana": {
-          "enabled": true,
-          "label": "Spheres"
-        },
-        "gnosis": {
-          "enabled": true,
-          "label": "Arete"
-        },
+        "arcana": false,
+        "gnosis": false,
         "wisdom": false,
         "mana": false,
         "obsessions": false,
         "inured-spells": false,
         "rotes": true,
-        "arcana-attainments": true,
-        "legacy-attainments": true,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
         "werewolf-header-fields": false,
         "primal-urge": false,
         "harmony": false,
@@ -4118,23 +4383,20 @@
         "proximi-header-fields": false,
         "blessings": false,
         "proximi-curse": false,
-        "nimbus": {
-          "enabled": true,
-          "label": "Resonance"
-        },
-        "yantras": {
-          "enabled": true,
-          "label": "Practices"
-        },
-        "magical-tools": {
-          "enabled": true,
-          "label": "Foci"
-        },
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
         "ascension-header-fields": true,
         "quintessence-paradox": true,
         "horror-header-fields": false,
         "potency": false,
-        "dread-powers": false
+        "dread-powers": false,
+        "ascension-arcana": true,
+        "ascension-gnosis": true,
+        "ascension-yantras": true,
+        "ascension-magical-tools": true,
+        "ascension-nimbus": true,
+        "ascension-attainments": true
       }
     },
     {
@@ -4263,7 +4525,13 @@
         "quintessence-paradox": false,
         "horror-header-fields": true,
         "potency": true,
-        "dread-powers": true
+        "dread-powers": true,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       }
     }
   ],
