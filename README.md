@@ -1,6 +1,6 @@
 # Mortals+ — Chronicles of Darkness Character Sheet Builder
 
-Mortals+ is a browser-based character builder and live play aid for Chronicles of Darkness (Second Edition).
+Mortals+ is a browser-based character builder and live play aid for Chronicles of Darkness (Second Edition). One of the Chronicles of Darkness core rulebooks is required to use this app.
 
 **[Open the app →](https://bonewolf22.github.io/Mortals-A-Chronicles-of-Darkness-Character-Builder/)**
 
@@ -18,6 +18,7 @@ Mortals+ is a browser-based character builder and live play aid for Chronicles o
 - Deviant: The Renegades
 - Promethean: The Created
 - Geist: The Sin-Eaters
+- Ephemeral Entities (Spirits, Ghosts, Angels, Demons, Goetia, Supernal Beings)
 
 See [Contributing](#contributing) if you'd like to help add one.
 
@@ -54,6 +55,13 @@ Apply a preset from the **Sheet Configuration** panel to enable all sections for
 - **Deviant** — Origin/Clade/Forms header, Stability (dot-square track), Acclimation, Flux, Touchstones, Variations (rated by Magnitude), Scars (rated by Magnitude), Adaptations, Origins
 - **Promethean** — Elpis/Torment/Lineage/Refinement/Role header, Pilgrimage, Azoth, Pyros, Transmutations, Bestowment, Refinement Condition, Fixed Alembics, Milestones, Mastered Roles, Vitriol Beats tracker
 - **Geist** — Geist/Burden/Root/Bloom/Krewe header, Synergy (labeled track with per-level labels), Plasm, Keys, Haunts, Remembrance Traits
+- **Ephemeral Entity** — Type/Rank/Concept header, Power/Finesse/Resistance attributes, Corpus track, Willpower, Essence, derived stats, Numina, Manifestations, Influences, Ban, Bane. Ghost variant adds Anchors; Supernal variant adds Arcana
+
+### Generation
+
+- **Generate Mortal** — distributes dots using standard Chronicles of Darkness creation spreads (Attributes 5/4/3, Skills 11/7/4), picks a random name. Respects the preset currently selected in Sheet Configuration — generate a Hunter, Mage, or any other splat directly
+- **Generate Ephemeral Entity** — generates a stat block scaled to the selected Rank, sampling Numina, Manifestations, Influences, Ban, and Bane from the library. Applies the Ephemeral Entity preset automatically
+- **New blank sheet** — all attributes at 1, all skills at 0. Respects the selected preset
 
 ### Description formatting
 
@@ -97,16 +105,6 @@ Characters are saved in your **browser's local storage** — no account or serve
 - Saves are local to your device and browser
 - To move a character between browsers or devices, use **Export sheet** (downloads a `.json` file) and **Import sheet** on the destination browser
 - Clearing browser data will delete your saves — export important characters
-
----
-
-## Generate baseline
-
-Distributes dots using standard Chronicles of Darkness creation spreads:
-
-- **Attributes** — 5 / 4 / 3 extra dots randomly distributed across three categories
-- **Skills** — 11 / 7 / 4 dots randomly distributed across three categories
-- Name is chosen randomly from the `mortal_names` list in `data.json`
 
 ---
 

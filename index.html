@@ -222,6 +222,24 @@
   --info:#1a5fa8;--info-bg:#eef4fb;
   --green:#1a6b3a;--green-bg:#edf7f1;
 }
+/* Ephemeral Entity — cool desaturated slate, evoking the ephemeral and liminal. */
+/* Key accent: #2a3040 (cool dark slate), muted blue-grey wash.                 */
+[data-theme="entity"]{
+  --bg:#eceef2;
+  --surface:#f4f5f8;
+  --border:#9aa2b4;
+  --border-light:#c8cdd8;
+  --text:#141820;
+  --muted:#3a4258;
+  --faint:#7880a0;
+  --accent:#2a3040;
+  --accent-hover:#141820;
+  --chip:#dde0e8;
+  --tag:#d4d8e4;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
 /* ── End splat themes ─────────────────────────────────────────────────────── */
 
 body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
@@ -281,6 +299,7 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .attr-row-lbl-spacer{font-size:.6rem;line-height:1.4;padding-bottom:3px;border-bottom:1px solid transparent;margin-bottom:2px;flex-shrink:0;visibility:hidden}
 .attr-row-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-size:.55rem;font-family:sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;justify-content:center;min-height:64px}
 .attr-block{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;flex:1}
+.attr-block-entity{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;max-width:420px}
 .attr-category{display:flex;flex-direction:column;gap:5px}
 .attr-cat-lbl{font-size:.6rem;font-family:sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:center;padding-bottom:3px;border-bottom:1px solid var(--border-light);margin-bottom:2px}
 .attr-cell{display:flex;flex-direction:column;gap:2px;padding:6px 4px 5px;background:var(--chip);border-radius:4px;min-height:64px;justify-content:center}
@@ -896,15 +915,26 @@ body.touch-device .ta-wrap textarea{
 <p class="app-sub">Chronicles of Darkness — character sheet builder</p>
 
 <div class="gen-bar">
-  <div style="align-self:flex-end;display:flex;gap:7px">
-    <button class="primary" onclick="generate()">Generate baseline</button>
+  <div id="entityRankWrap">
+    <label class="lbl" style="font-size:.65rem">Rank</label>
+    <select id="entityRankSelect" style="font-size:.85rem;padding:.3rem .5rem">
+      <option value="1">Rank 1 — Minor</option>
+      <option value="2">Rank 2 — Common</option>
+      <option value="3" selected>Rank 3 — Established</option>
+      <option value="4">Rank 4 — Greater</option>
+      <option value="5">Rank 5 — Mighty</option>
+    </select>
+  </div>
+  <div style="align-self:flex-end;display:flex;gap:7px;flex-wrap:wrap">
+    <button class="primary" onclick="generateMortal()">Generate Mortal</button>
+    <button class="primary" onclick="generateEphemeral()">Generate Ephemeral Entity</button>
     <button onclick="blank()">New blank sheet</button>
   </div>
 </div>
 
 <div class="app-cols">
 <div id="editorCol">
-  <div class="empty-state" id="emptyState">Click <strong>Generate baseline</strong> for a randomised starting character, or <strong>New blank sheet</strong> to start from scratch.</div>
+  <div class="empty-state" id="emptyState">Click <strong>Generate Mortal</strong> for a randomised mortal character, <strong>Generate Ephemeral Entity</strong> for an entity stat block, or <strong>New blank sheet</strong> to start from scratch.</div>
   <div id="editorWrap" style="display:none">
     <div class="toolbar">
       <button class="primary" onclick="saveCharacter()">Save</button>
@@ -961,6 +991,7 @@ body.touch-device .ta-wrap textarea{
         <option value="deviant">Deviant</option>
         <option value="promethean">Promethean</option>
         <option value="geist">Geist</option>
+        <option value="entity">Ephemeral Entity</option>
       </select>
     </div>
     <div class="cfg-preset-row">
@@ -1053,6 +1084,7 @@ body.touch-device .ta-wrap textarea{
             <option value="deviant">Deviant</option>
             <option value="promethean">Promethean</option>
             <option value="geist">Geist</option>
+            <option value="entity">Ephemeral Entity</option>
           </select>
         </div>
         <div class="cfg-preset-row">
@@ -1126,6 +1158,7 @@ let SKILLS={},SKILL_LABELS={},ALL_SKILLS=[];
 //                   rebuilt by rebuildZones() on load and after drag-drop
 // PRESETS         — array of named preset objects from data.json
 let SECTION_DEFS=[],SEC_DEFAULTS={},SECTION_MAP={},ZONES={},PRESETS=[];
+const ENTITY_ATTRS=[{key:'power',label:'Power'},{key:'finesse',label:'Finesse'},{key:'resistance',label:'Resistance'}];
 
 // DB — in-memory content library. Keyed by db_key from section_definitions.
 // Populated from data.json on load. Examples: DB.merits, DB.disciplines, etc.
@@ -1165,6 +1198,13 @@ async function loadDB(){
   const presetOpts='<option value="">— Custom —</option>'+PRESETS.map(p=>`<option value="${escH(p.name)}">${escH(p.name)}</option>`).join('');
   document.getElementById('presetSelect').innerHTML=presetOpts;
   document.getElementById('drawerPresetSelect').innerHTML=presetOpts;
+  // Entity-specific data
+  DB.entityTypes=d.entity_types||{};
+  DB.entityBans=d.entity_bans||[];
+  DB.entityBanes=d.entity_banes||[];
+  DB.rankStats=d.rank_stats||{};
+  DB.mortalGeneration=d.mortal_generation||{attribute_spreads:[5,4,3],skill_spreads:[11,7,4],size:5};
+
   buildCfgPanel();
 }
 
@@ -1540,14 +1580,16 @@ function fillDescFromDrop(dId,descId,dbList){
 function buildCfgPanel(){
   const groups={};
   SECTION_DEFS.forEach(sd=>{const g=sd.group||'Other';if(!groups[g])groups[g]=[];groups[g].push(sd);});
+  const slugify=s=>s.toLowerCase().replace(/[^a-z0-9]/g,'-');
   const html=Object.entries(groups).map(([gname,sds])=>{
+    const slug=slugify(gname);
     const collapsed=getCfgGroupCollapsed(gname);
     const sorted=[...sds].sort((a,b)=>a.label.localeCompare(b.label));
     return `<div class="cfg-group-hdr" onclick="toggleCfgGroup('${escH(gname)}')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between">
       <span>${escH(gname)}</span>
-      <span class="item-toggle cfg-chevron-${escH(gname)}" style="${collapsed?'':'transform:rotate(90deg)'}">&#9654;</span>
+      <span class="item-toggle cfg-chevron-${slug}" style="${collapsed?'':'transform:rotate(90deg)'}">&#9654;</span>
     </div>
-    <div class="cfg-group-body-${escH(gname)}" style="display:${collapsed?'none':'block'}">
+    <div class="cfg-group-body-${slug}" style="display:${collapsed?'none':'block'}">
       <div class="cfg-grid">${sorted.map(sd=>`
         <label class="cfg-chk"><input type="checkbox" data-sec="${sd.key}" onchange="toggleSec('${sd.key}',this.checked)"> ${escH(sd.label)}</label>`).join('')}
       </div>
@@ -1567,9 +1609,10 @@ function getCfgGroupCollapsed(gname){
   return gname!=='Mortal';
 }
 function toggleCfgGroup(gname){
-  // Toggle all matching elements (desktop + drawer may both be present)
-  const bodies=document.querySelectorAll(`.cfg-group-body-${gname}`);
-  const chevrons=document.querySelectorAll(`.cfg-chevron-${gname}`);
+  // Slugify to avoid invalid CSS selectors from group names with spaces
+  const slug=gname.toLowerCase().replace(/[^a-z0-9]/g,'-');
+  const bodies=document.querySelectorAll(`.cfg-group-body-${slug}`);
+  const chevrons=document.querySelectorAll(`.cfg-chevron-${slug}`);
   // Determine current state from first found body
   const first=bodies[0];
   if(!first)return;
@@ -1634,8 +1677,11 @@ function applyPreset(presetName){
   // Sync both preset selects to show the applied preset
   document.getElementById('presetSelect').value=presetName;
   document.getElementById('drawerPresetSelect').value=presetName;
-  rebuildZones();renderEditor();showStatus(`Preset "${presetName}" applied.`);
+  rebuildZones();renderEditor();
+  // Show entity gen options when an entity preset is active
+  showStatus(`Preset "${presetName}" applied.`);
 }
+
 
 // ── Tablet drawer ─────────────────────────────────────────────────────────────
 let _activeDrawerTab='saves';
@@ -1723,6 +1769,8 @@ function _baseCharacterFields(attrs,skills){
     else if(t==='renown-block')base[sk]={cunning:0,glory:0,honor:0,purity:0,wisdom:0};
     else if(t==='cipher-block')base[sk]={embed1:'',embed2:'',embed3:'',embed4:'',interlock1:'',interlock2:'',interlock3:'',cipher:'',final_truth:''};
     else if(t==='covers')base[sk]=[];
+    else if(t==='attributes-3'){}  // entity attrs handled separately below
+    else if(t==='derived-traits-entity'){}  // entity traits handled separately below
   });
   return{id:_uuid(),name:'',concept:'',virtue:'',vice:'',
     attributes:attrs,skills,size,
@@ -1731,14 +1779,54 @@ function _baseCharacterFields(attrs,skills){
     defense:Math.min(dexterity,wits)+athletics,initiative:dexterity+composure,speed:strength+dexterity+5,
     integrity:7,derivedOverrides:{},
     tilts:[],conditions:[],aspirations:[],merits:[],weapons:[],armor:[],equipment:[],notes:'',
-    meritMaxDots:5,sectionConfig:{},...base,layoutLocked:true,theme:'neutral'};
+    meritMaxDots:5,sectionConfig:{},...base,layoutLocked:true,theme:'neutral',
+    // Ephemeral Entity fields — zeroed for mortal characters
+    entity_attrs:{power:1,finesse:1,resistance:1},
+    entity_size:5,entity_rank_num:1,entity_type:'',entity_rank:'',entity_concept:'',entity_virtue:'',entity_vice:'',
+    entity_essence_max:10,entity_essence_current:0,
+    corpus_damage:0,corpus_max_override:null,
+    entity_wp_spent:0,entity_wp_max_override:null,
+    entityDerivedOverrides:{},
+    entity_defense:0,entity_initiative:0,entity_speed:0,
+    attr3MaxDots:5,attr3ShowSpinner:false,
+    numina:[],manifestations:[],influences:[],anchors:[],
+    entity_ban:'',entity_bane:''};
 }
-function generate(){
+function _isEntityPreset(){
+  // Returns true if the active sectionConfig has entity sections enabled
+  const cfg=STATE.sectionConfig||{};
+  return !!(cfg['entity-attributes']||cfg['entity-traits']);
+}
+function _rr(lo,hi){return lo+Math.floor(Math.random()*(hi-lo+1));}
+// _applySelectedPreset — reads the preset dropdown and applies the selected
+// preset to STATE.sectionConfig. Falls back to fallbackName if nothing selected.
+// Used by generateMortal and blank so they respect a pre-selected preset.
+function _applySelectedPreset(fallbackName){
+  const sel=document.getElementById('presetSelect');
+  const chosen=(sel&&sel.value)||'';
+  const preset=PRESETS.find(p=>p.name===(chosen||fallbackName));
+  if(preset){STATE.sectionConfig={...preset.config};delete STATE.sectionConfig._zoneOrder;}
+}
+function generateMortal(){
+  // Respect the preset selected in the dropdown; fall back to Mortal
+  _applySelectedPreset('Mortal');
+  generateMortalSheet();
+}
+function generateEphemeral(){
+  // Apply Ephemeral Entity preset first, then generate
+  const eePreset=PRESETS.find(p=>p.name==='Ephemeral Entity');
+  if(eePreset){STATE.sectionConfig={...eePreset.config};delete STATE.sectionConfig._zoneOrder;}
+  generateEntity();
+}
+function generateMortalSheet(){
+  // ── Mortal generation (data-driven spreads) ───────────────────────────────
   const d=window._DB_RAW||{};
+  const gen=DB.mortalGeneration||{attribute_spreads:[5,4,3],skill_spreads:[11,7,4],size:5};
   const names=d.mortal_names||['Unnamed'];
   const cats=Object.keys(ATTRIBUTES);
   for(let i=cats.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[cats[i],cats[j]]=[cats[j],cats[i]];}
-  const extraDots={[cats[0]]:5,[cats[1]]:4,[cats[2]]:3};
+  const attrSpreads=gen.attribute_spreads||[5,4,3];
+  const extraDots={[cats[0]]:attrSpreads[0]||5,[cats[1]]:attrSpreads[1]||4,[cats[2]]:attrSpreads[2]||3};
   const attrs={};
   Object.entries(ATTRIBUTES).forEach(([cat,attrList])=>{
     const vals=_distribute((extraDots[cat]||3)+attrList.length,attrList.length);
@@ -1746,7 +1834,8 @@ function generate(){
   });
   const skillCats=Object.keys(SKILLS);
   for(let i=skillCats.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[skillCats[i],skillCats[j]]=[skillCats[j],skillCats[i]];}
-  const skillDots={[skillCats[0]]:11,[skillCats[1]]:7,[skillCats[2]]:4};
+  const skillSpreads=gen.skill_spreads||[11,7,4];
+  const skillDots={[skillCats[0]]:skillSpreads[0]||11,[skillCats[1]]:skillSpreads[1]||7,[skillCats[2]]:skillSpreads[2]||4};
   const skills={};
   ALL_SKILLS.forEach(s=>skills[s]={rating:0,rote:false,specialty:'',label:SKILL_LABELS[s]});
   Object.entries(SKILLS).forEach(([cat,skList])=>{
@@ -1757,10 +1846,63 @@ function generate(){
   STATE.name=names[Math.random()*names.length|0];
   patchState();currentSaveId=null;showEditor(false);renderEditor();
 }
-function blank(){
+function generateEntity(){
+  // ── Ephemeral Entity generation (data-driven rank stats) ──────────────────
+  const rankSel=document.getElementById('entityRankSelect');
+  const rank=parseInt((rankSel&&rankSel.value)||'3')||3;
+  // Type is not selected in the gen bar — default to spirit for generation
+  // (Entity type is set via the Entity Identity header field on the sheet)
+  const type='spirit';
+  const typeEntry=(DB.entityTypes||{})[type]||{label:type,names:['Unnamed Entity']};
+  const rs=(DB.rankStats||{})[String(rank)]||{power:[1,3],finesse:[1,3],resistance:[1,3],essence:[10,15],integrity:[5,7],size:[3,5],numina_count:2,manifestation_count:1};
+  // Use type-specific size override if present
+  const sizeRange=typeEntry.size_override||rs.size||[3,5];
+  const p=_rr(...rs.power),f=_rr(...rs.finesse),r=_rr(...rs.resistance);
+  const ess=_rr(...rs.essence),sz=_rr(...sizeRange),integ=_rr(...rs.integrity);
+  const nCount=rs.numina_count||2,mCount=rs.manifestation_count||1;
+  // Sample content
+  function sampleDB(key,n){const arr=DB[key]||[];const out=[];const a=[...arr];for(let i=0;i<Math.min(n,a.length);i++)out.push(a.splice(Math.floor(Math.random()*a.length),1)[0]);return out;}
+  const numina=sampleDB('numina',nCount).map(x=>({name:x.name,desc:x.desc||''}));
+  const manifestations=sampleDB('manifestations',mCount).map(x=>({name:x.name,desc:x.desc||''}));
+  const infCount=rank<=2?1:rank<=3?2:3;
+  const influences=sampleDB('influences',infCount).map(x=>({name:x.name,rating:0}));
+  const bans=DB.entityBans||[];const banes=DB.entityBanes||[];
+  const ban=bans.length?bans[Math.floor(Math.random()*bans.length)]:'';
+  const bane=banes.length?banes[Math.floor(Math.random()*banes.length)]:'';
+  const name=typeEntry.names&&typeEntry.names.length?typeEntry.names[Math.floor(Math.random()*typeEntry.names.length)]:'Unnamed Entity';
+  // Preserve existing sectionConfig (preset already applied)
+  const savedConfig={...STATE.sectionConfig};
   const attrs=Object.fromEntries(Object.values(ATTRIBUTES).flat().map(a=>[a,1]));
   const skills=Object.fromEntries(ALL_SKILLS.map(s=>[s,{rating:0,rote:false,specialty:'',label:SKILL_LABELS[s]}]));
   STATE=_baseCharacterFields(attrs,skills);
+  STATE.sectionConfig=savedConfig;
+  STATE.name=name;
+  STATE.entity_attrs={power:p,finesse:f,resistance:r};
+  STATE.entity_size=sz;
+  STATE.entity_rank_num=rank;
+  STATE.entity_type=typeEntry.label||type;
+  STATE.entity_rank=`Rank ${rank} — ${['','Minor','Common','Established','Greater','Mighty'][rank]||rank}`;
+  STATE.entity_essence_max=ess;
+  STATE.entity_essence_current=ess;
+  STATE.corpus_damage=0;
+  STATE.numina=numina;
+  STATE.manifestations=manifestations;
+  STATE.influences=influences;
+  STATE.entity_ban=ban;
+  STATE.entity_bane=bane;
+  STATE.theme='entity';
+  patchState();currentSaveId=null;showEditor(false);renderEditor();
+}
+function blank(){
+  // Respect the preset selected in the dropdown; fall back to Mortal
+  const savedConfig={}; // capture before _baseCharacterFields resets
+  _applySelectedPreset('Mortal');
+  const appliedConfig={...STATE.sectionConfig};
+  const attrs=Object.fromEntries(Object.values(ATTRIBUTES).flat().map(a=>[a,1]));
+  const skills=Object.fromEntries(ALL_SKILLS.map(s=>[s,{rating:0,rote:false,specialty:'',label:SKILL_LABELS[s]}]));
+  STATE=_baseCharacterFields(attrs,skills);
+  // Restore the applied preset config (overrides the empty sectionConfig from _baseCharacterFields)
+  STATE.sectionConfig={...appliedConfig};
   patchState();currentSaveId=null;showEditor(false);renderEditor();
 }
 function showEditor(){
@@ -1852,6 +1994,31 @@ function patchState(){
   if(!STATE.sectionConfig)STATE.sectionConfig={};
   (STATE.weapons||[]).forEach(w=>{if(w.equipped===undefined)w.equipped=false;});
   (STATE.armor||[]).forEach(a=>{if(a.equipped===undefined)a.equipped=false;if(a.speed_penalty===undefined)a.speed_penalty=0;});
+  // ── Ephemeral Entity fields (only populated if missing — safe for mortal saves)
+  if(!STATE.entity_attrs)STATE.entity_attrs={power:1,finesse:1,resistance:1};
+  ENTITY_ATTRS.forEach(a=>{if(STATE.entity_attrs[a.key]==null)STATE.entity_attrs[a.key]=1;});
+  if(STATE.entity_size==null)STATE.entity_size=5;
+  if(STATE.entity_rank_num==null)STATE.entity_rank_num=1;
+  if(STATE.entity_essence_max==null)STATE.entity_essence_max=10;
+  if(STATE.entity_essence_current==null)STATE.entity_essence_current=0;
+  if(STATE.corpus_damage==null)STATE.corpus_damage=0;
+  if(STATE.corpus_max_override===undefined)STATE.corpus_max_override=null;
+  if(STATE.entity_wp_spent==null)STATE.entity_wp_spent=0;
+  if(STATE.entity_wp_max_override===undefined)STATE.entity_wp_max_override=null;
+  if(!STATE.entityDerivedOverrides)STATE.entityDerivedOverrides={};
+  if(STATE.attr3MaxDots==null)STATE.attr3MaxDots=5;
+  if(STATE.attr3ShowSpinner===undefined)STATE.attr3ShowSpinner=false;
+  if(!STATE.numina)STATE.numina=[];
+  if(!STATE.manifestations)STATE.manifestations=[];
+  if(!STATE.influences)STATE.influences=[];
+  if(!STATE.anchors)STATE.anchors=[];
+  if(STATE.entity_ban==null)STATE.entity_ban='';
+  if(STATE.entity_bane==null)STATE.entity_bane='';
+  if(STATE.entity_type==null)STATE.entity_type='';
+  if(STATE.entity_rank==null)STATE.entity_rank='';
+  if(STATE.entity_concept==null)STATE.entity_concept='';
+  if(STATE.entity_virtue==null)STATE.entity_virtue='';
+  if(STATE.entity_vice==null)STATE.entity_vice='';
 }
 
 // ── Sheet rendering pipeline ──────────────────────────────────────────────────
@@ -1918,9 +2085,11 @@ function renderSheetZone(zone,containerId){
   el.innerHTML=secs.map(sd=>buildSectionHTML(sd)).join('');
   secs.forEach(sd=>{
     const t=sd.type;
-    if(t==='attributes')renderAttrBlock();
+    if(t==='attributes-9')renderAttrBlock();
+    else if(t==='attributes-3')renderAttr3Block();
     else if(t==='skills')renderSkillBlock();
     else if(t==='derived-traits'){updateDerived();renderHealthTrack();renderWpTracker();}
+    else if(t==='derived-traits-entity'){updateEntityDerived();renderCorpusTracker();renderEntityWpTracker();}
     else if(t==='dot-track')renderDotTrack(sd);
     else if(t==='dot-square-track')renderDotSquareTrack(sd);
     else if(t==='named-list'){
@@ -1963,7 +2132,7 @@ function buildSectionHTML(sd){
   const printEmpty=sd.print_empty?'print-empty':'';
 
   if(t==='beats-xp')return buildBeatsXpHTML(sd,hidden);
-  if(t==='attributes')return `<div class="sec-block ${hidden}" id="secblock-attributes">
+  if(t==='attributes-9')return `<div class="sec-block ${hidden}" id="secblock-attributes">
     <div class="merit-toggle-hd"><span class="sec">Attributes <span style="font-weight:400;font-size:.6rem;color:var(--faint)">(1–10)</span></span>
       <div style="display:flex;gap:4px">
         <button id="attrMaxToggle" class="sm" onclick="event.stopPropagation();toggleAttrMax()" style="font-size:.62rem;padding:2px 7px">5-dot max</button>
@@ -2331,6 +2500,88 @@ function buildSectionHTML(sd){
     </div>`;
   }
 
+
+  // ── Ephemeral Entity: 3-attribute block ──────────────────────────────────────
+  if(t==='attributes-3'){
+    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
+      <div class="merit-toggle-hd"><span class="sec">Attributes <span style="font-weight:400;font-size:.6rem;color:var(--faint)">(Power / Finesse / Resistance)</span></span>
+        <div style="display:flex;gap:4px">
+          <button id="attr3MaxToggle" class="sm" onclick="event.stopPropagation();toggleAttr3Max()" style="font-size:.62rem;padding:2px 7px">5-dot max</button>
+          <button id="attr3SpinnerToggle" class="sm" onclick="event.stopPropagation();toggleAttr3Spinner()" style="font-size:.62rem;padding:2px 7px">Show number values</button>
+        </div>
+      </div>
+      <div class="sec-collapsible-body"><div id="attr3Block"></div></div></div>`;
+  }
+
+  // ── Ephemeral Entity: derived traits ─────────────────────────────────────────
+  if(t==='derived-traits-entity'){
+    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
+      <div class="sec" style="margin-top:14px">Other Traits <span style="font-weight:400;font-size:.62rem;color:var(--faint)">(auto-calc — adjustable)</span></div>
+      <div class="sec-collapsible-body">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-family:sans-serif;font-size:.82rem">
+        <span style="color:var(--muted);min-width:36px">Size</span>
+        <div class="spin-row"><button class="spin" onclick="adjEntitySize(-1)">−</button><span class="av" id="v-entity-size" style="font-size:1rem">5</span><button class="spin" onclick="adjEntitySize(1)">+</button></div>
+      </div>
+      <div class="tracker-wrap">
+        <div class="tracker-lbl">
+          <span>Corpus</span>
+          <span class="derived-spin-row">
+            <button class="spin" onclick="adjCorpusMax(-1)">−</button>
+            <span id="corpus-max-lbl" style="font-size:.78rem;font-weight:700;min-width:16px;text-align:center;color:var(--text)"></span>
+            <button class="spin" onclick="adjCorpusMax(1)">+</button>
+          </span>
+          <span id="corpus-val-lbl" style="color:var(--muted);font-size:.65rem"></span>
+        </div>
+        <div class="tracker-circles" id="corpus-circles"></div>
+        <div class="tracker-squares" id="corpus-squares"></div>
+      </div>
+      <div class="tracker-wrap">
+        <div class="tracker-lbl">
+          <span>Willpower</span>
+          <span class="derived-spin-row">
+            <button class="spin" onclick="adjEntityWpMax(-1)">−</button>
+            <span id="entity-wp-max-lbl" style="font-size:.78rem;font-weight:700;min-width:16px;text-align:center;color:var(--text)"></span>
+            <button class="spin" onclick="adjEntityWpMax(1)">+</button>
+          </span>
+          <span id="entity-wp-val-lbl" style="color:var(--muted);font-size:.65rem"></span>
+        </div>
+        <div class="tracker-circles" id="entity-wp-circles"></div>
+        <div class="tracker-squares" id="entity-wp-squares"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-family:sans-serif;font-size:.82rem">
+        <span style="color:var(--muted);min-width:36px">Essence</span>
+        <div class="spin-row">
+          <button class="spin" onclick="adjEssenceCurrent(-1)">−</button>
+          <span class="av" id="v-essence-current" style="font-size:1rem">0</span>
+          <span style="font-family:sans-serif;font-size:.8rem;color:var(--muted)">/</span>
+          <button class="spin" onclick="adjEntityEssenceMax(-1)">−</button>
+          <span class="av" id="v-essence-max" style="font-size:.9rem;color:var(--muted)">0</span>
+          <button class="spin" onclick="adjEntityEssenceMax(1)">+</button>
+        </div>
+      </div>
+      <div class="derived-grid">
+        <div class="dr"><span class="dl">Defense</span>
+          <span style="display:flex;align-items:center;gap:4px">
+            <span class="derived-spin-row"><button class="spin" onclick="adjEntityDerived('entity_defense',-1)">−</button><span id="d-entity-defense" class="dv"></span><button class="spin" onclick="adjEntityDerived('entity_defense',1)">+</button></span>
+          </span>
+        </div>
+        <div class="dr"><span class="dl">Initiative</span>
+          <span style="display:flex;align-items:center;gap:4px">
+            <span class="derived-spin-row"><button class="spin" onclick="adjEntityDerived('entity_initiative',-1)">−</button><span id="d-entity-initiative" class="dv"></span><button class="spin" onclick="adjEntityDerived('entity_initiative',1)">+</button></span>
+          </span>
+        </div>
+        <div class="dr"><span class="dl">Speed</span>
+          <span style="display:flex;align-items:center;gap:4px">
+            <span class="derived-spin-row"><button class="spin" onclick="adjEntityDerived('entity_speed',-1)">−</button><span id="d-entity-speed" class="dv"></span><button class="spin" onclick="adjEntityDerived('entity_speed',1)">+</button></span>
+          </span>
+        </div>
+      </div>
+      <div style="text-align:right;margin-top:4px">
+        <button class="sm" onclick="resetEntityDerivedOverrides()" style="font-size:.62rem;color:var(--faint)">Reset to formula</button>
+      </div>
+      </div></div>`;
+  }
+
   return '';
 }
 
@@ -2496,6 +2747,162 @@ function updateAttrSpinnerToggle(){
   el.style.borderColor=on?'var(--info)':'';
   el.style.color=on?'var(--info)':'';
 }
+
+
+// ── Ephemeral Entity: 3-attribute renderer ────────────────────────────────────
+function getEntityAttr(k){return(STATE.entity_attrs||{})[k]||1;}
+function renderAttr3Block(){
+  const el=document.getElementById('attr3Block');if(!el)return;
+  const maxD=STATE.attr3MaxDots||5;
+  const showSpin=STATE.attr3ShowSpinner||false;
+  el.innerHTML=`<div class="attr-block-entity${showSpin?'':' attr-spinners-hidden'}" style="max-width:420px">
+    ${ENTITY_ATTRS.map(a=>{
+      const val=getEntityAttr(a.key)||1;
+      const dots=Array.from({length:Math.min(maxD,10)},(_,i)=>i+1).map(d=>
+        `<span class="dot${val>=d?' filled':''}" onclick="setEntityAttrDot('${a.key}',${d})"></span>`).join('');
+      return `<div class="attr-cell">
+        <div class="an">${a.label}</div>
+        <div class="attr-dots">${dots}${val>maxD?`<span class="attr-overflow">+${val-maxD}</span>`:''}</div>
+        <div class="attr-spinner">
+          <button class="spin" style="width:16px;height:16px;font-size:11px" onclick="adjEntityAttr('${a.key}',-1)">−</button>
+          <span style="font-size:.75rem;font-family:sans-serif;color:var(--muted);min-width:14px;text-align:center" id="v-entity-${a.key}">${val}</span>
+          <button class="spin" style="width:16px;height:16px;font-size:11px" onclick="adjEntityAttr('${a.key}',1)">+</button>
+        </div></div>`;
+    }).join('')}
+  </div>`;
+  updateAttr3MaxToggle();
+  updateAttr3SpinnerToggle();
+  updateEntityDerived();
+}
+function setEntityAttrDot(attr,val){
+  if(!STATE.entity_attrs)STATE.entity_attrs={};
+  const cur=STATE.entity_attrs[attr]||1;
+  STATE.entity_attrs[attr]=Math.max(1,Math.min(10,val===cur?val-1:val));
+  renderAttr3Block();updateEntityDerived();
+}
+function adjEntityAttr(attr,delta){
+  if(!STATE.entity_attrs)STATE.entity_attrs={};
+  STATE.entity_attrs[attr]=Math.max(1,Math.min(10,(STATE.entity_attrs[attr]||1)+delta));
+  renderAttr3Block();updateEntityDerived();
+}
+function toggleAttr3Max(){
+  STATE.attr3MaxDots=(STATE.attr3MaxDots===5)?10:5;
+  renderAttr3Block();
+}
+function updateAttr3MaxToggle(){
+  const el=document.getElementById('attr3MaxToggle');if(!el)return;
+  const ext=(STATE.attr3MaxDots||5)>5;
+  el.textContent=ext?'10-dot max':'5-dot max';
+  el.style.background=ext?'var(--info-bg)':'';
+  el.style.borderColor=ext?'var(--info)':'';
+  el.style.color=ext?'var(--info)':'';
+}
+function toggleAttr3Spinner(){
+  STATE.attr3ShowSpinner=!STATE.attr3ShowSpinner;
+  renderAttr3Block();
+}
+function updateAttr3SpinnerToggle(){
+  const el=document.getElementById('attr3SpinnerToggle');if(!el)return;
+  const on=STATE.attr3ShowSpinner||false;
+  el.textContent=on?'Hide number values':'Show number values';
+  el.style.background=on?'var(--info-bg)':'';
+  el.style.borderColor=on?'var(--info)':'';
+  el.style.color=on?'var(--info)':'';
+}
+
+// ── Ephemeral Entity: derived traits ─────────────────────────────────────────
+function getEntityAttrVal(k){return(STATE.entity_attrs||{})[k]||1;}
+function calcBaseCorpus(){return getEntityAttrVal('resistance')+(STATE.entity_size||5);}
+function calcBaseEntityWp(){return Math.min(10,getEntityAttrVal('resistance')+getEntityAttrVal('finesse'));}
+function calcBaseEntityDefense(){
+  const rank=STATE.entity_rank_num||1;
+  const p=getEntityAttrVal('power'),f=getEntityAttrVal('finesse');
+  return rank===1?Math.max(p,f):Math.min(p,f);
+}
+function calcBaseEntityInitiative(){return getEntityAttrVal('finesse')+getEntityAttrVal('resistance');}
+function calcBaseEntitySpeed(){return getEntityAttrVal('power')+getEntityAttrVal('finesse')+5;}
+function getCorpusMax(){return STATE.corpus_max_override!=null?STATE.corpus_max_override:calcBaseCorpus();}
+function getEntityWpMax(){return STATE.entity_wp_max_override!=null?STATE.entity_wp_max_override:calcBaseEntityWp();}
+
+function adjEntitySize(delta){
+  STATE.entity_size=Math.max(1,(STATE.entity_size||5)+delta);
+  const el=document.getElementById('v-entity-size');if(el)el.textContent=STATE.entity_size;
+  updateEntityDerived();
+}
+function adjCorpusMax(delta){
+  const base=calcBaseCorpus(),cur=getCorpusMax(),nv=Math.max(1,cur+delta);
+  STATE.corpus_max_override=nv===base?null:nv;
+  renderCorpusTracker();
+}
+function adjEntityWpMax(delta){
+  const base=calcBaseEntityWp(),cur=getEntityWpMax(),nv=Math.max(0,cur+delta);
+  STATE.entity_wp_max_override=nv===base?null:nv;
+  STATE.entity_wp_spent=Math.min(STATE.entity_wp_spent||0,nv);renderEntityWpTracker();
+}
+function adjEntityEssenceMax(delta){
+  STATE.entity_essence_max=Math.max(0,(STATE.entity_essence_max||10)+delta);
+  STATE.entity_essence_current=Math.min(STATE.entity_essence_current||0,STATE.entity_essence_max);
+  updateEntityDerived();
+}
+function adjEssenceCurrent(delta){
+  const max=STATE.entity_essence_max||10;
+  STATE.entity_essence_current=Math.max(0,Math.min(max,(STATE.entity_essence_current||0)+delta));
+  const el=document.getElementById('v-essence-current');if(el)el.textContent=STATE.entity_essence_current;
+}
+
+function getEntityDerivedOverrides(){if(!STATE.entityDerivedOverrides)STATE.entityDerivedOverrides={};return STATE.entityDerivedOverrides;}
+function adjEntityDerived(field,delta){const ov=getEntityDerivedOverrides();ov[field]=(ov[field]||0)+delta;updateEntityDerived();}
+function resetEntityDerivedOverrides(){STATE.entityDerivedOverrides={};updateEntityDerived();}
+
+function updateEntityDerived(){
+  const ov=getEntityDerivedOverrides();
+  const szEl=document.getElementById('v-entity-size');if(szEl)szEl.textContent=STATE.entity_size||5;
+  const base={entity_defense:calcBaseEntityDefense(),entity_initiative:calcBaseEntityInitiative(),entity_speed:calcBaseEntitySpeed()};
+  ['entity_defense','entity_initiative','entity_speed'].forEach(k=>{
+    STATE[k]=base[k]+(ov[k]||0);
+    const domKey=k.replace('entity_','entity-');
+    const el=document.getElementById('d-'+domKey);if(!el)return;
+    const hasOv=(ov[k]||0)!==0;
+    el.textContent=STATE[k];el.style.color=hasOv?'var(--info)':'';
+  });
+  // Essence display
+  const ecEl=document.getElementById('v-essence-current');if(ecEl)ecEl.textContent=STATE.entity_essence_current||0;
+  const emEl=document.getElementById('v-essence-max');if(emEl)emEl.textContent=STATE.entity_essence_max||10;
+  renderCorpusTracker();renderEntityWpTracker();
+}
+
+function renderCorpusTracker(){
+  const max=Math.max(0,getCorpusMax());
+  const dmg=Math.min(max,STATE.corpus_damage||0);
+  const avail=max-dmg;
+  const c=document.getElementById('corpus-circles'),s=document.getElementById('corpus-squares');
+  const lbl=document.getElementById('corpus-val-lbl'),ml=document.getElementById('corpus-max-lbl');
+  if(!c||!s)return;
+  if(ml)ml.textContent=max;
+  if(lbl)lbl.textContent=`(${avail} remaining)`;
+  c.innerHTML=Array.from({length:max},()=>'<span class="tcircle"></span>').join('');
+  s.innerHTML=Array.from({length:max},(_,i)=>`<span class="tsquare${i<avail?' on':''}" onclick="toggleCorpusDamage(${i})"></span>`).join('');
+}
+function toggleCorpusDamage(idx){
+  const max=getCorpusMax(),avail=max-(STATE.corpus_damage||0);
+  STATE.corpus_damage=idx<avail?max-idx:max-(idx+1);
+  STATE.corpus_damage=Math.max(0,Math.min(max,STATE.corpus_damage));renderCorpusTracker();
+}
+function renderEntityWpTracker(){
+  const max=Math.max(0,getEntityWpMax()),spent=Math.min(max,STATE.entity_wp_spent||0),avail=max-spent;
+  const c=document.getElementById('entity-wp-circles'),s=document.getElementById('entity-wp-squares');
+  const l=document.getElementById('entity-wp-val-lbl'),ml=document.getElementById('entity-wp-max-lbl');
+  if(!c||!s)return;
+  if(ml)ml.textContent=max;if(l)l.textContent=`(${avail} remaining)`;
+  c.innerHTML=Array.from({length:max},()=>'<span class="tcircle"></span>').join('');
+  s.innerHTML=Array.from({length:max},(_,i)=>`<span class="tsquare${i<avail?' on':''}" onclick="toggleEntityWpBox(${i})"></span>`).join('');
+}
+function toggleEntityWpBox(idx){
+  const max=getEntityWpMax(),avail=max-(STATE.entity_wp_spent||0);
+  STATE.entity_wp_spent=idx<avail?max-idx:max-(idx+1);
+  STATE.entity_wp_spent=Math.max(0,Math.min(max,STATE.entity_wp_spent));renderEntityWpTracker();
+}
+// ── End Ephemeral Entity renderers ────────────────────────────────────────────
 
 function renderSkillBlock(){
   const el=document.getElementById('skillBlock');if(!el)return;

@@ -265,7 +265,7 @@
       "group": "Mortal",
       "zone": "full-width-top",
       "order": 1,
-      "type": "attributes",
+      "type": "attributes-9",
       "default": true
     },
     {
@@ -1463,6 +1463,119 @@
       "type": "line-list",
       "state_key": "remembrance_traits",
       "default": false
+    },
+    {
+      "key": "entity-header",
+      "label": "Entity Identity",
+      "group": "Ephemeral Entity",
+      "zone": "header",
+      "order": 11,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "entity_type",
+          "label": "Type"
+        },
+        {
+          "key": "entity_rank",
+          "label": "Rank"
+        },
+        {
+          "key": "entity_concept",
+          "label": "Concept"
+        },
+        {
+          "key": "entity_virtue",
+          "label": "Virtue"
+        },
+        {
+          "key": "entity_vice",
+          "label": "Vice"
+        }
+      ]
+    },
+    {
+      "key": "entity-attributes",
+      "label": "Attributes (Entity)",
+      "group": "Ephemeral Entity",
+      "zone": "full-width-top",
+      "order": 2,
+      "type": "attributes-3",
+      "default": false
+    },
+    {
+      "key": "entity-traits",
+      "label": "Other Traits (Entity)",
+      "group": "Ephemeral Entity",
+      "zone": "right-column",
+      "order": 1,
+      "type": "derived-traits-entity",
+      "default": false
+    },
+    {
+      "key": "numina",
+      "label": "Numina",
+      "group": "Ephemeral Entity",
+      "zone": "left-column",
+      "order": 3,
+      "type": "named-list",
+      "state_key": "numina",
+      "default": false,
+      "db_key": "numina"
+    },
+    {
+      "key": "manifestations",
+      "label": "Manifestations",
+      "group": "Ephemeral Entity",
+      "zone": "left-column",
+      "order": 4,
+      "type": "named-list",
+      "state_key": "manifestations",
+      "default": false,
+      "db_key": "manifestations"
+    },
+    {
+      "key": "influences",
+      "label": "Influences",
+      "group": "Ephemeral Entity",
+      "zone": "left-column",
+      "order": 5,
+      "type": "rated-list",
+      "state_key": "influences",
+      "default": false,
+      "max_rating": 5,
+      "db_key": "influences"
+    },
+    {
+      "key": "entity-ban",
+      "label": "Ban",
+      "group": "Ephemeral Entity",
+      "zone": "right-column",
+      "order": 7,
+      "type": "textarea",
+      "state_key": "entity_ban",
+      "default": false
+    },
+    {
+      "key": "entity-bane",
+      "label": "Bane",
+      "group": "Ephemeral Entity",
+      "zone": "right-column",
+      "order": 8,
+      "type": "textarea",
+      "state_key": "entity_bane",
+      "default": false
+    },
+    {
+      "key": "anchors",
+      "label": "Anchors",
+      "group": "Ephemeral Entity",
+      "zone": "right-column",
+      "order": 9,
+      "type": "line-list",
+      "state_key": "anchors",
+      "default": false
     }
   ],
   "_presets_comment": [
@@ -1573,7 +1686,17 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false
       }
     },
     {
@@ -1676,7 +1799,17 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false
       }
     },
     {
@@ -1779,7 +1912,17 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false
       }
     },
     {
@@ -1882,7 +2025,17 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false
       }
     },
     {
@@ -1985,7 +2138,17 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false
       }
     },
     {
@@ -2088,7 +2251,17 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false
       }
     },
     {
@@ -2191,7 +2364,17 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false
       }
     },
     {
@@ -2295,7 +2478,16 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false
       }
     },
     {
@@ -2398,7 +2590,17 @@
         "plasm": false,
         "keys": false,
         "haunts": false,
-        "remembrance-traits": false
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false
       }
     },
     {
@@ -2501,7 +2703,356 @@
         "plasm": true,
         "keys": true,
         "haunts": true,
-        "remembrance-traits": true
+        "remembrance-traits": true,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false
+      }
+    },
+    {
+      "name": "Ephemeral Entity",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": false,
+        "skills": false,
+        "other-traits": false,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": false,
+        "endowments": false,
+        "tactics": false,
+        "weapons": false,
+        "armor": false,
+        "equipment": false,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": false,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": true,
+        "entity-attributes": true,
+        "entity-traits": true,
+        "numina": true,
+        "manifestations": true,
+        "influences": true,
+        "entity-ban": true,
+        "entity-bane": true,
+        "anchors": false,
+        "adaptations": false
+      }
+    },
+    {
+      "name": "Ephemeral Entity \u2014 Ghost",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": false,
+        "skills": false,
+        "other-traits": false,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": false,
+        "endowments": false,
+        "tactics": false,
+        "weapons": false,
+        "armor": false,
+        "equipment": false,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": false,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": true,
+        "entity-attributes": true,
+        "entity-traits": true,
+        "numina": true,
+        "manifestations": true,
+        "influences": true,
+        "entity-ban": true,
+        "entity-bane": true,
+        "anchors": true,
+        "adaptations": false
+      }
+    },
+    {
+      "name": "Ephemeral Entity \u2014 Supernal",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": false,
+        "skills": false,
+        "other-traits": false,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": false,
+        "endowments": false,
+        "tactics": false,
+        "weapons": false,
+        "armor": false,
+        "equipment": false,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": false,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": true,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": true,
+        "entity-attributes": true,
+        "entity-traits": true,
+        "numina": true,
+        "manifestations": true,
+        "influences": true,
+        "entity-ban": true,
+        "entity-bane": true,
+        "anchors": false,
+        "adaptations": false
       }
     }
   ],
@@ -3071,6 +3622,502 @@
     {
       "name": "Searing Light (Phosphorum)",
       "desc": "**Transmutation:** Phosphorum\n**Persistent:** Your character emits faint bioluminescence in darkness.\n**1st Distillation (Flash):** Spend 1 Pyros. Blind all who can see you for one turn. Dice pool: Presence + Athletics vs. target's Defense.\n**2nd Distillation (Burning Radiance):** Spend 1 Pyros. Emit searing light dealing 1 lethal damage per turn in close range. Lasts Azoth turns.\n**3rd Distillation (Solar Flare):** Spend 2 Pyros. Release a burst of solar-intensity light in a radius. Deals 2 aggravated damage to all in range and may ignite flammable materials."
+    }
+  ],
+  "_mortal_generation_comment": "mortal_generation: drives Generate Baseline for mortal characters. Edit to change creation spreads.",
+  "mortal_generation": {
+    "attribute_spreads": [
+      5,
+      4,
+      3
+    ],
+    "skill_spreads": [
+      11,
+      7,
+      4
+    ],
+    "size": 5
+  },
+  "_rank_stats_comment": "rank_stats: per-rank stat ranges for Ephemeral Entity generation. Keys are rank numbers as strings.",
+  "rank_stats": {
+    "1": {
+      "power": [
+        1,
+        3
+      ],
+      "finesse": [
+        1,
+        3
+      ],
+      "resistance": [
+        1,
+        3
+      ],
+      "essence": [
+        10,
+        15
+      ],
+      "integrity": [
+        5,
+        6
+      ],
+      "size": [
+        3,
+        4
+      ],
+      "numina_count": 1,
+      "manifestation_count": 1
+    },
+    "2": {
+      "power": [
+        3,
+        5
+      ],
+      "finesse": [
+        3,
+        5
+      ],
+      "resistance": [
+        2,
+        4
+      ],
+      "essence": [
+        20,
+        25
+      ],
+      "integrity": [
+        5,
+        7
+      ],
+      "size": [
+        4,
+        5
+      ],
+      "numina_count": 2,
+      "manifestation_count": 1
+    },
+    "3": {
+      "power": [
+        5,
+        7
+      ],
+      "finesse": [
+        4,
+        7
+      ],
+      "resistance": [
+        3,
+        5
+      ],
+      "essence": [
+        30,
+        40
+      ],
+      "integrity": [
+        6,
+        8
+      ],
+      "size": [
+        5,
+        6
+      ],
+      "numina_count": 3,
+      "manifestation_count": 1
+    },
+    "4": {
+      "power": [
+        7,
+        10
+      ],
+      "finesse": [
+        6,
+        9
+      ],
+      "resistance": [
+        5,
+        7
+      ],
+      "essence": [
+        50,
+        65
+      ],
+      "integrity": [
+        7,
+        9
+      ],
+      "size": [
+        6,
+        8
+      ],
+      "numina_count": 4,
+      "manifestation_count": 2
+    },
+    "5": {
+      "power": [
+        10,
+        14
+      ],
+      "finesse": [
+        9,
+        13
+      ],
+      "resistance": [
+        7,
+        10
+      ],
+      "essence": [
+        80,
+        100
+      ],
+      "integrity": [
+        8,
+        10
+      ],
+      "size": [
+        7,
+        10
+      ],
+      "numina_count": 5,
+      "manifestation_count": 2
+    }
+  },
+  "_entity_types_comment": "entity_types: used by Entity generation. Each entry has a label, names list, and optional size_override [min,max].",
+  "entity_types": {
+    "spirit": {
+      "label": "Spirit",
+      "names": [
+        "Ember-That-Gnaws",
+        "Shadow Weave",
+        "The Hollow Tide",
+        "Rust-and-Ruin",
+        "Pale Hunger",
+        "The Gnashing Dark",
+        "Iron Throat",
+        "Carrion Wind",
+        "Spite-in-the-Walls",
+        "The Crawling Hush",
+        "Ashfall",
+        "Flicker",
+        "The Patient Rot",
+        "Grief Made Manifest",
+        "Warden of the Threshold"
+      ]
+    },
+    "ghost": {
+      "label": "Ghost",
+      "size_override": [
+        4,
+        5
+      ],
+      "names": [
+        "Margaret Fenn",
+        "Thomas Crail",
+        "Eliza Voss",
+        "Nathaniel Rue",
+        "Clara Hatch",
+        "Silas Mourn",
+        "Dora Ashby",
+        "Edmund Pale",
+        "Violet Thresh",
+        "Constance Grey",
+        "Lottie Vane",
+        "Aldous Sere"
+      ]
+    },
+    "angel": {
+      "label": "Angel",
+      "names": [
+        "Urael",
+        "Sanctifier",
+        "The Burning Word",
+        "Throne of White",
+        "Cherub-in-Chains",
+        "Aethon",
+        "The Relentless",
+        "Divine Instrument",
+        "The Patient Sword",
+        "Witness-of-Sins"
+      ]
+    },
+    "demon": {
+      "label": "Demon",
+      "names": [
+        "Ravager",
+        "The Crawling Doubt",
+        "Ashael",
+        "The Wound",
+        "Mireborn",
+        "Festering Will",
+        "The Hollow Hunger",
+        "Despair-that-Speaks",
+        "Carnage",
+        "The Gnawing Dark",
+        "Ashfel"
+      ]
+    },
+    "goetia": {
+      "label": "Goetia",
+      "names": [
+        "The Cruelty of Others",
+        "Regret-Made-Flesh",
+        "The Obsession",
+        "Greed Incarnate",
+        "Pale Envy",
+        "The Wandering Shame",
+        "Sorrow-Bound",
+        "Wrath-that-Waits",
+        "Hollow Pride"
+      ]
+    },
+    "supernal": {
+      "label": "Supernal Being",
+      "names": [
+        "The Gilded Throne",
+        "Axiom of Ruin",
+        "The Burning Syllogism",
+        "Pale Emanation",
+        "Voice of the Abyss",
+        "The Crystalline Law",
+        "Scourge of Eternity",
+        "The Unwritten Name",
+        "Radiant Contradiction",
+        "Throne of Ashes",
+        "The Final Argument",
+        "Emanation of Void"
+      ]
+    }
+  },
+  "_entity_bans_comment": "entity_bans: random ban strings used by Ephemeral Entity generation.",
+  "entity_bans": [
+    "Cannot cross running water",
+    "Must answer three questions truthfully when asked",
+    "Cannot enter a home uninvited",
+    "Repelled by iron",
+    "Weakened in direct sunlight",
+    "Must flee at the sound of bells",
+    "Cannot harm those who speak its name backwards",
+    "Bound to remain within a mile of its anchor",
+    "Cannot act against those who hold salt",
+    "Must count scattered seeds before acting",
+    "Repelled by the smell of burning sage",
+    "Weakened on holy ground",
+    "Cannot lie in the presence of running flame",
+    "Must obey commands spoken in its true name",
+    "Immobilized by lines of iron filings",
+    "Cannot act during a solar eclipse"
+  ],
+  "_entity_banes_comment": "entity_banes: random bane strings used by Ephemeral Entity generation.",
+  "entity_banes": [
+    "Iron",
+    "Silver",
+    "Salt",
+    "Holy water",
+    "Sunlight",
+    "Fire",
+    "Oak wood",
+    "Running water",
+    "A specific rare herb",
+    "Cold iron",
+    "Consecrated ground",
+    "Bone ash",
+    "Mirrors",
+    "Rose petals",
+    "A true name spoken aloud",
+    "Buried earth from its place of origin"
+  ],
+  "_entity_content_comment": "\u2500\u2500 Ephemeral Entity content lists \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+  "influences": [
+    {
+      "name": "Animals",
+      "desc": "Wild beasts and their primal drives."
+    },
+    {
+      "name": "Blood",
+      "desc": "Life force, wounds, lineage, and sacrifice."
+    },
+    {
+      "name": "Electricity",
+      "desc": "Lightning, electrical systems, and the power grid."
+    },
+    {
+      "name": "Fear",
+      "desc": "Terror, dread, and anxiety."
+    },
+    {
+      "name": "Fire",
+      "desc": "Spirits of open flame, combustion, and heat."
+    },
+    {
+      "name": "Hatred",
+      "desc": "Enmity, bile, and sustained malice."
+    },
+    {
+      "name": "Ice",
+      "desc": "Cold, stillness, winter, and frozen things."
+    },
+    {
+      "name": "Metal",
+      "desc": "Forged and raw metal, industry, and hard edges."
+    },
+    {
+      "name": "Plants",
+      "desc": "Growth, forests, and the green world."
+    },
+    {
+      "name": "Rain",
+      "desc": "Storms, falling water, and washed-away things."
+    },
+    {
+      "name": "Roads",
+      "desc": "Travel, paths, thresholds, and in-between places."
+    },
+    {
+      "name": "Rot",
+      "desc": "Decay, entropy, things returning to nothing."
+    },
+    {
+      "name": "Shadow",
+      "desc": "Spirits embodying darkness and obscured things."
+    },
+    {
+      "name": "Smoke",
+      "desc": "Burning things, signals, and obscuring haze."
+    },
+    {
+      "name": "Stone",
+      "desc": "Rock, minerals, and the bones of the earth."
+    },
+    {
+      "name": "Vermin",
+      "desc": "Rats, insects, and creeping things."
+    },
+    {
+      "name": "Violence",
+      "desc": "Conflict, pain, and destruction."
+    },
+    {
+      "name": "Water",
+      "desc": "Rivers, rain, floods, and the depths of still water."
+    },
+    {
+      "name": "Wind",
+      "desc": "Breezes, storms, and the movement of air."
+    }
+  ],
+  "numina": [
+    {
+      "name": "Aggressive Meme",
+      "desc": "The entity may communicate an emotion or urge directly into a target\u2019s mind. Spend 1 Essence; target rolls Resolve + Composure vs. the entity\u2019s Power + Finesse. On failure, the target acts on the implanted urge for one scene."
+    },
+    {
+      "name": "Animal Possession",
+      "desc": "The entity may ride an animal, using its body. Spend 1 Essence; roll Power + Finesse vs. the animal\u2019s Resistance. On success, the entity controls the animal for a scene. The entity\u2019s own body remains inert."
+    },
+    {
+      "name": "Blast",
+      "desc": "The entity channels its nature as a ranged attack. Spend 1 Essence; roll Power + Finesse vs. target\u2019s Defense. Deals lethal damage equal to the entity\u2019s Power rating."
+    },
+    {
+      "name": "Claim",
+      "desc": "The entity can slip into and puppeteer a human body. Extended action: spend 1 Essence per roll, roll Power + Finesse vs. Resistance + Composure. Each roll represents one hour of effort. Victim is helpless but aware."
+    },
+    {
+      "name": "Drain",
+      "desc": "The entity siphons Essence from another spirit or supernatural being within arm\u2019s reach. Roll Power + Finesse vs. target\u2019s Resistance. On success, drain 1 Essence per success; target loses that amount."
+    },
+    {
+      "name": "Hallucination",
+      "desc": "The entity crafts vivid false sensory input. Spend 1 Essence; roll Power + Finesse. The target experiences hallucinations of the entity\u2019s choice for one scene. Seeing through requires Wits + Composure roll."
+    },
+    {
+      "name": "Implant Mission",
+      "desc": "The entity seeds a subconscious directive in a sleeper. Spend 1 Essence; extended action vs. Resolve + Composure. The directive plays out within one day; target believes the impulse is their own."
+    },
+    {
+      "name": "Innocuous",
+      "desc": "The entity projects forgettable ordinariness. For the scene, mortals who aren\u2019t actively hunting the entity simply fail to notice or remember it unless it takes dramatic action."
+    },
+    {
+      "name": "Materialize",
+      "desc": "The entity takes physical form in the material world for one scene. Spend 2 Essence. While material it can be touched, wounded, and perceived normally. It returns to ephemeral state if its Corpus reaches 0."
+    },
+    {
+      "name": "Mortal Mask",
+      "desc": "The entity adopts a convincing human appearance. Spend 1 Essence. Mortals perceive a human; supernatural beings roll Wits + Occult vs. Power + Finesse to see through the mask."
+    },
+    {
+      "name": "Omen Gazing",
+      "desc": "The entity reads the near future in coincidences and omens. Spend 1 Essence; roll Power + Finesse. Success grants a one-sentence glimpse of likely events within the next 24 hours."
+    },
+    {
+      "name": "Possession",
+      "desc": "The entity rides a human body. Spend 2 Essence; roll Power + Finesse in a contested action vs. Resolve + Composure each turn. Victim is pushed back but aware. Exorcism requires an extended Resolve + Composure action."
+    },
+    {
+      "name": "Revelation",
+      "desc": "The entity forces a mortal to confront a suppressed truth. Spend 1 Essence; roll Power + Finesse vs. Composure + Resolve. On success, the target gains the Shaken Condition as a memory or secret surfaces."
+    },
+    {
+      "name": "Seek",
+      "desc": "The entity can sense the location of its anchors or close resonants within a number of miles equal to its Rank. Instant action, no roll required."
+    },
+    {
+      "name": "Sign",
+      "desc": "The entity creates a subtle but unmistakable omen. Spend 1 Essence. Anyone who witnesses the sign and rolls Wits + Occult understands its general meaning. Costs 1 Willpower to resist acting on it."
+    },
+    {
+      "name": "Speed",
+      "desc": "The entity moves with supernatural swiftness. The entity\u2019s Speed doubles for the scene. No Essence cost; usable once per scene."
+    },
+    {
+      "name": "Terrify",
+      "desc": "The entity projects pure existential dread. Spend 1 Essence; roll Power + Finesse vs. Resolve + Composure. On success, the target flees or freezes (player\u2019s choice) and gains the Frightened Tilt."
+    },
+    {
+      "name": "Wilds Sense",
+      "desc": "The entity perceives all living things and their emotional states within a radius equal to its Rank in miles. Instant action; no roll required. Lasts for one scene."
+    }
+  ],
+  "manifestations": [
+    {
+      "name": "Assumes Form",
+      "desc": "The entity can reshape its ephemeral appearance to mimic any person, animal, or object it has directly observed. The form is visually convincing but a Wits + Occult roll detects ephemeral inconsistencies."
+    },
+    {
+      "name": "Discorporate",
+      "desc": "When the entity\u2019s Corpus is reduced to 0, it may spend 1 Willpower to dissolve into ephemera rather than being destroyed. It reforms at its anchor after a number of days equal to its Rank."
+    },
+    {
+      "name": "Embed",
+      "desc": "The entity can inhabit an object, using it as a secondary anchor. Spend 1 Essence; the object becomes saturated with the entity\u2019s resonance. While embedded the entity is invisible but can use numina through the object."
+    },
+    {
+      "name": "Fetter",
+      "desc": "The entity binds itself to a person rather than a place. Spend 1 Essence; roll Power + Finesse vs. target\u2019s Resolve + Composure. On success, the target becomes an anchor; the entity can sense their location at all times."
+    },
+    {
+      "name": "Gauntlet Breach",
+      "desc": "The entity can force a temporary crossing through the Gauntlet without requiring a locus. Spend 2 Essence; roll Power + Finesse vs. the local Gauntlet strength. On success the breach lasts one scene."
+    },
+    {
+      "name": "Influence",
+      "desc": "The entity exerts passive environmental influence matching its resonance. Each scene it spends at a location, roll Power + Finesse; successes add to a slowly accumulating atmospheric pressure that shapes events."
+    },
+    {
+      "name": "Materialize",
+      "desc": "The entity takes full physical form. Spend 2 Essence (or 1 for ghosts at their anchor). The entity is fully material for the scene; it can interact with and be harmed by physical means."
+    },
+    {
+      "name": "Numinous Form",
+      "desc": "The entity may make its presence dimly perceptible to all nearby mortals without fully manifesting. Spend 1 Essence; mortals sense an uncanny presence and may roll Wits + Composure to perceive vague impressions of its nature."
+    },
+    {
+      "name": "Reaching",
+      "desc": "The entity can extend its senses and minor numina through the Gauntlet without crossing it. Spend 1 Essence; the entity can observe and use non-physical numina on the other side for a scene."
+    },
+    {
+      "name": "Twilight Form",
+      "desc": "The entity exists simultaneously in the physical world and the Shadow. It can interact with ephemeral and material beings equally, but takes aggravated damage from attacks that can harm either plane."
     }
   ]
 }
