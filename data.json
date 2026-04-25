@@ -4280,21 +4280,6 @@
       "name": "Curse",
       "rating": 1,
       "desc": "**Cost:** 1 Plasm\n**Dice Pool:** Synergy + Intimidation vs. target's Resolve + Composure\nThe sin-eater channels the envious spite of the dead to inflict misfortune on a target. Success imposes a penalty equal to successes on the target's next action. Higher ratings extend duration or allow more severe curses.\n**Keys:** Modify what type of misfortune manifests."
-    },
-    {
-      "name": "Marionette",
-      "rating": 1,
-      "desc": "**Cost:** 1 Plasm\n**Dice Pool:** Synergy + Persuasion vs. target's Resolve + Composure\nThe sin-eater puppets a ghost or temporarily controls a mortal by imbuing them with Underworld energy. Success allows one directed action per success. Higher ratings allow sustained control or affect multiple targets.\n**Keys:** Determine the nature of control and what types of beings can be affected."
-    },
-    {
-      "name": "Oracle",
-      "rating": 1,
-      "desc": "**Cost:** 1 Plasm\n**Action:** Instant\nThe sin-eater reads the echoes of past events or glimpses probable futures through the lens of death. Successes provide information about the subject's past connections to death, or visions of likely outcomes. Higher ratings provide clearer or more detailed visions.\n**Keys:** Shape the nature and focus of visions received."
-    },
-    {
-      "name": "Shroud",
-      "rating": 1,
-      "desc": "**Cost:** 1 Plasm per scene\n**Action:** Instant\nThe sin-eater draws the veil between life and death around themselves or others. Can render the target difficult to perceive by both the living and the dead, or can anchor a ghost more firmly in the physical world. Higher ratings allow greater concealment or ghostly interaction.\n**Keys:** Modify whether the Shroud hides from the living, the dead, or both."
     }
   ],
   "transmutations": [
@@ -4309,14 +4294,6 @@
     {
       "name": "Insight (Kinesics)",
       "desc": "**Transmutation:** Kinesics\n**Persistent:** Your character reads people easily. Gain +1 to Empathy rolls.\n**1st Distillation (Read Intent):** Spend 1 Pyros. Discern a target's current emotional state and immediate intentions. Dice pool: Intelligence + Empathy.\n**2nd Distillation (Open Book):** Spend 1 Pyros. Read a target's surface thoughts and motivations. They cannot lie without your knowing.\n**3rd Distillation (Soul's Mirror):** Spend 2 Pyros. Understand a target completely \u2014 secrets, fears, desires \u2014 for the scene."
-    },
-    {
-      "name": "Metamorphosis (Shapeshifting)",
-      "desc": "**Transmutation:** Metamorphosis\n**Persistent:** Your character's body shifts subtly and unconsciously. Gain +1 to Subterfuge for disguise.\n**1st Distillation (Alter Feature):** Spend 1 Pyros. Change one physical feature (hair, eye colour, skin tone) for one scene.\n**2nd Distillation (Assume Form):** Spend 1 Pyros. Copy the appearance of any humanoid you have observed. Grants +3 to impersonation.\n**3rd Distillation (Flawless Replica):** Spend 2 Pyros. Perfectly duplicate another person's appearance, voice, and mannerisms for a full day."
-    },
-    {
-      "name": "Searing Light (Phosphorum)",
-      "desc": "**Transmutation:** Phosphorum\n**Persistent:** Your character emits faint bioluminescence in darkness.\n**1st Distillation (Flash):** Spend 1 Pyros. Blind all who can see you for one turn. Dice pool: Presence + Athletics vs. target's Defense.\n**2nd Distillation (Burning Radiance):** Spend 1 Pyros. Emit searing light dealing 1 lethal damage per turn in close range. Lasts Azoth turns.\n**3rd Distillation (Solar Flare):** Spend 2 Pyros. Release a burst of solar-intensity light in a radius. Deals 2 aggravated damage to all in range and may ignite flammable materials."
     }
   ],
   "_mortal_generation_comment": "mortal_generation: drives Generate Baseline for mortal characters. Edit to change creation spreads.",
@@ -4633,70 +4610,6 @@
     {
       "name": "Electricity",
       "desc": "Lightning, electrical systems, and the power grid."
-    },
-    {
-      "name": "Fear",
-      "desc": "Terror, dread, and anxiety."
-    },
-    {
-      "name": "Fire",
-      "desc": "Spirits of open flame, combustion, and heat."
-    },
-    {
-      "name": "Hatred",
-      "desc": "Enmity, bile, and sustained malice."
-    },
-    {
-      "name": "Ice",
-      "desc": "Cold, stillness, winter, and frozen things."
-    },
-    {
-      "name": "Metal",
-      "desc": "Forged and raw metal, industry, and hard edges."
-    },
-    {
-      "name": "Plants",
-      "desc": "Growth, forests, and the green world."
-    },
-    {
-      "name": "Rain",
-      "desc": "Storms, falling water, and washed-away things."
-    },
-    {
-      "name": "Roads",
-      "desc": "Travel, paths, thresholds, and in-between places."
-    },
-    {
-      "name": "Rot",
-      "desc": "Decay, entropy, things returning to nothing."
-    },
-    {
-      "name": "Shadow",
-      "desc": "Spirits embodying darkness and obscured things."
-    },
-    {
-      "name": "Smoke",
-      "desc": "Burning things, signals, and obscuring haze."
-    },
-    {
-      "name": "Stone",
-      "desc": "Rock, minerals, and the bones of the earth."
-    },
-    {
-      "name": "Vermin",
-      "desc": "Rats, insects, and creeping things."
-    },
-    {
-      "name": "Violence",
-      "desc": "Conflict, pain, and destruction."
-    },
-    {
-      "name": "Water",
-      "desc": "Rivers, rain, floods, and the depths of still water."
-    },
-    {
-      "name": "Wind",
-      "desc": "Breezes, storms, and the movement of air."
     }
   ],
   "numina": [
@@ -4711,66 +4624,6 @@
     {
       "name": "Blast",
       "desc": "The entity channels its nature as a ranged attack. Spend 1 Essence; roll Power + Finesse vs. target\u2019s Defense. Deals lethal damage equal to the entity\u2019s Power rating."
-    },
-    {
-      "name": "Claim",
-      "desc": "The entity can slip into and puppeteer a human body. Extended action: spend 1 Essence per roll, roll Power + Finesse vs. Resistance + Composure. Each roll represents one hour of effort. Victim is helpless but aware."
-    },
-    {
-      "name": "Drain",
-      "desc": "The entity siphons Essence from another spirit or supernatural being within arm\u2019s reach. Roll Power + Finesse vs. target\u2019s Resistance. On success, drain 1 Essence per success; target loses that amount."
-    },
-    {
-      "name": "Hallucination",
-      "desc": "The entity crafts vivid false sensory input. Spend 1 Essence; roll Power + Finesse. The target experiences hallucinations of the entity\u2019s choice for one scene. Seeing through requires Wits + Composure roll."
-    },
-    {
-      "name": "Implant Mission",
-      "desc": "The entity seeds a subconscious directive in a sleeper. Spend 1 Essence; extended action vs. Resolve + Composure. The directive plays out within one day; target believes the impulse is their own."
-    },
-    {
-      "name": "Innocuous",
-      "desc": "The entity projects forgettable ordinariness. For the scene, mortals who aren\u2019t actively hunting the entity simply fail to notice or remember it unless it takes dramatic action."
-    },
-    {
-      "name": "Materialize",
-      "desc": "The entity takes physical form in the material world for one scene. Spend 2 Essence. While material it can be touched, wounded, and perceived normally. It returns to ephemeral state if its Corpus reaches 0."
-    },
-    {
-      "name": "Mortal Mask",
-      "desc": "The entity adopts a convincing human appearance. Spend 1 Essence. Mortals perceive a human; supernatural beings roll Wits + Occult vs. Power + Finesse to see through the mask."
-    },
-    {
-      "name": "Omen Gazing",
-      "desc": "The entity reads the near future in coincidences and omens. Spend 1 Essence; roll Power + Finesse. Success grants a one-sentence glimpse of likely events within the next 24 hours."
-    },
-    {
-      "name": "Possession",
-      "desc": "The entity rides a human body. Spend 2 Essence; roll Power + Finesse in a contested action vs. Resolve + Composure each turn. Victim is pushed back but aware. Exorcism requires an extended Resolve + Composure action."
-    },
-    {
-      "name": "Revelation",
-      "desc": "The entity forces a mortal to confront a suppressed truth. Spend 1 Essence; roll Power + Finesse vs. Composure + Resolve. On success, the target gains the Shaken Condition as a memory or secret surfaces."
-    },
-    {
-      "name": "Seek",
-      "desc": "The entity can sense the location of its anchors or close resonants within a number of miles equal to its Rank. Instant action, no roll required."
-    },
-    {
-      "name": "Sign",
-      "desc": "The entity creates a subtle but unmistakable omen. Spend 1 Essence. Anyone who witnesses the sign and rolls Wits + Occult understands its general meaning. Costs 1 Willpower to resist acting on it."
-    },
-    {
-      "name": "Speed",
-      "desc": "The entity moves with supernatural swiftness. The entity\u2019s Speed doubles for the scene. No Essence cost; usable once per scene."
-    },
-    {
-      "name": "Terrify",
-      "desc": "The entity projects pure existential dread. Spend 1 Essence; roll Power + Finesse vs. Resolve + Composure. On success, the target flees or freezes (player\u2019s choice) and gains the Frightened Tilt."
-    },
-    {
-      "name": "Wilds Sense",
-      "desc": "The entity perceives all living things and their emotional states within a radius equal to its Rank in miles. Instant action; no roll required. Lasts for one scene."
     }
   ],
   "manifestations": [
@@ -4785,34 +4638,6 @@
     {
       "name": "Embed",
       "desc": "The entity can inhabit an object, using it as a secondary anchor. Spend 1 Essence; the object becomes saturated with the entity\u2019s resonance. While embedded the entity is invisible but can use numina through the object."
-    },
-    {
-      "name": "Fetter",
-      "desc": "The entity binds itself to a person rather than a place. Spend 1 Essence; roll Power + Finesse vs. target\u2019s Resolve + Composure. On success, the target becomes an anchor; the entity can sense their location at all times."
-    },
-    {
-      "name": "Gauntlet Breach",
-      "desc": "The entity can force a temporary crossing through the Gauntlet without requiring a locus. Spend 2 Essence; roll Power + Finesse vs. the local Gauntlet strength. On success the breach lasts one scene."
-    },
-    {
-      "name": "Influence",
-      "desc": "The entity exerts passive environmental influence matching its resonance. Each scene it spends at a location, roll Power + Finesse; successes add to a slowly accumulating atmospheric pressure that shapes events."
-    },
-    {
-      "name": "Materialize",
-      "desc": "The entity takes full physical form. Spend 2 Essence (or 1 for ghosts at their anchor). The entity is fully material for the scene; it can interact with and be harmed by physical means."
-    },
-    {
-      "name": "Numinous Form",
-      "desc": "The entity may make its presence dimly perceptible to all nearby mortals without fully manifesting. Spend 1 Essence; mortals sense an uncanny presence and may roll Wits + Composure to perceive vague impressions of its nature."
-    },
-    {
-      "name": "Reaching",
-      "desc": "The entity can extend its senses and minor numina through the Gauntlet without crossing it. Spend 1 Essence; the entity can observe and use non-physical numina on the other side for a scene."
-    },
-    {
-      "name": "Twilight Form",
-      "desc": "The entity exists simultaneously in the physical world and the Shadow. It can interact with ephemeral and material beings equally, but takes aggravated damage from attacks that can harm either plane."
     }
   ],
   "_tells_comment": "Wolf-Blooded Tells",
@@ -4828,26 +4653,6 @@
     {
       "name": "Predator's Bearing",
       "desc": "The wolf-blood carries themselves with an unconscious air of danger. Animals become nervous and people feel uneasy around them."
-    },
-    {
-      "name": "Taste for Blood",
-      "desc": "The wolf-blood is drawn to the smell and taste of blood in a way that unsettles others."
-    },
-    {
-      "name": "Marked",
-      "desc": "The wolf-blood bears a visible physical mark \u2014 unusual eyes, faint scarring, or a birthmark \u2014 that others find subtly wrong."
-    },
-    {
-      "name": "Moon-Called",
-      "desc": "The wolf-blood is acutely aware of the moon's phase and feels its influence on their mood and temperament."
-    },
-    {
-      "name": "Pack Sense",
-      "desc": "The wolf-blood has an instinctive awareness of pack members nearby, sensing their general emotional state or direction."
-    },
-    {
-      "name": "Rage Bleed",
-      "desc": "When wolves nearby enter Death Rage, the wolf-blood feels echoes of it \u2014 surges of anger or violent impulse."
     }
   ]
 }
