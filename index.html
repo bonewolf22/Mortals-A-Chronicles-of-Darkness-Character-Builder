@@ -240,6 +240,42 @@
   --info:#1a5fa8;--info-bg:#eef4fb;
   --green:#1a6b3a;--green-bg:#edf7f1;
 }
+/* Beast — deep amber-ochre, predatory warmth from the official sheet.         */
+/* Key accent sampled: #3a2400 (dark amber-brown), earthy ochre wash.          */
+[data-theme="beast"]{
+  --bg:#f2ede4;
+  --surface:#faf7f0;
+  --border:#c0a870;
+  --border-light:#ddd0a8;
+  --text:#1e1600;
+  --muted:#6a4a10;
+  --faint:#a88040;
+  --accent:#3a2400;
+  --accent-hover:#200e00;
+  --chip:#e8d8b0;
+  --tag:#e0cca0;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
+/* Mummy — rich lapis and gold, evoking ancient Egypt from the official sheet. */
+/* Key accent sampled: #2a1e00 (dark gold-black), sandy parchment wash.        */
+[data-theme="mummy"]{
+  --bg:#f4f0e4;
+  --surface:#faf8f0;
+  --border:#c8b060;
+  --border-light:#e0d090;
+  --text:#1e1a00;
+  --muted:#6a5800;
+  --faint:#a89030;
+  --accent:#2a1e00;
+  --accent-hover:#140e00;
+  --chip:#ece0a0;
+  --tag:#e4d890;
+  --danger:#c0392b;--danger-bg:#fdf2f1;
+  --info:#1a5fa8;--info-bg:#eef4fb;
+  --green:#1a6b3a;--green-bg:#edf7f1;
+}
 /* ── End splat themes ─────────────────────────────────────────────────────── */
 
 body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
@@ -437,6 +473,13 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .renown-row{display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid var(--border-light);font-family:sans-serif;font-size:.82rem}
 .renown-row:last-child{border-bottom:none}
 .renown-lbl{flex:1;font-family:sans-serif;font-size:.82rem}
+/* ── pillars-block ───────────────────────────────────────────────────────── */
+/* Each row: label + dot row (permanent dots) + square row (temporary track) */
+.pillars-row{display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid var(--border-light);font-family:sans-serif;font-size:.82rem}
+.pillars-row:last-child{border-bottom:none}
+.pillars-lbl{flex:1;font-family:sans-serif;font-size:.82rem}
+.pillars-dots{display:flex;gap:2px;align-items:center}
+.pillars-squares{display:flex;gap:2px;align-items:center;margin-left:4px}
 /* ── labeled-track ───────────────────────────────────────────────────────── */
 .labeled-track-row{display:flex;align-items:center;gap:7px;padding:3px 0;border-bottom:1px solid var(--border-light);font-family:sans-serif;font-size:.82rem}
 .labeled-track-row:last-child{border-bottom:none}
@@ -891,6 +934,7 @@ body.touch-device .ta-wrap textarea{
   .renown-row{break-inside:avoid}
   .arcana-row{break-inside:avoid}
   .labeled-track-row{break-inside:avoid}
+  .pillars-row{break-inside:avoid}
 
   /* Forms table (werewolf forms): keep the whole table together */
   .forms-wrap{break-inside:avoid}
@@ -1005,6 +1049,8 @@ body.touch-device .ta-wrap textarea{
         <option value="promethean">Promethean</option>
         <option value="geist">Geist</option>
         <option value="entity">Ephemeral Entity</option>
+        <option value="beast">Beast</option>
+        <option value="mummy">Mummy</option>
       </select>
     </div>
     <div class="cfg-preset-row">
@@ -1098,6 +1144,8 @@ body.touch-device .ta-wrap textarea{
             <option value="promethean">Promethean</option>
             <option value="geist">Geist</option>
             <option value="entity">Ephemeral Entity</option>
+            <option value="beast">Beast</option>
+            <option value="mummy">Mummy</option>
           </select>
         </div>
         <div class="cfg-preset-row">
@@ -1844,6 +1892,7 @@ function _baseCharacterFields(attrs,skills){
     else if(t==='labeled-track'){base[sk]=sd.default_value||1;base[sk+'_labels']=Array(sd.max||10).fill('');}
     else if(t==='arcana-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
     else if(t==='renown-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
+    else if(t==='pillars-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,{dots:0,squares:Array(5).fill(false)}]));
     else if(t==='cipher-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,'']));
     else if(t==='covers')base[sk]=[];
     else if(t==='quinpar-wheel'){base[sk+'_quintessence']=0;base[sk+'_paradox']=0;}
@@ -2076,6 +2125,18 @@ function patchState(){
         if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
         (sd.fields||[]).forEach(f=>{if(STATE[sk][f.key]==null)STATE[sk][f.key]=0;});
       }
+      else if(t==='pillars-block'){
+        if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
+        (sd.fields||[]).forEach(f=>{
+          if(!STATE[sk][f.key]||typeof STATE[sk][f.key]!=='object')
+            STATE[sk][f.key]={dots:0,squares:Array(5).fill(false)};
+          else{
+            if(STATE[sk][f.key].dots==null)STATE[sk][f.key].dots=0;
+            if(!Array.isArray(STATE[sk][f.key].squares)||STATE[sk][f.key].squares.length!==5)
+              STATE[sk][f.key].squares=Array(5).fill(false);
+          }
+        });
+      }
       else if(t==='cipher-block'){
         if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
         (sd.fields||[]).forEach(f=>{if(STATE[sk][f.key]==null)STATE[sk][f.key]='';});
@@ -2193,6 +2254,7 @@ function renderSheetZone(zone,containerId){
     else if(t==='labeled-track'){/* rows rendered inline in buildSectionHTML */}
     else if(t==='arcana-block')renderArcanaBlock(sd);
     else if(t==='renown-block')renderRenownBlock(sd);
+    else if(t==='pillars-block')renderPillarsBlock(sd);
     else if(t==='forms-block')renderFormsBlock(sd);
     else if(t==='cipher-block'){/* fields rendered inline in buildSectionHTML */}
     else if(t==='covers')renderCovers(sd.state_key||sd.key,`${sd.key}-list`);
@@ -2441,6 +2503,22 @@ function buildSectionHTML(sd){
         <div class="dot-row" id="renown-dots-${sd.key}-${f.key}"></div>
       </div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+      <div class="sec" style="margin-top:12px">${lbl}</div>
+      <div class="sec-collapsible-body">${rows}</div>
+    </div>`;
+  }
+
+  if(t==='pillars-block'){
+    // Five named rows, each with 5 permanent dots + 5 temporary squares.
+    // Dots track permanent Pillar rating (0–5). Squares track temporary spent points.
+    const sk=sd.state_key||sd.key;
+    const rows=(sd.fields||[]).map(f=>`
+      <div class="pillars-row">
+        <span class="pillars-lbl">${escH(f.label)}</span>
+        <div class="pillars-dots" id="pillars-dots-${sd.key}-${f.key}"></div>
+        <div class="pillars-squares" id="pillars-squares-${sd.key}-${f.key}"></div>
+      </div>`).join('');
+    return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body">${rows}</div>
     </div>`;
@@ -3382,6 +3460,50 @@ function setRenown(sk,rkey,val){
   SECTION_DEFS.filter(s=>s.type==='renown-block'&&(s.state_key||s.key)===sk)
     .forEach(s=>renderRenownBlock(s));
 }
+
+// ── Pillars block (Mummy: the Curse) ─────────────────────────────────────────
+// Each Pillar has 5 permanent dots (rating) + 5 temporary squares (spent).
+// State: STATE[sk] = { ab: { dots: 0, squares: [false×5] }, ba: {...}, ... }
+function renderPillarsBlock(sd){
+  const sk=sd.state_key||sd.key;
+  if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
+  (sd.fields||[]).forEach(f=>{
+    if(!STATE[sk][f.key]||typeof STATE[sk][f.key]!=='object')
+      STATE[sk][f.key]={dots:0,squares:Array(5).fill(false)};
+    const pf=STATE[sk][f.key];
+    const rating=pf.dots||0;
+    const squares=Array.isArray(pf.squares)?pf.squares:Array(5).fill(false);
+    const filled=squares.filter(Boolean).length;
+    // Dots (permanent rating 0–5)
+    const dotsEl=document.getElementById(`pillars-dots-${sd.key}-${f.key}`);
+    if(dotsEl)dotsEl.innerHTML=Array.from({length:5},(_,i)=>i+1).map(d=>
+      `<span class="dot${rating>=d?' filled':''}" onclick="setPillarDot('${sk}','${f.key}',${d})"></span>`).join('');
+    // Squares (temporary track 0–5)
+    const sqsEl=document.getElementById(`pillars-squares-${sd.key}-${f.key}`);
+    if(sqsEl)sqsEl.innerHTML=Array.from({length:5},(_,i)=>
+      `<span class="tsquare${i<filled?' on':''}" onclick="togglePillarSquare('${sk}','${f.key}',${i})"></span>`).join('');
+  });
+}
+function setPillarDot(sk,fkey,val){
+  if(!STATE[sk])STATE[sk]={};
+  if(!STATE[sk][fkey])STATE[sk][fkey]={dots:0,squares:Array(5).fill(false)};
+  const cur=STATE[sk][fkey].dots||0;
+  STATE[sk][fkey].dots=Math.max(0,val===cur?val-1:val);
+  SECTION_DEFS.filter(s=>s.type==='pillars-block'&&(s.state_key||s.key)===sk)
+    .forEach(s=>renderPillarsBlock(s));
+}
+function togglePillarSquare(sk,fkey,idx){
+  if(!STATE[sk])STATE[sk]={};
+  if(!STATE[sk][fkey])STATE[sk][fkey]={dots:0,squares:Array(5).fill(false)};
+  const squares=STATE[sk][fkey].squares;
+  if(!Array.isArray(squares)||squares.length!==5)STATE[sk][fkey].squares=Array(5).fill(false);
+  const filled=STATE[sk][fkey].squares.filter(Boolean).length;
+  if(idx===filled-1)STATE[sk][fkey].squares=STATE[sk][fkey].squares.map((_,i)=>i<filled-1);
+  else STATE[sk][fkey].squares=STATE[sk][fkey].squares.map((_,i)=>i<=idx);
+  SECTION_DEFS.filter(s=>s.type==='pillars-block'&&(s.state_key||s.key)===sk)
+    .forEach(s=>renderPillarsBlock(s));
+}
+// ── End Pillars block ─────────────────────────────────────────────────────────
 
 function renderFormsBlock(sd){
   const dbKey=(sd&&sd.db_key)||'werewolf_forms';
