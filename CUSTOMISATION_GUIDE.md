@@ -31,9 +31,11 @@ Everything in Mortals+ that can be customised lives in one file: **`data.json`**
 
 The app ships with a starter library of merits, weapons, tilts, and splat abilities. The starter library is intentionally small — it exists to show the format, not to be comprehensive. Add your own entries freely.
 
+Content arrays are grouped by splat in `data.json`. Find the relevant splat section using the `_comment` markers (e.g. `── Vampire: the Requiem ──`) to locate the right array quickly. Placeholder entries in empty arrays document the correct field format — replace them with real entries.
+
 ### Merits
 
-Find the `"merits"` list in `data.json`. Each entry:
+Find the `"merits"` list under the `── Mortal ──` section. Each entry:
 
 ```json
 {
@@ -135,7 +137,7 @@ Descriptions should include enough mechanical detail that a player can use the a
 
 ### Named ability lists (name + desc)
 
-The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `bestowment`, `numina`, `manifestations`, `tells`, `yantras`, `magical_tools`, `dread_powers`, `atavisms`, `nightmares`.
+The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `numina`, `manifestations`, `tells`, `yantras`, `magical_tools`, `dread_powers`, `atavisms`, `nightmares`.
 
 ```json
 {
@@ -354,33 +356,27 @@ Each splat can have its own beats currency. Add a new entry to `section_definiti
 }
 ```
 
-Then add `"arcane-beats-xp": false` to every existing preset, and `true` in the Mage preset. No code changes required.
+Then add `"arcane-beats-xp": true` to the Mage preset. No other preset changes are required — omitting a key from a preset is equivalent to setting it `false` for sections whose `default` is `false`. No code changes required.
 
 ---
 
 ## 9. Creating a new preset
 
-Presets replace `sectionConfig` entirely when applied. **Every section key must be listed** — missing keys do not automatically fall back to their `default` value when a preset is applied.
+Presets replace `sectionConfig` entirely when applied. The rules for what to include:
 
-The easiest approach is to copy the Mortal preset as a starting point and modify it. List every section key with `true` or `false`.
+- **Must be explicitly listed:** Any section whose `default` is `true`. Currently these are: `mortal-header-fields`, `beats-xp`, `attributes`, `skills`, `other-traits`, `integrity`, `tilts`, `conditions`, `aspirations`, `merits`, `weapons`, `armor`, `equipment`, `notes`. If you want to hide any of these, set them to `false`; if you want to show them, set them to `true`.
+- **Only need to be listed if `true`:** All other sections (splat-specific sections) default to `false` and can simply be omitted from the preset unless you want them enabled.
 
-Each preset must also have a `"category"` field. This controls which group the preset appears under in the Sheet Configuration dropdown. Current categories are `"Main Splats"`, `"Half-Splats"`, and `"Ephemeral Entities"`. You can introduce a new category simply by using a new string — no code changes needed.
+The easiest approach is to copy an existing preset as a starting point and modify it.
+
+Each preset must also have a `"category"` field. This controls which group the preset appears under in the Sheet Configuration dropdown. Current categories are `"Main Splats"`, `"Half-Splats"`, `"Ephemeral Entities"`, and `"Other"`. You can introduce a new category simply by using a new string — no code changes needed.
 
 ```json
 {
-  "name": "Geist",
+  "name": "My New Splat",
   "category": "Main Splats",
   "config": {
-    "beats-xp": true,
-    ...
-  }
-}
-```
-
-```json
-{
-  "name": "Geist",
-  "config": {
+    "mortal-header-fields": false,
     "beats-xp": true,
     "attributes": true,
     "skills": true,
@@ -394,27 +390,14 @@ Each preset must also have a `"category"` field. This controls which group the p
     "armor": true,
     "equipment": true,
     "notes": true,
-    "mortal-header-fields": false,
-    "geist-header-fields": true,
-    "synergy": true,
-    "plasm": true,
-    "keys": true,
-    "haunts": true,
-    "remembrance-traits": true,
-    "entity-header": false,
-    "entity-attributes": false,
-    "entity-traits": false,
-    "numina": false,
-    "manifestations": false,
-    "influences": false,
-    "entity-ban": false,
-    "entity-bane": false,
-    "anchors": false
+    "my-splat-header-fields": true,
+    "my-splat-power-stat": true,
+    "my-splat-morality": true
   }
 }
 ```
 
-> **Tip:** After adding a new section to `section_definitions`, you must add it to every existing preset or the app will silently ignore it when a preset is applied.
+> **Tip:** Preset order in the dropdown mirrors the order of presets in the `sheet_presets` array. Maintain the canonical order: Mortal → Main Splats A–Z → Half-Splats A–Z → Ephemeral Entities → Other.
 
 ---
 
@@ -426,25 +409,25 @@ A new splat is a combination of new content lists, new section definitions, and 
 
 #### Step 1 — Add content lists
 
-Add any new ability lists to `data.json`. Rated lists use `{ name, rating, desc }`. Named lists use `{ name, desc }`.
+Add any new ability lists to `data.json` under the appropriate splat comment block. Rated lists use `{ name, rating, desc }`. Named lists use `{ name, desc }`. Add at least one placeholder entry so the field format is documented.
 
 #### Step 2 — Add section definitions
 
-Use existing types where possible. Set `group` to your splat's name and `config_category` to `"Main Splats"`. See the [Section definition reference](#11-section-definition-reference) for all available fields and types.
+Add entries to `section_definitions` under the correct splat comment marker. Use existing types where possible. Set `group` to your splat's name and `config_category` to `"Main Splats"`. See the [Section definition reference](#11-section-definition-reference) for all available fields and types.
 
-#### Step 3 — Update ALL existing presets
+Place the new sections in alphabetical splat order relative to existing splats. The order of entries in `section_definitions` controls config panel display order.
 
-Add the new section keys to **every existing preset** set to `false`. This step is mandatory — skipping it causes silent failures when presets are applied.
+#### Step 3 — Add the new preset
 
-#### Step 4 — Add the new preset
+See [Creating a new preset](#9-creating-a-new-preset) above. Set `"category": "Main Splats"`. Enable the mortal core sections you want, set `integrity: false` if your splat uses a different morality track, and enable all your new splat sections.
 
-See [Creating a new preset](#9-creating-a-new-preset) above. List every section key. Set `"category": "Main Splats"`.
+Place the preset in alphabetical order within `sheet_presets`.
 
-#### Step 5 — Add theme and selector options
+#### Step 4 — Add theme and selector options
 
 Add a CSS theme block and `<option>` entries in both theme `<select>` elements in `index.html` (desktop sidebar and drawer). See the existing theme blocks for the pattern. Be careful not to accidentally consume the adjacent `<select>`'s opening tag when editing — this has caused bugs before.
 
-#### Step 6 — Done
+#### Step 5 — Done
 
 No further code changes required for standard section types.
 
@@ -477,15 +460,11 @@ This renders a linked checkbox under both the Vampire and Ghoul config panel gro
 
 Use namespaced state keys for identity fields to avoid collisions with the parent splat (e.g. `wb_tribe` not `ww_tribe`).
 
-#### Step 3 — Update ALL existing presets
-
-Same as full splats. Add every new section key set to `false` in all existing presets.
-
-#### Step 4 — Add the new preset
+#### Step 3 — Add the new preset
 
 Same as full splats. Set `"category": "Half-Splats"`. Enable the mortal core sections, the half-splat-specific sections, and any shared sections from the parent splat.
 
-#### Step 5 — Done
+#### Step 4 — Done
 
 No theme required — half-splats use the Neutral theme by default. No code changes required for standard section types.
 
@@ -499,15 +478,15 @@ No theme required — half-splats use the Neutral theme by default. No code chan
 |---|---|---|
 | `key` | yes | Unique identifier. Used in `sectionConfig` and as DOM id prefix (`secblock-{key}`). Never change after release. |
 | `label` | yes | Display name shown in config panel and on sheet. |
-| `group` | yes | Config panel group. Currently: `Mortal`, `Hunter`, `Mage`, `Mage (Ascension)`, `Werewolf`, `Vampire`, `Changeling`, `Demon`, `Deviant`, `Promethean`, `Geist`, `Beast`, `Mummy`, `Ephemeral Entity`, `Ghoul`, `Wolf-Blooded`, `Proximi`, `Horror`. |
-| `config_category` | yes | Config panel category (parent of group). Currently: `Main Splats`, `Half-Splats`, `Ephemeral Entities`, `Other`. New categories can be created by using a new string. Category order in the panel follows the order sections first appear in `data.json`. |
+| `group` | yes | Config panel group. Currently: `Mortal`, `Beast`, `Changeling`, `Demon`, `Deviant`, `Geist`, `Hunter`, `Mage`, `Mage (Ascension)`, `Mummy`, `Promethean`, `Vampire`, `Werewolf`, `Ephemeral Entity`, `Ghoul`, `Wolf-Blooded`, `Proximi`, `Horror`. |
+| `config_category` | yes | Config panel category (parent of group). Currently: `Main Splats`, `Half-Splats`, `Ephemeral Entities`, `Other`. New categories can be created by using a new string. Category order in the panel follows the order sections first appear in `section_definitions`. |
 | `also_groups` | no | Array of additional group names. Renders a linked checkbox in each listed group without duplicating the section. Used for sections shared across splats (e.g. Disciplines in both Vampire and Ghoul). |
 | `zone` | yes | `header`, `beats`, `full-width-top`, `left-column`, `right-column`, `full-width-bottom` |
 | `order` | yes | Default sort position within the zone. Gaps are fine (10, 20, 30). Sections from different splats can share order values. |
 | `type` | yes | Section type — see table below. |
 | `default` | yes | `true` = visible on new sheets. `false` = hidden until toggled. |
 | `state_key` | no | STATE field name. Defaults to `key`. Use when the same state key is shared across sections. |
-| `fields` | header-fields, arcana-block, renown-block, cipher-block | Array of `{ key, label }` entries defining the individual fields. |
+| `fields` | header-fields, arcana-block, renown-block, cipher-block, pillars-block | Array of `{ key, label }` entries defining the individual fields. |
 | `max` | dot-track, dot-square-track, labeled-track, resource-track | Number of dots or squares. Default: 10 for dot tracks, 20 for resource-track. |
 | `default_value` | dot-track, dot-square-track, labeled-track | Starting value for new characters. Default: `1`. Set to `7` for morality stats. Do not set on power stats — they start at 1. |
 | `max_rating` | rated-list | Maximum dot rating on cards. Default: 5. |
@@ -575,7 +554,11 @@ No theme required — half-splats use the Neutral theme by default. No code chan
 
 **Set `"print_empty": true` on all dot-track, dot-square-track, and labeled-track sections.** This makes dots and squares print empty for pencil-and-paper use at the table. All existing tracks already have this flag.
 
-**Add new sections to every preset.** When you add a section to `section_definitions`, add it to every preset in `sheet_presets` (set to `false` in most, `true` where appropriate). Missing keys cause silent failures when presets are applied.
+**Only `default: true` sections need to appear in presets.** Sections with `"default": false` can simply be omitted from a preset — omitting them is equivalent to setting them `false`. Only explicitly list `false` when overriding a `default: true` section.
+
+**Config panel and preset dropdown order follow file order.** The order groups appear in the config panel mirrors the order their sections first appear in `section_definitions`. Preset dropdown order mirrors `sheet_presets` array order. Maintain the canonical order when adding new sections: Mortal → Main Splats A–Z → Half-Splats A–Z → Ephemeral Entities → Other.
+
+**`_comment` markers are for humans only.** The `_comment` objects interspersed in `section_definitions` (e.g. `{"_comment": "── Beast: the Primordial ──"}`) are filtered out by the app at load time and have no effect on behaviour. They exist purely as navigational markers in the file.
 
 **Use `also_groups` for shared sections.** If a half-splat needs a section that already belongs to another splat, add the half-splat's group name to `also_groups` on the existing section definition. Do not duplicate the section definition.
 
