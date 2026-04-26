@@ -2857,7 +2857,7 @@ function buildGenericRatedHTML(sd,hidden){
     <div class="add-row">
       <input id="${sId}" placeholder="Search or type…" oninput="filterSelect('${sId}','${dId}',${dbRef})">
       <select id="${dId}"><option disabled selected value="">— pick —</option></select>
-      <button onclick="addGenericRated('${sk}','${sId}','${dId}','${listId}',${max},${dbRef})">Add</button>
+      <button onclick="addGenericRated('${sk}','${sId}','${dId}','${listId}',${max},${dbRef},'${sd.key}')">Add</button>
     </div>
     <div class="hint">Click dots to set rating (1–${max}).</div>
     </div></div>`;
@@ -3728,13 +3728,13 @@ function setGenericRatedRating(sk,i,val,sdKey){
   renderGenericRatedList(SECTION_MAP[sdKey]||{key:sdKey,state_key:sk,max_rating:5});
 }
 function removeGenericRated(sk,i,sdKey){STATE[sk].splice(i,1);renderGenericRatedList(SECTION_MAP[sdKey]||{key:sdKey,state_key:sk,max_rating:5});}
-function addGenericRated(sk,sId,dId,listId,max,dbList){
+function addGenericRated(sk,sId,dId,listId,max,dbList,sdKey){
   const drop=document.getElementById(dId),search=document.getElementById(sId);
   const val=(drop.value&&drop.value!=='')?drop.value:search.value.trim();if(!val)return;
   if(!STATE[sk])STATE[sk]=[];
   const found=Array.isArray(dbList)?dbList.find(m=>m.name===val):null;
   STATE[sk].push({name:val,rating:found?found.rating:1,desc:found?found.desc:''});
-  const sd=SECTION_DEFS.find(s=>s.state_key===sk)||{key:sk,state_key:sk,max_rating:max};
+  const sd=SECTION_MAP[sdKey]||SECTION_DEFS.find(s=>s.state_key===sk)||{key:sk,state_key:sk,max_rating:max};
   renderGenericRatedList(sd);drop.selectedIndex=0;search.value='';
 }
 
