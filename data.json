@@ -5874,35 +5874,8 @@
     }
   ],
   "haunts": [
-    {
-      "name": "Boneyard",
-      "rating": 1,
-      "desc": "**Cost:** 1 Plasm per scene\n**Action:** Instant\nThe sin-eater extends their awareness through the Underworld resonance of an area. Allows perception of ghosts and Underworld phenomena within a radius equal to Synergy in yards. Higher ratings expand range and allow active manipulation of the environment.\n**Keys:** Any \u2014 each Key modifies the Haunt's specific effects and unlocks deeper manifestations."
-    },
-    {
-      "name": "Caul",
-      "rating": 1,
-      "desc": "**Cost:** 1 Plasm\n**Action:** Instant\nThe sin-eater drapes their Geist's essence over themselves like a shroud, enhancing physical capabilities. Grants bonus dice to Physical actions equal to activation successes. Higher ratings allow the Geist to manifest more fully, granting more dramatic physical transformations.\n**Keys:** Each Key shapes the nature of the enhancement."
-    },
-    {
-      "name": "Curse",
-      "rating": 1,
-      "desc": "**Cost:** 1 Plasm\n**Dice Pool:** Synergy + Intimidation vs. target's Resolve + Composure\nThe sin-eater channels the envious spite of the dead to inflict misfortune on a target. Success imposes a penalty equal to successes on the target's next action. Higher ratings extend duration or allow more severe curses.\n**Keys:** Modify what type of misfortune manifests."
-    }
   ],
   "transmutations": [
-    {
-      "name": "Alchemical Skin (Corporeum)",
-      "desc": "**Transmutation:** Corporeum\n**Persistent:** Your character's skin and body are unnaturally resilient. Reduce bashing damage by 1.\n**1st Distillation (Hardened Flesh):** Spend 1 Pyros. Skin becomes stone-hard for one scene. Gain Armor 1/0.\n**2nd Distillation (Iron Form):** Spend 1 Pyros. Gain Armor 2/1 and immunity to environmental extremes for one scene.\n**3rd Distillation (Living Stone):** Spend 2 Pyros. Become immune to bashing damage and reduce lethal by 2 for one scene. Cannot be moved involuntarily."
-    },
-    {
-      "name": "Electrodynamism (Electrokinesis)",
-      "desc": "**Transmutation:** Electrodynamism\n**Persistent:** Your character generates a faint static charge. Electronics within arm's reach occasionally malfunction.\n**1st Distillation (Jolt):** Spend 1 Pyros. Inflict 1 lethal damage on touch. Dice pool: Dexterity + Athletics.\n**2nd Distillation (Arc):** Spend 1 Pyros. Project electricity up to Azoth yards, dealing 1 lethal + successes. Dice pool: Dexterity + Athletics.\n**3rd Distillation (Thunderstrike):** Spend 2 Pyros. Discharge a devastating bolt (Strength + Azoth in lethal damage, area of effect)."
-    },
-    {
-      "name": "Insight (Kinesics)",
-      "desc": "**Transmutation:** Kinesics\n**Persistent:** Your character reads people easily. Gain +1 to Empathy rolls.\n**1st Distillation (Read Intent):** Spend 1 Pyros. Discern a target's current emotional state and immediate intentions. Dice pool: Intelligence + Empathy.\n**2nd Distillation (Open Book):** Spend 1 Pyros. Read a target's surface thoughts and motivations. They cannot lie without your knowing.\n**3rd Distillation (Soul's Mirror):** Spend 2 Pyros. Understand a target completely \u2014 secrets, fears, desires \u2014 for the scene."
-    }
   ],
   "_mortal_generation_comment": "mortal_generation: drives Generate Baseline for mortal characters. Edit to change creation spreads.",
   "mortal_generation": {
@@ -6222,46 +6195,22 @@
   ],
   "numina": [
     {
-      "name": "Aggressive Meme",
-      "desc": "The entity may communicate an emotion or urge directly into a target\u2019s mind. Spend 1 Essence; target rolls Resolve + Composure vs. the entity\u2019s Power + Finesse. On failure, the target acts on the implanted urge for one scene."
+      "name": "Mortal Mask",
+      "desc": "Disguises the Materialized entity as human. Costs 1 Essence and lasts for activation sucesses in hours. Witnesses can see through the disguise with a Wits + Composure - Entity's Finesse roll. Characters able to sense the entity in Twilight do not suffer the penalty."
     },
     {
-      "name": "Animal Possession",
-      "desc": "The entity may ride an animal, using its body. Spend 1 Essence; roll Power + Finesse vs. the animal\u2019s Resistance. On success, the entity controls the animal for a scene. The entity\u2019s own body remains inert."
+      "name": "Innocuous",
+      "desc": "This Numen does not require a roll to activate. Percpetion rolls to notice the entity are penalized by two dice."
     },
     {
       "name": "Blast",
-      "desc": "The entity channels its nature as a ranged attack. Spend 1 Essence; roll Power + Finesse vs. target\u2019s Defense. Deals lethal damage equal to the entity\u2019s Power rating."
+      "desc": "Range is equal to 10 yards per dot of Power. If activation roll succeeds, the Blast wounds a lethal weapon. The entity may pay 2 Essence to increase the weapon damage by one lethal damage up to a maximum of the entity's Rank."
     }
   ],
   "manifestations": [
-    {
-      "name": "Assumes Form",
-      "desc": "The entity can reshape its ephemeral appearance to mimic any person, animal, or object it has directly observed. The form is visually convincing but a Wits + Occult roll detects ephemeral inconsistencies."
-    },
-    {
-      "name": "Discorporate",
-      "desc": "When the entity\u2019s Corpus is reduced to 0, it may spend 1 Willpower to dissolve into ephemera rather than being destroyed. It reforms at its anchor after a number of days equal to its Rank."
-    },
-    {
-      "name": "Embed",
-      "desc": "The entity can inhabit an object, using it as a secondary anchor. Spend 1 Essence; the object becomes saturated with the entity\u2019s resonance. While embedded the entity is invisible but can use numina through the object."
-    }
   ],
   "_tells_comment": "Wolf-Blooded Tells",
   "tells": [
-    {
-      "name": "Heightened Senses",
-      "desc": "The wolf-blood's senses of smell, hearing, or sight are sharper than normal. They may catch scents or sounds others miss."
-    },
-    {
-      "name": "Involuntary Shift",
-      "desc": "Under stress or strong emotion, the wolf-blood undergoes a partial, uncontrolled physical change \u2014 eyes, teeth, or nails shifting briefly."
-    },
-    {
-      "name": "Predator's Bearing",
-      "desc": "The wolf-blood carries themselves with an unconscious air of danger. Animals become nervous and people feel uneasy around them."
-    }
   ],
   "yantras": [
     {
@@ -6316,95 +6265,11 @@
     }
   ],
   "dread_powers": [
-    {
-      "name": "Drain",
-      "desc": "The Horror drains life force from a victim. **Cost:** None. **Dice Pool:** Power + Finesse vs. target's Resolve + Composure. **Effect:** On success, the Horror heals one point of damage and the target loses one point of Willpower."
-    },
-    {
-      "name": "Claws",
-      "desc": "The Horror's natural attacks are devastatingly powerful. **Benefit:** Natural attacks deal lethal damage equal to Potency + 1. These attacks are never unarmed \u2014 they are a feature of the Horror's form."
-    },
-    {
-      "name": "Regeneration",
-      "desc": "The Horror heals with unnatural speed. **Effect:** The Horror heals one point of bashing damage per turn automatically, and one point of lethal damage per minute."
-    },
-    {
-      "name": "Terrible Gaze",
-      "desc": "The Horror's direct gaze induces primal terror. **Cost:** None. **Dice Pool:** Power + Finesse vs. target's Resolve + Composure. **Effect:** Target gains the Afraid Condition on failure."
-    },
-    {
-      "name": "Unnatural Strength",
-      "desc": "The Horror's physical power far exceeds its apparent size. **Benefit:** Add Potency to all Strength-based rolls. This bonus applies to damage, feats of strength, and grapple attempts."
-    },
-    {
-      "name": "Shadow Step",
-      "desc": "The Horror moves between shadows instantaneously. **Cost:** None. **Action:** Reflexive. **Effect:** The Horror may teleport between any two areas of shadow within Potency \u00d7 10 yards."
-    },
-    {
-      "name": "Mind Fracture",
-      "desc": "The Horror invades and disrupts a victim's thoughts. **Cost:** None. **Dice Pool:** Power + Finesse vs. target's Resolve + Composure. **Effect:** On success, target loses Potency dice from all Mental actions for the rest of the scene."
-    },
-    {
-      "name": "Armor",
-      "desc": "The Horror's hide or form provides supernatural protection. **Benefit:** The Horror has armour equal to Potency/2 (round up) against both general and ballistic damage."
-    }
   ],
   "atavisms": [
-    {
-      "name": "Cyclone",
-      "desc": "**Primordial:** Predator\n**Action:** Instant\n**Cost:** 1 Satiety\nThe Beast whips up a fierce and localised gale. The Beast may add her Lair dots as a bonus to any Strength rolls made to knock opponents prone, hurl objects, or force creatures back. Opponents in the area suffer a -1 penalty to ranged attacks."
-    },
-    {
-      "name": "Mimir's Wisdom",
-      "desc": "**Primordial:** Collector\n**Action:** Instant\n**Cost:** 1 Satiety\nThe Beast draws on the collected knowledge of the Dark Mother's children. Ask the Storyteller one question about a person, place, or situation in the scene. She must answer truthfully based on what the Beast's Lair knows."
-    },
-    {
-      "name": "Limb from Limb",
-      "desc": "**Primordial:** Devourer\n**Action:** Instant\n**Cost:** 1 Satiety\nThe Beast's natural weapons tear with supernatural force. Add the Beast's Lair dots as bonus dice to Brawl attacks. On an exceptional success, the target suffers the Arm Wrack or Leg Wrack Tilt."
-    },
-    {
-      "name": "Shadowed Soul",
-      "desc": "**Primordial:** Nemesis\n**Action:** Instant\n**Cost:** None or 1 Satiety\nThe Beast's presence unsettles and disquiets. Spend 1 Satiety to impose the Shaken Condition on a target that fails a Resolve + Composure roll against the Beast's Presence + Intimidation + Lair."
-    }
   ],
   "nightmares": [
-    {
-      "name": "Crusher in the Deep",
-      "desc": "**Feeding:** Sated\n**Dice Pool:** Presence + Intimidation + Lair vs Resolve + Composure\nThe nightmare fills the victim's mind with the crushing dark of the ocean depths, the helpless sensation of something vast coiling around them. Success inflicts the Drowning Condition \u2014 the victim panics in confined or dark spaces."
-    },
-    {
-      "name": "The Stalking Dark",
-      "desc": "**Feeding:** Sated\n**Dice Pool:** Presence + Stealth + Lair vs Wits + Composure\nThe nightmare teaches the victim that they are prey \u2014 that something unseen follows them always. Success inflicts the Hunted Condition: the victim cannot rest, loses one die from all rolls when alone, and wakes screaming from sleep."
-    },
-    {
-      "name": "Faces of Fear",
-      "desc": "**Feeding:** Gorged or Sated\n**Dice Pool:** Manipulation + Empathy + Lair vs Resolve + Composure\nThe Beast's face becomes the victim's deepest dread made flesh. Success inflicts the Phobia Condition keyed to a fear the Storyteller determines is most primal to the target."
-    },
-    {
-      "name": "Swallowed Whole",
-      "desc": "**Feeding:** Sated\n**Dice Pool:** Presence + Survival + Lair vs Composure + Supernatural Tolerance\nThe victim experiences total helplessness \u2014 swallowed, consumed, unable to resist. Success inflicts the Broken Condition. The target loses a point of Integrity or equivalent morality stat."
-    }
   ],
   "utterances": [
-    {
-      "name": "Utterance of Desiccation",
-      "rating": 1,
-      "desc": "**Pillar:** Ab (Heart)\n**Cost:** 1 Sekhem\n**Action:** Instant\n**Dice Pool:** Presence + Occult + Ab\nThe Arisen speaks a word of ending and draws moisture and vitality from a target. Success deals one point of bashing damage per success and inflicts the Weakened Tilt. Creatures of the desert or death are immune."
-    },
-    {
-      "name": "Utterance of Opening the Way",
-      "rating": 1,
-      "desc": "**Pillar:** Ren (Name)\n**Cost:** 1 Sekhem\n**Action:** Instant\n**Dice Pool:** Intelligence + Occult + Ren\nThe Arisen speaks a true name and opens a locked door, sealed passage, or warded threshold. Magical locks require contested roll against the ward's potency. Physical locks open automatically on success."
-    },
-    {
-      "name": "Utterance of Binding",
-      "rating": 2,
-      "desc": "**Pillar:** Sheut (Shadow)\n**Cost:** 2 Sekhem\n**Action:** Instant\n**Dice Pool:** Manipulation + Occult + Sheut vs Resolve + Supernatural Tolerance\nThe Arisen binds a target in place with cords of shadow. Success inflicts the Immobilized Tilt for one scene. Supernatural creatures may attempt to break free each turn with Strength + Stamina vs the original successes."
-    },
-    {
-      "name": "Utterance of Sahu's Fury",
-      "rating": 3,
-      "desc": "**Pillar:** Ka (Vitality)\n**Cost:** 3 Sekhem\n**Action:** Instant\n**Dice Pool:** Strength + Athletics + Ka\nThe Arisen channels the pure vitality of her undying body into a devastating strike. The attack deals lethal damage equal to successes + Ka, bypasses armor, and ignores wound penalties for the rest of the turn."
-    }
   ]
 }
