@@ -117,7 +117,7 @@ Ranged — add `ranges` (short/medium/long in yards) and `clip`:
 
 ### Rated ability lists (name + rating + desc)
 
-All of the following use `{ name, rating, desc }`: `endowments`, `rotes`, `arcana_attainments`, `legacy_attainments`, `gifts`, `rites`, `disciplines`, `devotions`, `vampire_rites`, `variations`, `scars`, `haunts`, `influences`.
+All of the following use `{ name, rating, desc }`: `endowments`, `rotes`, `arcana_attainments`, `legacy_attainments`, `gifts`, `rites`, `disciplines`, `devotions`, `vampire_rites`, `variations`, `scars`, `haunts`, `influences`, `utterances`.
 
 The `blessings` section (Proximi) draws from the `rotes` list — there is no separate `blessings` content list. Add Proximi Blessings to `rotes`.
 
@@ -135,7 +135,7 @@ Descriptions should include enough mechanical detail that a player can use the a
 
 ### Named ability lists (name + desc)
 
-The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `bestowment`, `numina`, `manifestations`, `tells`, `yantras`, `magical_tools`, `dread_powers`.
+The following use `{ name, desc }` only: `contracts`, `pledges`, `praxes`, `tactics`, `demonic_form`, `embeds`, `exploits`, `adaptations`, `transmutations`, `bestowment`, `numina`, `manifestations`, `tells`, `yantras`, `magical_tools`, `dread_powers`, `atavisms`, `nightmares`.
 
 ```json
 {
@@ -499,7 +499,7 @@ No theme required — half-splats use the Neutral theme by default. No code chan
 |---|---|---|
 | `key` | yes | Unique identifier. Used in `sectionConfig` and as DOM id prefix (`secblock-{key}`). Never change after release. |
 | `label` | yes | Display name shown in config panel and on sheet. |
-| `group` | yes | Config panel group. Currently: `Mortal`, `Hunter`, `Mage`, `Mage (Ascension)`, `Werewolf`, `Vampire`, `Changeling`, `Demon`, `Deviant`, `Promethean`, `Geist`, `Ephemeral Entity`, `Ghoul`, `Wolf-Blooded`, `Proximi`, `Horror`. |
+| `group` | yes | Config panel group. Currently: `Mortal`, `Hunter`, `Mage`, `Mage (Ascension)`, `Werewolf`, `Vampire`, `Changeling`, `Demon`, `Deviant`, `Promethean`, `Geist`, `Beast`, `Mummy`, `Ephemeral Entity`, `Ghoul`, `Wolf-Blooded`, `Proximi`, `Horror`. |
 | `config_category` | yes | Config panel category (parent of group). Currently: `Main Splats`, `Half-Splats`, `Ephemeral Entities`, `Other`. New categories can be created by using a new string. Category order in the panel follows the order sections first appear in `data.json`. |
 | `also_groups` | no | Array of additional group names. Renders a linked checkbox in each listed group without duplicating the section. Used for sections shared across splats (e.g. Disciplines in both Vampire and Ghoul). |
 | `zone` | yes | `header`, `beats`, `full-width-top`, `left-column`, `right-column`, `full-width-bottom` |
@@ -537,6 +537,7 @@ No theme required — half-splats use the Neutral theme by default. No code chan
 | `rated-list` | Collapsible cards with name + dot rating (0–max) + description (Merits, Disciplines, Gifts, Influences, etc.). |
 | `arcana-block` | Fixed rated list driven by the section's `fields` array. Used for Mage Arcana and Supernal entity Arcana (both use the same section, key `arcana`). |
 | `renown-block` | Named 5-dot tracks driven by the section's `fields` array. Werewolf only (currently). Fields: Cunning, Glory, Honor, Purity, Wisdom. |
+| `pillars-block` | Named rows each with a permanent dot rating (0–5, rendered as solid circles) stacked above a 5-square temporary expenditure track, plus a text input field per row. Used for Mummy Pillars. Driven by the section's `fields` array. State per field: `{ dots, squares[], note }`. |
 | `forms-block` | Live reference table showing per-form calculated stats. Data-driven from `db_key`. Werewolf only. |
 | `cipher-block` | Visual gear/cross diagram with Embed 1–4, Interlock 1–3, Cipher, and Final Truth fields driven by the section's `fields` array. Demon only. |
 | `covers` | Structured identity cards with name, age, appearance, Cover Rating, notes, and per-cover Merits. Demon only. |

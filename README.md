@@ -17,9 +17,13 @@ Mortals+ is a browser-based character builder and live play aid for Chronicles o
 - Changeling: The Lost
 - Demon: The Descent
 - Deviant: The Renegades
-- Promethean: The Created
+- Promethean: The Created †
 - Geist: The Sin-Eaters
+- Beast: The Primordial †
+- Mummy: The Curse †
 - Ephemeral Entities (Spirits, Ghosts, Angels, Demons, Goetia, Supernal Beings)
+
+† These splats have no default library entries (Atavisms, Nightmares, Transmutations, Utterances, etc.). The sheet structure is complete but the ability dropdowns will be empty until you add entries from the rulebook. See [CUSTOMISATION_GUIDE.md](CUSTOMISATION_GUIDE.md) for the format.
 
 **Half-splats**
 - Ghoul
@@ -63,6 +67,8 @@ Apply a preset from the **Sheet Configuration** panel to enable all sections for
 - **Deviant** — Origin/Clade/Forms header, Stability (dot-square track), Acclimation, Flux, Touchstones, Variations (rated by Magnitude), Scars (rated by Magnitude), Adaptations, Origins
 - **Promethean** — Elpis/Torment/Lineage/Refinement/Role header, Pilgrimage, Azoth, Pyros, Transmutations, Bestowment, Refinement Condition, Fixed Alembics, Milestones, Mastered Roles, Vitriol Beats tracker
 - **Geist** — Geist/Burden/Root/Bloom/Krewe header, Synergy (labeled track with per-level labels), Plasm, Keys, Haunts, Remembrance Traits
+- **Beast** — Legend/Life/Concept/Family/Hunger/Soul header, Lair (10-dot track), Satiety (10-dot track), Satiety Condition, Atavisms (named-list), Nightmares (named-list), Family Ties
+- **Mummy** — Guild/Decree/Burden/Balance/Judge/Meret Name header, Sekhem (dot-square track ×10), Memory (dot-square track ×10), Pillars block (Ab/Ba/Ka/Ren/Sheut — each with permanent dots and temporary squares), Reminisce Beats tracker, Affinities, Touchstones, Utterances (rated-list)
 - **Ephemeral Entity** — Type/Rank/Concept header, Power/Finesse/Resistance attributes (5/10/15-dot display), Corpus track, Willpower, Essence, derived stats, Numina, Manifestations, Influences, Ban, Bane. Ghost variant adds Anchors; Supernal variant adds Arcana
 
 **Half-splats** layer onto the standard mortal sheet and share relevant sections with their parent splat:
