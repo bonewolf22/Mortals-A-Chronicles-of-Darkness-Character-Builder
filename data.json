@@ -1,12 +1,12 @@
 {
   "_file_comment": [
-    "Chronicles of Darkness \u2014 Mortals+ data file.",
+    "Chronicles of Darkness — Mortals+ data file.",
     "This file has three sections: CONFIGURATION, then CONTENT.",
     "CONFIGURATION keys drive the app structure and should be edited carefully.",
     "CONTENT keys are lists of game entries freely added, removed, or replaced.",
     "Use the in-app Data Library import/export to share or update content safely."
   ],
-  "_config_comment": "\u2500\u2500 CONFIGURATION \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+  "_config_comment": "── CONFIGURATION ─────────────────────────────────────────────────────────────",
   "_skills_comment": [
     "skill_definitions: ordered list of all skills available on the sheet.",
     "Each entry: { key, label, category }",
@@ -63,7 +63,7 @@
       "key": "athletics",
       "label": "Athletics",
       "category": "physical",
-      "_note": "athletics key is used in the Defense formula \u2014 renaming the label is safe, but do not change the key"
+      "_note": "athletics key is used in the Defense formula — renaming the label is safe, but do not change the key"
     },
     {
       "key": "brawl",
@@ -148,40 +148,40 @@
     "  label:      display name shown in the Sheet Configuration panel and on the PDF",
     "  group:      config panel group header: Mortal | Hunter | (future splats)",
     "  zone:       where on the sheet this section appears:",
-    "                header            \u2014 character header row",
-    "                beats             \u2014 beats/XP tracker row (between header and full-width-top)",
-    "                full-width-top    \u2014 full-width area below beats, above the two columns",
-    "                left-column       \u2014 left column (skills area)",
-    "                right-column      \u2014 right column (traits/conditions area)",
-    "                full-width-bottom \u2014 full-width area below the two columns",
+    "                header            — character header row",
+    "                beats             — beats/XP tracker row (between header and full-width-top)",
+    "                full-width-top    — full-width area below beats, above the two columns",
+    "                left-column       — left column (skills area)",
+    "                right-column      — right column (traits/conditions area)",
+    "                full-width-bottom — full-width area below the two columns",
     "  order:      sort order within the zone (lower = higher on sheet)",
-    "  type:       rendering type \u2014 see list below",
+    "  type:       rendering type — see list below",
     "  default:    true = visible by default, false = hidden by default",
     "  state_key:  STATE field this section reads/writes (defaults to key if omitted)",
-    "  max_rating: for rated-list \u2014 maximum dot rating (default 5)",
-    "  max:        for dot-track \u2014 number of dots (default 10)",
-    "  beats_key:  for beats-xp \u2014 STATE key for the beats counter (default: 'beats')",
-    "  xp_key:     for beats-xp \u2014 STATE key for the experience counter (default: 'experience')",
+    "  max_rating: for rated-list — maximum dot rating (default 5)",
+    "  max:        for dot-track — number of dots (default 10)",
+    "  beats_key:  for beats-xp — STATE key for the beats counter (default: 'beats')",
+    "  xp_key:     for beats-xp — STATE key for the experience counter (default: 'experience')",
     "",
     "Section types:",
-    "  attributes      \u2014 the 9 core attributes (special renderer)",
-    "  skills          \u2014 the 27 skills with rote/specialty (special renderer)",
-    "  derived-traits  \u2014 health, willpower, defense, initiative, speed (special renderer)",
-    "  dot-track       \u2014 a simple 1\u2013N dot track (e.g. Integrity, Humanity)",
-    "  header-fields   \u2014 text fields in the character header",
-    "  beats-xp        \u2014 a beats counter + XP counter pair (zone: beats)",
-    "  line-list       \u2014 a simple list of text lines (e.g. Aspirations, Touchstones)",
-    "  named-list      \u2014 collapsible cards with name + description (e.g. Tilts, Tactics)",
-    "  rated-list      \u2014 collapsible cards with name + rating + description (e.g. Merits, Endowments)",
-    "  resource-track  \u2014 20 manually-toggled squares in 2 rows of 10 (Mana, Essence, Vitae)",
-    "  arcana-block    \u2014 fixed rated list from the section's fields array (Mage Arcana)",
-    "  renown-block    \u2014 five named 5-dot tracks in a single block (Werewolf Renown)",
-    "  forms-block     \u2014 live reference table showing per-form calculated stats",
-    "  weapons         \u2014 weapon cards with full weapon fields (special renderer)",
-    "  armor           \u2014 armor cards with full armor fields (special renderer)",
-    "  equipment       \u2014 equipment cards with full equipment fields (special renderer)",
-    "  textarea        \u2014 a multi-line text area (e.g. Notes, The Code)",
-    "  dot-square-track \u2014 dot row (max rating) above square row (current value), like Willpower but data-driven (e.g. Clarity)"
+    "  attributes      — the 9 core attributes (special renderer)",
+    "  skills          — the 27 skills with rote/specialty (special renderer)",
+    "  derived-traits  — health, willpower, defense, initiative, speed (special renderer)",
+    "  dot-track       — a simple 1–N dot track (e.g. Integrity, Humanity)",
+    "  header-fields   — text fields in the character header",
+    "  beats-xp        — a beats counter + XP counter pair (zone: beats)",
+    "  line-list       — a simple list of text lines (e.g. Aspirations, Touchstones)",
+    "  named-list      — collapsible cards with name + description (e.g. Tilts, Tactics)",
+    "  rated-list      — collapsible cards with name + rating + description (e.g. Merits, Endowments)",
+    "  resource-track  — 20 manually-toggled squares in 2 rows of 10 (Mana, Essence, Vitae)",
+    "  arcana-block    — fixed rated list from the section's fields array (Mage Arcana)",
+    "  renown-block    — five named 5-dot tracks in a single block (Werewolf Renown)",
+    "  forms-block     — live reference table showing per-form calculated stats",
+    "  weapons         — weapon cards with full weapon fields (special renderer)",
+    "  armor           — armor cards with full armor fields (special renderer)",
+    "  equipment       — equipment cards with full equipment fields (special renderer)",
+    "  textarea        — a multi-line text area (e.g. Notes, The Code)",
+    "  dot-square-track — dot row (max rating) above square row (current value), like Willpower but data-driven (e.g. Clarity)"
   ],
   "section_definitions": [
     {
@@ -365,7 +365,8 @@
       "default": true,
       "max_rating": 5,
       "db_key": "merits",
-      "config_category": "Main Splats"
+      "config_category": "Main Splats",
+      "special_renderer": "merits"
     },
     {
       "key": "endowments",
@@ -708,7 +709,29 @@
       "type": "renown-block",
       "state_key": "renown",
       "default": false,
-      "config_category": "Main Splats"
+      "config_category": "Main Splats",
+      "fields": [
+        {
+          "key": "cunning",
+          "label": "Cunning"
+        },
+        {
+          "key": "glory",
+          "label": "Glory"
+        },
+        {
+          "key": "honor",
+          "label": "Honor"
+        },
+        {
+          "key": "purity",
+          "label": "Purity"
+        },
+        {
+          "key": "wisdom",
+          "label": "Wisdom"
+        }
+      ]
     },
     {
       "key": "flesh-touchstones",
@@ -1190,7 +1213,45 @@
       "type": "cipher-block",
       "state_key": "cipher",
       "default": false,
-      "config_category": "Main Splats"
+      "config_category": "Main Splats",
+      "fields": [
+        {
+          "key": "embed1",
+          "label": "Embed 1"
+        },
+        {
+          "key": "embed2",
+          "label": "Embed 2"
+        },
+        {
+          "key": "embed3",
+          "label": "Embed 3"
+        },
+        {
+          "key": "embed4",
+          "label": "Embed 4"
+        },
+        {
+          "key": "interlock1",
+          "label": "Interlock 1"
+        },
+        {
+          "key": "interlock2",
+          "label": "Interlock 2"
+        },
+        {
+          "key": "interlock3",
+          "label": "Interlock 3"
+        },
+        {
+          "key": "cipher",
+          "label": "Cipher"
+        },
+        {
+          "key": "final_truth",
+          "label": "Final Truth"
+        }
+      ]
     },
     {
       "key": "covers",
@@ -1573,6 +1634,152 @@
       "config_category": "Main Splats"
     },
     {
+      "key": "nimbus",
+      "label": "Nimbus",
+      "group": "Mage",
+      "zone": "full-width-bottom",
+      "order": 34,
+      "type": "textarea",
+      "state_key": "nimbus",
+      "default": false,
+      "config_category": "Main Splats"
+    },
+    {
+      "key": "yantras",
+      "label": "Yantras",
+      "group": "Mage",
+      "zone": "left-column",
+      "order": 6,
+      "type": "named-list",
+      "state_key": "yantras",
+      "default": false,
+      "db_key": "yantras",
+      "config_category": "Main Splats"
+    },
+    {
+      "key": "magical-tools",
+      "label": "Magical Tools",
+      "group": "Mage",
+      "zone": "left-column",
+      "order": 7,
+      "type": "named-list",
+      "state_key": "magical_tools",
+      "default": false,
+      "db_key": "magical_tools",
+      "config_category": "Main Splats"
+    },
+    {
+      "key": "ghoul-header-fields",
+      "label": "Ghoul Identity",
+      "group": "Ghoul",
+      "zone": "header",
+      "order": 5,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "ghoul_regnant_clan",
+          "label": "Regnant's Clan"
+        },
+        {
+          "key": "ghoul_regnant_covenant",
+          "label": "Regnant's Covenant"
+        },
+        {
+          "key": "ghoul_family",
+          "label": "Family"
+        }
+      ],
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "wolf-blooded-header-fields",
+      "label": "Wolf-Blooded Identity",
+      "group": "Wolf-Blooded",
+      "zone": "header",
+      "order": 5,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "wb_tribe",
+          "label": "Tribe"
+        },
+        {
+          "key": "wb_pack",
+          "label": "Pack"
+        }
+      ],
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "tells",
+      "label": "Tells",
+      "group": "Wolf-Blooded",
+      "zone": "left-column",
+      "order": 3,
+      "type": "named-list",
+      "state_key": "tells",
+      "default": false,
+      "db_key": "tells",
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "tension-pool",
+      "label": "Tension Pool",
+      "group": "Wolf-Blooded",
+      "zone": "right-column",
+      "order": 4,
+      "type": "resource-track",
+      "state_key": "tension_pool",
+      "default": false,
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "proximi-header-fields",
+      "label": "Proximi Identity",
+      "group": "Proximi",
+      "zone": "header",
+      "order": 5,
+      "type": "header-fields",
+      "default": false,
+      "fields": [
+        {
+          "key": "proximi_dynasty",
+          "label": "Dynasty"
+        },
+        {
+          "key": "proximi_heritage_path",
+          "label": "Heritage Path"
+        }
+      ],
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "blessings",
+      "label": "Blessings",
+      "group": "Proximi",
+      "zone": "left-column",
+      "order": 4,
+      "type": "rated-list",
+      "state_key": "blessings",
+      "default": false,
+      "max_rating": 5,
+      "db_key": "rotes",
+      "config_category": "Half-Splats"
+    },
+    {
+      "key": "proximi-curse",
+      "label": "Curse",
+      "group": "Proximi",
+      "zone": "right-column",
+      "order": 6,
+      "type": "textarea",
+      "state_key": "proximi_curse",
+      "default": false,
+      "config_category": "Half-Splats"
+    },
+    {
       "key": "entity-header",
       "label": "Entity Identity",
       "group": "Ephemeral Entity",
@@ -1695,120 +1902,203 @@
       "config_category": "Ephemeral Entities"
     },
     {
-      "key": "ghoul-header-fields",
-      "label": "Ghoul Identity",
-      "group": "Ghoul",
+      "key": "ascension-header-fields",
+      "label": "Ascension Identity",
+      "group": "Mage (Ascension)",
       "zone": "header",
-      "order": 5,
+      "order": 3,
       "type": "header-fields",
       "default": false,
       "fields": [
         {
-          "key": "ghoul_regnant_clan",
-          "label": "Regnant's Clan"
+          "key": "asc_avatar_essence",
+          "label": "Avatar Essence"
         },
         {
-          "key": "ghoul_regnant_covenant",
-          "label": "Regnant's Covenant"
+          "key": "asc_affiliation",
+          "label": "Affiliation"
         },
         {
-          "key": "ghoul_family",
-          "label": "Family"
+          "key": "asc_sect",
+          "label": "Sect"
         }
       ],
-      "config_category": "Half-Splats"
+      "config_category": "Other"
     },
     {
-      "key": "wolf-blooded-header-fields",
-      "label": "Wolf-Blooded Identity",
-      "group": "Wolf-Blooded",
+      "key": "quintessence-paradox",
+      "label": "Quintessence & Paradox",
+      "group": "Mage (Ascension)",
+      "zone": "right-column",
+      "order": 4,
+      "type": "quinpar-wheel",
+      "state_key": "quintessence_paradox",
+      "default": false,
+      "config_category": "Other"
+    },
+    {
+      "key": "horror-header-fields",
+      "label": "Horror Identity",
+      "group": "Horror",
       "zone": "header",
-      "order": 5,
+      "order": 12,
       "type": "header-fields",
       "default": false,
       "fields": [
         {
-          "key": "wb_tribe",
-          "label": "Tribe"
+          "key": "horror_type",
+          "label": "Type"
         },
         {
-          "key": "wb_pack",
-          "label": "Pack"
+          "key": "horror_concept",
+          "label": "Concept"
         }
       ],
-      "config_category": "Half-Splats"
+      "config_category": "Other"
     },
     {
-      "key": "tells",
-      "label": "Tells",
-      "group": "Wolf-Blooded",
+      "key": "potency",
+      "label": "Potency",
+      "group": "Horror",
+      "zone": "right-column",
+      "order": 2,
+      "type": "dot-track",
+      "state_key": "potency",
+      "default": false,
+      "max": 10,
+      "print_empty": true,
+      "config_category": "Other"
+    },
+    {
+      "key": "dread-powers",
+      "label": "Dread Powers",
+      "group": "Horror",
       "zone": "left-column",
       "order": 3,
       "type": "named-list",
-      "state_key": "tells",
+      "state_key": "dread_powers",
       "default": false,
-      "db_key": "tells",
-      "config_category": "Half-Splats"
+      "db_key": "dread_powers",
+      "config_category": "Other"
     },
     {
-      "key": "tension-pool",
-      "label": "Tension Pool",
-      "group": "Wolf-Blooded",
-      "zone": "right-column",
-      "order": 4,
-      "type": "resource-track",
-      "state_key": "tension_pool",
-      "default": false,
-      "config_category": "Half-Splats"
-    },
-    {
-      "key": "proximi-header-fields",
-      "label": "Proximi Identity",
-      "group": "Proximi",
-      "zone": "header",
-      "order": 5,
-      "type": "header-fields",
+      "key": "ascension-arcana",
+      "label": "Spheres",
+      "group": "Mage (Ascension)",
+      "zone": "left-column",
+      "order": 3,
+      "type": "arcana-block",
+      "state_key": "arcana",
       "default": false,
       "fields": [
         {
-          "key": "proximi_dynasty",
-          "label": "Dynasty"
+          "key": "death",
+          "label": "Death"
         },
         {
-          "key": "proximi_heritage_path",
-          "label": "Heritage Path"
+          "key": "fate",
+          "label": "Fate"
+        },
+        {
+          "key": "forces",
+          "label": "Forces"
+        },
+        {
+          "key": "life",
+          "label": "Life"
+        },
+        {
+          "key": "matter",
+          "label": "Matter"
+        },
+        {
+          "key": "mind",
+          "label": "Mind"
+        },
+        {
+          "key": "prime",
+          "label": "Prime"
+        },
+        {
+          "key": "space",
+          "label": "Space"
+        },
+        {
+          "key": "spirit",
+          "label": "Spirit"
+        },
+        {
+          "key": "time",
+          "label": "Time"
         }
       ],
-      "config_category": "Half-Splats"
+      "config_category": "Other"
     },
     {
-      "key": "blessings",
-      "label": "Blessings",
-      "group": "Proximi",
+      "key": "ascension-gnosis",
+      "label": "Arete",
+      "group": "Mage (Ascension)",
+      "zone": "right-column",
+      "order": 2,
+      "type": "dot-track",
+      "state_key": "gnosis",
+      "default": false,
+      "max": 10,
+      "print_empty": true,
+      "config_category": "Other"
+    },
+    {
+      "key": "ascension-yantras",
+      "label": "Practices",
+      "group": "Mage (Ascension)",
       "zone": "left-column",
-      "order": 4,
+      "order": 6,
+      "type": "named-list",
+      "state_key": "yantras",
+      "default": false,
+      "db_key": "yantras",
+      "config_category": "Other"
+    },
+    {
+      "key": "ascension-magical-tools",
+      "label": "Foci",
+      "group": "Mage (Ascension)",
+      "zone": "left-column",
+      "order": 7,
+      "type": "named-list",
+      "state_key": "magical_tools",
+      "default": false,
+      "db_key": "magical_tools",
+      "config_category": "Other"
+    },
+    {
+      "key": "ascension-nimbus",
+      "label": "Resonance",
+      "group": "Mage (Ascension)",
+      "zone": "full-width-bottom",
+      "order": 34,
+      "type": "textarea",
+      "state_key": "nimbus",
+      "default": false,
+      "config_category": "Other"
+    },
+    {
+      "key": "ascension-attainments",
+      "label": "Sphere Attainments",
+      "group": "Mage (Ascension)",
+      "zone": "full-width-bottom",
+      "order": 11,
       "type": "rated-list",
-      "state_key": "blessings",
+      "state_key": "arcana_attainments",
       "default": false,
       "max_rating": 5,
-      "db_key": "rotes",
-      "config_category": "Half-Splats"
-    },
-    {
-      "key": "proximi-curse",
-      "label": "Curse",
-      "group": "Proximi",
-      "zone": "right-column",
-      "order": 6,
-      "type": "textarea",
-      "state_key": "proximi_curse",
-      "default": false,
-      "config_category": "Half-Splats"
+      "db_key": "arcana_attainments",
+      "config_category": "Other"
     }
   ],
   "_presets_comment": [
     "sheet_presets: named sectionConfig snapshots.",
-    "Applying a preset does a full reset \u2014 all sections are set to the values listed.",
+    "Applying a preset does a full reset — all sections are set to the values listed.",
     "Every section key must be present in each preset.",
     "To add a preset: add an entry with a name and a config covering all section keys.",
     "The 'Mortal' preset represents the default starting configuration."
@@ -1931,7 +2221,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2052,7 +2356,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2173,7 +2491,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": true,
+        "yantras": true,
+        "magical-tools": true,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2294,7 +2626,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2415,7 +2761,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2536,7 +2896,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2657,7 +3031,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2778,7 +3166,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -2899,7 +3301,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -3020,7 +3436,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Main Splats"
     },
@@ -3141,12 +3571,26 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Ephemeral Entities"
     },
     {
-      "name": "Ephemeral Entity \u2014 Ghost",
+      "name": "Ephemeral Entity — Ghost",
       "config": {
         "beats-xp": true,
         "arcane-beats-xp": false,
@@ -3262,12 +3706,26 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Ephemeral Entities"
     },
     {
-      "name": "Ephemeral Entity \u2014 Supernal",
+      "name": "Ephemeral Entity — Supernal",
       "config": {
         "beats-xp": true,
         "arcane-beats-xp": false,
@@ -3383,7 +3841,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       },
       "category": "Ephemeral Entities"
     },
@@ -3505,7 +3977,21 @@
         "tension-pool": false,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       }
     },
     {
@@ -3626,7 +4112,21 @@
         "tension-pool": true,
         "proximi-header-fields": false,
         "blessings": false,
-        "proximi-curse": false
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       }
     },
     {
@@ -3747,11 +4247,295 @@
         "tension-pool": false,
         "proximi-header-fields": true,
         "blessings": true,
-        "proximi-curse": true
+        "proximi-curse": true,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
+      }
+    },
+    {
+      "name": "Mage (Ascension)",
+      "category": "Other",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": true,
+        "group-beats-xp": false,
+        "attributes": true,
+        "skills": true,
+        "other-traits": true,
+        "integrity": true,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": true,
+        "endowments": false,
+        "tactics": false,
+        "weapons": true,
+        "armor": true,
+        "equipment": true,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": true,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": true,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": true,
+        "quintessence-paradox": true,
+        "horror-header-fields": false,
+        "potency": false,
+        "dread-powers": false,
+        "ascension-arcana": true,
+        "ascension-gnosis": true,
+        "ascension-yantras": true,
+        "ascension-magical-tools": true,
+        "ascension-nimbus": true,
+        "ascension-attainments": true
+      }
+    },
+    {
+      "name": "Horror",
+      "category": "Other",
+      "config": {
+        "beats-xp": true,
+        "arcane-beats-xp": false,
+        "group-beats-xp": false,
+        "attributes": true,
+        "skills": true,
+        "other-traits": true,
+        "integrity": false,
+        "tilts": true,
+        "conditions": true,
+        "aspirations": true,
+        "touchstones": false,
+        "merits": true,
+        "endowments": false,
+        "tactics": false,
+        "weapons": true,
+        "armor": true,
+        "equipment": true,
+        "the-code": false,
+        "notes": true,
+        "mortal-header-fields": false,
+        "hunter-header-fields": false,
+        "mage-header-fields": false,
+        "arcana": false,
+        "gnosis": false,
+        "wisdom": false,
+        "mana": false,
+        "obsessions": false,
+        "inured-spells": false,
+        "rotes": false,
+        "arcana-attainments": false,
+        "legacy-attainments": false,
+        "werewolf-header-fields": false,
+        "primal-urge": false,
+        "harmony": false,
+        "essence": false,
+        "renown": false,
+        "flesh-touchstones": false,
+        "spirit-touchstones": false,
+        "werewolf-forms": false,
+        "gifts": false,
+        "rites": false,
+        "vampire-header-fields": false,
+        "humanity": false,
+        "blood-potency": false,
+        "vitae": false,
+        "banes": false,
+        "disciplines": false,
+        "devotions": false,
+        "vampire-rites": false,
+        "changeling-header-fields": false,
+        "wyrd": false,
+        "clarity": false,
+        "glamour": false,
+        "favored-regalia": false,
+        "frailties": false,
+        "changeling-touchstones": false,
+        "goblin-debt": false,
+        "contracts": false,
+        "pledges": false,
+        "seeming-blessing": false,
+        "seeming-curse": false,
+        "kith-blessing": false,
+        "praxes": false,
+        "demon-header-fields": false,
+        "cover-beats-xp": false,
+        "cover-rating": false,
+        "primum": false,
+        "aether": false,
+        "demonic-form": false,
+        "embeds": false,
+        "exploits": false,
+        "cipher": false,
+        "covers": false,
+        "deviant-header-fields": false,
+        "stability": false,
+        "acclimation": false,
+        "flux": false,
+        "deviant-touchstones": false,
+        "variations": false,
+        "scars": false,
+        "origins": false,
+        "promethean-header-fields": false,
+        "vitriol-beats-xp": false,
+        "pilgrimage": false,
+        "azoth": false,
+        "pyros": false,
+        "transmutations": false,
+        "bestowment": false,
+        "refinement-condition": false,
+        "fixed-alembics": false,
+        "milestones": false,
+        "mastered-roles": false,
+        "geist-header-fields": false,
+        "synergy": false,
+        "plasm": false,
+        "keys": false,
+        "haunts": false,
+        "remembrance-traits": false,
+        "entity-header": false,
+        "entity-attributes": false,
+        "entity-traits": false,
+        "numina": false,
+        "manifestations": false,
+        "influences": false,
+        "entity-ban": false,
+        "entity-bane": false,
+        "anchors": false,
+        "adaptations": false,
+        "ghoul-header-fields": false,
+        "wolf-blooded-header-fields": false,
+        "tells": false,
+        "tension-pool": false,
+        "proximi-header-fields": false,
+        "blessings": false,
+        "proximi-curse": false,
+        "nimbus": false,
+        "yantras": false,
+        "magical-tools": false,
+        "ascension-header-fields": false,
+        "quintessence-paradox": false,
+        "horror-header-fields": true,
+        "potency": true,
+        "dread-powers": true,
+        "ascension-arcana": false,
+        "ascension-gnosis": false,
+        "ascension-yantras": false,
+        "ascension-magical-tools": false,
+        "ascension-nimbus": false,
+        "ascension-attainments": false
       }
     }
   ],
-  "_content_comment": "\u2500\u2500 CONTENT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+  "_content_comment": "── CONTENT ───────────────────────────────────────────────────────────────────",
   "_names_comment": [
     "mortal_names: names used by the Generate Baseline button.",
     "Add or remove names freely. Order does not matter."
@@ -3826,7 +4610,7 @@
     "Stefan Ionescu",
     "Takeshi Mori",
     "Tariq Abdullahi",
-    "Teresa \u00c1lvarez",
+    "Teresa Álvarez",
     "Thomas Eriksen",
     "Valentina Cruz",
     "Victor Morozov",
@@ -3911,7 +4695,7 @@
       "size": 1,
       "structure": 3,
       "availability": 1,
-      "desc": "Die bonus subtracts from any penalties due to darkness, and adds to any rolls to search in the dark. Some can also be used as a club. Also can blind a subject. Roll Dexterity + Athletics, subtracting opponent's Defense. The victim\u2019s player. If your character scores more successes than the subject, the subject is blinded for one turn. Victims with especially acute senses are blinded for two turns."
+      "desc": "Die bonus subtracts from any penalties due to darkness, and adds to any rolls to search in the dark. Some can also be used as a club. Also can blind a subject. Roll Dexterity + Athletics, subtracting opponent's Defense. The victim’s player. If your character scores more successes than the subject, the subject is blinded for one turn. Victims with especially acute senses are blinded for two turns."
     },
     {
       "name": "Smartphone",
@@ -4162,7 +4946,7 @@
     }
   ],
   "_tactics_comment": [
-    "tactics: Hunter tactics \u2014 coordinated cell manoeuvres.",
+    "tactics: Hunter tactics — coordinated cell manoeuvres.",
     "Each entry: { name, desc }",
     "  desc: rules summary of what the tactic does and how to execute it"
   ],
@@ -4173,7 +4957,7 @@
     },
     {
       "name": "Called Shot",
-      "desc": "**Action**: Instant and resisted\n**Dice Pools**:\n  *Primary*: Strength + Weaponry or Dexterity + Firearms - target's Defense.\n  *Secondary*: Manipulation + Persuasion or Subterfuge (baiting, 1/2); Strength + Brawl (tacking, 1/2)\n**Success**: The opponent suffers the appropriate Tilt for a successful hit on the specified target, and the hunter's attack deals damage as normal with a +1 to his weapon modifier. The target takes a penalty to Initiative equal to the number of participants for the rest of the scene.\n**Exceptional Success**: As success, and the Storyteller offers an immediate surrender in exchange for a non-lethal outcome to the scene. If the players accept, the Tactic\u2019s tar- get submits to whatever fate the hunters choose that can be enacted within the current scene, such as capture or giving something up, as long as it doesn\u2019t involve further violence against the target.\n**Failure or Dramatic Failure**: The target twists or ducks at the last minute, and the primary actor makes a reflexive attack against the secondary actor closest to the target, ignoring Defense."
+      "desc": "**Action**: Instant and resisted\n**Dice Pools**:\n  *Primary*: Strength + Weaponry or Dexterity + Firearms - target's Defense.\n  *Secondary*: Manipulation + Persuasion or Subterfuge (baiting, 1/2); Strength + Brawl (tacking, 1/2)\n**Success**: The opponent suffers the appropriate Tilt for a successful hit on the specified target, and the hunter's attack deals damage as normal with a +1 to his weapon modifier. The target takes a penalty to Initiative equal to the number of participants for the rest of the scene.\n**Exceptional Success**: As success, and the Storyteller offers an immediate surrender in exchange for a non-lethal outcome to the scene. If the players accept, the Tactic’s tar- get submits to whatever fate the hunters choose that can be enacted within the current scene, such as capture or giving something up, as long as it doesn’t involve further violence against the target.\n**Failure or Dramatic Failure**: The target twists or ducks at the last minute, and the primary actor makes a reflexive attack against the secondary actor closest to the target, ignoring Defense."
     }
   ],
   "_contracts_comment": [
@@ -4197,9 +4981,9 @@
     "  desc: include type (Sealing/Oath/Bargain), parties, boons, sanctions, and duration"
   ],
   "pledges": [],
-  "_praxes_comment": "praxes: Mage Praxes \u2014 spells the Mage has mastered. Each entry: { name, desc }",
+  "_praxes_comment": "praxes: Mage Praxes — spells the Mage has mastered. Each entry: { name, desc }",
   "praxes": [],
-  "_demon_comment": "\u2500\u2500 Demon: the Descent content lists \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+  "_demon_comment": "── Demon: the Descent content lists ──────────────────────────────────────────",
   "_demonic_form_comment": "demonic_form: a demon's Demonic Form manifestations. Each entry: { name, desc }",
   "demonic_form": [
     {
@@ -4269,7 +5053,7 @@
     {
       "name": "Boneyard",
       "rating": 1,
-      "desc": "**Cost:** 1 Plasm per scene\n**Action:** Instant\nThe sin-eater extends their awareness through the Underworld resonance of an area. Allows perception of ghosts and Underworld phenomena within a radius equal to Synergy in yards. Higher ratings expand range and allow active manipulation of the environment.\n**Keys:** Any \u2014 each Key modifies the Haunt's specific effects and unlocks deeper manifestations."
+      "desc": "**Cost:** 1 Plasm per scene\n**Action:** Instant\nThe sin-eater extends their awareness through the Underworld resonance of an area. Allows perception of ghosts and Underworld phenomena within a radius equal to Synergy in yards. Higher ratings expand range and allow active manipulation of the environment.\n**Keys:** Any — each Key modifies the Haunt's specific effects and unlocks deeper manifestations."
     },
     {
       "name": "Caul",
@@ -4293,7 +5077,7 @@
     },
     {
       "name": "Insight (Kinesics)",
-      "desc": "**Transmutation:** Kinesics\n**Persistent:** Your character reads people easily. Gain +1 to Empathy rolls.\n**1st Distillation (Read Intent):** Spend 1 Pyros. Discern a target's current emotional state and immediate intentions. Dice pool: Intelligence + Empathy.\n**2nd Distillation (Open Book):** Spend 1 Pyros. Read a target's surface thoughts and motivations. They cannot lie without your knowing.\n**3rd Distillation (Soul's Mirror):** Spend 2 Pyros. Understand a target completely \u2014 secrets, fears, desires \u2014 for the scene."
+      "desc": "**Transmutation:** Kinesics\n**Persistent:** Your character reads people easily. Gain +1 to Empathy rolls.\n**1st Distillation (Read Intent):** Spend 1 Pyros. Discern a target's current emotional state and immediate intentions. Dice pool: Intelligence + Empathy.\n**2nd Distillation (Open Book):** Spend 1 Pyros. Read a target's surface thoughts and motivations. They cannot lie without your knowing.\n**3rd Distillation (Soul's Mirror):** Spend 2 Pyros. Understand a target completely — secrets, fears, desires — for the scene."
     }
   ],
   "_mortal_generation_comment": "mortal_generation: drives Generate Baseline for mortal characters. Edit to change creation spreads.",
@@ -4597,7 +5381,7 @@
     "A true name spoken aloud",
     "Buried earth from its place of origin"
   ],
-  "_entity_content_comment": "\u2500\u2500 Ephemeral Entity content lists \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+  "_entity_content_comment": "── Ephemeral Entity content lists ────────────────────────────────────────",
   "influences": [
     {
       "name": "Animals",
@@ -4615,15 +5399,15 @@
   "numina": [
     {
       "name": "Aggressive Meme",
-      "desc": "The entity may communicate an emotion or urge directly into a target\u2019s mind. Spend 1 Essence; target rolls Resolve + Composure vs. the entity\u2019s Power + Finesse. On failure, the target acts on the implanted urge for one scene."
+      "desc": "The entity may communicate an emotion or urge directly into a target’s mind. Spend 1 Essence; target rolls Resolve + Composure vs. the entity’s Power + Finesse. On failure, the target acts on the implanted urge for one scene."
     },
     {
       "name": "Animal Possession",
-      "desc": "The entity may ride an animal, using its body. Spend 1 Essence; roll Power + Finesse vs. the animal\u2019s Resistance. On success, the entity controls the animal for a scene. The entity\u2019s own body remains inert."
+      "desc": "The entity may ride an animal, using its body. Spend 1 Essence; roll Power + Finesse vs. the animal’s Resistance. On success, the entity controls the animal for a scene. The entity’s own body remains inert."
     },
     {
       "name": "Blast",
-      "desc": "The entity channels its nature as a ranged attack. Spend 1 Essence; roll Power + Finesse vs. target\u2019s Defense. Deals lethal damage equal to the entity\u2019s Power rating."
+      "desc": "The entity channels its nature as a ranged attack. Spend 1 Essence; roll Power + Finesse vs. target’s Defense. Deals lethal damage equal to the entity’s Power rating."
     }
   ],
   "manifestations": [
@@ -4633,11 +5417,11 @@
     },
     {
       "name": "Discorporate",
-      "desc": "When the entity\u2019s Corpus is reduced to 0, it may spend 1 Willpower to dissolve into ephemera rather than being destroyed. It reforms at its anchor after a number of days equal to its Rank."
+      "desc": "When the entity’s Corpus is reduced to 0, it may spend 1 Willpower to dissolve into ephemera rather than being destroyed. It reforms at its anchor after a number of days equal to its Rank."
     },
     {
       "name": "Embed",
-      "desc": "The entity can inhabit an object, using it as a secondary anchor. Spend 1 Essence; the object becomes saturated with the entity\u2019s resonance. While embedded the entity is invisible but can use numina through the object."
+      "desc": "The entity can inhabit an object, using it as a secondary anchor. Spend 1 Essence; the object becomes saturated with the entity’s resonance. While embedded the entity is invisible but can use numina through the object."
     }
   ],
   "_tells_comment": "Wolf-Blooded Tells",
@@ -4648,11 +5432,97 @@
     },
     {
       "name": "Involuntary Shift",
-      "desc": "Under stress or strong emotion, the wolf-blood undergoes a partial, uncontrolled physical change \u2014 eyes, teeth, or nails shifting briefly."
+      "desc": "Under stress or strong emotion, the wolf-blood undergoes a partial, uncontrolled physical change — eyes, teeth, or nails shifting briefly."
     },
     {
       "name": "Predator's Bearing",
       "desc": "The wolf-blood carries themselves with an unconscious air of danger. Animals become nervous and people feel uneasy around them."
+    }
+  ],
+  "yantras": [
+    {
+      "name": "Dedicated Tool",
+      "desc": "A physical implement dedicated to magical workings through ritual and use. **Dice bonus:** +2. The tool must be relevant to the working or Arcana used."
+    },
+    {
+      "name": "High Speech",
+      "desc": "The ancient language of the Supernal, taught to all Awakened. Speaking aloud in High Speech during casting. **Dice bonus:** +2. Cannot be used silently."
+    },
+    {
+      "name": "Location",
+      "desc": "A place with strong sympathy to the spell's target or symbolism. **Dice bonus:** +1 to +3 depending on strength of the connection. Prepared locations take time to establish."
+    },
+    {
+      "name": "Rune or Diagram",
+      "desc": "A symbolic representation of the spell drawn on a surface or in the air. **Dice bonus:** +2. Takes one minute to draw; destroyed after use unless made permanent."
+    },
+    {
+      "name": "Sacrament",
+      "desc": "A physical object with strong connection to the spell's subject — a lock of hair, a prized possession. **Dice bonus:** +2. Consumed or significantly altered in the working."
+    },
+    {
+      "name": "Symbolic Resonance",
+      "desc": "The time, place, or circumstances of the casting align with the spell's intent (casting a curse at midnight, healing at dawn). **Dice bonus:** +1."
+    },
+    {
+      "name": "Concentration",
+      "desc": "The mage spends a full turn in quiet focus before casting, taking no other actions. **Dice bonus:** +2. Broken by damage, distraction, or combat."
+    }
+  ],
+  "magical_tools": [
+    {
+      "name": "Order Tool",
+      "desc": "The iconic implement of the mage's Order — a Mysterium grimoire, a Silver Ladder sceptre, an Arrow blade. **Benefit:** +1 die to all spells while wielded. Cannot be the same as the dedicated tool."
+    },
+    {
+      "name": "Path Tool",
+      "desc": "A tool aligned to the mage's Path — a Obrimos rod and chalice, an Acanthus wand. **Benefit:** +1 die to Ruling Arcana spells. Distinct from both the dedicated tool and Order tool."
+    },
+    {
+      "name": "Grimoire",
+      "desc": "A bound text containing recorded spells and magical theory. **Benefit:** Studying a grimoire provides a Yantra bonus for a specific spell it contains. Reading time: one hour minimum."
+    },
+    {
+      "name": "Imbued Item",
+      "desc": "An object containing a spell held in ready suspension. **Benefit:** Activating the item releases the stored spell without requiring a casting roll. Activation is an instant action."
+    },
+    {
+      "name": "Artifact",
+      "desc": "A powerful object of Supernal origin, containing a self-sustaining magical effect. **Benefit:** Varies by artifact. Artifacts cannot be created by mages — they are discovered."
+    }
+  ],
+  "dread_powers": [
+    {
+      "name": "Drain",
+      "desc": "The Horror drains life force from a victim. **Cost:** None. **Dice Pool:** Power + Finesse vs. target's Resolve + Composure. **Effect:** On success, the Horror heals one point of damage and the target loses one point of Willpower."
+    },
+    {
+      "name": "Claws",
+      "desc": "The Horror's natural attacks are devastatingly powerful. **Benefit:** Natural attacks deal lethal damage equal to Potency + 1. These attacks are never unarmed — they are a feature of the Horror's form."
+    },
+    {
+      "name": "Regeneration",
+      "desc": "The Horror heals with unnatural speed. **Effect:** The Horror heals one point of bashing damage per turn automatically, and one point of lethal damage per minute."
+    },
+    {
+      "name": "Terrible Gaze",
+      "desc": "The Horror's direct gaze induces primal terror. **Cost:** None. **Dice Pool:** Power + Finesse vs. target's Resolve + Composure. **Effect:** Target gains the Afraid Condition on failure."
+    },
+    {
+      "name": "Unnatural Strength",
+      "desc": "The Horror's physical power far exceeds its apparent size. **Benefit:** Add Potency to all Strength-based rolls. This bonus applies to damage, feats of strength, and grapple attempts."
+    },
+    {
+      "name": "Shadow Step",
+      "desc": "The Horror moves between shadows instantaneously. **Cost:** None. **Action:** Reflexive. **Effect:** The Horror may teleport between any two areas of shadow within Potency × 10 yards."
+    },
+    {
+      "name": "Mind Fracture",
+      "desc": "The Horror invades and disrupts a victim's thoughts. **Cost:** None. **Dice Pool:** Power + Finesse vs. target's Resolve + Composure. **Effect:** On success, target loses Potency dice from all Mental actions for the rest of the scene."
+    },
+    {
+      "name": "Armor",
+      "desc": "The Horror's hide or form provides supernatural protection. **Benefit:** The Horror has armour equal to Potency/2 (round up) against both general and ballistic damage."
     }
   ]
 }

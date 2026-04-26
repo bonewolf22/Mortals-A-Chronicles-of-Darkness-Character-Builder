@@ -415,6 +415,19 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .status-bar.show{opacity:1}
 .empty-state{text-align:center;padding:4rem 1rem;color:var(--muted);font-family:sans-serif;font-size:.9rem;background:var(--surface);border:1px solid var(--border);border-radius:6px}
 .resource-track-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-bottom:3px}
+/* ── Quintessence/Paradox wheel ───────────────────────────────────────────── */
+.quinpar-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin:4px 0}
+.quinpar-svg-wrap{position:relative;width:180px;height:200px}
+.quinpar-svg{display:block;width:180px;height:180px;position:absolute;top:10px;left:0}
+.quinpar-lbl-top{position:absolute;top:0;left:50%;transform:translateX(-50%);font-family:sans-serif;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;pointer-events:none}
+.quinpar-lbl-btm{position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-family:sans-serif;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;pointer-events:none}
+.quinpar-controls{display:flex;gap:20px;align-items:flex-start;font-family:sans-serif}
+.quinpar-ctrl{display:flex;flex-direction:column;align-items:center;gap:3px}
+.quinpar-ctrl-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.quinpar-ctrl-row{display:flex;align-items:center;gap:5px}
+.quinpar-val{font-size:1.1rem;font-weight:700;min-width:20px;text-align:center}
+/* Print: wheel SVG prints, but hide the +/- controls and numeric values */
+@media print{.quinpar-controls{display:none!important}.quinpar-svg rect{fill:transparent!important;stroke:var(--border)!important}.quinpar-svg line{display:none!important}}
 .rsquare{width:100%;aspect-ratio:1;border:1.5px solid var(--border);border-radius:2px;cursor:pointer;background:var(--surface);transition:background .1s}
 .rsquare:hover{border-color:var(--muted)}
 .rsquare.on{background:var(--text);border-color:var(--text)}
@@ -1707,7 +1720,7 @@ function secVisible(key){
   const cfg=getSecConfig();
   const v=cfg[key];
   if(v===undefined)return SEC_DEFAULTS[key]||false;
-  if(typeof v==='object')return v.visible!==false;
+  if(typeof v==='object')return v.enabled!==false;
   return v!==false;
 }
 function toggleSec(secId,enabled){
@@ -1830,19 +1843,38 @@ function _baseCharacterFields(attrs,skills){
     else if(t==='resource-track')base[sk]=Array(sd.max||20).fill(false);
     else if(t==='labeled-track'){base[sk]=sd.default_value||1;base[sk+'_labels']=Array(sd.max||10).fill('');}
     else if(t==='arcana-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
-    else if(t==='renown-block')base[sk]={cunning:0,glory:0,honor:0,purity:0,wisdom:0};
-    else if(t==='cipher-block')base[sk]={embed1:'',embed2:'',embed3:'',embed4:'',interlock1:'',interlock2:'',interlock3:'',cipher:'',final_truth:''};
+    else if(t==='renown-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
+    else if(t==='cipher-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,'']));
     else if(t==='covers')base[sk]=[];
-    else if(t==='attributes-3'){}  // entity attrs handled separately below
-    else if(t==='derived-traits-entity'){}  // entity traits handled separately below
+    else if(t==='quinpar-wheel'){base[sk+'_quintessence']=0;base[sk+'_paradox']=0;}
+    else if(t==='attributes-3'){
+      // entity_attrs initialised here; other entity fields handled by derived-traits-entity
+      if(!STATE.entity_attrs)STATE.entity_attrs={};
+      ENTITY_ATTRS.forEach(a=>{if(STATE.entity_attrs[a.key]==null)STATE.entity_attrs[a.key]=1;});
+      if(STATE.attr3MaxDots==null)STATE.attr3MaxDots=5;
+      if(STATE.attr3ShowSpinner===undefined)STATE.attr3ShowSpinner=false;
+    }
+    else if(t==='derived-traits-entity'){
+      if(STATE.entity_size==null)STATE.entity_size=5;
+      if(STATE.entity_rank_num==null)STATE.entity_rank_num=1;
+      if(STATE.entity_essence_max==null)STATE.entity_essence_max=10;
+      if(STATE.entity_essence_current==null)STATE.entity_essence_current=0;
+      if(STATE.corpus_damage==null)STATE.corpus_damage=0;
+      if(STATE.corpus_max_override===undefined)STATE.corpus_max_override=null;
+      if(STATE.entity_wp_spent==null)STATE.entity_wp_spent=0;
+      if(STATE.entity_wp_max_override===undefined)STATE.entity_wp_max_override=null;
+      if(!STATE.entityDerivedOverrides)STATE.entityDerivedOverrides={};
+      if(STATE.entity_defense==null)STATE.entity_defense=0;
+      if(STATE.entity_initiative==null)STATE.entity_initiative=0;
+      if(STATE.entity_speed==null)STATE.entity_speed=0;
+    }
   });
-  return{id:_uuid(),name:'',concept:'',virtue:'',vice:'',
+  return{id:_uuid(),name:'',
     attributes:attrs,skills,size,
     health_track:Array(stamina+size).fill(''),
     willpower:Math.min(10,resolve+composure),willpower_spent:0,willpower_max_override:null,
     defense:Math.min(dexterity,wits)+athletics,initiative:dexterity+composure,speed:strength+dexterity+5,
-    integrity:7,derivedOverrides:{},
-    tilts:[],conditions:[],aspirations:[],merits:[],weapons:[],armor:[],equipment:[],notes:'',
+    derivedOverrides:{},
     meritMaxDots:5,sectionConfig:{},...base,layoutLocked:true,theme:'neutral',
     // Ephemeral Entity fields — zeroed for mortal characters
     entity_attrs:{power:1,finesse:1,resistance:1},
@@ -1855,11 +1887,6 @@ function _baseCharacterFields(attrs,skills){
     attr3MaxDots:5,attr3ShowSpinner:false,
     numina:[],manifestations:[],influences:[],anchors:[],
     entity_ban:'',entity_bane:''};
-}
-function _isEntityPreset(){
-  // Returns true if the active sectionConfig has entity sections enabled
-  const cfg=STATE.sectionConfig||{};
-  return !!(cfg['entity-attributes']||cfg['entity-traits']);
 }
 function _rr(lo,hi){return lo+Math.floor(Math.random()*(hi-lo+1));}
 // _applySelectedPreset — reads the preset dropdown and applies the selected
@@ -1874,15 +1901,6 @@ function _applySelectedPreset(fallbackName){
 function generateMortal(){
   // Respect the preset selected in the dropdown; fall back to Mortal
   _applySelectedPreset('Mortal');
-  generateMortalSheet();
-}
-function generateEphemeral(){
-  // Apply Ephemeral Entity preset first, then generate
-  const eePreset=PRESETS.find(p=>p.name==='Ephemeral Entity');
-  if(eePreset){STATE.sectionConfig={...eePreset.config};delete STATE.sectionConfig._zoneOrder;}
-  generateEntity();
-}
-function generateMortalSheet(){
   // ── Mortal generation (data-driven spreads) ───────────────────────────────
   const d=window._DB_RAW||{};
   const gen=DB.mortalGeneration||{attribute_spreads:[5,4,3],skill_spreads:[11,7,4],size:5};
@@ -1910,7 +1928,13 @@ function generateMortalSheet(){
   STATE=_baseCharacterFields(attrs,skills);
   STATE.sectionConfig=savedConfig;
   STATE.name=names[Math.random()*names.length|0];
-  patchState();currentSaveId=null;showEditor(false);renderEditor();
+  patchState();currentSaveId=null;showEditor();renderEditor();
+}
+function generateEphemeral(){
+  // Apply Ephemeral Entity preset first, then generate
+  const eePreset=PRESETS.find(p=>p.name==='Ephemeral Entity');
+  if(eePreset){STATE.sectionConfig={...eePreset.config};delete STATE.sectionConfig._zoneOrder;}
+  generateEntity();
 }
 function generateEntity(){
   // ── Ephemeral Entity generation (data-driven rank stats) ──────────────────
@@ -1957,7 +1981,7 @@ function generateEntity(){
   STATE.entity_ban=ban;
   STATE.entity_bane=bane;
   STATE.theme='entity';
-  patchState();currentSaveId=null;showEditor(false);renderEditor();
+  patchState();currentSaveId=null;showEditor();renderEditor();
 }
 function blank(){
   // Respect the preset selected in the dropdown; fall back to Mortal
@@ -1969,7 +1993,7 @@ function blank(){
   STATE=_baseCharacterFields(attrs,skills);
   // Restore the applied preset config (overrides the empty sectionConfig from _baseCharacterFields)
   STATE.sectionConfig={...appliedConfig};
-  patchState();currentSaveId=null;showEditor(false);renderEditor();
+  patchState();currentSaveId=null;showEditor();renderEditor();
 }
 function showEditor(){
   document.getElementById('emptyState').style.display='none';
@@ -1994,7 +2018,32 @@ function patchState(){
   });
   SECTION_DEFS.forEach(sd=>{
     const t=sd.type,sk=sd.state_key;
-    if(t==='header-fields'){(sd.fields||[]).forEach(f=>{if(STATE[f.key]==null)STATE[f.key]='';});}
+    if(t==='beats-xp'){
+      const bk=sd.beats_key||'beats',xk=sd.xp_key||'experience';
+      if(STATE[bk]==null)STATE[bk]=0;
+      if(STATE[xk]==null)STATE[xk]=0;
+    }
+    else if(t==='header-fields'){(sd.fields||[]).forEach(f=>{if(STATE[f.key]==null)STATE[f.key]='';});}
+    else if(t==='attributes-3'){
+      if(!STATE.entity_attrs)STATE.entity_attrs={};
+      ENTITY_ATTRS.forEach(a=>{if(STATE.entity_attrs[a.key]==null)STATE.entity_attrs[a.key]=1;});
+      if(STATE.attr3MaxDots==null)STATE.attr3MaxDots=5;
+      if(STATE.attr3ShowSpinner===undefined)STATE.attr3ShowSpinner=false;
+    }
+    else if(t==='derived-traits-entity'){
+      if(STATE.entity_size==null)STATE.entity_size=5;
+      if(STATE.entity_rank_num==null)STATE.entity_rank_num=1;
+      if(STATE.entity_essence_max==null)STATE.entity_essence_max=10;
+      if(STATE.entity_essence_current==null)STATE.entity_essence_current=0;
+      if(STATE.corpus_damage==null)STATE.corpus_damage=0;
+      if(STATE.corpus_max_override===undefined)STATE.corpus_max_override=null;
+      if(STATE.entity_wp_spent==null)STATE.entity_wp_spent=0;
+      if(STATE.entity_wp_max_override===undefined)STATE.entity_wp_max_override=null;
+      if(!STATE.entityDerivedOverrides)STATE.entityDerivedOverrides={};
+      if(STATE.entity_defense==null)STATE.entity_defense=0;
+      if(STATE.entity_initiative==null)STATE.entity_initiative=0;
+      if(STATE.entity_speed==null)STATE.entity_speed=0;
+    }
     else if(sk){
       if(t==='line-list'||t==='named-list'||t==='rated-list'){if(!STATE[sk])STATE[sk]=[];}
       else if(t==='textarea'){if(STATE[sk]==null)STATE[sk]='';}
@@ -2009,6 +2058,10 @@ function patchState(){
         const rtMax=sd.max||20;
         if(!Array.isArray(STATE[sk])||STATE[sk].length!==rtMax)STATE[sk]=Array(rtMax).fill(false);
       }
+      else if(t==='quinpar-wheel'){
+        if(STATE[sk+'_quintessence']==null)STATE[sk+'_quintessence']=0;
+        if(STATE[sk+'_paradox']==null)STATE[sk+'_paradox']=0;
+      }
       else if(t==='labeled-track'){
         if(STATE[sk]==null)STATE[sk]=sd.default_value||1;
         const lblKey=sk+'_labels';
@@ -2021,13 +2074,11 @@ function patchState(){
       }
       else if(t==='renown-block'){
         if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
-        ['cunning','glory','honor','purity','wisdom'].forEach(k=>{if(STATE[sk][k]==null)STATE[sk][k]=0;});
+        (sd.fields||[]).forEach(f=>{if(STATE[sk][f.key]==null)STATE[sk][f.key]=0;});
       }
       else if(t==='cipher-block'){
         if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
-        ['embed1','embed2','embed3','embed4','interlock1','interlock2','interlock3','cipher','final_truth'].forEach(k=>{
-          if(STATE[sk][k]==null)STATE[sk][k]='';
-        });
+        (sd.fields||[]).forEach(f=>{if(STATE[sk][f.key]==null)STATE[sk][f.key]='';});
       }
       else if(t==='covers'){
         if(!Array.isArray(STATE[sk]))STATE[sk]=[];
@@ -2044,13 +2095,6 @@ function patchState(){
   if(STATE.willpower_spent===undefined)STATE.willpower_spent=0;
   if(STATE.willpower_max_override===undefined)STATE.willpower_max_override=null;
   if(!STATE.derivedOverrides)STATE.derivedOverrides={};
-  SECTION_DEFS.forEach(sd=>{
-    if(sd.type==='beats-xp'){
-      const bk=sd.beats_key||'beats',xk=sd.xp_key||'experience';
-      if(STATE[bk]==null)STATE[bk]=0;
-      if(STATE[xk]==null)STATE[xk]=0;
-    }
-  });
   if(STATE.size==null)STATE.size=5;
   if(!STATE.meritMaxDots)STATE.meritMaxDots=5;
   if(!STATE.attrMaxDots)STATE.attrMaxDots=5;
@@ -2060,31 +2104,6 @@ function patchState(){
   if(!STATE.sectionConfig)STATE.sectionConfig={};
   (STATE.weapons||[]).forEach(w=>{if(w.equipped===undefined)w.equipped=false;});
   (STATE.armor||[]).forEach(a=>{if(a.equipped===undefined)a.equipped=false;if(a.speed_penalty===undefined)a.speed_penalty=0;});
-  // ── Ephemeral Entity fields (only populated if missing — safe for mortal saves)
-  if(!STATE.entity_attrs)STATE.entity_attrs={power:1,finesse:1,resistance:1};
-  ENTITY_ATTRS.forEach(a=>{if(STATE.entity_attrs[a.key]==null)STATE.entity_attrs[a.key]=1;});
-  if(STATE.entity_size==null)STATE.entity_size=5;
-  if(STATE.entity_rank_num==null)STATE.entity_rank_num=1;
-  if(STATE.entity_essence_max==null)STATE.entity_essence_max=10;
-  if(STATE.entity_essence_current==null)STATE.entity_essence_current=0;
-  if(STATE.corpus_damage==null)STATE.corpus_damage=0;
-  if(STATE.corpus_max_override===undefined)STATE.corpus_max_override=null;
-  if(STATE.entity_wp_spent==null)STATE.entity_wp_spent=0;
-  if(STATE.entity_wp_max_override===undefined)STATE.entity_wp_max_override=null;
-  if(!STATE.entityDerivedOverrides)STATE.entityDerivedOverrides={};
-  if(STATE.attr3MaxDots==null)STATE.attr3MaxDots=5;
-  if(STATE.attr3ShowSpinner===undefined)STATE.attr3ShowSpinner=false;
-  if(!STATE.numina)STATE.numina=[];
-  if(!STATE.manifestations)STATE.manifestations=[];
-  if(!STATE.influences)STATE.influences=[];
-  if(!STATE.anchors)STATE.anchors=[];
-  if(STATE.entity_ban==null)STATE.entity_ban='';
-  if(STATE.entity_bane==null)STATE.entity_bane='';
-  if(STATE.entity_type==null)STATE.entity_type='';
-  if(STATE.entity_rank==null)STATE.entity_rank='';
-  if(STATE.entity_concept==null)STATE.entity_concept='';
-  if(STATE.entity_virtue==null)STATE.entity_virtue='';
-  if(STATE.entity_vice==null)STATE.entity_vice='';
 }
 
 // ── Sheet rendering pipeline ──────────────────────────────────────────────────
@@ -2164,7 +2183,7 @@ function renderSheetZone(zone,containerId){
     }
     else if(t==='line-list')renderLineItems(sd.state_key||sd.key,`${sd.key}-lines`);
     else if(t==='rated-list'){
-      if(sd.key==='merits'){renderMeritList();refillSelect('meritDrop',DB.merits);}
+      if(sd.special_renderer==='merits'){renderMeritList();refillSelect('meritDrop',DB.merits);}
       else{ renderGenericRatedList(sd); if(sd.db_key) refillSelect(`${sd.key}-drop`,DB[sd.db_key]); }
     }
     else if(t==='weapons'){renderWeaponList();refillSelect('weaponDrop',DB.weapons);}
@@ -2176,7 +2195,8 @@ function renderSheetZone(zone,containerId){
     else if(t==='renown-block')renderRenownBlock(sd);
     else if(t==='forms-block')renderFormsBlock(sd);
     else if(t==='cipher-block'){/* fields rendered inline in buildSectionHTML */}
-    else if(t==='covers')renderCovers(sd.state_key||sd.key,`${sd.state_key||sd.key}-list`);
+    else if(t==='covers')renderCovers(sd.state_key||sd.key,`${sd.key}-list`);
+    else if(t==='quinpar-wheel')renderQuinparWheel(sd.state_key||sd.key,sd.key);
   });
 }
 
@@ -2284,8 +2304,8 @@ function buildSectionHTML(sd){
     return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body"><div class="integrity-row">
-        <div class="dot-row" id="${sk}-dots">${dots}</div>
-        <span id="${sk}-val-lbl" style="color:var(--muted);font-size:.72rem;font-family:sans-serif;margin-left:4px">(${val}/${max})</span>
+        <div class="dot-row" id="${sd.key}-dots">${dots}</div>
+        <span id="${sd.key}-val-lbl" style="color:var(--muted);font-size:.72rem;font-family:sans-serif;margin-left:4px">(${val}/${max})</span>
       </div></div></div>`;
   }
 
@@ -2305,13 +2325,13 @@ function buildSectionHTML(sd){
           <span>${lbl}</span>
           <span class="derived-spin-row">
             <button class="spin" onclick="setDotSquareMax('${sk}',Math.max(0,(STATE['${sk}']||${max})-1),${max})">−</button>
-            <span id="${sk}-max-lbl" style="font-size:.78rem;font-weight:700;min-width:16px;text-align:center;color:var(--text)">${val}</span>
+            <span id="${sd.key}-max-lbl" style="font-size:.78rem;font-weight:700;min-width:16px;text-align:center;color:var(--text)">${val}</span>
             <button class="spin" onclick="setDotSquareMax('${sk}',Math.min(${max},(STATE['${sk}']||${max})+1),${max})">+</button>
           </span>
-          <span id="${sk}-val-lbl" style="color:var(--muted);font-size:.65rem">(${filled} remaining)</span>
+          <span id="${sd.key}-val-lbl" style="color:var(--muted);font-size:.65rem">(${filled} remaining)</span>
         </div>
-        <div class="tracker-circles" id="${sk}-dots">${circles}</div>
-        <div class="tracker-squares" id="${sk}-squares">${sqs}</div>
+        <div class="tracker-circles" id="${sd.key}-dots">${circles}</div>
+        <div class="tracker-squares" id="${sd.key}-squares">${sqs}</div>
       </div></div></div>`;
   }
 
@@ -2321,7 +2341,7 @@ function buildSectionHTML(sd){
     const lblKey=sk+'_labels';
     const labels=STATE[lblKey]||Array(max).fill('');
     const rows=Array.from({length:max},(_,i)=>{
-      const level=max-i; // display 10 at top, 1 at bottom
+      const level=max-i;
       const dot=val>=level;
       return `<div class="labeled-track-row">
         <span class="labeled-track-num">${level}</span>
@@ -2334,7 +2354,7 @@ function buildSectionHTML(sd){
     return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body">
-        <div id="${sk}-labeled-track">${rows}</div>
+        <div id="${sd.key}-labeled-track">${rows}</div>
       </div></div>`;
   }
 
@@ -2371,7 +2391,7 @@ function buildSectionHTML(sd){
       </div></div></div>`;
   }
 
-  if(t==='rated-list'){if(sd.key==='merits')return buildMeritsHTML(sd,hidden);return buildGenericRatedHTML(sd,hidden);}
+  if(t==='rated-list'){if(sd.special_renderer==='merits')return buildMeritsHTML(sd,hidden);return buildGenericRatedHTML(sd,hidden);}
   if(t==='weapons')return buildWeaponsHTML(hidden);
   if(t==='armor')return buildArmorHTML(hidden);
   if(t==='equipment')return buildEquipmentHTML(hidden);
@@ -2391,7 +2411,7 @@ function buildSectionHTML(sd){
     const sk=sd.state_key||sd.key;
     const rtMax=sd.max||20;
     const numRows=Math.ceil(rtMax/10);
-    const rowDivs=Array.from({length:numRows},(_,i)=>`<div class="resource-track-grid" id="${sk}-rt-row${i}"></div>`).join('');
+    const rowDivs=Array.from({length:numRows},(_,i)=>`<div class="resource-track-grid" id="${sd.key}-rt-row${i}"></div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body">
@@ -2405,24 +2425,23 @@ function buildSectionHTML(sd){
     const rows=(sd.fields||[]).map(f=>`
       <div class="arcana-row">
         <span class="arcana-lbl">${escH(f.label)}</span>
-        <div class="dot-row" id="arcana-dots-${f.key}"></div>
+        <div class="dot-row" id="arcana-dots-${sd.key}-${f.key}"></div>
       </div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
-      <div class="sec">Arcana <span style="font-weight:400;font-size:.6rem;color:var(--faint)">(0–5)</span></div>
+      <div class="sec">${lbl} <span style="font-weight:400;font-size:.6rem;color:var(--faint)">(0–5)</span></div>
       <div class="sec-collapsible-body">${rows}</div>
     </div>`;
   }
 
   if(t==='renown-block'){
     const sk=sd.state_key||sd.key;
-    const renowns=['Cunning','Glory','Honor','Purity','Wisdom'];
-    const rows=renowns.map(r=>`
+    const rows=(sd.fields||[]).map(f=>`
       <div class="renown-row">
-        <span class="renown-lbl">${r}</span>
-        <div class="dot-row" id="renown-dots-${r.toLowerCase()}"></div>
+        <span class="renown-lbl">${escH(f.label)}</span>
+        <div class="dot-row" id="renown-dots-${sd.key}-${f.key}"></div>
       </div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
-      <div class="sec" style="margin-top:12px">Renown</div>
+      <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body">${rows}</div>
     </div>`;
   }
@@ -2554,12 +2573,13 @@ function buildSectionHTML(sd){
 
   if(t==='covers'){
     const sk=sd.state_key||sd.key;
+    const listId=`${sd.key}-list`;
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec" style="margin-top:14px">${lbl}</div>
       <div class="sec-collapsible-body">
-        <div class="covers-list" id="${sk}-list"></div>
+        <div class="covers-list" id="${listId}"></div>
         <div class="add-row" style="margin-top:6px">
-          <button onclick="addCover('${sk}')">+ Add Cover</button>
+          <button onclick="addCover('${sk}','${listId}')">+ Add Cover</button>
         </div>
         <div class="hint">Each Cover represents a false identity. Cover Rating tracks how intact the identity is.</div>
       </div>
@@ -2647,6 +2667,46 @@ function buildSectionHTML(sd){
         <button class="sm" onclick="resetEntityDerivedOverrides()" style="font-size:.62rem;color:var(--faint)">Reset to formula</button>
       </div>
       </div></div>`;
+  }
+
+  // ── Quintessence/Paradox wheel ──────────────────────────────────────────────
+  // 20 squares arranged in a circle. Quintessence fills clockwise from pos 0
+  // (top). Paradox fills counter-clockwise from pos 19 (just left of top).
+  // Overlap: Paradox wins. Print: both zero out, all boxes empty.
+  if(t==='quinpar-wheel'){
+    const sk=sd.state_key||sd.key;
+    const qVal=STATE[sk+'_quintessence']||0;
+    const pVal=STATE[sk+'_paradox']||0;
+    return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
+      <div class="sec" style="margin-top:12px">${lbl}</div>
+      <div class="sec-collapsible-body">
+        <div class="quinpar-wrap">
+          <div class="quinpar-svg-wrap">
+            <svg class="quinpar-svg" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" id="${sd.key}-wheel-svg"></svg>
+            <div class="quinpar-lbl-top">Quintessence</div>
+            <div class="quinpar-lbl-btm">Paradox</div>
+          </div>
+          <div class="quinpar-controls">
+            <div class="quinpar-ctrl">
+              <div class="quinpar-ctrl-lbl">Quintessence</div>
+              <div class="quinpar-ctrl-row">
+                <button class="spin" onclick="adjQuinpar('${sk}','${sd.key}',-1,1)">−</button>
+                <span class="quinpar-val" id="${sd.key}-q-val">${qVal}</span>
+                <button class="spin" onclick="adjQuinpar('${sk}','${sd.key}',1,1)">+</button>
+              </div>
+            </div>
+            <div class="quinpar-ctrl">
+              <div class="quinpar-ctrl-lbl">Paradox</div>
+              <div class="quinpar-ctrl-row">
+                <button class="spin" onclick="adjQuinpar('${sk}','${sd.key}',-1,2)">−</button>
+                <span class="quinpar-val" id="${sd.key}-p-val">${pVal}</span>
+                <button class="spin" onclick="adjQuinpar('${sk}','${sd.key}',1,2)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
   }
 
   return '';
@@ -2820,14 +2880,13 @@ function updateAttrSpinnerToggle(){
 
 
 // ── Ephemeral Entity: 3-attribute renderer ────────────────────────────────────
-function getEntityAttr(k){return(STATE.entity_attrs||{})[k]||1;}
 function renderAttr3Block(){
   const el=document.getElementById('attr3Block');if(!el)return;
   const maxD=STATE.attr3MaxDots||5;
   const showSpin=STATE.attr3ShowSpinner||false;
   el.innerHTML=`<div class="attr-block-entity${showSpin?'':' attr-spinners-hidden'}">
     ${ENTITY_ATTRS.map(a=>{
-      const val=getEntityAttr(a.key)||1;
+      const val=getEntityAttrVal(a.key)||1;
       const dots=Array.from({length:maxD},(_,i)=>i+1).map(d=>
         `<span class="dot${val>=d?' filled':''}" onclick="setEntityAttrDot('${a.key}',${d})"></span>`).join('');
       return `<div class="attr-cell">
@@ -3113,12 +3172,15 @@ function adjXP(xk,delta){
 
 function setDotTrack(sk,val,max){
   const cur=STATE[sk]||0;STATE[sk]=(val===cur)?val-1:val;STATE[sk]=Math.max(0,Math.min(max,STATE[sk]));
-  const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk)||{key:sk,state_key:sk,max};
-  renderDotTrack(sd);
+  // Re-render ALL dot-track sections sharing this state key (e.g. gnosis + ascension-gnosis)
+  const matches=SECTION_DEFS.filter(s=>s.type==='dot-track'&&(s.state_key||s.key)===sk);
+  if(matches.length)matches.forEach(s=>renderDotTrack(s));
+  else renderDotTrack({key:sk,state_key:sk,max});
 }
 function renderDotTrack(sd){
+  // DOM IDs use sd.key (unique) to avoid collisions when multiple sections share a state_key
   const sk=sd.state_key||sd.key,val=STATE[sk]||0,max=sd.max||10;
-  const dotsEl=document.getElementById(`${sk}-dots`),lblEl=document.getElementById(`${sk}-val-lbl`);
+  const dotsEl=document.getElementById(`${sd.key}-dots`),lblEl=document.getElementById(`${sd.key}-val-lbl`);
   if(dotsEl)dotsEl.innerHTML=Array.from({length:max},(_,i)=>i+1).map(d=>
     `<span class="dot${val>=d?' filled':''}" onclick="setDotTrack('${sk}',${d},${max})"></span>`).join('');
   if(lblEl)lblEl.textContent=`(${val}/${max})`;
@@ -3128,8 +3190,9 @@ function setDotSquareMax(sk,val,max){
   STATE[sk]=Math.max(0,Math.min(max,val));
   const sqKey=sk+'_squares';
   if(!Array.isArray(STATE[sqKey])||STATE[sqKey].length!==max)STATE[sqKey]=Array(max).fill(false);
-  const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk)||{key:sk,state_key:sk,max};
-  renderDotSquareTrack(sd);
+  const matches=SECTION_DEFS.filter(s=>s.type==='dot-square-track'&&(s.state_key||s.key)===sk);
+  if(matches.length)matches.forEach(s=>renderDotSquareTrack(s));
+  else renderDotSquareTrack({key:sk,state_key:sk,max});
 }
 function toggleDotSquare(sk,idx){
   const sqKey=sk+'_squares';
@@ -3138,20 +3201,22 @@ function toggleDotSquare(sk,idx){
   const filled=STATE[sqKey].filter(Boolean).length;
   if(idx===filled-1) STATE[sqKey]=STATE[sqKey].map((_,i)=>i<filled-1);
   else STATE[sqKey]=STATE[sqKey].map((_,i)=>i<=idx);
-  const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk)||{key:sk,state_key:sk};
-  renderDotSquareTrack(sd);
+  const matches=SECTION_DEFS.filter(s=>s.type==='dot-square-track'&&(s.state_key||s.key)===sk);
+  if(matches.length)matches.forEach(s=>renderDotSquareTrack(s));
+  else renderDotSquareTrack({key:sk,state_key:sk});
 }
 function renderDotSquareTrack(sd){
+  // DOM IDs use sd.key (unique) to avoid collisions when multiple sections share a state_key
   const sk=sd.state_key||sd.key,max=sd.max||10;
   const val=STATE[sk]!=null?STATE[sk]:max;
   const sqKey=sk+'_squares';
   if(!Array.isArray(STATE[sqKey])||STATE[sqKey].length!==max)STATE[sqKey]=Array(max).fill(false);
   const squares=STATE[sqKey];
   const filled=squares.filter(Boolean).length;
-  const dotsEl=document.getElementById(`${sk}-dots`);
-  const sqsEl=document.getElementById(`${sk}-squares`);
-  const lblEl=document.getElementById(`${sk}-val-lbl`);
-  const maxLbl=document.getElementById(`${sk}-max-lbl`);
+  const dotsEl=document.getElementById(`${sd.key}-dots`);
+  const sqsEl=document.getElementById(`${sd.key}-squares`);
+  const lblEl=document.getElementById(`${sd.key}-val-lbl`);
+  const maxLbl=document.getElementById(`${sd.key}-max-lbl`);
   if(dotsEl)dotsEl.innerHTML=Array.from({length:max},(_,i)=>
     `<span class="tcircle"${i>=val?' style="opacity:0.2"':''}></span>`).join('');
   if(sqsEl)sqsEl.innerHTML=Array.from({length:max},(_,i)=>
@@ -3161,13 +3226,14 @@ function renderDotSquareTrack(sd){
 }
 
 function renderResourceTrack(sd){
+  // DOM IDs use sd.key (unique) to avoid collisions when multiple sections share a state_key
   const sk=sd.state_key||sd.key;
   const rtMax=sd.max||20;
   const rowSize=10;
   const numRows=Math.ceil(rtMax/rowSize);
   const vals=STATE[sk]||Array(rtMax).fill(false);
   for(let row=0;row<numRows;row++){
-    const el=document.getElementById(`${sk}-rt-row${row}`);if(!el)return;
+    const el=document.getElementById(`${sd.key}-rt-row${row}`);if(!el)return;
     const start=row*rowSize,end=Math.min(start+rowSize,rtMax);
     el.innerHTML=Array.from({length:end-start},(_,i)=>{
       const idx=start+i;
@@ -3176,11 +3242,74 @@ function renderResourceTrack(sd){
   }
 }
 function toggleResourceSquare(sk,idx){
-  const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk);
-  const rtMax=(sd&&sd.max)||20;
+  const matches=SECTION_DEFS.filter(s=>s.type==='resource-track'&&(s.state_key||s.key)===sk);
+  const rtMax=(matches[0]&&matches[0].max)||20;
   if(!Array.isArray(STATE[sk])||STATE[sk].length!==rtMax)STATE[sk]=Array(rtMax).fill(false);
   STATE[sk][idx]=!STATE[sk][idx];
-  if(sd)renderResourceTrack(sd);
+  if(matches.length)matches.forEach(s=>renderResourceTrack(s));
+}
+
+// ── Quintessence/Paradox wheel ────────────────────────────────────────────────
+// 20 squares in a circle. Position 0 = 12 o'clock, clockwise.
+// Quintessence fills positions 0..Q-1 (from top, clockwise) — solid black fill.
+// Paradox fills positions 19..20-P (from bottom, counter-clockwise) — X mark.
+// Overlap rule: Q + P cannot exceed 20. Increasing Paradox decrements Quintessence.
+// Print: controls hidden via CSS; SVG renders as-is.
+// sk = state_key (for STATE reads), sectionKey = sd.key (for DOM IDs, unique)
+function renderQuinparWheel(sk,sectionKey){
+  const domKey=sectionKey||sk;
+  const svg=document.getElementById(domKey+'-wheel-svg');if(!svg)return;
+  const Q=STATE[sk+'_quintessence']||0;
+  const P=STATE[sk+'_paradox']||0;
+  const N=20;
+  const cx=90,cy=90,R=72,hw=5.5;
+  const squares=Array.from({length:N},(_,i)=>{
+    // Position 0 starts at 9 o'clock (left), fills clockwise
+    const angle=(2*Math.PI*i/N)-Math.PI;
+    const bx=cx+R*Math.cos(angle);
+    const by=cy+R*Math.sin(angle);
+    const rot=(360*i/N).toFixed(2);
+    const isQ=i<Q;
+    const isP=P>0&&i>=(N-P);
+    if(isP){
+      const x1=(bx-hw).toFixed(2),y1=(by-hw).toFixed(2);
+      const x2=(bx+hw).toFixed(2),y2=(by+hw).toFixed(2);
+      return `<g transform="rotate(${rot},${bx.toFixed(2)},${by.toFixed(2)})">
+        <rect x="${x1}" y="${y1}" width="${(hw*2).toFixed(2)}" height="${(hw*2).toFixed(2)}" rx="1.5"
+          fill="transparent" stroke="var(--text)" stroke-width="1.5"/>
+        <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--text)" stroke-width="1.2"/>
+        <line x1="${x2}" y1="${y1}" x2="${x1}" y2="${y2}" stroke="var(--text)" stroke-width="1.2"/>
+      </g>`;
+    } else if(isQ){
+      const x=(bx-hw).toFixed(2),y=(by-hw).toFixed(2);
+      return `<rect transform="rotate(${rot},${bx.toFixed(2)},${by.toFixed(2)})"
+        x="${x}" y="${y}" width="${(hw*2).toFixed(2)}" height="${(hw*2).toFixed(2)}"
+        rx="1.5" fill="var(--text)" stroke="var(--text)" stroke-width="1.5"/>`;
+    } else {
+      const x=(bx-hw).toFixed(2),y=(by-hw).toFixed(2);
+      return `<rect transform="rotate(${rot},${bx.toFixed(2)},${by.toFixed(2)})"
+        x="${x}" y="${y}" width="${(hw*2).toFixed(2)}" height="${(hw*2).toFixed(2)}"
+        rx="1.5" fill="transparent" stroke="var(--border)" stroke-width="1.5"/>`;
+    }
+  }).join('');
+  svg.innerHTML=`<g transform="rotate(9,90,90)">${squares}</g>`;
+  const qEl=document.getElementById(domKey+'-q-val');if(qEl)qEl.textContent=Q;
+  const pEl=document.getElementById(domKey+'-p-val');if(pEl)pEl.textContent=P;
+}
+function adjQuinpar(sk,sectionKey,delta,which){
+  const N=20;
+  if(which===1){
+    const p=STATE[sk+'_paradox']||0;
+    const q=STATE[sk+'_quintessence']||0;
+    STATE[sk+'_quintessence']=Math.max(0,Math.min(N-p,q+delta));
+  } else {
+    const q=STATE[sk+'_quintessence']||0;
+    const p=STATE[sk+'_paradox']||0;
+    const newP=Math.max(0,Math.min(N,p+delta));
+    STATE[sk+'_paradox']=newP;
+    if(newP+q>N)STATE[sk+'_quintessence']=Math.max(0,N-newP);
+  }
+  renderQuinparWheel(sk,sectionKey);
 }
 
 // ── Labeled-track functions ───────────────────────────────────────────────────
@@ -3188,18 +3317,20 @@ function setLabeledTrack(sk,val,max){
   const cur=STATE[sk]||0;
   STATE[sk]=(val===cur)?val-1:val;
   STATE[sk]=Math.max(0,Math.min(max,STATE[sk]));
-  // Re-render just the dots without replacing label inputs (to preserve focus)
-  const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk);
-  if(!sd)return;
-  const container=document.getElementById(`${sk}-labeled-track`);if(!container)return;
+  // Re-render just the dots in ALL labeled-track sections sharing this state key
+  // DOM container IDs use sd.key to avoid collisions
+  const matches=SECTION_DEFS.filter(s=>s.type==='labeled-track'&&(s.state_key||s.key)===sk);
   const newVal=STATE[sk];
-  container.querySelectorAll('.labeled-track-row').forEach((row,ri)=>{
-    const level=max-ri;
-    const dot=row.querySelector('.dot');
-    if(dot){
-      if(newVal>=level)dot.classList.add('filled');
-      else dot.classList.remove('filled');
-    }
+  matches.forEach(s=>{
+    const container=document.getElementById(`${s.key}-labeled-track`);if(!container)return;
+    container.querySelectorAll('.labeled-track-row').forEach((row,ri)=>{
+      const level=(s.max||10)-ri;
+      const dot=row.querySelector('.dot');
+      if(dot){
+        if(newVal>=level)dot.classList.add('filled');
+        else dot.classList.remove('filled');
+      }
+    });
   });
 }
 function setLabeledTrackLabel(sk,idx,val){
@@ -3212,7 +3343,9 @@ function renderArcanaBlock(sd){
   const sk=sd.state_key||sd.key;
   const vals=STATE[sk]||{};
   (sd.fields||[]).forEach(f=>{
-    const el=document.getElementById(`arcana-dots-${f.key}`);if(!el)return;
+    // IDs are namespaced by section key (not state_key) to avoid collisions when
+    // two arcana-block sections share the same state_key (e.g. arcana + ascension-arcana)
+    const el=document.getElementById(`arcana-dots-${sd.key}-${f.key}`);if(!el)return;
     const val=vals[f.key]||0;
     el.innerHTML=Array.from({length:5},(_,i)=>i+1).map(d=>
       `<span class="dot${val>=d?' filled':''}" onclick="setArcana('${sk}','${f.key}',${d})"></span>`).join('');
@@ -3223,18 +3356,22 @@ function setArcana(sk,akey,val){
   const cur=STATE[sk][akey]||0;
   STATE[sk][akey]=(val===cur)?val-1:val;
   STATE[sk][akey]=Math.max(0,Math.min(5,STATE[sk][akey]));
-  const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk);
-  if(sd)renderArcanaBlock(sd);
+  // Re-render ALL arcana-block sections sharing this state key — there may be
+  // more than one visible (e.g. arcana + ascension-arcana both enabled)
+  SECTION_DEFS.filter(s=>s.type==='arcana-block'&&(s.state_key||s.key)===sk)
+    .forEach(s=>renderArcanaBlock(s));
 }
 
 function renderRenownBlock(sd){
+  // DOM IDs use sd.key (unique) to avoid collisions when multiple sections share a state_key.
+  // Fields are data-driven from sd.fields — no hardcoded renown names.
   const sk=sd.state_key||sd.key;
   const vals=STATE[sk]||{};
-  ['cunning','glory','honor','purity','wisdom'].forEach(rkey=>{
-    const el=document.getElementById(`renown-dots-${rkey}`);if(!el)return;
-    const val=vals[rkey]||0;
+  (sd.fields||[]).forEach(f=>{
+    const el=document.getElementById(`renown-dots-${sd.key}-${f.key}`);if(!el)return;
+    const val=vals[f.key]||0;
     el.innerHTML=Array.from({length:5},(_,i)=>i+1).map(d=>
-      `<span class="dot${val>=d?' filled':''}" onclick="setRenown('${sk}','${rkey}',${d})"></span>`).join('');
+      `<span class="dot${val>=d?' filled':''}" onclick="setRenown('${sk}','${f.key}',${d})"></span>`).join('');
   });
 }
 function setRenown(sk,rkey,val){
@@ -3242,8 +3379,8 @@ function setRenown(sk,rkey,val){
   const cur=STATE[sk][rkey]||0;
   STATE[sk][rkey]=(val===cur)?val-1:val;
   STATE[sk][rkey]=Math.max(0,Math.min(5,STATE[sk][rkey]));
-  const sd=SECTION_DEFS.find(s=>(s.state_key||s.key)===sk);
-  if(sd)renderRenownBlock(sd);
+  SECTION_DEFS.filter(s=>s.type==='renown-block'&&(s.state_key||s.key)===sk)
+    .forEach(s=>renderRenownBlock(s));
 }
 
 function renderFormsBlock(sd){
@@ -3320,15 +3457,17 @@ function setCipherField(sk,field,val){
 }
 
 // ── Covers functions ──────────────────────────────────────────────────────────
-function addCover(sk){
+// listId is always passed explicitly (derived from sd.key, not state_key) so that
+// multiple covers sections sharing a state_key don't collide on DOM IDs.
+function addCover(sk,listId){
   if(!Array.isArray(STATE[sk]))STATE[sk]=[];
   STATE[sk].push({id:_uuid(),name:'New Cover',age:'',appearance:'',cover_rating:7,notes:'',merits:[]});
-  renderCovers(sk,`${sk}-list`);
+  renderCovers(sk,listId);
 }
-function removeCover(sk,id){
+function removeCover(sk,id,listId){
   if(!Array.isArray(STATE[sk]))return;
   STATE[sk]=STATE[sk].filter(c=>c.id!==id);
-  renderCovers(sk,`${sk}-list`);
+  renderCovers(sk,listId);
 }
 function setCoverField(sk,id,field,val){
   const c=(STATE[sk]||[]).find(x=>x.id===id);if(c)c[field]=val;
@@ -3336,7 +3475,6 @@ function setCoverField(sk,id,field,val){
 function setCoverRating(sk,id,val){
   const c=(STATE[sk]||[]).find(x=>x.id===id);if(!c)return;
   c.cover_rating=c.cover_rating===val?val-1:val;
-  // re-render just the dot row for this cover
   const dotEl=document.getElementById(`cover-rating-dots-${id}`);
   if(dotEl)dotEl.innerHTML=buildCoverRatingDots(sk,id,c.cover_rating);
 }
@@ -3345,7 +3483,7 @@ function buildCoverRatingDots(sk,id,rating){
     `<span class="dot${rating>=d?' filled':''}" onclick="setCoverRating('${sk}','${id}',${d})"></span>`
   ).join('');
 }
-function addCoverMerit(sk,id){
+function addCoverMerit(sk,id,listId){
   const dropId=`cover-merit-drop-${id}`,searchId=`cover-merit-search-${id}`;
   const drop=document.getElementById(dropId),search=document.getElementById(searchId);
   if(!drop||!search)return;
@@ -3354,17 +3492,17 @@ function addCoverMerit(sk,id){
   if(!Array.isArray(c.merits))c.merits=[];
   const found=DB.merits?DB.merits.find(m=>m.name===val):null;
   c.merits.push({name:val,rating:found?found.rating||1:1,desc:found?found.desc||'':''});
-  renderCovers(sk,`${sk}-list`);
+  renderCovers(sk,listId);
 }
-function removeCoverMerit(sk,id,mi){
+function removeCoverMerit(sk,id,mi,listId){
   const c=(STATE[sk]||[]).find(x=>x.id===id);if(!c||!c.merits)return;
   c.merits.splice(mi,1);
-  renderCovers(sk,`${sk}-list`);
+  renderCovers(sk,listId);
 }
-function setCoverMeritRating(sk,id,mi,val){
+function setCoverMeritRating(sk,id,mi,val,listId){
   const c=(STATE[sk]||[]).find(x=>x.id===id);if(!c||!c.merits)return;
   c.merits[mi].rating=val;
-  renderCovers(sk,`${sk}-list`);
+  renderCovers(sk,listId);
 }
 function renderCovers(sk,listId){
   const el=document.getElementById(listId);if(!el)return;
@@ -3374,12 +3512,12 @@ function renderCovers(sk,listId){
     const ratingDots=buildCoverRatingDots(sk,c.id,c.cover_rating||7);
     const meritRows=(c.merits||[]).map((m,mi)=>{
       const mDots=Array.from({length:5},(_,i)=>i+1).map(d=>
-        `<span class="dot${(m.rating||0)>=d?' filled':''}" onclick="setCoverMeritRating('${sk}','${c.id}',${mi},${d})"></span>`
+        `<span class="dot${(m.rating||0)>=d?' filled':''}" onclick="setCoverMeritRating('${sk}','${c.id}',${mi},${d},'${listId}')"></span>`
       ).join('');
       return `<div class="cover-merit-row">
         <span class="cover-merit-name">${escH(m.name||'')}</span>
         <div class="cover-merit-dots">${mDots}</div>
-        <button class="sm danger" onclick="removeCoverMerit('${sk}','${c.id}',${mi})">✕</button>
+        <button class="sm danger" onclick="removeCoverMerit('${sk}','${c.id}',${mi},'${listId}')">✕</button>
       </div>`;
     }).join('');
     return `<div class="cover-card open" id="cover-card-${c.id}">
@@ -3388,7 +3526,7 @@ function renderCovers(sk,listId){
         <input class="cover-card-name" value="${escH(c.name||'')}" placeholder="Cover name"
           onclick="event.stopPropagation()" onchange="setCoverField('${sk}','${c.id}','name',this.value)">
         <span style="font-size:.72rem;font-family:sans-serif;color:var(--muted);flex-shrink:0">Rating ${c.cover_rating||0}/10</span>
-        <button class="sm danger" onclick="event.stopPropagation();removeCover('${sk}','${c.id}')">Remove</button>
+        <button class="sm danger" onclick="event.stopPropagation();removeCover('${sk}','${c.id}','${listId}')">Remove</button>
       </div>
       <div class="cover-card-body">
         <div class="cover-rating-row">
@@ -3406,12 +3544,11 @@ function renderCovers(sk,listId){
           <input id="cover-merit-search-${c.id}" placeholder="Search merits…"
             oninput="filterSelect('cover-merit-search-${c.id}','cover-merit-drop-${c.id}',DB.merits||[])">
           <select id="cover-merit-drop-${c.id}"><option disabled selected value="">— pick —</option></select>
-          <button onclick="addCoverMerit('${sk}','${c.id}')">Add</button>
+          <button onclick="addCoverMerit('${sk}','${c.id}','${listId}')">Add</button>
         </div>
       </div>
     </div>`;
   }).join('');
-  // Re-fill all cover merit dropdowns
   covers.forEach(c=>refillSelect(`cover-merit-drop-${c.id}`,meritsDB));
 }
 function toggleCoverCard(id){
@@ -3718,12 +3855,6 @@ function hideDescEdit(taEl){
   displayEl.style.display='block';
   if(hint)hint.style.display='block';
 }
-// Update the live preview div above a full textarea section.
-function updateDescPreview(taEl,previewId){
-  const el=document.getElementById(previewId);
-  if(!el)return;
-  el.innerHTML=mdH(taEl.value)||'';
-}
 // Build the display-div + hidden-textarea pair for card description fields.
 // stateExpr: JS expression string that assigns the value (run via onchange).
 // val: current string value.
@@ -3787,12 +3918,28 @@ function copyText(){
       return `    ${sd.label||SKILL_LABELS[k]} ${'●'.repeat(sk(k))}${sd.specialty?` (${sd.specialty})`:''}${sd.rote?' [Rote]':''}`;
     }).join('\n')).join('\n');
   const healthStr=(STATE.health_track||[]).map(s=>!s?'□':s==='b'?'/':s==='l'?'X':'*').join(' ');
-  const hdrStr=(ZONES['header']||[]).filter(sd=>sd.type==='header-fields').flatMap(sd=>
+  const hdrStr=(ZONES['header']||[]).filter(sd=>sd.type==='header-fields'&&secVisible(sd.key)).flatMap(sd=>
     (sd.fields||[]).map(f=>`${f.label}: ${STATE[f.key]||'—'}`)).join('  |  ');
   const beatsStr=SECTION_DEFS.filter(sd=>sd.type==='beats-xp'&&secVisible(sd.key)).map(sd=>{
     const bk=sd.beats_key||'beats',xk=sd.xp_key||'experience';
     return `${sd.label}: ${STATE[bk]||0}/5  |  XP: ${STATE[xk]||0}`;
   }).join('  |  ')||`Beats: ${STATE.beats||0}/5  |  XP: ${STATE.experience||0}`;
+  // Active morality/integrity track — use whichever visible dot-track has default_value:7
+  const moralitySD=SECTION_DEFS.find(sd=>sd.type==='dot-track'&&sd.default_value===7&&secVisible(sd.key));
+  const moralityStr=moralitySD?`  ${moralitySD.label}: ${STATE[moralitySD.state_key||moralitySD.key]||0}`:'';
+  // Visible named-lists and line-lists (tilts, conditions, aspirations, etc.)
+  const listSections=SECTION_DEFS.filter(sd=>
+    (sd.type==='named-list'||sd.type==='line-list')&&secVisible(sd.key)&&
+    !['tactics','endowments'].includes(sd.key) // exclude ability lists
+  );
+  const listStr=listSections.map(sd=>{
+    const items=STATE[sd.state_key||sd.key]||[];
+    if(!items.length)return null;
+    const lines=sd.type==='line-list'
+      ?items.map(i=>`  ${i}`)
+      :items.map(i=>`  ${i.name||''}${i.desc?': '+i.desc:''}`);
+    return `${sd.label.toUpperCase()}\n${lines.join('\n')}`;
+  }).filter(Boolean).join('\n\n');
   const txt=`=====================================
 ${STATE.name||'Unnamed'}
 ${hdrStr}
@@ -3811,16 +3958,7 @@ DERIVED TRAITS
   Defense: ${STATE.defense||0}${gm.defPenalty?` (→${STATE.defense+gm.defPenalty} with gear)`:''}
   Initiative: ${STATE.initiative||0}${gm.initMod?` (→${STATE.initiative+gm.initMod} with gear)`:''}
   Speed: ${STATE.speed||0}${gm.speedPenalty?` (→${STATE.speed+gm.speedPenalty} with gear)`:''}
-  Size: ${STATE.size||5}  |  Integrity: ${STATE.integrity||0}
-
-TILTS
-${(STATE.tilts||[]).map(t=>`  ${t.name||''}${t.desc?': '+t.desc:''}`).join('\n')||'  None'}
-
-CONDITIONS
-${(STATE.conditions||[]).map(c=>`  ${c.name||''}${c.desc?': '+c.desc:''}`).join('\n')||'  None'}
-
-ASPIRATIONS
-${(STATE.aspirations||[]).map(a=>`  ${a}`).join('\n')||'  None'}
+  Size: ${STATE.size||5}${moralityStr}
 
 MERITS
 ${(STATE.merits||[]).map(m=>`  ${m.name} ${'●'.repeat(m.rating||0)||'(unrated)'}${m.desc?': '+m.desc:''}`).join('\n')||'  None'}
@@ -3836,6 +3974,7 @@ ${(STATE.armor||[]).map(a=>`  ${a.name}${a.equipped?' [Equipped]':''}\n    Armor
 
 EQUIPMENT
 ${(STATE.equipment||[]).map(e=>`  ${e.name}\n    Dice Bonus +${e.dice_bonus||0} | Durability ${e.durability||0} | Size ${e.size||0} | Structure ${e.structure||0}${e.desc?'\n    '+e.desc:''}`).join('\n')||'  None'}
+${listStr?'\n'+listStr:''}
 ${STATE.notes?'\nNOTES\n  '+STATE.notes:''}
 =====================================`.trim();
   navigator.clipboard.writeText(txt).then(()=>showStatus('Copied to clipboard.'));
@@ -3913,7 +4052,7 @@ function importSheet(input){
   reader.onload=e=>{
     try{
       STATE=JSON.parse(e.target.result);patchState();currentSaveId=STATE.id||null;
-      showEditor(!!currentSaveId);renderEditor();showStatus('Sheet imported.');
+      showEditor();renderEditor();showStatus('Sheet imported.');
     }catch{showStatus('Import failed — invalid JSON file.');}
   };
   reader.readAsText(file);input.value='';
@@ -3977,7 +4116,7 @@ function commitDataImport(mode){
   cancelDataImport();
   SECTION_DEFS.forEach(sd=>{
     if(sd.db_key&&secVisible(sd.key)){
-      if(sd.type==='rated-list'&&sd.key==='merits')refillSelect('meritDrop',DB.merits);
+      if(sd.type==='rated-list'&&sd.special_renderer==='merits')refillSelect('meritDrop',DB.merits);
       else if(sd.db_key)refillSelect(`${sd.key}-drop`,DB[sd.db_key]);
     }
   });
