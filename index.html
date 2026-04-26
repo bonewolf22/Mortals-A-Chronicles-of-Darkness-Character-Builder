@@ -474,12 +474,16 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .renown-row:last-child{border-bottom:none}
 .renown-lbl{flex:1;font-family:sans-serif;font-size:.82rem}
 /* ── pillars-block ───────────────────────────────────────────────────────── */
-/* Each row: label + dot row (permanent dots) + square row (temporary track) */
-.pillars-row{display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid var(--border-light);font-family:sans-serif;font-size:.82rem}
+/* Each row: label + text input on left, dots stacked above squares on right  */
+.pillars-row{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--border-light);font-family:sans-serif;font-size:.82rem}
 .pillars-row:last-child{border-bottom:none}
-.pillars-lbl{flex:1;font-family:sans-serif;font-size:.82rem}
+.pillars-left{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.pillars-lbl{font-family:sans-serif;font-size:.82rem;color:var(--muted);white-space:nowrap}
+.pillars-inp{border:none;border-bottom:1px solid var(--border-light);background:transparent;color:var(--text);font-family:sans-serif;font-size:.82rem;padding:1px 2px;outline:none;width:100%}
+.pillars-inp:focus{border-bottom-color:var(--accent)}
+.pillars-tracks{display:flex;flex-direction:column;align-items:flex-start;gap:2px;flex-shrink:0}
 .pillars-dots{display:flex;gap:2px;align-items:center}
-.pillars-squares{display:flex;gap:2px;align-items:center;margin-left:4px}
+.pillars-squares{display:flex;gap:2px;align-items:center}
 /* ── labeled-track ───────────────────────────────────────────────────────── */
 .labeled-track-row{display:flex;align-items:center;gap:7px;padding:3px 0;border-bottom:1px solid var(--border-light);font-family:sans-serif;font-size:.82rem}
 .labeled-track-row:last-child{border-bottom:none}
@@ -1892,7 +1896,7 @@ function _baseCharacterFields(attrs,skills){
     else if(t==='labeled-track'){base[sk]=sd.default_value||1;base[sk+'_labels']=Array(sd.max||10).fill('');}
     else if(t==='arcana-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
     else if(t==='renown-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,0]));
-    else if(t==='pillars-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,{dots:0,squares:Array(5).fill(false)}]));
+    else if(t==='pillars-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,{dots:0,squares:Array(5).fill(false),note:''}]));
     else if(t==='cipher-block')base[sk]=Object.fromEntries((sd.fields||[]).map(f=>[f.key,'']));
     else if(t==='covers')base[sk]=[];
     else if(t==='quinpar-wheel'){base[sk+'_quintessence']=0;base[sk+'_paradox']=0;}
@@ -2129,11 +2133,12 @@ function patchState(){
         if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
         (sd.fields||[]).forEach(f=>{
           if(!STATE[sk][f.key]||typeof STATE[sk][f.key]!=='object')
-            STATE[sk][f.key]={dots:0,squares:Array(5).fill(false)};
+            STATE[sk][f.key]={dots:0,squares:Array(5).fill(false),note:''};
           else{
             if(STATE[sk][f.key].dots==null)STATE[sk][f.key].dots=0;
             if(!Array.isArray(STATE[sk][f.key].squares)||STATE[sk][f.key].squares.length!==5)
               STATE[sk][f.key].squares=Array(5).fill(false);
+            if(STATE[sk][f.key].note==null)STATE[sk][f.key].note='';
           }
         });
       }
@@ -2509,15 +2514,24 @@ function buildSectionHTML(sd){
   }
 
   if(t==='pillars-block'){
-    // Five named rows, each with 5 permanent dots + 5 temporary squares.
-    // Dots track permanent Pillar rating (0–5). Squares track temporary spent points.
+    // Five named rows: label + text input on left; 5 dots (permanent) stacked above
+    // 5 squares (temporary) on the right — matching the official Mummy sheet layout.
     const sk=sd.state_key||sd.key;
-    const rows=(sd.fields||[]).map(f=>`
-      <div class="pillars-row">
-        <span class="pillars-lbl">${escH(f.label)}</span>
-        <div class="pillars-dots" id="pillars-dots-${sd.key}-${f.key}"></div>
-        <div class="pillars-squares" id="pillars-squares-${sd.key}-${f.key}"></div>
-      </div>`).join('');
+    const rows=(sd.fields||[]).map(f=>{
+      const pf=(STATE[sk]&&STATE[sk][f.key])||{};
+      const inpVal=escH(pf.note||'');
+      return `<div class="pillars-row">
+        <div class="pillars-left">
+          <span class="pillars-lbl">${escH(f.label)}</span>
+          <input class="pillars-inp" value="${inpVal}" placeholder=""
+            oninput="setPillarNote('${sk}','${f.key}',this.value)">
+        </div>
+        <div class="pillars-tracks">
+          <div class="pillars-dots" id="pillars-dots-${sd.key}-${f.key}"></div>
+          <div class="pillars-squares" id="pillars-squares-${sd.key}-${f.key}"></div>
+        </div>
+      </div>`;
+    }).join('');
     return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
       <div class="sec-collapsible-body">${rows}</div>
@@ -3469,16 +3483,18 @@ function renderPillarsBlock(sd){
   if(!STATE[sk]||typeof STATE[sk]!=='object')STATE[sk]={};
   (sd.fields||[]).forEach(f=>{
     if(!STATE[sk][f.key]||typeof STATE[sk][f.key]!=='object')
-      STATE[sk][f.key]={dots:0,squares:Array(5).fill(false)};
+      STATE[sk][f.key]={dots:0,squares:Array(5).fill(false),note:''};
     const pf=STATE[sk][f.key];
     const rating=pf.dots||0;
     const squares=Array.isArray(pf.squares)?pf.squares:Array(5).fill(false);
     const filled=squares.filter(Boolean).length;
-    // Dots (permanent rating 0–5)
+    // Dots row — tcircle matches tsquare size (11px); unset dots rendered at low opacity
+    // clicking cycles the permanent rating, same toggle behaviour as dot-square-track
     const dotsEl=document.getElementById(`pillars-dots-${sd.key}-${f.key}`);
-    if(dotsEl)dotsEl.innerHTML=Array.from({length:5},(_,i)=>i+1).map(d=>
-      `<span class="dot${rating>=d?' filled':''}" onclick="setPillarDot('${sk}','${f.key}',${d})"></span>`).join('');
-    // Squares (temporary track 0–5)
+    if(dotsEl)dotsEl.innerHTML=Array.from({length:5},(_,i)=>
+      `<span class="tcircle" style="cursor:pointer${i>=rating?';opacity:0.2':''}"
+        onclick="setPillarDot('${sk}','${f.key}',${i+1})"></span>`).join('');
+    // Squares row — toggleable temporary track
     const sqsEl=document.getElementById(`pillars-squares-${sd.key}-${f.key}`);
     if(sqsEl)sqsEl.innerHTML=Array.from({length:5},(_,i)=>
       `<span class="tsquare${i<filled?' on':''}" onclick="togglePillarSquare('${sk}','${f.key}',${i})"></span>`).join('');
@@ -3486,7 +3502,7 @@ function renderPillarsBlock(sd){
 }
 function setPillarDot(sk,fkey,val){
   if(!STATE[sk])STATE[sk]={};
-  if(!STATE[sk][fkey])STATE[sk][fkey]={dots:0,squares:Array(5).fill(false)};
+  if(!STATE[sk][fkey])STATE[sk][fkey]={dots:0,squares:Array(5).fill(false),note:''};
   const cur=STATE[sk][fkey].dots||0;
   STATE[sk][fkey].dots=Math.max(0,val===cur?val-1:val);
   SECTION_DEFS.filter(s=>s.type==='pillars-block'&&(s.state_key||s.key)===sk)
@@ -3494,7 +3510,7 @@ function setPillarDot(sk,fkey,val){
 }
 function togglePillarSquare(sk,fkey,idx){
   if(!STATE[sk])STATE[sk]={};
-  if(!STATE[sk][fkey])STATE[sk][fkey]={dots:0,squares:Array(5).fill(false)};
+  if(!STATE[sk][fkey])STATE[sk][fkey]={dots:0,squares:Array(5).fill(false),note:''};
   const squares=STATE[sk][fkey].squares;
   if(!Array.isArray(squares)||squares.length!==5)STATE[sk][fkey].squares=Array(5).fill(false);
   const filled=STATE[sk][fkey].squares.filter(Boolean).length;
@@ -3502,6 +3518,11 @@ function togglePillarSquare(sk,fkey,idx){
   else STATE[sk][fkey].squares=STATE[sk][fkey].squares.map((_,i)=>i<=idx);
   SECTION_DEFS.filter(s=>s.type==='pillars-block'&&(s.state_key||s.key)===sk)
     .forEach(s=>renderPillarsBlock(s));
+}
+function setPillarNote(sk,fkey,val){
+  if(!STATE[sk])STATE[sk]={};
+  if(!STATE[sk][fkey])STATE[sk][fkey]={dots:0,squares:Array(5).fill(false),note:''};
+  STATE[sk][fkey].note=val;
 }
 // ── End Pillars block ─────────────────────────────────────────────────────────
 
