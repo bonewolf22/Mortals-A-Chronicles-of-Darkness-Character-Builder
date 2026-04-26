@@ -1246,7 +1246,7 @@ async function loadDB(){
     if(Array.isArray(d[s.db_key]))d[s.db_key].sort((a,b)=>(a.name||'').toLowerCase().localeCompare((b.name||'').toLowerCase()));
   });
   // Populate DB from all db_key values declared in section_definitions
-  SECTION_DEFS=d.section_definitions||[];SEC_DEFAULTS={};SECTION_MAP={};
+  SECTION_DEFS=(d.section_definitions||[]).filter(sd=>sd.key);SEC_DEFAULTS={};SECTION_MAP={};
   SECTION_DEFS.forEach(sd=>{
     SEC_DEFAULTS[sd.key]=sd.default||false;SECTION_MAP[sd.key]=sd;
     if(sd.db_key&&!(sd.db_key in DB))DB[sd.db_key]=d[sd.db_key]||[];
@@ -1925,7 +1925,7 @@ function _baseCharacterFields(attrs,skills){
   return{id:_uuid(),name:'',
     attributes:attrs,skills,size,
     health_track:Array(stamina+size).fill(''),
-    willpower:Math.min(10,resolve+composure),willpower_spent:0,willpower_max_override:null,
+    willpower_spent:0,willpower_max_override:null,
     defense:Math.min(dexterity,wits)+athletics,initiative:dexterity+composure,speed:strength+dexterity+5,
     derivedOverrides:{},
     meritMaxDots:5,sectionConfig:{},...base,layoutLocked:true,theme:'neutral',
@@ -3181,7 +3181,7 @@ function updateDerived(){
     if(mod!==0){calcEl.style.display='';calcEl.textContent='→'+calcs[k];calcEl.title=`Base: ${STATE[k]}  Gear: ${mod>=0?'+':''}${mod}  Total: ${calcs[k]}`;}
     else calcEl.style.display='none';
   });
-  STATE.willpower=calcBaseWillpower();syncHealthTrackLength();renderHealthTrack();renderWpTracker();
+  syncHealthTrackLength();renderHealthTrack();renderWpTracker();
   SECTION_DEFS.filter(s=>s.type==='forms-block').forEach(s=>{
     if(secVisible(s.key))renderFormsBlock(s);
   });
