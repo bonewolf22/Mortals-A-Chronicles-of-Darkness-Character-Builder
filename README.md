@@ -10,25 +10,25 @@ Mortals+ is a browser-based character builder and live play aid for Chronicles o
 
 **Main splats**
 - Mortal (Chronicles of Darkness core)
-- Hunter: The Vigil
-- Mage: The Awakening
-- Werewolf: The Forsaken
-- Vampire: The Requiem
+- Beast: The Primordial †
 - Changeling: The Lost
 - Demon: The Descent
 - Deviant: The Renegades
-- Promethean: The Created †
 - Geist: The Sin-Eaters
-- Beast: The Primordial †
+- Hunter: The Vigil
+- Mage: The Awakening
 - Mummy: The Curse †
+- Promethean: The Created †
+- Vampire: The Requiem
+- Werewolf: The Forsaken
 - Ephemeral Entities (Spirits, Ghosts, Angels, Demons, Goetia, Supernal Beings)
 
-† These splats have no default library entries (Atavisms, Nightmares, Transmutations, Utterances, etc.). The sheet structure is complete but the ability dropdowns will be empty until you add entries from the rulebook. See [CUSTOMISATION_GUIDE.md](CUSTOMISATION_GUIDE.md) for the format.
+† These splats have no default library entries (Atavisms, Nightmares, Transmutations, Utterances, etc.). The sheet structure is complete but the ability dropdowns will show only a placeholder entry until you add content from the rulebook. See [CUSTOMISATION_GUIDE.md](CUSTOMISATION_GUIDE.md) for the format.
 
 **Half-splats**
 - Ghoul
-- Wolf-Blooded
 - Proximi
+- Wolf-Blooded
 
 **Other**
 - Mage: The Ascension (via the Chronicles of Darkness Translation Guide)
@@ -58,17 +58,17 @@ Mortals+ is a browser-based character builder and live play aid for Chronicles o
 
 Apply a preset from the **Sheet Configuration** panel to enable all sections for a given splat. Sections can also be toggled individually. Each splat adds its own sections on top of the standard sheet:
 
-- **Hunter** — Compact/Conspiracy header, Endowments, Tactics, Touchstones, The Code, Group Beats tracker
-- **Mage** — Path/Order/Legacy/Cabal header, Arcana block (10 Arcana rated 0–5), Gnosis, Wisdom, Mana, Obsessions, Inured Spells, Rotes, Praxes, Arcana Attainments, Legacy Attainments, Arcane Beats tracker, Nimbus, Yantras, Magical Tools
-- **Werewolf** — Auspice/Tribe/Lodge/Pack header, Primal Urge, Harmony, Essence, Renown block (5 renown types), Flesh/Spirit Touchstones, live Forms reference table (calculated stats per form), Gifts, Rites
-- **Vampire** — Clan/Covenant/Bloodline header, Blood Potency, Humanity, Vitae, Banes, Disciplines, Devotions, Vampire Rites
+- **Beast** — Legend/Life/Concept/Family/Hunger/Soul header, Lair (10-dot track), Satiety (10-dot track), Satiety Condition, Atavisms, Nightmares, Family Ties
 - **Changeling** — Needle/Thread/Seeming/Court/Kith header, Wyrd, Clarity (dot-square track), Glamour, Favored Regalia, Frailties, Touchstones, Goblin Debt, Contracts, Pledges, Seeming Blessing/Curse, Kith Blessing
 - **Demon** — Incarnation/Agenda/Catalyst header, Cover Rating, Primum, Aether, Demonic Form, Embeds, Exploits, Cipher (interactive gear diagram), Covers (identity cards with per-cover Merits), Cover Beats tracker
 - **Deviant** — Origin/Clade/Forms header, Stability (dot-square track), Acclimation, Flux, Touchstones, Variations (rated by Magnitude), Scars (rated by Magnitude), Adaptations, Origins
-- **Promethean** — Elpis/Torment/Lineage/Refinement/Role header, Pilgrimage, Azoth, Pyros, Transmutations, Bestowment, Refinement Condition, Fixed Alembics, Milestones, Mastered Roles, Vitriol Beats tracker
 - **Geist** — Geist/Burden/Root/Bloom/Krewe header, Synergy (labeled track with per-level labels), Plasm, Keys, Haunts, Remembrance Traits
-- **Beast** — Legend/Life/Concept/Family/Hunger/Soul header, Lair (10-dot track), Satiety (10-dot track), Satiety Condition, Atavisms (named-list), Nightmares (named-list), Family Ties
+- **Hunter** — Compact/Conspiracy header, Endowments, Tactics, Touchstones, The Code, Group Beats tracker
+- **Mage** — Path/Order/Legacy/Cabal header, Arcana block (10 Arcana rated 0–5), Gnosis, Wisdom, Mana, Obsessions, Inured Spells, Rotes, Praxes, Arcana Attainments, Legacy Attainments, Arcane Beats tracker, Nimbus, Yantras, Magical Tools
 - **Mummy** — Guild/Decree/Burden/Balance/Judge/Meret Name header, Sekhem (dot-square track ×10), Memory (dot-square track ×10), Pillars block (Ab/Ba/Ka/Ren/Sheut — each with permanent dots and temporary squares), Reminisce Beats tracker, Affinities, Touchstones, Utterances (rated-list)
+- **Promethean** — Elpis/Torment/Lineage/Refinement/Role header, Pilgrimage, Azoth, Pyros, Transmutations, Bestowment, Refinement Condition, Fixed Alembics, Milestones, Mastered Roles, Vitriol Beats tracker
+- **Vampire** — Clan/Covenant/Bloodline header, Blood Potency, Humanity, Vitae, Banes, Disciplines, Devotions, Vampire Rites
+- **Werewolf** — Auspice/Tribe/Lodge/Pack header, Primal Urge, Harmony, Essence, Renown block (5 renown types), Flesh/Spirit Touchstones, live Forms reference table (calculated stats per form), Gifts, Rites
 - **Ephemeral Entity** — Type/Rank/Concept header, Power/Finesse/Resistance attributes (5/10/15-dot display), Corpus track, Willpower, Essence, derived stats, Numina, Manifestations, Influences, Ban, Bane. Ghost variant adds Anchors; Supernal variant adds Arcana
 
 **Half-splats** layer onto the standard mortal sheet and share relevant sections with their parent splat:
