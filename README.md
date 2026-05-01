@@ -31,7 +31,7 @@ Mortals+ is a browser-based character builder and live play aid for Chronicles o
 - Wolf-Blooded
 
 **Other**
-- Mage: The Ascension (via the Chronicles of Darkness Translation Guide)
+- Mage: The Ascension (via the Mage Translation Guide)
 - Horrors (Chronicles of Darkness core / Hunter: The Vigil antagonists)
 
 ---
