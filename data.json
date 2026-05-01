@@ -3476,15 +3476,18 @@
   "influences": [
     {
       "name": "Animals",
-      "desc": "Wild beasts and their primal drives."
+      "desc": "Wild beasts and their primal drives.",
+      "rating": 1
     },
     {
       "name": "Blood",
-      "desc": "Life force, wounds, lineage, and sacrifice."
+      "desc": "Life force, wounds, lineage, and sacrifice.",
+      "rating": 1
     },
     {
       "name": "Electricity",
-      "desc": "Lightning, electrical systems, and the power grid."
+      "desc": "Lightning, electrical systems, and the power grid.",
+      "rating": 1
     }
   ],
   "numina": [

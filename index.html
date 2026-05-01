@@ -1857,7 +1857,7 @@ function _refreshDrawerSaveList(){
 function getAttr(k){return(STATE.attributes||{})[k]||0;}
 function getSkill(k){const s=(STATE.skills||{})[k];return s?s.rating||0:0;}
 function calcBaseHealth(){return getAttr('stamina')+(STATE.size||5);}
-function calcBaseWillpower(){return Math.min(10,getAttr('resolve')+getAttr('composure'));}
+function calcBaseWillpower(){return getAttr('resolve')+getAttr('composure');}
 function calcBaseDefense(){return Math.min(getAttr('dexterity'),getAttr('wits'))+getSkill('athletics');}
 function calcBaseInitiative(){return getAttr('dexterity')+getAttr('composure');}
 function calcBaseSpeed(){return getAttr('strength')+getAttr('dexterity')+5;}
@@ -3037,7 +3037,7 @@ function updateAttr3SpinnerToggle(){
 // ── Ephemeral Entity: derived traits ─────────────────────────────────────────
 function getEntityAttrVal(k){return(STATE.entity_attrs||{})[k]||1;}
 function calcBaseCorpus(){return getEntityAttrVal('resistance')+(STATE.entity_size||5);}
-function calcBaseEntityWp(){return Math.min(10,getEntityAttrVal('resistance')+getEntityAttrVal('finesse'));}
+function calcBaseEntityWp(){return getEntityAttrVal('resistance')+getEntityAttrVal('finesse');}
 function calcBaseEntityDefense(){
   const rank=STATE.entity_rank_num||1;
   const p=getEntityAttrVal('power'),f=getEntityAttrVal('finesse');
@@ -3554,7 +3554,7 @@ function renderFormsBlock(sd){
     const fSpd=fStr+fDex+5;
     let attrRows='';
     const formDots=(val)=>{
-      const max=val<=5?5:10;
+      const max=val<=5?5:val<=10?10:15;
       return Array.from({length:max},(_,i)=>
         `<span class="dot${val>i?' filled':''}" style="width:7px;height:7px"></span>`).join('');
     };
@@ -4083,43 +4083,41 @@ function copyText(){
       :items.map(i=>`  ${i.name||''}${i.desc?': '+i.desc:''}`);
     return `${sd.label.toUpperCase()}\n${lines.join('\n')}`;
   }).filter(Boolean).join('\n\n');
-  const txt=`=====================================
-${STATE.name||'Unnamed'}
-${hdrStr}
-${beatsStr}
-=====================================
-
-ATTRIBUTES
-${attrStr}
-
-SKILLS
-${skillStr||'  None'}
-
-DERIVED TRAITS
-  Health: ${healthStr}
-  Willpower: ${getWpMax()} (${getWpMax()-(STATE.willpower_spent||0)} remaining)
-  Defense: ${STATE.defense||0}${gm.defPenalty?` (→${STATE.defense+gm.defPenalty} with gear)`:''}
-  Initiative: ${STATE.initiative||0}${gm.initMod?` (→${STATE.initiative+gm.initMod} with gear)`:''}
-  Speed: ${STATE.speed||0}${gm.speedPenalty?` (→${STATE.speed+gm.speedPenalty} with gear)`:''}
-  Size: ${STATE.size||5}${moralityStr}
-
-MERITS
-${(STATE.merits||[]).map(m=>`  ${m.name} ${'●'.repeat(m.rating||0)||'(unrated)'}${m.desc?': '+m.desc:''}`).join('\n')||'  None'}
-
-WEAPONS
-${(STATE.weapons||[]).map(w=>w.weapon_type==='ranged'
-  ?`  ${w.name}${w.equipped?' [Equipped]':''}\n    Dmg +${w.damage||0} | Ranges: ${w.ranges||'—'} | Clip: ${w.clip||0} | Init ${w.initiative_mod>=0?'+':''}${w.initiative_mod||0} | Str ${w.strength_req||0} | Sz ${w.size||0}`
-  :`  ${w.name}${w.equipped?' [Equipped]':''}\n    Dmg +${w.damage||0} | Init ${w.initiative_mod>=0?'+':''}${w.initiative_mod||0} | Str ${w.strength_req||0} | Sz ${w.size||0}`
-).join('\n')||'  None'}
-
-ARMOR
-${(STATE.armor||[]).map(a=>`  ${a.name}${a.equipped?' [Equipped]':''}\n    Armor ${a.armor_general||0}/${a.armor_ballistic||0} | Defense ${a.defense_penalty>=0?'+':''}${a.defense_penalty||0} | Speed ${a.speed_penalty>=0?'+':''}${a.speed_penalty||0}`).join('\n')||'  None'}
-
-EQUIPMENT
-${(STATE.equipment||[]).map(e=>`  ${e.name}\n    Dice Bonus +${e.dice_bonus||0} | Durability ${e.durability||0} | Size ${e.size||0} | Structure ${e.structure||0}${e.desc?'\n    '+e.desc:''}`).join('\n')||'  None'}
-${listStr?'\n'+listStr:''}
-${STATE.notes?'\nNOTES\n  '+STATE.notes:''}
-=====================================`.trim();
+  // Determine which broad sections are visible
+  const showMortalAttrs=secVisible('attributes');
+  const showMortalSkills=secVisible('skills');
+  const showMortalDerived=secVisible('other-traits');
+  const showEntityAttrs=secVisible('entity-attributes');
+  const showEntityDerived=secVisible('entity-traits');
+  const showMerits=secVisible('merits');
+  const showWeapons=secVisible('weapons');
+  const showArmor=secVisible('armor');
+  const showEquip=secVisible('equipment');
+  // Entity derived traits block
+  const entityDerivedStr=showEntityDerived?(()=>{
+    const corpusMax=STATE.corpus_max_override!=null?STATE.corpus_max_override:
+      (getEntityAttrVal('resistance')+(STATE.entity_size||5));
+    const corpusDmg=STATE.corpus_damage||0;
+    const ewpMax=STATE.entity_wp_max_override!=null?STATE.entity_wp_max_override:
+      (getEntityAttrVal('resistance')+getEntityAttrVal('finesse'));
+    const ewpSpent=STATE.entity_wp_spent||0;
+    return `\nENTITY TRAITS\n  Corpus: ${corpusMax-corpusDmg} / ${corpusMax}\n  Willpower: ${ewpMax} (${ewpMax-ewpSpent} remaining)\n  Essence: ${STATE.entity_essence_current||0} / ${STATE.entity_essence_max||10}\n  Defense: ${STATE.entity_defense||0}\n  Initiative: ${STATE.entity_initiative||0}\n  Speed: ${STATE.entity_speed||0}`;
+  })():'';
+  // Entity attributes block
+  const entityAttrStr=showEntityAttrs?`\nATTRIBUTES (ENTITY)\n  Power: ${getEntityAttrVal('power')} | Finesse: ${getEntityAttrVal('finesse')} | Resistance: ${getEntityAttrVal('resistance')}`:'';
+  const txt=(`=====================================\n${STATE.name||'Unnamed'}\n${hdrStr}\n${beatsStr}\n=====================================`
+    +(showMortalAttrs?`\n\nATTRIBUTES\n${attrStr}`:'')
+    +(entityAttrStr)
+    +(showMortalSkills?`\n\nSKILLS\n${skillStr||'  None'}`:'')
+    +(showMortalDerived?`\n\nDERIVED TRAITS\n  Health: ${healthStr}\n  Willpower: ${getWpMax()} (${getWpMax()-(STATE.willpower_spent||0)} remaining)\n  Defense: ${STATE.defense||0}${gm.defPenalty?` (→${STATE.defense+gm.defPenalty} with gear)`:''}\n  Initiative: ${STATE.initiative||0}${gm.initMod?` (→${STATE.initiative+gm.initMod} with gear)`:''}\n  Speed: ${STATE.speed||0}${gm.speedPenalty?` (→${STATE.speed+gm.speedPenalty} with gear)`:''}\n  Size: ${STATE.size||5}${moralityStr}`:'')
+    +(entityDerivedStr)
+    +(showMerits?`\n\nMERITS\n${(STATE.merits||[]).map(m=>`  ${m.name} ${'●'.repeat(m.rating||0)||'(unrated)'}${m.desc?': '+m.desc:''}`).join('\n')||'  None'}`:'')
+    +(showWeapons?`\n\nWEAPONS\n${(STATE.weapons||[]).map(w=>w.weapon_type==='ranged'?`  ${w.name}${w.equipped?' [Equipped]':''}\n    Dmg +${w.damage||0} | Ranges: ${w.ranges||'—'} | Clip: ${w.clip||0} | Init ${w.initiative_mod>=0?'+':''}${w.initiative_mod||0} | Str ${w.strength_req||0} | Sz ${w.size||0}`:`  ${w.name}${w.equipped?' [Equipped]':''}\n    Dmg +${w.damage||0} | Init ${w.initiative_mod>=0?'+':''}${w.initiative_mod||0} | Str ${w.strength_req||0} | Sz ${w.size||0}`).join('\n')||'  None'}`:'')
+    +(showArmor?`\n\nARMOR\n${(STATE.armor||[]).map(a=>`  ${a.name}${a.equipped?' [Equipped]':''}\n    Armor ${a.armor_general||0}/${a.armor_ballistic||0} | Defense ${a.defense_penalty>=0?'+':''}${a.defense_penalty||0} | Speed ${a.speed_penalty>=0?'+':''}${a.speed_penalty||0}`).join('\n')||'  None'}`:'')
+    +(showEquip?`\n\nEQUIPMENT\n${(STATE.equipment||[]).map(e=>`  ${e.name}\n    Dice Bonus +${e.dice_bonus||0} | Durability ${e.durability||0} | Size ${e.size||0} | Structure ${e.structure||0}${e.desc?'\n    '+e.desc:''}`).join('\n')||'  None'}`:'')
+    +(listStr?'\n\n'+listStr:'')
+    +(STATE.notes?'\n\nNOTES\n  '+STATE.notes:'')
+    +'\n=====================================').trim();
   navigator.clipboard.writeText(txt).then(()=>showStatus('Copied to clipboard.'));
 }
 
