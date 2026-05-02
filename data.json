@@ -3898,5 +3898,29 @@
         "Emanation of Void"
       ]
     }
-  }
+  },
+
+  "_help_comment": "── HELP ──────────────────────────────────────────────────────────────────────",
+  "help_sections": [
+    {
+      "title": "Getting Started",
+      "content": "Welcome to Mortals+, the Chronicles of Darkness character generater!\n\nClick **Generate Mortal** for a randomised mortal character, or **Generate Blank Mortal** to start from scratch with an empty sheet.\n\nFor spirits, ghosts, and other supernatural beings, use **Generate Ephemeral Entity** or **Generate Blank Entity**. Select a Rank first to set the entity's power level.\n\nOnce a sheet is open, fill in your character's name and identity fields at the top. All fields save automatically to your browser."
+    },
+    {
+      "title": "Saving & Exporting",
+      "content": "Click **Save** to store the current character in your browser. Saved characters appear in the **Saves** panel in the sidebar or drawer. Note that saves are stored on a browser-by-browser basis and **will not be saved** if you refresh your browser cache (such as through clearing your history). To ensure you have a copy of your sheet, use the Export Sheet feature to store the sheet locally. \n\nUse **Print / Save as PDF** to export a print-optimised version of your sheet. In your browser's print dialog, choose *Save as PDF* as the destination. The PDF filename defaults to your character's name in Chrome. Chrome is the recommended browser for PDF prints; the function does not work as well on Firefox."
+    },
+    {
+      "title": "Splats & Presets",
+      "content": "Open **Sheet Configuration** (the button in the sidebar or drawer) to switch between character types — Vampire, Werewolf, Mage, and so on. Applying a preset enables all the sections for that splat and hides the ones you don't need.\n\nYou can also toggle individual sections on or off within a preset. Any section can be added to any character regardless of splat — the presets are a starting point, not a constraint.\n\nThe **Theme** selector at the bottom of the configuration panel changes the sheet's colour scheme to match your splat."
+    },
+    {
+      "title": "Layout & Sections",
+      "content": "Click the **Lock Layout** button to unlock the sheet's layout and enable customization. Drag any section header to reorder it or move it between the header, left column, right column, and footer. Layout is saved per character.\n\nClick a section header to collapse or expand it. **Collapse all** and **Expand all** buttons are in the toolbar.\n\nDot tracks are clicked to set a rating. Health boxes cycle through Bashing (B), Lethal (L), and Aggravated (A) damage on each click. Right-click or click a filled box to clear it."
+    },
+    {
+      "title": "Data Library",
+      "content": "The **Data Library** panel lets you add, edit, or remove entries from the ability lists — Merits, Disciplines, Gifts, and so on. Changes are stored in your browser alongside your characters.\n\nUse **Export library** to save your custom entries as a JSON file. Use **Import library → Merge** to add entries from a file without overwriting your existing ones. This is the recommended way to share content between devices or with other players."
+    }
+  ]
 }
