@@ -3156,7 +3156,12 @@ function setSkillRating(sk,val){
 
 function getDerivedOverrides(){if(!STATE.derivedOverrides)STATE.derivedOverrides={};return STATE.derivedOverrides;}
 function adjDerived(field,delta){const ov=getDerivedOverrides();ov[field]=(ov[field]||0)+delta;updateDerived();}
-function resetDerivedOverrides(){STATE.derivedOverrides={};updateDerived();}
+function resetDerivedOverrides(){
+  STATE.derivedOverrides={};
+  STATE.willpower_max_override=null;
+  STATE.willpower_spent=Math.min(STATE.willpower_spent||0,calcBaseWillpower());
+  updateDerived();renderWpTracker();
+}
 function calcGearMods(){
   let defPenalty=0,initMod=0,speedPenalty=0;
   (STATE.armor||[]).forEach(a=>{if(a.equipped){defPenalty+=(a.defense_penalty||0);speedPenalty+=(a.speed_penalty||0);}});
