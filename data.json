@@ -3908,7 +3908,7 @@
     },
     {
       "title": "Saving & Exporting",
-      "content": "Click **Save** to store the current character in your browser. Saved characters appear in the **Saves** panel in the sidebar or drawer. Note that saves are stored on a browser-by-browser basis and **will not be saved** if you refresh your browser cache (such as through clearing your history). To ensure you have a copy of your sheet, use the Export Sheet feature to store the sheet locally. \n\nUse **Print / Save as PDF** to export a print-optimised version of your sheet. In your browser's print dialog, choose *Save as PDF* as the destination. The PDF filename defaults to your character's name in Chrome. Chrome is the recommended browser for PDF prints; the function does not work as well on Firefox."
+      "content": "Click **Save** to store the current character in your browser. Saved characters appear in the **Saves** panel in the sidebar or drawer. Note that saves are stored on a browser-by-browser basis and **will not be saved** if you refresh your browser cache (such as through clearing your history). To ensure you have a copy of your sheet, use the Export Sheet feature to store the sheet locally. \n\nUse **Print / Save as PDF** to export a print-optimised version of your sheet. In your browser's print dialog, choose *Save as PDF* as the destination. The PDF filename defaults to your character's name in Chrome. Chrome is the recommended browser for PDF prints; the function does not work as reliably on other browsers.\n\nChanges to the character sheet's format (see Layout and Sections) are respected on the PDF. Careful placement of sections can reduce the amount of pages needed for the print."
     },
     {
       "title": "Splats & Presets",
