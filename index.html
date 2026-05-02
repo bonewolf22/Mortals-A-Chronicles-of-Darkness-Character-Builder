@@ -282,7 +282,10 @@ body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(
 .page{max-width:1000px;margin:0 auto;padding:2rem 1.25rem 5rem}
 h1{font-size:1.6rem;font-weight:normal;letter-spacing:.03em;margin-bottom:.2rem}
 .app-sub{font-size:.8rem;font-family:sans-serif;color:var(--muted);margin-bottom:2rem}
-.gen-bar{display:flex;flex-wrap:wrap;gap:.75rem;align-items:flex-end;margin-bottom:2rem;padding:1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:6px}
+.gen-bar{display:flex;flex-wrap:wrap;gap:1.25rem;align-items:flex-start;margin-bottom:2rem;padding:1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:6px}
+.gen-group{display:flex;flex-direction:column;gap:.4rem}
+.gen-group-label{font-size:.6rem;font-family:sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.1rem}
+.gen-group-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
 select,input[type=text],input[type=number]{font-family:sans-serif;font-size:.9rem;padding:.35rem .65rem;border:1px solid var(--border);border-radius:4px;background:var(--surface);color:var(--text)}
 textarea{font-family:sans-serif;font-size:.85rem;padding:.4rem .6rem;border:1px solid var(--border);border-radius:4px;background:var(--surface);color:var(--text);width:100%;resize:vertical}
 button{font-family:sans-serif;font-size:.85rem;padding:.4rem .9rem;border:1px solid var(--border);border-radius:4px;background:var(--surface);color:var(--text);cursor:pointer}
@@ -996,12 +999,13 @@ body.touch-device .ta-wrap textarea{
   .print-skill-col{display:flex;flex-direction:column}
   /* Option B: tinted background on skill category labels */
   .print-skill-cat{font-size:.65rem;font-family:sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--chip);padding:1px 3px;margin:4px 0 2px;border-radius:2px}
-  .print-skill-row{display:flex;align-items:center;gap:3px;border-bottom:1px solid var(--border-light);padding:0;font-family:sans-serif;font-size:.78rem;min-height:13px;line-height:1.2}
-  .print-skill-rote{font-size:.6rem;color:var(--accent);flex-shrink:0;width:9px;text-align:center}
-  .print-skill-rote-empty{flex-shrink:0;width:9px}
-  .print-skill-name{flex:1;color:var(--text)}
-  .print-skill-dots{display:flex;gap:2px;flex-shrink:0}
-  .print-skill-spec{font-size:.6rem;color:var(--muted);margin-left:3px;font-style:italic}
+  .print-skill-row{display:grid;grid-template-columns:9px 95px 59px 1fr;align-items:center;gap:3px;border-bottom:1px solid var(--border-light);padding:0;font-family:sans-serif;font-size:.78rem;min-height:13px;line-height:1.2}
+  .print-skill-rote{font-size:.6rem;color:var(--accent);text-align:center}
+  .print-skill-rote-empty{}
+  .print-skill-name{color:var(--text);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  .print-skill-dots{display:flex;gap:2px;justify-content:flex-end}
+  .print-skill-spec{font-size:.6rem;color:var(--muted);font-style:italic;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  .print-skill-spec-blank{border-bottom:1px solid var(--border-light);height:1px;align-self:flex-end;margin-bottom:3px}
 
   /* ── Resource tracks — compact squares at print ──────────────────────── */
   .resource-track-grid{display:flex!important;flex-wrap:wrap!important;gap:3px!important;margin-bottom:2px!important}
@@ -1073,26 +1077,39 @@ body.touch-device .ta-wrap textarea{
 <p class="app-sub">Chronicles of Darkness — character sheet builder</p>
 
 <div class="gen-bar">
-  <div id="entityRankWrap">
-    <label class="lbl" style="font-size:.65rem">Rank</label>
-    <select id="entityRankSelect" style="font-size:.85rem;padding:.3rem .5rem">
-      <option value="1">Rank 1 — Minor</option>
-      <option value="2">Rank 2 — Common</option>
-      <option value="3" selected>Rank 3 — Established</option>
-      <option value="4">Rank 4 — Greater</option>
-      <option value="5">Rank 5 — Mighty</option>
-    </select>
+  <div class="gen-group">
+    <div class="gen-group-label">Mortal</div>
+    <div class="gen-group-row">
+      <button class="primary" onclick="generateMortal()">Generate Mortal</button>
+    </div>
+    <div class="gen-group-row">
+      <button onclick="blank()">Generate Blank Mortal</button>
+    </div>
   </div>
-  <div style="align-self:flex-end;display:flex;gap:7px;flex-wrap:wrap">
-    <button class="primary" onclick="generateMortal()">Generate Mortal</button>
-    <button class="primary" onclick="generateEphemeral()">Generate Ephemeral Entity</button>
-    <button onclick="blank()">New blank sheet</button>
+  <div class="gen-group">
+    <div class="gen-group-label">Ephemeral Entity</div>
+    <div class="gen-group-row">
+      <button class="primary" onclick="generateEphemeral()">Generate Ephemeral Entity</button>
+      <div id="entityRankWrap" style="display:flex;align-items:center;gap:.35rem">
+        <label class="lbl" style="font-size:.65rem">Rank</label>
+        <select id="entityRankSelect" style="font-size:.85rem;padding:.3rem .5rem">
+          <option value="1">Rank 1 — Minor</option>
+          <option value="2">Rank 2 — Common</option>
+          <option value="3" selected>Rank 3 — Established</option>
+          <option value="4">Rank 4 — Greater</option>
+          <option value="5">Rank 5 — Mighty</option>
+        </select>
+      </div>
+    </div>
+    <div class="gen-group-row">
+      <button onclick="blankEntity()">Generate Blank Entity</button>
+    </div>
   </div>
 </div>
 
 <div class="app-cols">
 <div id="editorCol">
-  <div class="empty-state" id="emptyState">Click <strong>Generate Mortal</strong> for a randomised mortal character, <strong>Generate Ephemeral Entity</strong> for an entity stat block, or <strong>New blank sheet</strong> to start from scratch.</div>
+  <div class="empty-state" id="emptyState">Click <strong>Generate Mortal</strong> for a randomised mortal character, <strong>Generate Ephemeral Entity</strong> for an entity stat block, or <strong>Generate Blank Mortal</strong> / <strong>Generate Blank Entity</strong> to start from scratch.</div>
   <div id="editorWrap" style="display:none">
     <div class="toolbar">
       <button class="primary" onclick="saveCharacter()">Save</button>
@@ -2152,6 +2169,20 @@ function blank(){
   STATE=_baseCharacterFields(attrs,skills);
   // Restore the applied preset config (overrides the empty sectionConfig from _baseCharacterFields)
   STATE.sectionConfig={...appliedConfig};
+  patchState();currentSaveId=null;showEditor();renderEditor();
+}
+function blankEntity(){
+  // Apply Ephemeral Entity preset, read rank selector, produce a zeroed entity sheet
+  const eePreset=PRESETS.find(p=>p.name==='Ephemeral Entity');
+  if(eePreset){STATE.sectionConfig={...eePreset.config};delete STATE.sectionConfig._zoneOrder;}
+  const rankSel=document.getElementById('entityRankSelect');
+  const rank=parseInt((rankSel&&rankSel.value)||'3')||3;
+  const attrs=Object.fromEntries(Object.values(ATTRIBUTES).flat().map(a=>[a,1]));
+  const skills=Object.fromEntries(ALL_SKILLS.map(s=>[s,{rating:0,rote:false,specialty:'',label:SKILL_LABELS[s]}]));
+  const savedConfig={...STATE.sectionConfig};
+  STATE=_baseCharacterFields(attrs,skills);
+  STATE.sectionConfig=savedConfig;
+  STATE.entity_rank_num=rank;
   patchState();currentSaveId=null;showEditor();renderEditor();
 }
 function showEditor(){
@@ -4436,7 +4467,9 @@ function renderSkillBlockCompact(){
       const dots=Array.from({length:5},(_,i)=>
         `<span class="dot${rating>=i+1?' filled':''}" style="width:9px;height:9px;border-width:1px"></span>`
       ).join('');
-      const spec=sd.specialty?`<span class="print-skill-spec">${escH(sd.specialty)}</span>`:'';
+      const spec=sd.specialty
+        ?`<span class="print-skill-spec">${escH(sd.specialty)}</span>`
+        :`<span class="print-skill-spec-blank"></span>`;
       // Only show rote marker when the skill is actually marked as rote
       const rote=sd.rote?'<span class="print-skill-rote">●</span>':'<span class="print-skill-rote-empty"></span>';
       rows.push(`<div class="print-skill-row">${rote}<span class="print-skill-name">${escH(sd.label||SKILL_LABELS[sk])}</span><span class="print-skill-dots">${dots}</span>${spec}</div>`);
@@ -4475,7 +4508,7 @@ function renderRatedListCompact(sd){
 // rows (filled entries + blank ruled lines), so the sheet can be written on
 // in pencil at the table.
 const FILL_LINE_KEYS=new Set(['tilts','conditions']);
-const FILL_MIN_LINES=4;
+const FILL_MIN_LINES=3;
 
 function renderNamedListCompact(sd){
   const sk=sd.state_key||sd.key;
