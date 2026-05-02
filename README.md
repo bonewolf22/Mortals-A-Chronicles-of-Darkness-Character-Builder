@@ -113,9 +113,12 @@ Click any section header to collapse it. Collapsed state is preserved across pag
 Click **Print / Save as PDF** in the toolbar. Use your browser's **Save as PDF** destination with **Letter** paper size.
 
 - **Chrome is the recommended browser** for printing. Firefox does not reliably handle page breaks at the attributes/columns boundary
+- Before printing, sections are automatically compacted into a space-efficient layout — attributes, skills, arcana, renown, pillars, merits, ability lists, gear, covers, and the Werewolf forms table all switch to compact renderers. The live sheet is fully restored after the print dialog closes
+- Tilts and Conditions always print with at least 4 rows (filled entries plus blank ruled lines) for pencil use at the table
 - All collapsed sections and closed item cards are automatically expanded before printing, then restored afterwards
 - Consumable tracks (health, willpower, resource tracks, dot tracks) print empty so they can be filled in pencil at the table
 - Beats trackers do not print — they are live-play tools only
+- The PDF filename defaults to the character's name (Chrome)
 
 ### Mobile and tablet
 

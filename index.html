@@ -315,6 +315,8 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .sec-block.sec-collapsed .merit-toggle-hd{margin-bottom:0;}
 .hdr-grid{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:6px}
 .hdr-field{display:inline-flex;flex-direction:column;gap:2px;min-width:80px}
+/* Name field wrapper needs full width so the input isn't clipped on long names */
+.hdr-field.hdr-field-name{display:flex;width:100%}
 .hdr-ce{font-family:sans-serif;font-size:.9rem;border:none;border-bottom:1.5px solid var(--border);background:transparent;color:var(--text);padding:2px 0;outline:none;min-width:80px;white-space:nowrap;cursor:text}
 .hdr-ce:focus{border-bottom-color:var(--accent)}
 .hdr-ce:empty::before{content:attr(data-placeholder);color:var(--faint);pointer-events:none}
@@ -463,6 +465,7 @@ button.sm{font-size:.75rem;padding:.25rem .6rem}
 .quinpar-ctrl-row{display:flex;align-items:center;gap:5px}
 .quinpar-val{font-size:1.1rem;font-weight:700;min-width:20px;text-align:center}
 /* Print: wheel SVG prints, but hide the +/- controls and numeric values */
+/* ── Print: Quintessence/Paradox wheel — hide controls, empty squares ─────── */
 @media print{.quinpar-controls{display:none!important}.quinpar-svg rect{fill:transparent!important;stroke:var(--border)!important}.quinpar-svg line{display:none!important}}
 .rsquare{width:100%;aspect-ratio:1;border:1.5px solid var(--border);border-radius:2px;cursor:pointer;background:var(--surface);transition:background .1s}
 .rsquare:hover{border-color:var(--muted)}
@@ -799,6 +802,14 @@ body.touch-device .ta-wrap textarea{
 }
 /* ── End textarea mobile resize handle ───────────────────────────────────── */
 
+/* ── Print stylesheet ─────────────────────────────────────────────────────────
+   All rules here are @media print only — zero effect on the live sheet.
+   Covers: hiding live-only UI, compact layout, compact section renderers
+   (attrs, skills, rated-lists, named-lists, line-lists, arcana, gear),
+   empty consumable tracks, page-break strategy, and theme colour application.
+   Compact section content is injected by JS (beforeprint) and restored
+   (afterprint) — see the Compact print renderers section in the JS below.
+   ─────────────────────────────────────────────────────────────────────────── */
 @media print{
   @page{size:letter;margin:.5in}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -845,7 +856,7 @@ body.touch-device .ta-wrap textarea{
   /* sufficient. Firefox does not reliably honour these across grid          */
   /* boundaries — Chrome is the recommended browser for printing.           */
   #zone-full-width-top{display:block;break-after:avoid}
-  .sheet-cols{display:grid;grid-template-columns:1.15fr 1fr;gap:0 18px;break-before:avoid}
+  .sheet-cols{display:grid;grid-template-columns:0.7fr 1fr;gap:0 18px;break-before:avoid}
 
   /* ── Force all collapsible content visible ────────────────────────────── */
   /* Collapsed sections (.sec-collapsed) must show their body on print.     */
@@ -859,6 +870,7 @@ body.touch-device .ta-wrap textarea{
 
   /* ── desc-display: clean border-free rendering ────────────────────────── */
   .desc-display{border:none!important;padding:0!important;cursor:default;min-height:0}
+  .desc-display:empty::before,.desc-display.empty::before{content:none!important}
   .desc-ta-wrap{display:none!important}
   .desc-edit-hint{display:none!important}
 
@@ -874,8 +886,23 @@ body.touch-device .ta-wrap textarea{
   /* ── Suppress hover/focus outlines ───────────────────────────────────── */
   *:focus{outline:none}
 
+  /* ── Suppress input placeholder text ─────────────────────────────────── */
+  /* Cipher fields, header fields, and other inputs show placeholder text   */
+  /* in Chrome's print engine. Hide globally — blank fields print blank.   */
+  input::placeholder,textarea::placeholder{color:transparent!important}
+
   /* ── Health/WP tracker row wrapping ──────────────────────────────────── */
   .tracker-circles,.tracker-squares,.health-boxes{flex-wrap:wrap}
+
+  /* ── Track element sizes — match health box size at print ────────────── */
+  /* Health boxes are 18×18px. Willpower, dot-square-track, and resource    */
+  /* squares are all sized to match so tracks look consistent on the page.  */
+  .hbox{width:18px!important;height:18px!important}
+  .tcircle{width:18px!important;height:18px!important}
+  .tsquare{width:18px!important;height:18px!important}
+  .tracker-circles{gap:3px!important}
+  .tracker-squares{gap:3px!important}
+  .health-boxes{gap:3px!important}
 
   /* ── Surface colours ──────────────────────────────────────────────────── */
   .item-hd{background:var(--chip)}
@@ -948,7 +975,77 @@ body.touch-device .ta-wrap textarea{
 
   /* Line items: keep each line together */
   .line-item-row{break-inside:avoid}
+
+  /* ── Theme colour: section headers use accent colour (option D) ───────── */
+  .sec{color:var(--accent)!important;border-bottom-color:var(--accent)!important}
+  .merit-toggle-hd .sec{color:var(--accent)!important}
+
+  /* ── Compact attribute table ──────────────────────────────────────────── */
+  .print-attr-table{width:100%;border-collapse:collapse;margin-bottom:6px;font-family:sans-serif}
+  /* Option D: category headers in accent colour */
+  .print-attr-cat{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-align:center;font-weight:600;padding-bottom:2px;border-bottom:1px solid var(--accent)}
+  .print-attr-table thead th:first-child{border-bottom:none}
+  .print-attr-row-lbl{font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);white-space:nowrap;padding-right:4px;vertical-align:middle}
+  .print-attr-cell{text-align:center;padding:2px 4px;vertical-align:middle}
+  .print-attr-name{display:block;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  .print-attr-dots{display:flex;justify-content:center;gap:2px}
+  /* Option B: tinted chip background on each attribute cell */
+  .print-attr-cell-inner{background:var(--chip);border-radius:3px;padding:2px 4px;display:inline-block;width:100%}
+
+  /* ── Compact skill column (single column, tight rows) ────────────────── */
+  .print-skill-col{display:flex;flex-direction:column}
+  /* Option B: tinted background on skill category labels */
+  .print-skill-cat{font-size:.65rem;font-family:sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--chip);padding:1px 3px;margin:4px 0 2px;border-radius:2px}
+  .print-skill-row{display:flex;align-items:center;gap:3px;border-bottom:1px solid var(--border-light);padding:0;font-family:sans-serif;font-size:.78rem;min-height:13px;line-height:1.2}
+  .print-skill-rote{font-size:.6rem;color:var(--accent);flex-shrink:0;width:9px;text-align:center}
+  .print-skill-rote-empty{flex-shrink:0;width:9px}
+  .print-skill-name{flex:1;color:var(--text)}
+  .print-skill-dots{display:flex;gap:2px;flex-shrink:0}
+  .print-skill-spec{font-size:.6rem;color:var(--muted);margin-left:3px;font-style:italic}
+
+  /* ── Resource tracks — compact squares at print ──────────────────────── */
+  .resource-track-grid{display:flex!important;flex-wrap:wrap!important;gap:3px!important;margin-bottom:2px!important}
+  .rsquare{width:18px!important;height:18px!important;aspect-ratio:unset!important;flex-shrink:0!important;border-width:1.5px!important}
+
+  /* ── Hide named-list description input (live-only UI) ─────────────────── */
+  [id$="-desc"]{display:none!important}
+
+  /* ── Compact rated-list and named-list (generic) ──────────────────────── */
+  .print-item-row{padding:3px 0;border-bottom:1px solid var(--border-light);break-inside:avoid}
+  .print-item-row:last-child{border-bottom:none}
+  .print-item-hd{display:flex;align-items:center;justify-content:space-between;gap:6px}
+  .print-item-name{font-family:sans-serif;font-size:.78rem;font-weight:700;color:var(--text)}
+  .print-item-dots{display:flex;gap:2px;flex-shrink:0}
+  .print-item-desc{font-family:sans-serif;font-size:.7rem;color:var(--muted);line-height:1.4;margin-top:1px}
+
+  /* ── Compact gear (weapons, armor, equipment) ─────────────────────────── */
+  .print-gear-stats{font-family:sans-serif;font-size:.68rem;color:var(--muted);text-align:right;flex-shrink:0}
+  .print-gear-equipped{color:var(--accent);font-weight:700;margin-left:4px}
+
+  /* ── Compact line-list (Aspirations, Touchstones, etc.) ──────────────── */
+  .print-line-item{font-family:sans-serif;font-size:.78rem;color:var(--text);padding:2px 0;border-bottom:1px solid var(--border-light)}
+  .print-line-item:last-child{border-bottom:none}
+
+  /* ── Blank fill lines for Tilts and Conditions ────────────────────────── */
+  .print-fill-line{height:1.6em;border-bottom:1px solid var(--border-light);margin-top:2px}
+
+  /* ── Compact covers (Demon: the Descent) ─────────────────────────────── */
+  .print-cover-merit{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:1px 0;font-family:sans-serif;font-size:.72rem;color:var(--muted)}
+  .print-cover-merit-name{flex:1}
+
+  /* ── Compact forms table (Werewolf: the Forsaken) ─────────────────────── */
+  /* Remove min-width and overflow constraints so the table fits the column. */
+  .print-forms-compact{overflow:visible!important}
+  .print-forms-compact .forms-table{min-width:0!important;font-size:.68rem}
+  .print-forms-compact .form-col-name{font-size:.72rem}
+  .print-forms-compact .form-col-sub{font-size:.58rem}
+  .print-forms-compact .form-stat{font-size:.65rem;padding:1px 4px;min-height:0}
+  .print-forms-compact .form-trait{font-size:.62rem;padding:1px 4px;min-height:0}
+  .print-forms-compact .form-col-hdr{padding:3px 4px}
+  .print-forms-compact .dot-row{gap:1px}
+  .print-forms-compact .dot{width:6px!important;height:6px!important}
 }
+/* ── End print stylesheet ─────────────────────────────────────────────────── */
 </style>
 </head>
 
@@ -1008,7 +1105,7 @@ body.touch-device .ta-wrap textarea{
     <div class="sb-card">
       <!-- Static: name -->
       <div class="hdr-grid" style="grid-template-columns:1fr;margin-bottom:6px">
-        <div class="hdr-field">
+        <div class="hdr-field hdr-field-name">
           <span class="hdr-lbl">Name</span>
           <input class="hdr-inp name-inp" id="charName" placeholder="Character name" oninput="STATE.name=this.value">
         </div>
@@ -1205,6 +1302,15 @@ body.touch-device .ta-wrap textarea{
 
 <!-- ═══════════════════════════════════════════════════════════════════════════
      JAVASCRIPT — All application logic. No external libraries or frameworks.
+
+     Print-specific logic is isolated to two sections at the bottom:
+       "Compact print renderers" — JS renderers called only in beforeprint,
+         replacing attrs/skills/lists with space-efficient versions. Zero
+         effect on the live sheet. Restored in afterprint.
+       "Print expand/restore"    — beforeprint/afterprint event handlers.
+         Expands collapsed sections, invokes compact renderers, then restores
+         everything after the print dialog closes.
+     The print CSS lives in the stylesheet above (see "Print stylesheet").
      ═══════════════════════════════════════════════════════════════════════════ -->
 <script>
 // ── Global constants ──────────────────────────────────────────────────────────
@@ -2496,7 +2602,7 @@ function buildSectionHTML(sd){
       </div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}">
       <div class="sec">${lbl} <span style="font-weight:400;font-size:.6rem;color:var(--faint)">(0–5)</span></div>
-      <div class="sec-collapsible-body">${rows}</div>
+      <div class="sec-collapsible-body"><div id="arcana-inner-${sd.key}">${rows}</div></div>
     </div>`;
   }
 
@@ -2509,7 +2615,7 @@ function buildSectionHTML(sd){
       </div>`).join('');
     return `<div class="sec-block ${hidden}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
-      <div class="sec-collapsible-body">${rows}</div>
+      <div class="sec-collapsible-body"><div id="renown-inner-${sd.key}">${rows}</div></div>
     </div>`;
   }
 
@@ -2534,7 +2640,7 @@ function buildSectionHTML(sd){
     }).join('');
     return `<div class="sec-block ${hidden} ${printEmpty}" id="secblock-${sd.key}" style="margin-bottom:8px">
       <div class="sec" style="margin-top:12px">${lbl}</div>
-      <div class="sec-collapsible-body">${rows}</div>
+      <div class="sec-collapsible-body"><div id="pillars-inner-${sd.key}">${rows}</div></div>
     </div>`;
   }
 
@@ -3156,7 +3262,12 @@ function setSkillRating(sk,val){
 
 function getDerivedOverrides(){if(!STATE.derivedOverrides)STATE.derivedOverrides={};return STATE.derivedOverrides;}
 function adjDerived(field,delta){const ov=getDerivedOverrides();ov[field]=(ov[field]||0)+delta;updateDerived();}
-function resetDerivedOverrides(){STATE.derivedOverrides={};updateDerived();}
+function resetDerivedOverrides(){
+  STATE.derivedOverrides={};
+  STATE.willpower_max_override=null;
+  STATE.willpower_spent=Math.min(STATE.willpower_spent||0,calcBaseWillpower());
+  updateDerived();renderWpTracker();
+}
 function calcGearMods(){
   let defPenalty=0,initMod=0,speedPenalty=0;
   (STATE.armor||[]).forEach(a=>{if(a.equipped){defPenalty+=(a.defense_penalty||0);speedPenalty+=(a.speed_penalty||0);}});
@@ -4283,15 +4394,392 @@ function showStatus(msg){
 if(window.matchMedia('(pointer:coarse)').matches)document.body.classList.add('touch-device');
 loadDB();loadSaves();
 
+// ── Compact print renderers ───────────────────────────────────────────────────
+// Called in beforeprint; restored in afterprint. Zero live sheet impact.
+// Attributes and Skills are sheet-specific. Rated-list and named-list renderers
+// are generic — they handle every section of that type automatically.
+
+function renderAttrBlockCompact(){
+  const el=document.getElementById('attrBlock');if(!el)return;
+  const maxD=STATE.attrMaxDots||5;
+  const cats=Object.entries(ATTRIBUTES);
+  const ROW_LABELS=['Power','Finesse','Resistance'];
+  const _dots=(val,max)=>Array.from({length:max},(_,i)=>
+    `<span class="dot${val>=i+1?' filled':''}" style="width:9px;height:9px;border-width:1px"></span>`
+  ).join('');
+  let rows='';
+  for(let row=0;row<3;row++){
+    const cells=cats.map(([,attrs])=>{
+      const a=attrs[row],val=getAttr(a)||1;
+      return `<td class="print-attr-cell"><div class="print-attr-cell-inner">
+        <span class="print-attr-name">${ATTR_LABELS[a]}</span>
+        <span class="print-attr-dots">${_dots(val,maxD)}</span>
+      </div></td>`;
+    }).join('');
+    rows+=`<tr><td class="print-attr-row-lbl">${ROW_LABELS[row]}</td>${cells}</tr>`;
+  }
+  const catHeaders=cats.map(([cat])=>`<th class="print-attr-cat">${cat}</th>`).join('');
+  el.innerHTML=`<table class="print-attr-table">
+    <thead><tr><th></th>${catHeaders}</tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function renderSkillBlockCompact(){
+  const el=document.getElementById('skillBlock');if(!el)return;
+  const rows=[];
+  Object.entries(SKILLS).forEach(([cat,skillList])=>{
+    rows.push(`<div class="print-skill-cat">${cat}</div>`);
+    skillList.forEach(sk=>{
+      const sd=STATE.skills[sk]||{rating:0,rote:false,specialty:'',label:SKILL_LABELS[sk]};
+      const rating=sd.rating||0;
+      const dots=Array.from({length:5},(_,i)=>
+        `<span class="dot${rating>=i+1?' filled':''}" style="width:9px;height:9px;border-width:1px"></span>`
+      ).join('');
+      const spec=sd.specialty?`<span class="print-skill-spec">${escH(sd.specialty)}</span>`:'';
+      // Only show rote marker when the skill is actually marked as rote
+      const rote=sd.rote?'<span class="print-skill-rote">●</span>':'<span class="print-skill-rote-empty"></span>';
+      rows.push(`<div class="print-skill-row">${rote}<span class="print-skill-name">${escH(sd.label||SKILL_LABELS[sk])}</span><span class="print-skill-dots">${dots}</span>${spec}</div>`);
+    });
+  });
+  el.innerHTML=`<div class="print-skill-col">${rows.join('')}</div>`;
+}
+
+// Generic compact renderer for rated-list sections (Merits, Disciplines,
+// Gifts, Endowments, Haunts, Rotes, etc.). Targets the list container by
+// section definition, so all rated-list types are handled automatically.
+function renderRatedListCompact(sd){
+  const isMerits=sd.special_renderer==='merits';
+  const sk=isMerits?'merits':(sd.state_key||sd.key);
+  const listId=isMerits?'meritList':`${sd.key}-rated-list`;
+  const el=document.getElementById(listId);if(!el)return;
+  const items=STATE[sk]||[];
+  if(!items.length){el.innerHTML='';return;}
+  const max=isMerits?(STATE.meritMaxDots||5):(sd.max_rating||5);
+  el.innerHTML=items.map(m=>{
+    const rating=m.rating||0;
+    const dots=Array.from({length:max},(_,i)=>
+      `<span class="dot${rating>=i+1?' filled':''}" style="width:9px;height:9px;border-width:1px"></span>`
+    ).join('');
+    const desc=m.desc?`<div class="print-item-desc">${mdH(m.desc)}</div>`:'';
+    return `<div class="print-item-row">
+      <div class="print-item-hd"><span class="print-item-name">${escH(m.name||'')}</span><span class="print-item-dots">${dots}</span></div>
+      ${desc}
+    </div>`;
+  }).join('');
+}
+
+// Generic compact renderer for named-list sections (Atavisms, Numina,
+// Embeds, Exploits, Transmutations, etc.).
+// Sections in FILL_LINE_KEYS always print with at least FILL_MIN_LINES total
+// rows (filled entries + blank ruled lines), so the sheet can be written on
+// in pencil at the table.
+const FILL_LINE_KEYS=new Set(['tilts','conditions']);
+const FILL_MIN_LINES=4;
+
+function renderNamedListCompact(sd){
+  const sk=sd.state_key||sd.key;
+  const listId=`${sd.key}-list`;
+  const el=document.getElementById(listId);if(!el)return;
+  const items=STATE[sk]||[];
+  const useFillLines=FILL_LINE_KEYS.has(sd.key);
+  // If no entries and no fill lines needed, clear and bail
+  if(!items.length&&!useFillLines){el.innerHTML='';return;}
+  const filled=items.map(item=>{
+    const desc=item.desc?`<div class="print-item-desc">${mdH(item.desc)}</div>`:'';
+    return `<div class="print-item-row">
+      <div class="print-item-hd"><span class="print-item-name">${escH(item.name||'')}</span></div>
+      ${desc}
+    </div>`;
+  });
+  // Append blank ruled lines to reach FILL_MIN_LINES total for designated sections
+  const blankCount=useFillLines?Math.max(0,FILL_MIN_LINES-items.length):0;
+  const blanks=Array.from({length:blankCount},()=>'<div class="print-fill-line"></div>');
+  el.innerHTML=[...filled,...blanks].join('');
+}
+
+// Generic compact renderer for line-list sections (Aspirations, Touchstones,
+// Goblin Debt, Flesh/Spirit Touchstones, etc.). Each item prints as a plain
+// text line — no input chrome, no remove buttons.
+function renderLineListCompact(sd){
+  const sk=sd.state_key||sd.key;
+  const listId=`${sd.key}-lines`;
+  const el=document.getElementById(listId);if(!el)return;
+  const items=STATE[sk]||[];
+  if(!items.length){el.innerHTML='';return;}
+  el.innerHTML=items.map(item=>
+    `<div class="print-line-item">${escH(item)}</div>`
+  ).join('');
+}
+
+// Generic compact renderer for arcana-block sections (Mage Arcana,
+// Mage Ascension Spheres). Renders as two columns of 5, label + dots inline.
+function renderArcanaBlockCompact(sd){
+  const sk=sd.state_key||sd.key;
+  const vals=STATE[sk]||{};
+  const fields=sd.fields||[];
+  const half=Math.ceil(fields.length/2);
+  const renderCol=slice=>slice.map(f=>{
+    const val=vals[f.key]||0;
+    const dots=Array.from({length:5},(_,i)=>
+      `<span class="dot${val>=i+1?' filled':''}" style="width:9px;height:9px;border-width:1px"></span>`
+    ).join('');
+    return `<div class="print-skill-row"><span class="print-skill-name">${escH(f.label)}</span><span class="print-skill-dots">${dots}</span></div>`;
+  }).join('');
+  const inner=document.getElementById(`arcana-inner-${sd.key}`);if(!inner)return;
+  inner.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 12px">
+    <div>${renderCol(fields.slice(0,half))}</div>
+    <div>${renderCol(fields.slice(half))}</div>
+  </div>`;
+}
+
+// Compact renderer for Entity attributes (Power/Finesse/Resistance).
+// Same pattern as renderAttrBlockCompact but for the 3-attribute entity block.
+function renderAttr3BlockCompact(){
+  const el=document.getElementById('attr3Block');if(!el)return;
+  const maxD=STATE.attr3MaxDots||5;
+  const _dots=(val,max)=>Array.from({length:max},(_,i)=>
+    `<span class="dot${val>=i+1?' filled':''}" style="width:9px;height:9px;border-width:1px"></span>`
+  ).join('');
+  el.innerHTML=`<div style="display:flex;gap:8px">
+    ${ENTITY_ATTRS.map(a=>{
+      const val=(STATE.entity_attrs&&STATE.entity_attrs[a.key])||1;
+      return `<div class="print-attr-cell" style="flex:1"><div class="print-attr-cell-inner">
+        <span class="print-attr-name">${a.label}</span>
+        <span class="print-attr-dots">${_dots(val,maxD)}</span>
+      </div></div>`;
+    }).join('')}
+  </div>`;
+}
+
+// Compact renderer for renown-block sections (Werewolf Renown).
+// Same pattern as arcana — two columns of fields, label + dots inline.
+function renderRenownBlockCompact(sd){
+  const sk=sd.state_key||sd.key;
+  const vals=STATE[sk]||{};
+  const fields=sd.fields||[];
+  const half=Math.ceil(fields.length/2);
+  const renderCol=slice=>slice.map(f=>{
+    const val=vals[f.key]||0;
+    const dots=Array.from({length:5},(_,i)=>
+      `<span class="dot${val>=i+1?' filled':''}" style="width:9px;height:9px;border-width:1px"></span>`
+    ).join('');
+    return `<div class="print-skill-row"><span class="print-skill-name">${escH(f.label)}</span><span class="print-skill-dots">${dots}</span></div>`;
+  }).join('');
+  const inner=document.getElementById(`renown-inner-${sd.key}`);if(!inner)return;
+  inner.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 12px">
+    <div>${renderCol(fields.slice(0,half))}</div>
+    <div>${renderCol(fields.slice(half))}</div>
+  </div>`;
+}
+
+// Compact renderer for pillars-block sections (Mummy Pillars).
+// Each pillar: label + 5 permanent dots (tcircle) + 5 temporary squares (tsquare) + note inline.
+function renderPillarsBlockCompact(sd){
+  const sk=sd.state_key||sd.key;
+  const inner=document.getElementById(`pillars-inner-${sd.key}`);if(!inner)return;
+  inner.innerHTML=(sd.fields||[]).map(f=>{
+    const pf=(STATE[sk]&&STATE[sk][f.key])||{dots:0,squares:Array(5).fill(false),note:''};
+    const rating=pf.dots||0;
+    const squares=Array.isArray(pf.squares)?pf.squares:Array(5).fill(false);
+    const filled=squares.filter(Boolean).length;
+    const dots=Array.from({length:5},(_,i)=>
+      `<span class="tcircle" style="width:9px;height:9px;${i>=rating?'opacity:0.2':''}"></span>`
+    ).join('');
+    const sqs=Array.from({length:5},(_,i)=>
+      `<span class="tsquare${i<filled?' on':''}" style="width:9px;height:9px;border-width:1px"></span>`
+    ).join('');
+    const note=pf.note?`<span class="print-skill-spec">${escH(pf.note)}</span>`:'';
+    return `<div class="print-skill-row">
+      <span class="print-skill-name">${escH(f.label)}</span>
+      <span style="display:flex;gap:2px;flex-shrink:0">${dots}</span>
+      <span style="display:flex;gap:2px;flex-shrink:0;margin-left:3px">${sqs}</span>
+      ${note}
+    </div>`;
+  }).join('');
+}
+
+// Compact renderer for covers and forms — defined below.
+// Each cover prints as: name + rating dots on one line, notes below if
+// present, then cover merits as compact name + dots rows.
+function renderCoversCompact(sd){
+  const sk=sd.state_key||sd.key;
+  const listId=`${sd.key}-list`;
+  const el=document.getElementById(listId);if(!el)return;
+  const covers=STATE[sk]||[];
+  if(!covers.length){el.innerHTML='';return;}
+  el.innerHTML=covers.map(c=>{
+    const rating=c.cover_rating||0;
+    const ratingDots=Array.from({length:10},(_,i)=>
+      `<span class="dot${rating>=i+1?' filled':''}" style="width:9px;height:9px;border-width:1px"></span>`
+    ).join('');
+    const notes=c.notes?`<div class="print-item-desc">${mdH(c.notes)}</div>`:'';
+    const merits=(c.merits||[]).map(m=>{
+      const mDots=Array.from({length:5},(_,i)=>
+        `<span class="dot${(m.rating||0)>=i+1?' filled':''}" style="width:9px;height:9px;border-width:1px"></span>`
+      ).join('');
+      return `<div class="print-cover-merit"><span class="print-cover-merit-name">${escH(m.name||'')}</span><span class="print-item-dots">${mDots}</span></div>`;
+    }).join('');
+    return `<div class="print-item-row">
+      <div class="print-item-hd">
+        <span class="print-item-name">${escH(c.name||'')}</span>
+        <span class="print-item-dots">${ratingDots}</span>
+      </div>
+      ${notes}
+      ${merits}
+    </div>`;
+  }).join('');
+}
+
+// Compact renderer for Werewolf Forms block.
+// The live renderer already produces a dense reference table — the compact
+// version removes the min-width constraint and tightens font/padding so it
+// fits cleanly in a narrow print column without horizontal overflow.
+// Rather than replacing the HTML, we apply a .print-forms-compact class to
+// the forms-wrap and let print CSS do the work.
+function renderFormsBlockCompact(sd){
+  const block=document.getElementById(`secblock-${sd.key}`);if(!block)return;
+  const wrap=block.querySelector('.forms-wrap');if(!wrap)return;
+  wrap.classList.add('print-forms-compact');
+}
+
+// Restore: remove the compact class added to forms-wrap.
+function _restoreFormsBlocks(){
+  SECTION_DEFS.forEach(sd=>{
+    if(sd.type==='forms-block'&&secVisible(sd.key)){
+      const block=document.getElementById(`secblock-${sd.key}`);if(!block)return;
+      const wrap=block.querySelector('.forms-wrap');if(!wrap)return;
+      wrap.classList.remove('print-forms-compact');
+    }
+  });
+}
+
+// Generic compact renderer for weapons, armor, and equipment.
+// Renders each item as: name — stats summary, notes/desc below if present.
+function renderGearCompact(){
+  // Weapons
+  const wEl=document.getElementById('weaponList');
+  if(wEl) wEl.innerHTML=(STATE.weapons||[]).map(w=>{
+    const isRanged=(w.weapon_type||'melee')==='ranged';
+    const stats=isRanged
+      ?`Dmg +${w.damage||0} | Rng ${w.ranges||'—'} | Clip ${w.clip||0} | Init ${w.initiative_mod>=0?'+':''}${w.initiative_mod||0} | Str ${w.strength_req||0} | Sz ${w.size||0}`
+      :`Dmg +${w.damage||0} | Init ${w.initiative_mod>=0?'+':''}${w.initiative_mod||0} | Str ${w.strength_req||0} | Sz ${w.size||0}`;
+    const equipped=w.equipped?` <span class="print-gear-equipped">Equipped</span>`:'';
+    const notes=w.notes?`<div class="print-item-desc">${mdH(w.notes)}</div>`:'';
+    return `<div class="print-item-row"><div class="print-item-hd">
+      <span class="print-item-name">${escH(w.name)}</span>
+      <span class="print-gear-stats">${stats}${equipped}</span>
+    </div>${notes}</div>`;
+  }).join('');
+
+  // Armor
+  const aEl=document.getElementById('armorList');
+  if(aEl) aEl.innerHTML=(STATE.armor||[]).map(a=>{
+    const stats=`Armor ${a.armor_general||0}/${a.armor_ballistic||0} | Def ${a.defense_penalty>=0?'+':''}${a.defense_penalty||0} | Spd ${a.speed_penalty>=0?'+':''}${a.speed_penalty||0} | Str ${a.strength_req||0}`;
+    const equipped=a.equipped?` <span class="print-gear-equipped">Equipped</span>`:'';
+    const notes=a.notes?`<div class="print-item-desc">${mdH(a.notes)}</div>`:'';
+    return `<div class="print-item-row"><div class="print-item-hd">
+      <span class="print-item-name">${escH(a.name)}</span>
+      <span class="print-gear-stats">${stats}${equipped}</span>
+    </div>${notes}</div>`;
+  }).join('');
+
+  // Equipment
+  const eEl=document.getElementById('equipList');
+  if(eEl) eEl.innerHTML=(STATE.equipment||[]).map(e=>{
+    const stats=`Bonus +${e.dice_bonus||0} | Dur ${e.durability||0} | Sz ${e.size||0} | Str ${e.structure||0}`;
+    const desc=e.desc?`<div class="print-item-desc">${mdH(e.desc)}</div>`:'';
+    return `<div class="print-item-row"><div class="print-item-hd">
+      <span class="print-item-name">${escH(e.name)}</span>
+      <span class="print-gear-stats">${stats}</span>
+    </div>${desc}</div>`;
+  }).join('');
+}
+function _restoreListSections(){
+  SECTION_DEFS.forEach(sd=>{
+    if(!secVisible(sd.key))return;
+    if(sd.type==='rated-list'){
+      if(sd.special_renderer==='merits') renderMeritList();
+      else renderGenericRatedList(sd);
+    } else if(sd.type==='named-list'){
+      renderNamedList(sd.state_key||sd.key,`${sd.key}-list`);
+    } else if(sd.type==='line-list'){
+      renderLineItems(sd.state_key||sd.key,`${sd.key}-lines`);
+    } else if(sd.type==='arcana-block'){
+      const inner=document.getElementById(`arcana-inner-${sd.key}`);
+      if(inner){
+        inner.innerHTML=(sd.fields||[]).map(f=>`
+          <div class="arcana-row">
+            <span class="arcana-lbl">${escH(f.label)}</span>
+            <div class="dot-row" id="arcana-dots-${sd.key}-${f.key}"></div>
+          </div>`).join('');
+      }
+      renderArcanaBlock(sd);
+    } else if(sd.type==='renown-block'){
+      const inner=document.getElementById(`renown-inner-${sd.key}`);
+      if(inner){
+        inner.innerHTML=(sd.fields||[]).map(f=>`
+          <div class="renown-row">
+            <span class="renown-lbl">${escH(f.label)}</span>
+            <div class="dot-row" id="renown-dots-${sd.key}-${f.key}"></div>
+          </div>`).join('');
+      }
+      renderRenownBlock(sd);
+    } else if(sd.type==='pillars-block'){
+      const sk=sd.state_key||sd.key;
+      const inner=document.getElementById(`pillars-inner-${sd.key}`);
+      if(inner){
+        inner.innerHTML=(sd.fields||[]).map(f=>{
+          const pf=(STATE[sk]&&STATE[sk][f.key])||{};
+          return `<div class="pillars-row">
+            <div class="pillars-left">
+              <span class="pillars-lbl">${escH(f.label)}</span>
+              <input class="pillars-inp" value="${escH(pf.note||'')}" placeholder=""
+                oninput="setPillarNote('${sk}','${f.key}',this.value)">
+            </div>
+            <div class="pillars-tracks">
+              <div class="pillars-dots" id="pillars-dots-${sd.key}-${f.key}"></div>
+              <div class="pillars-squares" id="pillars-squares-${sd.key}-${f.key}"></div>
+            </div>
+          </div>`;
+        }).join('');
+      }
+      renderPillarsBlock(sd);
+    } else if(sd.type==='attributes-3'){
+      renderAttr3Block();
+    }
+  });
+}
+// ── End compact print renderers ───────────────────────────────────────────────
+
 // ── Print expand/restore ───────────────────────────────────────────────────────
-// Before printing: expand all collapsed sections and open all item cards so the
-// print engine sees full content and break rules apply correctly.
+// Before printing: swap in compact renderers and expand all collapsed sections.
 // After printing: restore exactly the state the user had.
 (function(){
   let _printCollapsedKeys=null;
   let _printClosedCards=null;
 
   window.addEventListener('beforeprint',function(){
+    // Set document title to character name so the browser uses it as the PDF filename
+    if(STATE.name) document.title=STATE.name;
+    // Compact structural sections
+    renderAttrBlockCompact();
+    renderSkillBlockCompact();
+    // Compact all visible rated-list and named-list sections generically
+    SECTION_DEFS.forEach(sd=>{
+      if(!secVisible(sd.key))return;
+      if(sd.type==='rated-list') renderRatedListCompact(sd);
+      else if(sd.type==='named-list') renderNamedListCompact(sd);
+      else if(sd.type==='line-list') renderLineListCompact(sd);
+      else if(sd.type==='arcana-block') renderArcanaBlockCompact(sd);
+      else if(sd.type==='renown-block') renderRenownBlockCompact(sd);
+      else if(sd.type==='pillars-block') renderPillarsBlockCompact(sd);
+      else if(sd.type==='covers') renderCoversCompact(sd);
+      else if(sd.type==='forms-block') renderFormsBlockCompact(sd);
+      else if(sd.type==='attributes-3') renderAttr3BlockCompact();
+    });
+    renderGearCompact();
+
     _printCollapsedKeys=[];
     document.querySelectorAll('.sec-block.sec-collapsed').forEach(block=>{
       _printCollapsedKeys.push(block.id);
@@ -4305,6 +4793,20 @@ loadDB();loadSaves();
   });
 
   window.addEventListener('afterprint',function(){
+    // Restore original page title
+    document.title='Mortals+ — Chronicles of Darkness';
+    // Restore live renderers
+    renderAttrBlock();
+    renderSkillBlock();
+    _restoreListSections();
+    renderWeaponList();renderArmorList();renderEquipList();
+    // Restore covers and forms
+    SECTION_DEFS.forEach(sd=>{
+      if(!secVisible(sd.key))return;
+      if(sd.type==='covers') renderCovers(sd.state_key||sd.key,`${sd.key}-list`);
+    });
+    _restoreFormsBlocks();
+
     if(_printCollapsedKeys){
       _printCollapsedKeys.forEach(id=>{
         const block=document.getElementById(id);
